@@ -1,0 +1,207 @@
+@mixin power-meter($ability) {
+  @include background-image(linear-gradient(left, #63adff 0%, #63adff $ability, transparent $ability));
+}
+
+.players {
+  margin: 0 0 2em 0;
+
+  .player {
+    @extend .clearfix;
+    /*border-bottom: 1px solid #ddd;*/
+    margin: 0 0 8px 0;
+    padding: 0 0 8px 0;
+
+    .player-info {
+      float: left;
+      width: 160px;
+
+      h3 {
+        font-size: 18px;
+        font-weight: bold;
+        margin: 0 0 2px 0;
+      }
+
+      h4 {
+        color: #555;
+        font-size: 14px;
+      }
+    }
+
+    .player-overall-rating {
+      float: left;
+      margin: 0 20px 0 0;
+      text-align: center;
+      width: 80px;
+
+      h5 {
+        font-size: 18px;
+        font-weight: bold;
+        margin: 0 0 2px 0;
+      }
+
+      h6 {
+        color: #555;
+        font-size: 14px;
+      }
+    }
+
+    .player-ratings {
+      float: left;
+      width: 800px;
+
+      > li {
+        @include box-sizing(border-box);
+        border: 3px solid #d7d7d7;
+        color: #222;
+        font-size: 12px;
+        font-weight: bold;
+        float: left;
+        margin: 0 2% 0 0;
+        padding: 8px 2px;
+        width: 18%;
+
+      }
+    }
+  }
+}
+
+.players.ol {
+  .player-ratings li {
+    &.maximum-speed {
+      width: 48%;
+    }
+
+    &.hitting-power {
+      width: 48%;
+    }
+
+    &:last-child {
+      margin: 0;
+    }
+  }
+}
+
+.players.dl {
+  .player-ratings li {
+    &.rushing-speed {
+      width: 3%;
+    }
+
+    &.rushing-power {
+      width: 8%;
+    }
+
+    &.maximum-speed {
+      width: 38%;
+    }
+
+    &.hitting-power {
+      width: 38%;
+    }
+
+    &.interceptions {
+      width: 3%;
+    }
+
+    &:last-child {
+      margin: 0;
+    }
+  }
+}
+
+.players.lb {
+  .player-ratings li {
+    &.rushing-speed {
+      width: 3%;
+    }
+
+    &.rushing-power {
+      width: 3%;
+    }
+
+    &.maximum-speed {
+      width: 38%;
+    }
+
+    &.hitting-power {
+      width: 38%;
+    }
+
+    &.interceptions {
+      width: 8%;
+    }
+
+    &:last-child {
+      margin: 0;
+    }
+  }
+}
+
+.players.secondary {
+  .player-ratings li {
+    &.rushing-speed {
+      width: 3%;
+    }
+
+    &.rushing-power {
+      width: 3%;
+    }
+
+    &.maximum-speed {
+      width: 38%;
+    }
+
+    &.hitting-power {
+      width: 13%;
+    }
+
+    &.interceptions {
+      width: 33%;
+    }
+
+    &:last-child {
+      margin: 0;
+    }
+  }
+}
+
+.power-19 {
+  @include power-meter(19%);
+}
+
+.power-25 {
+  @include power-meter(25%);
+}
+
+.power-31 {
+  @include power-meter(31%);
+}
+
+.power-38 {
+  @include power-meter(38%);
+}
+
+.power-44 {
+  @include power-meter(44%);
+}
+
+.power-50 {
+  @include power-meter(50%);
+}
+
+.power-56 {
+  @include power-meter(56%);
+}
+
+.power-63 {
+  @include power-meter(63%);
+}
+
+.power-69 {
+  @include power-meter(69%);
+}
+
+.power-75 {
+  @include power-meter(75%);
+}
+

@@ -1,2 +1,6 @@
 auto: true
 
+permalink: "pretty"
+exclude:
+ - Rakefile
+
