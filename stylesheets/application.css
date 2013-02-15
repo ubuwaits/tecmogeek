@@ -95,7 +95,7 @@ body {
         font-size: 14px; }
     .players .player .player-ratings {
       float: left;
-      width: 800px; }
+      width: 700px; }
       .players .player .player-ratings > li {
         -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
@@ -108,6 +108,47 @@ body {
         margin: 0 2% 0 0;
         padding: 8px 2px;
         width: 18%; }
+
+.players.qb .player-ratings li.maximum-speed {
+  width: 23%; }
+.players.qb .player-ratings li.passing-speed {
+  width: 13%; }
+.players.qb .player-ratings li.pass-control {
+  width: 48%; }
+.players.qb .player-ratings li.avoid-pass-block {
+  width: 8%; }
+.players.qb .player-ratings li:last-child {
+  margin: 0; }
+
+.players.running .receiving-rating {
+  display: none; }
+.players.running .player-ratings li.running-speed {
+  width: 8%; }
+.players.running .player-ratings li.maximum-speed {
+  width: 58%; }
+.players.running .player-ratings li.hitting-power {
+  width: 13%; }
+.players.running .player-ratings li.ball-control {
+  width: 3%; }
+.players.running .player-ratings li.receptions {
+  width: 8%; }
+.players.running .player-ratings li:last-child {
+  margin: 0; }
+
+.players.receiving .rushing-rating {
+  display: none; }
+.players.receiving .player-ratings li.running-speed {
+  width: 8%; }
+.players.receiving .player-ratings li.maximum-speed {
+  width: 38%; }
+.players.receiving .player-ratings li.hitting-power {
+  width: 3%; }
+.players.receiving .player-ratings li.ball-control {
+  width: 3%; }
+.players.receiving .player-ratings li.receptions {
+  width: 38%; }
+.players.receiving .player-ratings li:last-child {
+  margin: 0; }
 
 .players.ol .player-ratings li.maximum-speed {
   width: 48%; }
@@ -154,6 +195,13 @@ body {
   width: 33%; }
 .players.secondary .player-ratings li:last-child {
   margin: 0; }
+
+.power-13 {
+  background-image: -webkit-linear-gradient(left, #63adff 0%, #63adff 13%, transparent 13%);
+  background-image: -moz-linear-gradient(left, #63adff 0%, #63adff 13%, transparent 13%);
+  background-image: -ms-linear-gradient(left, #63adff 0%, #63adff 13%, transparent 13%);
+  background-image: -o-linear-gradient(left, #63adff 0%, #63adff 13%, transparent 13%);
+  background-image: linear-gradient(left, #63adff 0%, #63adff 13%, transparent 13%); }
 
 .power-19 {
   background-image: -webkit-linear-gradient(left, #63adff 0%, #63adff 19%, transparent 19%);
@@ -224,3 +272,17 @@ body {
   background-image: -ms-linear-gradient(left, #63adff 0%, #63adff 75%, transparent 75%);
   background-image: -o-linear-gradient(left, #63adff 0%, #63adff 75%, transparent 75%);
   background-image: linear-gradient(left, #63adff 0%, #63adff 75%, transparent 75%); }
+
+.power-81 {
+  background-image: -webkit-linear-gradient(left, #63adff 0%, #63adff 81%, transparent 81%);
+  background-image: -moz-linear-gradient(left, #63adff 0%, #63adff 81%, transparent 81%);
+  background-image: -ms-linear-gradient(left, #63adff 0%, #63adff 81%, transparent 81%);
+  background-image: -o-linear-gradient(left, #63adff 0%, #63adff 81%, transparent 81%);
+  background-image: linear-gradient(left, #63adff 0%, #63adff 81%, transparent 81%); }
+
+.power-88 {
+  background-image: -webkit-linear-gradient(left, #63adff 0%, #63adff 88%, transparent 88%);
+  background-image: -moz-linear-gradient(left, #63adff 0%, #63adff 88%, transparent 88%);
+  background-image: -ms-linear-gradient(left, #63adff 0%, #63adff 88%, transparent 88%);
+  background-image: -o-linear-gradient(left, #63adff 0%, #63adff 88%, transparent 88%);
+  background-image: linear-gradient(left, #63adff 0%, #63adff 88%, transparent 88%); }

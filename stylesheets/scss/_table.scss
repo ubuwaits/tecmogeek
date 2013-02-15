@@ -47,7 +47,7 @@
 
     .player-ratings {
       float: left;
-      width: 800px;
+      width: 700px;
 
       > li {
         @include box-sizing(border-box);
@@ -59,8 +59,95 @@
         margin: 0 2% 0 0;
         padding: 8px 2px;
         width: 18%;
-
       }
+    }
+  }
+}
+
+.players.qb {
+  .player-ratings li {
+    &.maximum-speed {
+      width: 23%;
+    }
+
+    &.passing-speed {
+      width: 13%;
+    }
+
+    &.pass-control {
+      width: 48%;
+    }
+
+    &.avoid-pass-block {
+      width: 8%;
+    }
+
+    &:last-child {
+      margin: 0;
+    }
+  }
+}
+
+.players.running {
+  .receiving-rating {
+    display: none;
+  }
+
+  .player-ratings li {
+    &.running-speed {
+      width: 8%;
+    }
+
+    &.maximum-speed {
+      width: 58%;
+    }
+
+    &.hitting-power {
+      width: 13%;
+    }
+
+    &.ball-control {
+      width: 3%;
+    }
+
+    &.receptions {
+      width: 8%;
+    }
+
+    &:last-child {
+      margin: 0;
+    }
+  }
+}
+
+.players.receiving {
+  .rushing-rating {
+    display: none;
+  }
+
+  .player-ratings li {
+    &.running-speed {
+      width: 8%;
+    }
+
+    &.maximum-speed {
+      width: 38%;
+    }
+
+    &.hitting-power {
+      width: 3%;
+    }
+
+    &.ball-control {
+      width: 3%;
+    }
+
+    &.receptions {
+      width: 38%;
+    }
+
+    &:last-child {
+      margin: 0;
     }
   }
 }
@@ -165,6 +252,10 @@
   }
 }
 
+.power-13 {
+  @include power-meter(13%);
+}
+
 .power-19 {
   @include power-meter(19%);
 }
@@ -203,5 +294,13 @@
 
 .power-75 {
   @include power-meter(75%);
+}
+
+.power-81 {
+  @include power-meter(81%);
+}
+
+.power-88 {
+  @include power-meter(88%);
 }
 
