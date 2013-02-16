@@ -1,10 +1,5 @@
 @import 'reset';
 @import 'bourbon/bourbon';
-
-body {
-  font-family: "helvetica neue", helvetica, arial, sans-serif;
-  padding: 50px;
-}
-
-@import 'table';
+@import 'base';
+@import 'teams';
 

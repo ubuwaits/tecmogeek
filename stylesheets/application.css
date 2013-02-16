@@ -65,6 +65,10 @@ body {
   font-family: "helvetica neue", helvetica, arial, sans-serif;
   padding: 50px; }
 
+header h1 {
+  font-size: 2em;
+  margin: 0 0 2em 0; }
+
 .players {
   margin: 0 0 2em 0; }
   .players .player {
@@ -91,7 +95,7 @@ body {
         font-weight: bold;
         margin: 0 0 2px 0; }
       .players .player .player-overall-rating h6 {
-        color: #555;
+        color: #aaa;
         font-size: 14px; }
     .players .player .player-ratings {
       float: left;
@@ -120,19 +124,19 @@ body {
 .players.qb .player-ratings li:last-child {
   margin: 0; }
 
-.players.running .receiving-rating {
+.players.rushing .receiving-rating {
   display: none; }
-.players.running .player-ratings li.running-speed {
+.players.rushing .player-ratings li.running-speed {
   width: 8%; }
-.players.running .player-ratings li.maximum-speed {
+.players.rushing .player-ratings li.maximum-speed {
   width: 58%; }
-.players.running .player-ratings li.hitting-power {
+.players.rushing .player-ratings li.hitting-power {
   width: 13%; }
-.players.running .player-ratings li.ball-control {
+.players.rushing .player-ratings li.ball-control {
   width: 3%; }
-.players.running .player-ratings li.receptions {
+.players.rushing .player-ratings li.receptions {
   width: 8%; }
-.players.running .player-ratings li:last-child {
+.players.rushing .player-ratings li:last-child {
   margin: 0; }
 
 .players.receiving .rushing-rating {
@@ -195,6 +199,13 @@ body {
   width: 33%; }
 .players.secondary .player-ratings li:last-child {
   margin: 0; }
+
+.power-6 {
+  background-image: -webkit-linear-gradient(left, #63adff 0%, #63adff 6%, transparent 6%);
+  background-image: -moz-linear-gradient(left, #63adff 0%, #63adff 6%, transparent 6%);
+  background-image: -ms-linear-gradient(left, #63adff 0%, #63adff 6%, transparent 6%);
+  background-image: -o-linear-gradient(left, #63adff 0%, #63adff 6%, transparent 6%);
+  background-image: linear-gradient(left, #63adff 0%, #63adff 6%, transparent 6%); }
 
 .power-13 {
   background-image: -webkit-linear-gradient(left, #63adff 0%, #63adff 13%, transparent 13%);
@@ -286,3 +297,10 @@ body {
   background-image: -ms-linear-gradient(left, #63adff 0%, #63adff 88%, transparent 88%);
   background-image: -o-linear-gradient(left, #63adff 0%, #63adff 88%, transparent 88%);
   background-image: linear-gradient(left, #63adff 0%, #63adff 88%, transparent 88%); }
+
+.power-94 {
+  background-image: -webkit-linear-gradient(left, #63adff 0%, #63adff 94%, transparent 94%);
+  background-image: -moz-linear-gradient(left, #63adff 0%, #63adff 94%, transparent 94%);
+  background-image: -ms-linear-gradient(left, #63adff 0%, #63adff 94%, transparent 94%);
+  background-image: -o-linear-gradient(left, #63adff 0%, #63adff 94%, transparent 94%);
+  background-image: linear-gradient(left, #63adff 0%, #63adff 94%, transparent 94%); }

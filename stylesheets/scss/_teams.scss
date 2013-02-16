@@ -2,6 +2,13 @@
   @include background-image(linear-gradient(left, #63adff 0%, #63adff $ability, transparent $ability));
 }
 
+header {
+  h1 {
+    font-size: 2em;
+    margin: 0 0 2em 0;
+  }
+}
+
 .players {
   margin: 0 0 2em 0;
 
@@ -40,7 +47,7 @@
       }
 
       h6 {
-        color: #555;
+        color: #aaa;
         font-size: 14px;
       }
     }
@@ -88,7 +95,7 @@
   }
 }
 
-.players.running {
+.players.rushing {
   .receiving-rating {
     display: none;
   }
@@ -252,55 +259,11 @@
   }
 }
 
-.power-13 {
-  @include power-meter(13%);
-}
+$power-values: 6, 13, 19, 25, 31, 38, 44, 50, 56, 63, 69, 75, 81, 88, 94;
 
-.power-19 {
-  @include power-meter(19%);
-}
-
-.power-25 {
-  @include power-meter(25%);
-}
-
-.power-31 {
-  @include power-meter(31%);
-}
-
-.power-38 {
-  @include power-meter(38%);
-}
-
-.power-44 {
-  @include power-meter(44%);
-}
-
-.power-50 {
-  @include power-meter(50%);
-}
-
-.power-56 {
-  @include power-meter(56%);
-}
-
-.power-63 {
-  @include power-meter(63%);
-}
-
-.power-69 {
-  @include power-meter(69%);
-}
-
-.power-75 {
-  @include power-meter(75%);
-}
-
-.power-81 {
-  @include power-meter(81%);
-}
-
-.power-88 {
-  @include power-meter(88%);
+@each $value in $power-values {
+  .power-#{$value} {
+    @include power-meter(percentage($value) / 100);
+  }
 }
 
