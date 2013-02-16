@@ -10,11 +10,10 @@ header {
 }
 
 .players {
-  margin: 0 0 2em 0;
+  margin: 0 0 4em 0;
 
   .player {
     @extend .clearfix;
-    /*border-bottom: 1px solid #ddd;*/
     margin: 0 0 8px 0;
     padding: 0 0 8px 0;
 
@@ -47,7 +46,7 @@ header {
       }
 
       h6 {
-        color: #aaa;
+        color: #bbb;
         font-size: 14px;
       }
     }
@@ -64,8 +63,36 @@ header {
         font-weight: bold;
         float: left;
         margin: 0 2% 0 0;
-        padding: 8px 2px;
+        padding: 8px 4px;
         width: 18%;
+      }
+    }
+  }
+
+  .labels {
+    border-bottom: 1px solid #eee;
+    margin: 0 0 12px 0;
+    padding: 0 0 2px 0;
+
+    .section-label {
+      float: left;
+      width: 260px;
+
+      h3 {
+        font-size: 18px;
+        font-weight: bold;
+        margin: 0 0 2px 0;
+      }
+    }
+
+    .player-ratings {
+      > li {
+        border: 0;
+
+        span {
+          display: inline-block;
+          @include transform(rotate(-35deg));
+        }
       }
     }
   }
@@ -115,6 +142,8 @@ header {
 
     &.ball-control {
       width: 3%;
+      padding-left: 1px;
+      padding-right: 0;
     }
 
     &.receptions {
@@ -143,10 +172,14 @@ header {
 
     &.hitting-power {
       width: 3%;
+      padding-left: 1px;
+      padding-right: 0;
     }
 
     &.ball-control {
       width: 3%;
+      padding-left: 1px;
+      padding-right: 0;
     }
 
     &.receptions {
@@ -179,6 +212,8 @@ header {
   .player-ratings li {
     &.rushing-speed {
       width: 3%;
+      padding-left: 1px;
+      padding-right: 0;
     }
 
     &.rushing-power {
@@ -195,6 +230,8 @@ header {
 
     &.interceptions {
       width: 3%;
+      padding-left: 1px;
+      padding-right: 0;
     }
 
     &:last-child {
@@ -207,10 +244,14 @@ header {
   .player-ratings li {
     &.rushing-speed {
       width: 3%;
+      padding-left: 1px;
+      padding-right: 0;
     }
 
     &.rushing-power {
       width: 3%;
+      padding-left: 1px;
+      padding-right: 0;
     }
 
     &.maximum-speed {
@@ -235,10 +276,14 @@ header {
   .player-ratings li {
     &.rushing-speed {
       width: 3%;
+      padding-left: 1px;
+      padding-right: 0;
     }
 
     &.rushing-power {
       width: 3%;
+      padding-left: 1px;
+      padding-right: 0;
     }
 
     &.maximum-speed {

@@ -62,6 +62,7 @@ table {
   *zoom: 1; }
 
 body {
+  color: #333;
   font-family: "helvetica neue", helvetica, arial, sans-serif;
   padding: 50px; }
 
@@ -70,9 +71,8 @@ header h1 {
   margin: 0 0 2em 0; }
 
 .players {
-  margin: 0 0 2em 0; }
+  margin: 0 0 4em 0; }
   .players .player {
-    /*border-bottom: 1px solid #ddd;*/
     margin: 0 0 8px 0;
     padding: 0 0 8px 0; }
     .players .player .player-info {
@@ -95,7 +95,7 @@ header h1 {
         font-weight: bold;
         margin: 0 0 2px 0; }
       .players .player .player-overall-rating h6 {
-        color: #aaa;
+        color: #bbb;
         font-size: 14px; }
     .players .player .player-ratings {
       float: left;
@@ -110,8 +110,28 @@ header h1 {
         font-weight: bold;
         float: left;
         margin: 0 2% 0 0;
-        padding: 8px 2px;
+        padding: 8px 4px;
         width: 18%; }
+  .players .labels {
+    border-bottom: 1px solid #eeeeee;
+    margin: 0 0 12px 0;
+    padding: 0 0 2px 0; }
+    .players .labels .section-label {
+      float: left;
+      width: 260px; }
+      .players .labels .section-label h3 {
+        font-size: 18px;
+        font-weight: bold;
+        margin: 0 0 2px 0; }
+    .players .labels .player-ratings > li {
+      border: 0; }
+      .players .labels .player-ratings > li span {
+        display: inline-block;
+        -webkit-transform: rotate(-35deg);
+        -moz-transform: rotate(-35deg);
+        -ms-transform: rotate(-35deg);
+        -o-transform: rotate(-35deg);
+        transform: rotate(-35deg); }
 
 .players.qb .player-ratings li.maximum-speed {
   width: 23%; }
@@ -133,7 +153,9 @@ header h1 {
 .players.rushing .player-ratings li.hitting-power {
   width: 13%; }
 .players.rushing .player-ratings li.ball-control {
-  width: 3%; }
+  width: 3%;
+  padding-left: 1px;
+  padding-right: 0; }
 .players.rushing .player-ratings li.receptions {
   width: 8%; }
 .players.rushing .player-ratings li:last-child {
@@ -146,9 +168,13 @@ header h1 {
 .players.receiving .player-ratings li.maximum-speed {
   width: 38%; }
 .players.receiving .player-ratings li.hitting-power {
-  width: 3%; }
+  width: 3%;
+  padding-left: 1px;
+  padding-right: 0; }
 .players.receiving .player-ratings li.ball-control {
-  width: 3%; }
+  width: 3%;
+  padding-left: 1px;
+  padding-right: 0; }
 .players.receiving .player-ratings li.receptions {
   width: 38%; }
 .players.receiving .player-ratings li:last-child {
@@ -162,7 +188,9 @@ header h1 {
   margin: 0; }
 
 .players.dl .player-ratings li.rushing-speed {
-  width: 3%; }
+  width: 3%;
+  padding-left: 1px;
+  padding-right: 0; }
 .players.dl .player-ratings li.rushing-power {
   width: 8%; }
 .players.dl .player-ratings li.maximum-speed {
@@ -170,14 +198,20 @@ header h1 {
 .players.dl .player-ratings li.hitting-power {
   width: 38%; }
 .players.dl .player-ratings li.interceptions {
-  width: 3%; }
+  width: 3%;
+  padding-left: 1px;
+  padding-right: 0; }
 .players.dl .player-ratings li:last-child {
   margin: 0; }
 
 .players.lb .player-ratings li.rushing-speed {
-  width: 3%; }
+  width: 3%;
+  padding-left: 1px;
+  padding-right: 0; }
 .players.lb .player-ratings li.rushing-power {
-  width: 3%; }
+  width: 3%;
+  padding-left: 1px;
+  padding-right: 0; }
 .players.lb .player-ratings li.maximum-speed {
   width: 38%; }
 .players.lb .player-ratings li.hitting-power {
@@ -188,9 +222,13 @@ header h1 {
   margin: 0; }
 
 .players.secondary .player-ratings li.rushing-speed {
-  width: 3%; }
+  width: 3%;
+  padding-left: 1px;
+  padding-right: 0; }
 .players.secondary .player-ratings li.rushing-power {
-  width: 3%; }
+  width: 3%;
+  padding-left: 1px;
+  padding-right: 0; }
 .players.secondary .player-ratings li.maximum-speed {
   width: 38%; }
 .players.secondary .player-ratings li.hitting-power {
