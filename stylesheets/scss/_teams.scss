@@ -88,10 +88,18 @@ header {
     .player-ratings {
       > li {
         border: 0;
+        position: relative;
 
         span {
+          color: #444;
           display: inline-block;
-          @include transform(rotate(-35deg));
+          font-size: 11px;
+          font-weight: bold;
+          left: -2px;
+          position: absolute;
+          top: -24px;
+          @include transform(rotate(-45deg));
+          width: 65px;
         }
       }
     }

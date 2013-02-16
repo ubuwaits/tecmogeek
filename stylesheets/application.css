@@ -124,14 +124,22 @@ header h1 {
         font-weight: bold;
         margin: 0 0 2px 0; }
     .players .labels .player-ratings > li {
-      border: 0; }
+      border: 0;
+      position: relative; }
       .players .labels .player-ratings > li span {
+        color: #444;
         display: inline-block;
-        -webkit-transform: rotate(-35deg);
-        -moz-transform: rotate(-35deg);
-        -ms-transform: rotate(-35deg);
-        -o-transform: rotate(-35deg);
-        transform: rotate(-35deg); }
+        font-size: 11px;
+        font-weight: bold;
+        left: -2px;
+        position: absolute;
+        top: -24px;
+        -webkit-transform: rotate(-45deg);
+        -moz-transform: rotate(-45deg);
+        -ms-transform: rotate(-45deg);
+        -o-transform: rotate(-45deg);
+        transform: rotate(-45deg);
+        width: 65px; }
 
 .players.qb .player-ratings li.maximum-speed {
   width: 23%; }
