@@ -8,19 +8,16 @@ header {
     background-size: 64px 64px;
     font-size: 2em;
     font-weight: bold;
+    line-height: 60px;
     margin: 0 0 2em 0;
-    padding: 18px 0 18px 84px;
-  }
-}
+    padding: 18px 0;
 
-body.bills {
-  header {
-    h1 {
-      background-image: url("/images/helmets/bills.png");
+    i {
+      margin: 0 10px 0 0;
+      vertical-align: middle;
     }
   }
 }
-
 
 .players {
   margin: 0 0 4em 0;
@@ -30,10 +27,11 @@ body.bills {
     margin: 0 0 8px 0;
     padding: 0 0 8px 0;
 
-    .headshot {
+    i {
+      display: inline-block;
       float: left;
       margin: 0 10px 0 0;
-      width: 36px;
+      width: 32px;
     }
 
     .player-info {
@@ -339,11 +337,58 @@ body.bills {
   }
 }
 
+// Player attribute values
+// *****************************************************************************
 $power-values: 6, 13, 19, 25, 31, 38, 44, 50, 56, 63, 69, 75, 81, 88, 94;
 
 @each $value in $power-values {
   .power-#{$value} {
     @include power-meter(percentage($value) / 100);
   }
+}
+
+// Team helmets
+// *****************************************************************************
+$teams: 49ers bears bengals bills broncos browns buccaneers cardinals chargers chiefs colts cowboys dolphins eagles falcons giants jets lions oilers packers patriots raiders rams redskins saints seahawks steelers vikings;
+
+.helmet {
+  background-image: url("/images/helmets.png");
+  background-repeat: no-repeat;
+  display: inline-block;
+  height: 60px;
+  width: 60px;
+}
+
+$z: 0;
+@each $team in $teams {
+  .helmet-#{$team} {
+    background-position: $z * -60px 0;
+  }
+
+  $z: $z + 1;
+}
+
+// Player headshots
+// *****************************************************************************
+$positions: qb1 qb2 rb1 rb2 rb3 rb4 wr1 wr2 wr3 wr4 te1 te2 c lg rg lt rt re nt le rolb rilb lilb lolb rcb lcb fs ss;
+
+.headshot {
+  background-repeat: no-repeat;
+  display: inline-block;
+  height: 32px;
+  width: 32px;
+}
+
+.headshot-bills {
+  background-image: url("/images/players/bills.png");
+}
+
+$z: 0;
+@each $position in $positions {
+  .headshot-#{$position} {
+    background-position: $z * -32px 0;
+  }
+
+  $z: $z + 1;
 }
 
