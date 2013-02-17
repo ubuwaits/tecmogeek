@@ -4,10 +4,23 @@
 
 header {
   h1 {
+    background-repeat: no-repeat;
+    background-size: 64px 64px;
     font-size: 2em;
+    font-weight: bold;
     margin: 0 0 2em 0;
+    padding: 18px 0 18px 84px;
   }
 }
+
+body.bills {
+  header {
+    h1 {
+      background-image: url("/images/helmets/bills.png");
+    }
+  }
+}
+
 
 .players {
   margin: 0 0 4em 0;
@@ -16,6 +29,12 @@ header {
     @extend .clearfix;
     margin: 0 0 8px 0;
     padding: 0 0 8px 0;
+
+    .headshot {
+      float: left;
+      margin: 0 10px 0 0;
+      width: 36px;
+    }
 
     .player-info {
       float: left;
@@ -40,14 +59,9 @@ header {
       width: 80px;
 
       h5 {
-        font-size: 18px;
+        font-size: 22px;
         font-weight: bold;
-        margin: 0 0 2px 0;
-      }
-
-      h6 {
-        color: #bbb;
-        font-size: 14px;
+        margin: 4px 0 0 0;
       }
     }
 
@@ -76,12 +90,25 @@ header {
 
     .section-label {
       float: left;
-      width: 260px;
+      width: 206px;
 
       h3 {
         font-size: 18px;
         font-weight: bold;
         margin: 0 0 2px 0;
+      }
+    }
+
+    .player-overall-rating {
+      margin-bottom: 4px;
+
+      h5 {
+        font-size: 12px;
+      }
+
+      h6 {
+        color: #aaa;
+        font-size: 12px;
       }
     }
 
