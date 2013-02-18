@@ -497,7 +497,7 @@ $power-values: 6, 13, 19, 25, 31, 38, 44, 50, 56, 63, 69, 75, 81, 88, 94;
 $teams: 49ers bears bengals bills broncos browns buccaneers cardinals chargers chiefs colts cowboys dolphins eagles falcons giants jets lions oilers packers patriots raiders rams redskins saints seahawks steelers vikings;
 
 .helmet {
-  background-image: url("/images/helmets.png");
+  background-image: url("../../images/helmets.png");
   background-repeat: no-repeat;
   display: inline-block;
   height: 60px;
@@ -525,7 +525,7 @@ $positions: qb1 qb2 rb1 rb2 rb3 rb4 wr1 wr2 wr3 wr4 te1 te2 c lg rg lt rt re nt 
 }
 
 .headshot-bills {
-  background-image: url("/images/players/bills.png");
+  background-image: url("../../images/players/bills.png");
 }
 
 $z: 0;

@@ -451,7 +451,7 @@ header {
   background-image: linear-gradient(left, #63adff 0%, #63adff 94%, transparent 94%); }
 
 .helmet {
-  background-image: url("/images/helmets.png");
+  background-image: url("../../images/helmets.png");
   background-repeat: no-repeat;
   display: inline-block;
   height: 60px;
@@ -548,7 +548,7 @@ header {
   width: 32px; }
 
 .headshot-bills {
-  background-image: url("/images/players/bills.png"); }
+  background-image: url("../../images/players/bills.png"); }
 
 .headshot-qb1 {
   background-position: 0px 0; }
