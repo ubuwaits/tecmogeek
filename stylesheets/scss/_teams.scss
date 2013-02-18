@@ -1,4 +1,10 @@
+body.bills {
+  background: #cc3333;
+}
+
 header {
+  margin: 2em 2em 0;
+
   h1 {
     background-repeat: no-repeat;
     background-size: 64px 64px;
@@ -16,15 +22,17 @@ header {
 }
 
 .players {
-  margin: 0 0 4em 0;
+  margin: 0 2em 4em;
+  max-width: 1020px;
 
   .player {
     @extend .clearfix;
     margin: 0 0 8px 0;
     padding: 0 0 8px 0;
 
-    i {
-      display: inline-block;
+    // Player info
+    // *************************************************************************
+    .headshot {
       float: left;
       margin: 0 10px 0 0;
       width: 32px;
@@ -34,21 +42,22 @@ header {
       float: left;
       width: 160px;
 
-      h3 {
+      .player-name {
         font-size: 18px;
         font-weight: bold;
         margin: 0 0 2px 0;
       }
 
-      h4 {
-        color: #555;
+      .player-position-number {
+        color: #fff;
         font-size: 14px;
       }
     }
 
-    .player-overall-rating {
+    // Player rankings
+    // *************************************************************************
+    .player-ranking {
       float: left;
-      margin: 0 20px 0 0;
       text-align: center;
       width: 80px;
 
@@ -59,84 +68,117 @@ header {
       }
     }
 
-    .player-ratings {
+    // Player abilities
+    // *************************************************************************
+    .player-abilities {
       float: left;
-      width: 700px;
+      width: 738px;
 
       > li {
+        background-color: rgba(#fff, 0.25);
         @include box-sizing(border-box);
-        border: 3px solid #d7d7d7;
+        border: 3px solid #fff;
         color: #222;
         font-size: 12px;
         font-weight: bold;
         float: left;
-        margin: 0 2% 0 0;
+        margin: 0 0 0 2%;
         padding: 8px 4px;
         width: 18%;
       }
     }
   }
 
+  // Player info headers
+  // ***************************************************************************
   .labels {
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid rgba(#fff, 0.25);
     margin: 0 0 12px 0;
     padding: 0 0 2px 0;
 
     .section-label {
       float: left;
-      width: 206px;
+      width: 202px;
 
       h3 {
-        font-size: 18px;
+        font-size: 20px;
         font-weight: bold;
-        margin: 0 0 2px 0;
       }
     }
 
-    .player-overall-rating {
+    .player-ranking {
       margin-bottom: 4px;
 
       h5 {
         font-size: 12px;
+        margin: 0 0 2px 0;
       }
 
       h6 {
-        color: #aaa;
+        color: #d7d7d7;
         font-size: 12px;
       }
     }
 
-    .player-ratings {
+    .player-abilities {
       > li {
+        background-color: transparent;
         border: 0;
         position: relative;
 
         span {
-          color: #444;
           display: inline-block;
           font-size: 11px;
           font-weight: bold;
           left: -2px;
           position: absolute;
-          top: -24px;
+          top: -16px;
           @include transform(rotate(-45deg));
           width: 65px;
         }
       }
     }
   }
+}
 
-  .skill-toggles {
-    @extend .clearfix;
-    margin: 0 0 3em 0;
+.skill-toggles {
+  @extend .clearfix;
+  background: rgba(#fff, 0.125);
+  margin: -12px 0 1em 0;
+  text-align: left;
 
-    li {
-      display: inline-block;
+  li {
+    display: inline-block;
+    float: left;
+    width: 25%;
 
-      a {
-        background: #eee;
-        padding: 2px 6px;
-        text-decoration: none;
+    a {
+      border-right: 1px solid rgba(#fff, 0.2);
+      color: #292929;
+      display: block;
+      font-weight: bold;
+      opacity: 0.6;
+      padding: 0.75em 0.75em;
+      position: relative;
+      text-align: center;
+      text-decoration: none;
+
+      &.active,
+      &:hover {
+        opacity: 1;
+      }
+
+      &.active:after {
+        border-left: 8px solid transparent;
+        border-right: 8px solid transparent;
+        border-top: 8px solid rgba(#fff, 0.125); //#292929;
+        bottom: -0.5em;
+        content: " ";
+        height: 0;
+        left: 50%;
+        margin-left: -8px;
+        position: absolute;
+        width: 0;
       }
     }
   }
@@ -144,7 +186,7 @@ header {
 
 .players.rb-wr-te.kick-return {
   .labels {
-    .player-ratings {
+    .player-abilities {
       .maximum-speed {
         display: block;
         width: 48%;
@@ -155,7 +197,7 @@ header {
 
 .players.rb-wr-te.punt-return {
   .labels {
-    .player-ratings {
+    .player-abilities {
       .maximum-speed {
         display: block;
         width: 58%;
@@ -167,7 +209,7 @@ header {
 // Rating values
 // *****************************************************************************
 .players.qb {
-  .player-ratings li {
+  .player-abilities li {
     &.maximum-speed {
       width: 23%;
     }
@@ -183,10 +225,6 @@ header {
     &.avoid-pass-block {
       width: 8%;
     }
-
-    &:last-child {
-      margin: 0;
-    }
   }
 }
 
@@ -197,7 +235,7 @@ header {
     display: none;
   }
 
-  .player-ratings li {
+  .player-abilities li {
     &.running-speed {
       width: 8%;
     }
@@ -224,10 +262,6 @@ header {
     &.receptions {
       width: 8%;
     }
-
-    &:last-child {
-      margin: 0;
-    }
   }
 }
 
@@ -238,7 +272,7 @@ header {
     display: none;
   }
 
-  .player-ratings li {
+  .player-abilities li {
     &.running-speed {
       width: 8%;
     }
@@ -267,10 +301,6 @@ header {
     &.receptions {
       width: 38%;
     }
-
-    &:last-child {
-      margin: 0;
-    }
   }
 }
 
@@ -281,9 +311,9 @@ header {
     display: none;
   }
 
-  .player-ratings li {
+  .player-abilities li {
     &.running-speed {
-      width: 25%;
+      width: 23%;
     }
 
     &.maximum-speed {
@@ -304,7 +334,6 @@ header {
     }
 
     &.ball-control {
-      margin-right: 0;
       width: 8%;
     }
 
@@ -321,9 +350,9 @@ header {
     display: none;
   }
 
-  .player-ratings li {
+  .player-abilities li {
     &.running-speed {
-      width: 25%;
+      width: 23%;
     }
 
     &.maximum-speed {
@@ -340,7 +369,6 @@ header {
     }
 
     &.hitting-power {
-      margin-right: 0;
       width: 13%;
     }
 
@@ -355,23 +383,19 @@ header {
 }
 
 .players.ol {
-  .player-ratings li {
+  .player-abilities li {
     &.maximum-speed {
       width: 48%;
     }
 
     &.hitting-power {
       width: 48%;
-    }
-
-    &:last-child {
-      margin: 0;
     }
   }
 }
 
 .players.dl {
-  .player-ratings li {
+  .player-abilities li {
     &.rushing-speed {
       width: 3%;
       padding-left: 1px;
@@ -394,16 +418,12 @@ header {
       width: 3%;
       padding-left: 1px;
       padding-right: 0;
-    }
-
-    &:last-child {
-      margin: 0;
     }
   }
 }
 
 .players.lb {
-  .player-ratings li {
+  .player-abilities li {
     &.rushing-speed {
       width: 3%;
       padding-left: 1px;
@@ -427,15 +447,11 @@ header {
     &.interceptions {
       width: 8%;
     }
-
-    &:last-child {
-      margin: 0;
-    }
   }
 }
 
 .players.secondary {
-  .player-ratings li {
+  .player-abilities li {
     &.rushing-speed {
       width: 3%;
       padding-left: 1px;
@@ -458,10 +474,6 @@ header {
 
     &.interceptions {
       width: 33%;
-    }
-
-    &:last-child {
-      margin: 0;
     }
   }
 }
@@ -495,7 +507,7 @@ $teams: 49ers bears bengals bills broncos browns buccaneers cardinals chargers c
 $z: 0;
 @each $team in $teams {
   .helmet-#{$team} {
-    background-position: $z * -60px 0;
+    background-position: $z * -62px 0;
   }
 
   $z: $z + 1;
