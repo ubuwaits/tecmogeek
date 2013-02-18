@@ -165,30 +165,29 @@ header {
         width: 65px; }
 
 .skill-toggles {
-  background: rgba(255, 255, 255, 0.125);
-  margin: -12px 0 1em 0;
-  text-align: left; }
+  /*background: rgba(#fff, 0.125);*/
+  margin: -12px 0 1.5em 0;
+  text-align: center; }
   .skill-toggles li {
-    display: inline-block;
-    float: left;
-    width: 25%; }
+    display: inline-block; }
     .skill-toggles li a {
-      border-right: 1px solid rgba(255, 255, 255, 0.2);
+      /*border-right: 1px solid rgba(#fff, 0.2);*/
       color: #292929;
       display: block;
       font-weight: bold;
-      opacity: 0.6;
+      opacity: 0.5;
       padding: 0.75em 0.75em;
       position: relative;
       text-align: center;
       text-decoration: none; }
       .skill-toggles li a.active, .skill-toggles li a:hover {
+        /*background: rgba(#fff, 0.2);*/
         opacity: 1; }
       .skill-toggles li a.active:after {
         border-left: 8px solid transparent;
         border-right: 8px solid transparent;
-        border-top: 8px solid rgba(255, 255, 255, 0.125);
-        bottom: -0.5em;
+        border-top: 8px solid #292929;
+        bottom: -0.15em;
         content: " ";
         height: 0;
         left: 50%;
