@@ -49,16 +49,17 @@ table {
 
 /* Clear Floated Elements
 ------------------------------------------------------------------------------*/
-.clearfix:before, .players .player:before,
+.clearfix:before, .players .player:before, .players .skill-toggles:before,
 .clearfix:after,
-.players .player:after {
+.players .player:after,
+.players .skill-toggles:after {
   content: " ";
   display: table; }
 
-.clearfix:after, .players .player:after {
+.clearfix:after, .players .player:after, .players .skill-toggles:after {
   clear: both; }
 
-.clearfix, .players .player {
+.clearfix, .players .player, .players .skill-toggles {
   *zoom: 1; }
 
 body {
@@ -157,6 +158,22 @@ header h1 {
         -o-transform: rotate(-45deg);
         transform: rotate(-45deg);
         width: 65px; }
+  .players .skill-toggles {
+    margin: 0 0 3em 0; }
+    .players .skill-toggles li {
+      display: inline-block; }
+      .players .skill-toggles li a {
+        background: #eee;
+        padding: 2px 6px;
+        text-decoration: none; }
+
+.players.rb-wr-te.kick-return .labels .player-ratings .maximum-speed {
+  display: block;
+  width: 48%; }
+
+.players.rb-wr-te.punt-return .labels .player-ratings .maximum-speed {
+  display: block;
+  width: 58%; }
 
 .players.qb .player-ratings li.maximum-speed {
   width: 23%; }
@@ -169,12 +186,16 @@ header h1 {
 .players.qb .player-ratings li:last-child {
   margin: 0; }
 
-.players.rushing .receiving-rating {
+.players.rushing .receiving-rating,
+.players.rushing .kick-return-rating,
+.players.rushing .punt-return-rating {
   display: none; }
 .players.rushing .player-ratings li.running-speed {
   width: 8%; }
 .players.rushing .player-ratings li.maximum-speed {
   width: 58%; }
+  .players.rushing .player-ratings li.maximum-speed.kick-return, .players.rushing .player-ratings li.maximum-speed.punt-return {
+    display: none; }
 .players.rushing .player-ratings li.hitting-power {
   width: 13%; }
 .players.rushing .player-ratings li.ball-control {
@@ -186,12 +207,16 @@ header h1 {
 .players.rushing .player-ratings li:last-child {
   margin: 0; }
 
-.players.receiving .rushing-rating {
+.players.receiving .rushing-rating,
+.players.receiving .kick-return-rating,
+.players.receiving .punt-return-rating {
   display: none; }
 .players.receiving .player-ratings li.running-speed {
   width: 8%; }
 .players.receiving .player-ratings li.maximum-speed {
   width: 38%; }
+  .players.receiving .player-ratings li.maximum-speed.kick-return, .players.receiving .player-ratings li.maximum-speed.punt-return {
+    display: none; }
 .players.receiving .player-ratings li.hitting-power {
   width: 3%;
   padding-left: 1px;
@@ -204,6 +229,48 @@ header h1 {
   width: 38%; }
 .players.receiving .player-ratings li:last-child {
   margin: 0; }
+
+.players.kick-return .rushing-rating,
+.players.kick-return .receiving-rating,
+.players.kick-return .punt-return-rating {
+  display: none; }
+.players.kick-return .player-ratings li.running-speed {
+  width: 25%; }
+.players.kick-return .player-ratings li.maximum-speed {
+  display: none; }
+  .players.kick-return .player-ratings li.maximum-speed.punt-return {
+    display: none; }
+  .players.kick-return .player-ratings li.maximum-speed.kick-return {
+    display: block;
+    width: 48%; }
+.players.kick-return .player-ratings li.hitting-power {
+  width: 13%; }
+.players.kick-return .player-ratings li.ball-control {
+  margin-right: 0;
+  width: 8%; }
+.players.kick-return .player-ratings li.receptions {
+  display: none; }
+
+.players.punt-return .rushing-rating,
+.players.punt-return .receiving-rating,
+.players.punt-return .kick-return-rating {
+  display: none; }
+.players.punt-return .player-ratings li.running-speed {
+  width: 25%; }
+.players.punt-return .player-ratings li.maximum-speed {
+  display: none; }
+  .players.punt-return .player-ratings li.maximum-speed.kick-return {
+    display: none; }
+  .players.punt-return .player-ratings li.maximum-speed.punt-return {
+    display: block;
+    width: 58%; }
+.players.punt-return .player-ratings li.hitting-power {
+  margin-right: 0;
+  width: 13%; }
+.players.punt-return .player-ratings li.ball-control {
+  display: none; }
+.players.punt-return .player-ratings li.receptions {
+  display: none; }
 
 .players.ol .player-ratings li.maximum-speed {
   width: 48%; }
