@@ -163,22 +163,9 @@ header {
     .players .labels .player-abilities > li {
       background-color: transparent;
       border: 0;
-      color: rgba(255, 255, 255, 0.25);
-      position: relative; }
-      .players .labels .player-abilities > li span {
-        display: inline-block;
-        font-size: 10px;
-        font-weight: bold;
-        left: -2px;
-        position: absolute;
-        top: -14px;
-        text-transform: uppercase;
-        -webkit-transform: rotate(-45deg);
-        -moz-transform: rotate(-45deg);
-        -ms-transform: rotate(-45deg);
-        -o-transform: rotate(-45deg);
-        transform: rotate(-45deg);
-        width: 65px; }
+      color: rgba(255, 255, 255, 0.35);
+      font-size: 14px;
+      padding: 0; }
 
 .skill-toggles {
   /*background: rgba(#fff, 0.125);*/

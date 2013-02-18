@@ -134,20 +134,9 @@ header {
       > li {
         background-color: transparent;
         border: 0;
-        color: rgba(#fff, 0.25);
-        position: relative;
-
-        span {
-          display: inline-block;
-          font-size: 10px;
-          font-weight: bold;
-          left: -2px;
-          position: absolute;
-          top: -14px;
-          text-transform: uppercase;
-          @include transform(rotate(-45deg));
-          width: 65px;
-        }
+        color: rgba(#fff, 0.35);
+        font-size: 14px;
+        padding: 0;
       }
     }
   }
