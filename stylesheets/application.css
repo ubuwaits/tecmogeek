@@ -71,26 +71,24 @@ body.bills {
   background: #cc3333; }
 
 header {
-  margin: 2em 2em 0; }
+  margin: 0 0 3em 0;
+  padding: 2em 2em; }
   header h1 {
-    background-repeat: no-repeat;
-    background-size: 64px 64px;
+    color: #fff;
     font-size: 2em;
-    font-weight: bold;
-    line-height: 60px;
-    margin: 0 0 2em 0;
-    padding: 18px 0; }
+    font-weight: 300; }
     header h1 i {
-      margin: 0 10px 0 0;
+      margin: 0 0.75em 0 0;
       vertical-align: middle; }
 
 .players {
   margin: 0 2em 4em;
   max-width: 1020px; }
   .players .player {
-    margin: 0 0 8px 0;
-    padding: 0 0 8px 0; }
+    margin: 0 0 7px 0;
+    padding: 0 0 7px 0; }
     .players .player .headshot {
+      border-radius: 2px;
       float: left;
       margin: 0 10px 0 0;
       width: 32px; }
@@ -126,10 +124,15 @@ header {
         font-weight: bold;
         float: left;
         margin: 0 0 0 2%;
-        padding: 8px 4px;
+        padding: 7px 4px;
+        -webkit-transition: all 0.6s ease-in-out;
+        -moz-transition: all 0.6s ease-in-out;
+        -ms-transition: all 0.6s ease-in-out;
+        -o-transition: all 0.6s ease-in-out;
+        transition: all 0.6s ease-in-out;
         width: 18%; }
   .players .labels {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+    border-bottom: 3px solid rgba(255, 255, 255, 0.25);
     margin: 0 0 12px 0;
     padding: 0 0 2px 0; }
     .players .labels .section-label {
@@ -144,19 +147,20 @@ header {
         font-size: 12px;
         margin: 0 0 2px 0; }
       .players .labels .player-ranking h6 {
-        color: #d7d7d7;
-        font-size: 12px; }
+        font-size: 12px;
+        font-weight: bold; }
     .players .labels .player-abilities > li {
       background-color: transparent;
       border: 0;
       position: relative; }
       .players .labels .player-abilities > li span {
         display: inline-block;
-        font-size: 11px;
+        font-size: 10px;
         font-weight: bold;
         left: -2px;
         position: absolute;
         top: -16px;
+        text-transform: uppercase;
         -webkit-transform: rotate(-45deg);
         -moz-transform: rotate(-45deg);
         -ms-transform: rotate(-45deg);
