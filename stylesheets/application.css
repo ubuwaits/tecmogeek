@@ -82,18 +82,22 @@ header {
       vertical-align: middle; }
 
 .players {
-  margin: 0 2em 4em;
-  max-width: 1020px; }
+  margin: 0 2.5em 4em;
+  max-width: 1440px; }
   .players .player {
     margin: 0 0 7px 0;
-    padding: 0 0 7px 0; }
+    padding: 0 0 7px 0;
+    position: relative; }
     .players .player .headshot {
       border-radius: 2px;
       float: left;
       margin: 0 10px 0 0;
+      position: absolute;
       width: 32px; }
     .players .player .player-info {
       float: left;
+      left: 42px;
+      position: absolute;
       width: 160px; }
       .players .player .player-info .player-name {
         font-size: 18px;
@@ -104,15 +108,18 @@ header {
         font-size: 14px; }
     .players .player .player-ranking {
       float: left;
+      left: 202px;
+      position: absolute;
       text-align: center;
       width: 80px; }
       .players .player .player-ranking h5 {
         font-size: 22px;
         font-weight: bold;
-        margin: 4px 0 0 0; }
+        margin: 4px 0 0 0;
+        text-shadow: 0 1px 0 rgba(255, 255, 255, 0.2); }
     .players .player .player-abilities {
-      float: left;
-      width: 738px; }
+      margin-left: 282px;
+      width: auto; }
       .players .player .player-abilities > li {
         background-color: rgba(255, 255, 255, 0.25);
         -webkit-box-sizing: border-box;
@@ -139,19 +146,24 @@ header {
       float: left;
       width: 202px; }
       .players .labels .section-label h3 {
+        color: rgba(255, 255, 255, 0.25);
         font-size: 20px;
         font-weight: bold; }
     .players .labels .player-ranking {
-      margin-bottom: 4px; }
+      margin-bottom: 4px;
+      position: static; }
       .players .labels .player-ranking h5 {
+        color: rgba(255, 255, 255, 0.25);
         font-size: 12px;
         margin: 0 0 2px 0; }
       .players .labels .player-ranking h6 {
+        color: rgba(255, 255, 255, 0.25);
         font-size: 12px;
         font-weight: bold; }
     .players .labels .player-abilities > li {
       background-color: transparent;
       border: 0;
+      color: rgba(255, 255, 255, 0.25);
       position: relative; }
       .players .labels .player-abilities > li span {
         display: inline-block;
@@ -159,7 +171,7 @@ header {
         font-weight: bold;
         left: -2px;
         position: absolute;
-        top: -16px;
+        top: -14px;
         text-transform: uppercase;
         -webkit-transform: rotate(-45deg);
         -moz-transform: rotate(-45deg);
@@ -170,7 +182,7 @@ header {
 
 .skill-toggles {
   /*background: rgba(#fff, 0.125);*/
-  margin: -12px 0 1.5em 0;
+  margin: -12px 0 1.25em 0;
   text-align: center; }
   .skill-toggles li {
     display: inline-block; }

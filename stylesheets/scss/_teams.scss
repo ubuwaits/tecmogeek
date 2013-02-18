@@ -19,13 +19,14 @@ header {
 }
 
 .players {
-  margin: 0 2em 4em;
-  max-width: 1020px;
+  margin: 0 2.5em 4em;
+  max-width: 1440px;
 
   .player {
     @extend .clearfix;
     margin: 0 0 7px 0;
     padding: 0 0 7px 0;
+    position: relative;
 
     // Player info
     // *************************************************************************
@@ -33,11 +34,14 @@ header {
       border-radius: 2px;
       float: left;
       margin: 0 10px 0 0;
+      position: absolute;
       width: 32px;
     }
 
     .player-info {
       float: left;
+      left: 42px;
+      position: absolute;
       width: 160px;
 
       .player-name {
@@ -56,6 +60,8 @@ header {
     // *************************************************************************
     .player-ranking {
       float: left;
+      left: 202px;
+      position: absolute;
       text-align: center;
       width: 80px;
 
@@ -63,14 +69,15 @@ header {
         font-size: 22px;
         font-weight: bold;
         margin: 4px 0 0 0;
+        text-shadow: 0 1px 0 rgba(#fff, 0.2);
       }
     }
 
     // Player abilities
     // *************************************************************************
     .player-abilities {
-      float: left;
-      width: 738px;
+      margin-left: 282px;
+      width: auto;
 
       > li {
         background-color: rgba(#fff, 0.25);
@@ -100,6 +107,7 @@ header {
       width: 202px;
 
       h3 {
+        color: rgba(#fff, 0.25);
         font-size: 20px;
         font-weight: bold;
       }
@@ -107,13 +115,16 @@ header {
 
     .player-ranking {
       margin-bottom: 4px;
+      position: static;
 
       h5 {
+        color: rgba(#fff, 0.25);
         font-size: 12px;
         margin: 0 0 2px 0;
       }
 
       h6 {
+        color: rgba(#fff, 0.25);
         font-size: 12px;
         font-weight: bold;
       }
@@ -123,6 +134,7 @@ header {
       > li {
         background-color: transparent;
         border: 0;
+        color: rgba(#fff, 0.25);
         position: relative;
 
         span {
@@ -131,7 +143,7 @@ header {
           font-weight: bold;
           left: -2px;
           position: absolute;
-          top: -16px;
+          top: -14px;
           text-transform: uppercase;
           @include transform(rotate(-45deg));
           width: 65px;
@@ -144,7 +156,7 @@ header {
 .skill-toggles {
   @extend .clearfix;
   /*background: rgba(#fff, 0.125);*/
-  margin: -12px 0 1.5em 0;
+  margin: -12px 0 1.25em 0;
   text-align: center;
 
   li {
