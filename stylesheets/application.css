@@ -71,12 +71,12 @@ body.bills {
   background: #cc3333; }
 
 header {
-  margin: 0 0 3em 0;
-  padding: 2em 2em; }
+  margin: 0 0 1em 0;
+  padding: 2em 2.5em; }
   header h1 {
     color: #fff;
     font-size: 2em;
-    font-weight: 300; }
+    font-weight: 700; }
     header h1 i {
       margin: 0 0.75em 0 0;
       vertical-align: middle; }
@@ -102,7 +102,8 @@ header {
       .players .player .player-info .player-name {
         font-size: 18px;
         font-weight: bold;
-        margin: 0 0 2px 0; }
+        margin: 0 0 2px 0;
+        text-shadow: 0 1px 0 rgba(255, 255, 255, 0.2); }
       .players .player .player-info .player-position-number {
         color: #fff;
         font-size: 14px; }
@@ -166,6 +167,10 @@ header {
       color: rgba(255, 255, 255, 0.35);
       font-size: 14px;
       padding: 0; }
+  .players .ability-notes {
+    color: rgba(41, 41, 41, 0.6);
+    font-size: 14px;
+    margin: 1em 0 1em 300px; }
 
 .skill-toggles {
   /*background: rgba(#fff, 0.125);*/
@@ -217,7 +222,9 @@ header {
 
 .players.rushing .receiving-rating,
 .players.rushing .kick-return-rating,
-.players.rushing .punt-return-rating {
+.players.rushing .punt-return-rating,
+.players.rushing .kick-return-notes,
+.players.rushing .punt-return-notes {
   display: none; }
 .players.rushing .player-abilities li.running-speed {
   width: 8%; }
@@ -236,7 +243,9 @@ header {
 
 .players.receiving .rushing-rating,
 .players.receiving .kick-return-rating,
-.players.receiving .punt-return-rating {
+.players.receiving .punt-return-rating,
+.players.receiving .kick-return-notes,
+.players.receiving .punt-return-notes {
   display: none; }
 .players.receiving .player-abilities li.running-speed {
   width: 8%; }
@@ -257,7 +266,9 @@ header {
 
 .players.kick-return .rushing-rating,
 .players.kick-return .receiving-rating,
-.players.kick-return .punt-return-rating {
+.players.kick-return .rb-wr-te-notes,
+.players.kick-return .punt-return-rating,
+.players.kick-return .punt-return-notes {
   display: none; }
 .players.kick-return .player-abilities li.running-speed {
   width: 23%; }
@@ -277,7 +288,9 @@ header {
 
 .players.punt-return .rushing-rating,
 .players.punt-return .receiving-rating,
-.players.punt-return .kick-return-rating {
+.players.punt-return .kick-return-rating,
+.players.punt-return .rb-wr-te-notes,
+.players.punt-return .kick-return-notes {
   display: none; }
 .players.punt-return .player-abilities li.running-speed {
   width: 23%; }
@@ -344,6 +357,16 @@ header {
   width: 13%; }
 .players.secondary .player-abilities li.interceptions {
   width: 33%; }
+
+.players.kicker .player-abilities li.kicking-ability {
+  width: 68%; }
+.players.kicker .player-abilities li.avoid-kick-block {
+  width: 28%; }
+
+.players.punter .player-abilities li.kicking-ability {
+  width: 68%; }
+.players.punter .player-abilities li.avoid-kick-block {
+  width: 28%; }
 
 .power-6 {
   background-image: -webkit-linear-gradient(left, #63adff 0%, #63adff 6%, transparent 6%);
@@ -633,6 +656,12 @@ header {
 
 .headshot-ss {
   background-position: -864px 0; }
+
+.headshot-k {
+  background-position: -896px 0; }
+
+.headshot-p {
+  background-position: -928px 0; }
 
 footer {
   background: #111;

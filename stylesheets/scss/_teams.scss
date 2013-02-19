@@ -3,13 +3,13 @@ body.bills {
 }
 
 header {
-  margin: 0 0 3em 0;
-  padding: 2em 2em;
+  margin: 0 0 1em 0;
+  padding: 2em 2.5em;
 
   h1 {
     color: #fff;
     font-size: 2em;
-    font-weight: 300;
+    font-weight: 700;
 
     i {
       margin: 0 0.75em 0 0;
@@ -48,6 +48,7 @@ header {
         font-size: 18px;
         font-weight: bold;
         margin: 0 0 2px 0;
+        text-shadow: 0 1px 0 rgba(#fff, 0.2);
       }
 
       .player-position-number {
@@ -140,6 +141,12 @@ header {
       }
     }
   }
+
+  .ability-notes {
+    color: rgba(#292929, 0.6);
+    font-size: 14px;
+    margin: 1em 0 1em 300px;
+  }
 }
 
 .skill-toggles {
@@ -206,7 +213,7 @@ header {
   }
 }
 
-// Rating values
+// QB Rating values
 // *****************************************************************************
 .players.qb {
   .player-abilities li {
@@ -228,10 +235,14 @@ header {
   }
 }
 
+// Rushing Rating values
+// *****************************************************************************
 .players.rushing {
   .receiving-rating,
   .kick-return-rating,
-  .punt-return-rating {
+  .punt-return-rating,
+  .kick-return-notes,
+  .punt-return-notes {
     display: none;
   }
 
@@ -265,10 +276,14 @@ header {
   }
 }
 
+// Receiving Rating values
+// *****************************************************************************
 .players.receiving {
   .rushing-rating,
   .kick-return-rating,
-  .punt-return-rating {
+  .punt-return-rating,
+  .kick-return-notes,
+  .punt-return-notes {
     display: none;
   }
 
@@ -304,10 +319,14 @@ header {
   }
 }
 
+// Kick return Rating values
+// *****************************************************************************
 .players.kick-return {
   .rushing-rating,
   .receiving-rating,
-  .punt-return-rating {
+  .rb-wr-te-notes,
+  .punt-return-rating,
+  .punt-return-notes {
     display: none;
   }
 
@@ -343,10 +362,14 @@ header {
   }
 }
 
+// Punt return Rating values
+// *****************************************************************************
 .players.punt-return {
   .rushing-rating,
   .receiving-rating,
-  .kick-return-rating {
+  .kick-return-rating,
+  .rb-wr-te-notes,
+  .kick-return-notes {
     display: none;
   }
 
@@ -382,6 +405,8 @@ header {
   }
 }
 
+// OL Rating values
+// *****************************************************************************
 .players.ol {
   .player-abilities li {
     &.maximum-speed {
@@ -394,6 +419,8 @@ header {
   }
 }
 
+// DL Rating values
+// *****************************************************************************
 .players.dl {
   .player-abilities li {
     &.rushing-speed {
@@ -422,6 +449,8 @@ header {
   }
 }
 
+// LB Rating values
+// *****************************************************************************
 .players.lb {
   .player-abilities li {
     &.rushing-speed {
@@ -450,6 +479,8 @@ header {
   }
 }
 
+// Secondary Rating values
+// *****************************************************************************
 .players.secondary {
   .player-abilities li {
     &.rushing-speed {
@@ -474,6 +505,34 @@ header {
 
     &.interceptions {
       width: 33%;
+    }
+  }
+}
+
+// Kicker Rating values
+// *****************************************************************************
+.players.kicker {
+  .player-abilities li {
+    &.kicking-ability {
+      width: 68%;
+    }
+
+    &.avoid-kick-block {
+      width: 28%;
+    }
+  }
+}
+
+// Punter Rating values
+// *****************************************************************************
+.players.punter {
+  .player-abilities li {
+    &.kicking-ability {
+      width: 68%;
+    }
+
+    &.avoid-kick-block {
+      width: 28%;
     }
   }
 }
@@ -515,7 +574,7 @@ $z: 0;
 
 // Player headshots
 // *****************************************************************************
-$positions: qb1 qb2 rb1 rb2 rb3 rb4 wr1 wr2 wr3 wr4 te1 te2 c lg rg lt rt re nt le rolb rilb lilb lolb rcb lcb fs ss;
+$positions: qb1 qb2 rb1 rb2 rb3 rb4 wr1 wr2 wr3 wr4 te1 te2 c lg rg lt rt re nt le rolb rilb lilb lolb rcb lcb fs ss k p;
 
 .headshot {
   background-repeat: no-repeat;

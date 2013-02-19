@@ -4,3 +4,12 @@ permalink: "pretty"
 exclude:
  - Rakefile
 
+qb-text: All QB have Running Speed 25, Rushing Power 69, and Hitting Power 13. Avoid Pass Block has no effect on performance.
+rb-wr-te-text: All RB, WR and TE have Rushing Power 69.
+kr-text: Due to a programming glitch, all KR have the same Maximum Speed as their team&rsquo;s RT.
+pr-text: Due to a programming glitch, all PR have the same Maximum Speed as their team&rsquo;s SS and a Ball Control of 44.
+ol-text: All OL have Running Speed 25 and Rushing Power 69.
+defense-text: Quickness has no effect on performance.
+k-text: All K have Running Speed 56, Rushing Power 81, Maximum Speed 81, and Hitting Power 31.
+p-text: All P have Running Speed 25, Rushing Power 56, Maximum Speed 44, and Hitting Power 31.
+
