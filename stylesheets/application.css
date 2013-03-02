@@ -316,7 +316,7 @@ header {
 .players.ol .player-abilities li.hitting-power {
   width: 48%; }
 
-.players.dl .player-abilities li.rushing-speed {
+.players.dl .player-abilities li.running-speed {
   width: 3%;
   padding-left: 1px;
   padding-right: 0; }
@@ -326,12 +326,12 @@ header {
   width: 38%; }
 .players.dl .player-abilities li.hitting-power {
   width: 38%; }
-.players.dl .player-abilities li.interceptions {
+.players.dl .player-abilities li.pass-interceptions {
   width: 3%;
   padding-left: 1px;
   padding-right: 0; }
 
-.players.lb .player-abilities li.rushing-speed {
+.players.lb .player-abilities li.running-speed {
   width: 3%;
   padding-left: 1px;
   padding-right: 0; }
@@ -343,10 +343,10 @@ header {
   width: 38%; }
 .players.lb .player-abilities li.hitting-power {
   width: 38%; }
-.players.lb .player-abilities li.interceptions {
+.players.lb .player-abilities li.pass-interceptions {
   width: 8%; }
 
-.players.secondary .player-abilities li.rushing-speed {
+.players.secondary .player-abilities li.running-speed {
   width: 3%;
   padding-left: 1px;
   padding-right: 0; }
@@ -358,7 +358,7 @@ header {
   width: 38%; }
 .players.secondary .player-abilities li.hitting-power {
   width: 13%; }
-.players.secondary .player-abilities li.interceptions {
+.players.secondary .player-abilities li.pass-interceptions {
   width: 33%; }
 
 .players.kicker .player-abilities li.kicking-ability {
@@ -579,10 +579,10 @@ header {
 .headshot-colts {
   background-image: url("../images/players/colts.png"); }
 
-.headshot-qb1 {
+.headshot-QB1 {
   background-position: 0px 0; }
 
-.headshot-qb2 {
+.headshot-QB2 {
   background-position: -32px 0; }
 
 .headshot-RB1 {
@@ -630,43 +630,43 @@ header {
 .headshot-RT {
   background-position: -512px 0; }
 
-.headshot-re {
+.headshot-RE {
   background-position: -544px 0; }
 
-.headshot-nt {
+.headshot-NT {
   background-position: -576px 0; }
 
-.headshot-le {
+.headshot-LE {
   background-position: -608px 0; }
 
-.headshot-rolb {
+.headshot-ROLB {
   background-position: -640px 0; }
 
-.headshot-rilb {
+.headshot-RILB {
   background-position: -672px 0; }
 
-.headshot-lilb {
+.headshot-LILB {
   background-position: -704px 0; }
 
-.headshot-lolb {
+.headshot-LOLB {
   background-position: -736px 0; }
 
-.headshot-rcb {
+.headshot-RCB {
   background-position: -768px 0; }
 
-.headshot-lcb {
+.headshot-LCB {
   background-position: -800px 0; }
 
-.headshot-fs {
+.headshot-FS {
   background-position: -832px 0; }
 
-.headshot-ss {
+.headshot-SS {
   background-position: -864px 0; }
 
-.headshot-k {
+.headshot-K {
   background-position: -896px 0; }
 
-.headshot-p {
+.headshot-P {
   background-position: -928px 0; }
 
 footer {

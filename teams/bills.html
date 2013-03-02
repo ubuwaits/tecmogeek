@@ -31,44 +31,27 @@ team: bills
       </ul>
     </li>
 
-    <li class="player">
-    <i class="headshot headshot-{{ team.short_name }} headshot-qb1"></i>
+    {% for x in (0..1) %}
+      <li class="player">
+      <i class="headshot headshot-{{ team.short_name }} headshot-{{ team.players[x].position }}"></i>
 
-      <section class="player-info">
-        <h3 class="player-name">{{ team.players[0].name }}</h3>
-        <h4 class="player-position-number">{{ team.players[0].position }} {{ team.players[0].number }}</h4>
-      </section>
+        <section class="player-info">
+          <h3 class="player-name">{{ team.players[x].name }}</h3>
+          <h4 class="player-position-number">{{ team.players[x].position }} {{ team.players[x].number }}</h4>
+        </section>
 
-      <section class="player-ranking">
-        <h5>{{ team.players[0].ranking }}</h5>
-      </section>
+        <section class="player-ranking">
+          <h5>{{ team.players[x].ranking }}</h5>
+        </section>
 
-      <ul class="player-abilities">
-        <li class="maximum-speed power-{{ team.players[0].maximum_speed }}">{{ team.players[0].maximum_speed }}</li>
-        <li class="passing-speed power-{{ team.players[0].passing_speed }}">{{ team.players[0].passing_speed }}</li>
-        <li class="pass-control power-{{ team.players[0].pass_control }}">{{ team.players[0].pass_control }}</li>
-        <li class="avoid-pass-block power-{{ team.players[0].avoid_pass_block }}">{{ team.players[0].avoid_pass_block }}</li>
-      </ul>
-    </li>
-    <li class="player">
-      <i class="headshot headshot-{{ team.short_name }} headshot-qb2"></i>
-
-      <section class="player-info">
-        <h3 class="player-name">{{ team.players[1].name }}</h3>
-        <h4 class="player-position-number">{{ team.players[1].position }} {{ team.players[1].number }}</h4>
-      </section>
-
-      <section class="player-ranking">
-        <h5>{{ team.players[1].ranking }}</h5>
-      </section>
-
-      <ul class="player-abilities">
-        <li class="maximum-speed power-{{ team.players[1].maximum_speed }}">{{ team.players[1].maximum_speed }}</li>
-        <li class="passing-speed power-{{ team.players[1].passing_speed }}">{{ team.players[1].passing_speed }}</li>
-        <li class="pass-control power-{{ team.players[1].pass_control }}">{{ team.players[1].pass_control }}</li>
-        <li class="avoid-pass-block power-{{ team.players[1].avoid_pass_block }}">{{ team.players[1].avoid_pass_block }}</li>
-      </ul>
-    </li>
+        <ul class="player-abilities">
+          <li class="maximum-speed power-{{ team.players[x].maximum_speed }}">{{ team.players[x].maximum_speed }}</li>
+          <li class="passing-speed power-{{ team.players[x].passing_speed }}">{{ team.players[x].passing_speed }}</li>
+          <li class="pass-control power-{{ team.players[x].pass_control }}">{{ team.players[x].pass_control }}</li>
+          <li class="avoid-pass-block power-{{ team.players[x].avoid_pass_block }}">{{ team.players[x].avoid_pass_block }}</li>
+        </ul>
+      </li>
+    {% endfor %}
   </ol>
 
   <p class="ability-notes">{{ site.qb-text }}</p>
@@ -107,33 +90,34 @@ team: bills
     </li>
 
     {% for x in (2..11) %}
-    <li class="player">
-      <i class="headshot headshot-{{ team.short_name }} headshot-{{ team.players[x].position }}"></i>
+      <li class="player">
+        <i class="headshot headshot-{{ team.short_name }} headshot-{{ team.players[x].position }}"></i>
 
-      <section class="player-info">
-        <h3 class="player-name">{{ team.players[x].name }}</h3>
-        <h4 class="player-position-number">{{ team.players[x].position }} {{ team.players[x].number }}</h4>
-      </section>
+        <section class="player-info">
+          <h3 class="player-name">{{ team.players[x].name }}</h3>
+          <h4 class="player-position-number">{{ team.players[x].position }} {{ team.players[x].number }}</h4>
+        </section>
 
-      <section class="player-ranking">
-        <h5 class="rushing-ranking">{{ team.players[x].rushing_ranking }}</h5>
-        <h5 class="receiving-ranking">{{ team.players[x].receiving_ranking }}</h5>
-        <h5 class="kick-return-ranking">{{ team.players[x].kick_return_ranking }}</h5>
-        <h5 class="punt-return-ranking">{{ team.players[x].punk_return_ranking }}</h5>
-      </section>
+        <section class="player-ranking">
+          <h5 class="rushing-ranking">{{ team.players[x].rushing_ranking }}</h5>
+          <h5 class="receiving-ranking">{{ team.players[x].receiving_ranking }}</h5>
+          <h5 class="kick-return-ranking">{{ team.players[x].kick_return_ranking }}</h5>
+          <h5 class="punt-return-ranking">{{ team.players[x].punk_return_ranking }}</h5>
+        </section>
 
-      <ul class="player-abilities">
-        <li class="running-speed power-{{ team.players[x].running_speed }}">{{ team.players[x].running_speed }}</li>
-        <li class="maximum-speed power-{{ team.players[x].maximum_speed }}">{{ team.players[x].maximum_speed }}</li>
-        <li class="maximum-speed kick-return power-{{ team.players[x].maximum_speed }}">{{ team.players[x].maximum_speed }}</li>
-        <li class="maximum-speed punt-return power-{{ team.players[x].maximum_speed }}">{{ team.players[x].maximum_speed }}</li>
-        <li class="hitting-power power-{{ team.players[x].hitting_power }}">{{ team.players[x].hitting_power }}</li>
-        <li class="ball-control power-{{ team.players[x].ball_control }}">{{ team.players[x].ball_control }}</li>
-        <li class="receptions power-{{ team.players[x].receptions }}">{{ team.players[x].receptions }}</li>
-      </ul>
-    </li>
+        <ul class="player-abilities">
+          <li class="running-speed power-{{ team.players[x].running_speed }}">{{ team.players[x].running_speed }}</li>
+          <li class="maximum-speed power-{{ team.players[x].maximum_speed }}">{{ team.players[x].maximum_speed }}</li>
+          <li class="maximum-speed kick-return power-{{ team.players[x].maximum_speed }}">{{ team.players[x].maximum_speed }}</li>
+          <li class="maximum-speed punt-return power-{{ team.players[x].maximum_speed }}">{{ team.players[x].maximum_speed }}</li>
+          <li class="hitting-power power-{{ team.players[x].hitting_power }}">{{ team.players[x].hitting_power }}</li>
+          <li class="ball-control power-{{ team.players[x].ball_control }}">{{ team.players[x].ball_control }}</li>
+          <li class="receptions power-{{ team.players[x].receptions }}">{{ team.players[x].receptions }}</li>
+        </ul>
+      </li>
     {% endfor %}
   </ol>
+
   <p class="ability-notes rb-wr-te-notes">{{ site.rb-wr-te-text }}</p>
   <p class="ability-notes kick-return-notes">{{ site.kr-text }}</p>
   <p class="ability-notes punt-return-notes">{{ site.pr-text }}</p>
@@ -159,23 +143,23 @@ team: bills
     </li>
 
     {% for x in (12..16) %}
-    <li class="player">
-      <i class="headshot headshot-{{ team.short_name }} headshot-{{ team.players[x].position }}"></i>
+      <li class="player">
+        <i class="headshot headshot-{{ team.short_name }} headshot-{{ team.players[x].position }}"></i>
 
-      <section class="player-info">
-        <h3 class="player-name">{{ team.players[x].name }}</h3>
-        <h4 class="player-position-number">{{ team.players[x].position }} {{ team.players[x].number }}</h4>
-      </section>
+        <section class="player-info">
+          <h3 class="player-name">{{ team.players[x].name }}</h3>
+          <h4 class="player-position-number">{{ team.players[x].position }} {{ team.players[x].number }}</h4>
+        </section>
 
-      <section class="player-ranking">
-        <h5>{{ team.players[x].ranking }}</h5>
-      </section>
+        <section class="player-ranking">
+          <h5>{{ team.players[x].ranking }}</h5>
+        </section>
 
-      <ul class="player-abilities">
-        <li class="maximum-speed power-{{ team.players[x].maximum_speed }}">{{ team.players[x].maximum_speed }}</li>
-        <li class="hitting-power power-{{ team.players[x].hitting_power }}">{{ team.players[x].hitting_power }}</li>
-      </ul>
-    </li>
+        <ul class="player-abilities">
+          <li class="maximum-speed power-{{ team.players[x].maximum_speed }}">{{ team.players[x].maximum_speed }}</li>
+          <li class="hitting-power power-{{ team.players[x].hitting_power }}">{{ team.players[x].hitting_power }}</li>
+        </ul>
+      </li>
     {% endfor %}
   </ol>
   <p class="ability-notes">{{ site.ol-text }}</p>
@@ -195,74 +179,36 @@ team: bills
       </section>
 
       <ul class="player-abilities">
-        <li class="rushing-speed">RS</li>
+        <li class="running-speed">RS</li>
         <li class="rushing-power">RP</li>
         <li class="maximum-speed">MS</li>
         <li class="hitting-power">HP</li>
-        <li class="interceptions">I</li>
+        <li class="pass-interceptions">I</li>
       </ul>
     </li>
 
+    {% for x in (17..19) %}
     <li class="player">
-      <i class="headshot headshot-{{ team.short_name }} headshot-re"></i>
+      <i class="headshot headshot-{{ team.short_name }} headshot-{{ team.players[x].position }}"></i>
 
       <section class="player-info">
-        <h3 class="player-name">Bruce Smith</h3>
-        <h4 class="player-position-number">RE #78</h4>
+        <h3 class="player-name">{{ team.players[x].name }}</h3>
+        <h4 class="player-position-number">{{ team.players[x].position }} {{ team.players[x].number }}</h4>
       </section>
 
       <section class="player-ranking">
-        <h5>1</h5>
+        <h5>{{ team.players[x].ranking }}</h5>
       </section>
 
       <ul class="player-abilities">
-        <li class="rushing-speed power-44">44</li>
-        <li class="rushing-power power-56">56</li>
-        <li class="maximum-speed power-69">69</li>
-        <li class="hitting-power power-75">75</li>
-        <li class="interceptions power-25">25</li>
+        <li class="running-speed power-{{ team.players[x].running_speed }}">{{ team.players[x].running_speed }}</li>
+        <li class="rushing-power power-{{ team.players[x].rushing_power }}">{{ team.players[x].rushing_power }}</li>
+        <li class="maximum-speed power-{{ team.players[x].maximum_speed }}">{{ team.players[x].maximum_speed }}</li>
+        <li class="hitting-power power-{{ team.players[x].hitting_power }}">{{ team.players[x].hitting_power }}</li>
+        <li class="pass-interceptions power-{{ team.players[x].pass_interceptions }}">{{ team.players[x].pass_interceptions }}</li>
       </ul>
     </li>
-    <li class="player">
-      <i class="headshot headshot-{{ team.short_name }} headshot-nt"></i>
-
-      <section class="player-info">
-        <h3 class="player-name">Jeff Wright</h3>
-        <h4 class="player-position-number">NT #91</h4>
-      </section>
-
-      <section class="player-ranking">
-        <h5>73</h5>
-      </section>
-
-      <ul class="player-abilities">
-        <li class="rushing-speed power-25">25</li>
-        <li class="rushing-power power-31">31</li>
-        <li class="maximum-speed power-31">31</li>
-        <li class="hitting-power power-50">50</li>
-        <li class="interceptions power-19">19</li>
-      </ul>
-    </li>
-    <li class="player">
-      <i class="headshot headshot-{{ team.short_name }} headshot-le"></i>
-
-      <section class="player-info">
-        <h3 class="player-name">Leon Seals</h3>
-        <h4 class="player-position-number">LE #96</h4>
-      </section>
-
-      <section class="player-ranking">
-        <h5>62</h5>
-      </section>
-
-      <ul class="player-abilities">
-        <li class="rushing-speed power-25">25</li>
-        <li class="rushing-power power-31">31</li>
-        <li class="maximum-speed power-38">38</li>
-        <li class="hitting-power power-44">44</li>
-        <li class="interceptions power-31">31</li>
-      </ul>
-    </li>
+    {% endfor %}
   </ol>
   <p class="ability-notes">{{ site.defense-text }}</p>
 </section>
@@ -281,97 +227,38 @@ team: bills
       </section>
 
       <ul class="player-abilities">
-        <li class="rushing-speed">RS</li>
+        <li class="running-speed">RS</li>
         <li class="rushing-power">RP</li>
         <li class="maximum-speed">MS</li>
         <li class="hitting-power">HP</li>
-        <li class="interceptions">I</li>
+        <li class="pass-interceptions">I</li>
       </ul>
     </li>
+    {% for x in (20..23) %}
     <li class="player">
-      <i class="headshot headshot-{{ team.short_name }} headshot-rolb"></i>
+      <i class="headshot headshot-{{ team.short_name }} headshot-{{ team.players[x].position }}"></i>
 
       <section class="player-info">
-        <h3 class="player-name">Darryl Talley</h3>
-        <h4 class="player-position-number">ROLB #56</h4>
+        <h3 class="player-name">{{ team.players[x].name }}</h3>
+        <h4 class="player-position-number">{{ team.players[x].position }} {{ team.players[x].number }}</h4>
       </section>
 
       <section class="player-ranking">
-        <h5>41</h5>
+        <h5>{{ team.players[x].ranking }}</h5>
       </section>
 
       <ul class="player-abilities">
-        <li class="rushing-speed power-31">31</li>
-        <li class="rushing-power power-44">44</li>
-        <li class="maximum-speed power-50">50</li>
-        <li class="hitting-power power-38">38</li>
-        <li class="interceptions power-44">44</li>
+        <li class="running-speed power-{{ team.players[x].running_speed }}">{{ team.players[x].running_speed }}</li>
+        <li class="rushing-power power-{{ team.players[x].rushing_power }}">{{ team.players[x].rushing_power }}</li>
+        <li class="maximum-speed power-{{ team.players[x].maximum_speed }}">{{ team.players[x].maximum_speed }}</li>
+        <li class="hitting-power power-{{ team.players[x].hitting_power }}">{{ team.players[x].hitting_power }}</li>
+        <li class="pass-interceptions power-{{ team.players[x].pass_interceptions }}">{{ team.players[x].pass_interceptions }}</li>
       </ul>
     </li>
-    <li class="player">
-      <i class="headshot headshot-{{ team.short_name }} headshot-rilb"></i>
-
-      <section class="player-info">
-        <h3 class="player-name">Ray Bentley</h3>
-        <h4 class="player-position-number">RILB #50</h4>
-      </section>
-
-      <section class="player-ranking">
-        <h5>73</h5>
-      </section>
-
-      <ul class="player-abilities">
-        <li class="rushing-speed power-25">25</li>
-        <li class="rushing-power power-31">31</li>
-        <li class="maximum-speed power-38">38</li>
-        <li class="hitting-power power-38">38</li>
-        <li class="interceptions power-31">31</li>
-      </ul>
-    </li>
-    <li class="player">
-      <i class="headshot headshot-{{ team.short_name }} headshot-lilb"></i>
-
-      <section class="player-info">
-        <h3 class="player-name">Shane Conlan</h3>
-        <h4 class="player-position-number">LILB #58</h4>
-      </section>
-
-      <section class="player-ranking">
-        <h5>31</h5>
-      </section>
-
-      <ul class="player-abilities">
-        <li class="rushing-speed power-31">31</li>
-        <li class="rushing-power power-44">44</li>
-        <li class="maximum-speed power-50">50</li>
-        <li class="hitting-power power-56">56</li>
-        <li class="interceptions power-19">19</li>
-      </ul>
-    </li>
-    <li class="player">
-      <i class="headshot headshot-{{ team.short_name }} headshot-lolb"></i>
-
-      <section class="player-info">
-        <h3 class="player-name">C. Bennett</h3>
-        <h4 class="player-position-number">LOLB #97</h4>
-      </section>
-
-      <section class="player-ranking">
-        <h5>6</h5>
-      </section>
-
-      <ul class="player-abilities">
-        <li class="rushing-speed power-38">38</li>
-        <li class="rushing-power power-50">50</li>
-        <li class="maximum-speed power-63">63</li>
-        <li class="hitting-power power-63">63</li>
-        <li class="interceptions power-19">19</li>
-      </ul>
-    </li>
+    {% endfor %}
   </ol>
   <p class="ability-notes">{{ site.defense-text }}</p>
 </section>
-
 
 <!-- Secondary -->
 <section class="players secondary">
@@ -387,93 +274,36 @@ team: bills
       </section>
 
       <ul class="player-abilities">
-        <li class="rushing-speed">RS</li>
+        <li class="running-speed">RS</li>
         <li class="rushing-power">RP</li>
         <li class="maximum-speed">MS</li>
         <li class="hitting-power">HP</li>
-        <li class="interceptions">I</li>
+        <li class="pass-interceptions">I</li>
       </ul>
     </li>
+
+    {% for x in (24..27) %}
     <li class="player">
-      <i class="headshot headshot-{{ team.short_name }} headshot-rcb"></i>
+      <i class="headshot headshot-{{ team.short_name }} headshot-{{ team.players[x].position }}"></i>
 
       <section class="player-info">
-        <h3 class="player-name">Nate Odomes</h3>
-        <h4 class="player-position-number">RCB #37</h4>
+        <h3 class="player-name">{{ team.players[x].name }}</h3>
+        <h4 class="player-position-number">{{ team.players[x].position }} {{ team.players[x].number }}</h4>
       </section>
 
       <section class="player-ranking">
-        <h5>55</h5>
+        <h5>{{ team.players[x].ranking }}</h5>
       </section>
 
       <ul class="player-abilities">
-        <li class="rushing-speed power-38">38</li>
-        <li class="rushing-power power-44">44</li>
-        <li class="maximum-speed power-56">56</li>
-        <li class="hitting-power power-38">38</li>
-        <li class="interceptions power-38">38</li>
+        <li class="running-speed power-{{ team.players[x].running_speed }}">{{ team.players[x].running_speed }}</li>
+        <li class="rushing-power power-{{ team.players[x].rushing_power }}">{{ team.players[x].rushing_power }}</li>
+        <li class="maximum-speed power-{{ team.players[x].maximum_speed }}">{{ team.players[x].maximum_speed }}</li>
+        <li class="hitting-power power-{{ team.players[x].hitting_power }}">{{ team.players[x].hitting_power }}</li>
+        <li class="pass-interceptions power-{{ team.players[x].pass_interceptions }}">{{ team.players[x].pass_interceptions }}</li>
       </ul>
     </li>
-    <li class="player">
-      <i class="headshot headshot-{{ team.short_name }} headshot-lcb"></i>
-
-      <section class="player-info">
-        <h3 class="player-name">Kirby Jackson</h3>
-        <h4 class="player-position-number">LCB #47</h4>
-      </section>
-
-      <section class="player-ranking">
-        <h5>72</h5>
-      </section>
-
-      <ul class="player-abilities">
-        <li class="rushing-speed power-25">25</li>
-        <li class="rushing-power power-31">31</li>
-        <li class="maximum-speed power-44">44</li>
-        <li class="hitting-power power-38">38</li>
-        <li class="interceptions power-50">50</li>
-      </ul>
-    </li>
-    <li class="player">
-      <i class="headshot headshot-{{ team.short_name }} headshot-fs"></i>
-
-      <section class="player-info">
-        <h3 class="player-name">Mark Kelso</h3>
-        <h4 class="player-position-number">FS #38</h4>
-      </section>
-
-      <section class="player-ranking">
-        <h5>63</h5>
-      </section>
-
-      <ul class="player-abilities">
-        <li class="rushing-speed power-31">31</li>
-        <li class="rushing-power power-38">38</li>
-        <li class="maximum-speed power-50">50</li>
-        <li class="hitting-power power-38">38</li>
-        <li class="interceptions power-44">44</li>
-      </ul>
-    </li>
-    <li class="player">
-      <i class="headshot headshot-{{ team.short_name }} headshot-ss"></i>
-
-      <section class="player-info">
-        <h3 class="player-name">Leonard Smith</h3>
-        <h4 class="player-position-number">SS #46</h4>
-      </section>
-
-      <section class="player-ranking">
-        <h5>56</h5>
-      </section>
-
-      <ul class="player-abilities ratings-5">
-        <li class="rushing-speed power-31">31</li>
-        <li class="rushing-power power-38">38</li>
-        <li class="maximum-speed power-50">50</li>
-        <li class="hitting-power power-44">44</li>
-        <li class="interceptions power-44">44</li>
-      </ul>
-    </li>
+    {% endfor %}
   </ol>
   <p class="ability-notes">{{ site.defense-text }}</p>
 </section>
