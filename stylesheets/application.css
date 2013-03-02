@@ -579,95 +579,98 @@ header {
 .headshot-colts {
   background-image: url("../images/players/colts.png"); }
 
-.headshot-QB1 {
+.headshot-0 {
   background-position: 0px 0; }
 
-.headshot-QB2 {
+.headshot-1 {
   background-position: -32px 0; }
 
-.headshot-RB1 {
+.headshot-2 {
   background-position: -64px 0; }
 
-.headshot-RB2 {
+.headshot-3 {
   background-position: -96px 0; }
 
-.headshot-RB3 {
+.headshot-4 {
   background-position: -128px 0; }
 
-.headshot-RB4 {
+.headshot-5 {
   background-position: -160px 0; }
 
-.headshot-WR1 {
+.headshot-6 {
   background-position: -192px 0; }
 
-.headshot-WR2 {
+.headshot-7 {
   background-position: -224px 0; }
 
-.headshot-WR3 {
+.headshot-8 {
   background-position: -256px 0; }
 
-.headshot-WR4 {
+.headshot-9 {
   background-position: -288px 0; }
 
-.headshot-TE1 {
+.headshot-10 {
   background-position: -320px 0; }
 
-.headshot-TE2 {
+.headshot-11 {
   background-position: -352px 0; }
 
-.headshot-C {
+.headshot-12 {
   background-position: -384px 0; }
 
-.headshot-LG {
+.headshot-13 {
   background-position: -416px 0; }
 
-.headshot-RG {
+.headshot-14 {
   background-position: -448px 0; }
 
-.headshot-LT {
+.headshot-15 {
   background-position: -480px 0; }
 
-.headshot-RT {
+.headshot-16 {
   background-position: -512px 0; }
 
-.headshot-RE {
+.headshot-17 {
   background-position: -544px 0; }
 
-.headshot-NT {
+.headshot-18 {
   background-position: -576px 0; }
 
-.headshot-LE {
+.headshot-19 {
   background-position: -608px 0; }
 
-.headshot-ROLB {
+.headshot-20 {
   background-position: -640px 0; }
 
-.headshot-RILB {
+.headshot-21 {
   background-position: -672px 0; }
 
-.headshot-LILB {
+.headshot-22 {
   background-position: -704px 0; }
 
-.headshot-LOLB {
+.headshot-23 {
   background-position: -736px 0; }
 
-.headshot-RCB {
+.headshot-24 {
   background-position: -768px 0; }
 
-.headshot-LCB {
+.headshot-25 {
   background-position: -800px 0; }
 
-.headshot-FS {
+.headshot-26 {
   background-position: -832px 0; }
 
-.headshot-SS {
+.headshot-27 {
   background-position: -864px 0; }
 
-.headshot-K {
+.headshot-28 {
   background-position: -896px 0; }
 
-.headshot-P {
+.headshot-29 {
   background-position: -928px 0; }
+
+.headshot-30 {
+  background-position: -960px 0; }
 
 footer {
   background: #111;

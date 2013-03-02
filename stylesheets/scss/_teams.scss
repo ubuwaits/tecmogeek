@@ -595,12 +595,9 @@ $positions: QB1 QB2 RB1 RB2 RB3 RB4 WR1 WR2 WR3 WR4 TE1 TE2 C LG RG LT RT RE NT 
   background-image: url("../images/players/colts.png");
 }
 
-$z: 0;
-@each $position in $positions {
-  .headshot-#{$position} {
+@for $z from 0 through 30 {
+  .headshot-#{$z} {
     background-position: $z * -32px 0;
   }
-
-  $z: $z + 1;
 }
 
