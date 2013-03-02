@@ -1,13 +1,11 @@
 ---
 layout: default
-title: Buffalo Bills
-team: bills
+title: Indianapolis Colts
+team: colts
 ---
 
-{% jsonball team from file _data/bills.json %}
-
 <header>
-  <h1><i class="helmet helmet-{{ team.short_name }}"></i> {{ team.full_name }}</h1>
+  <h1><i class="helmet helmet-colts"></i> Indianapolis Colts</h1>
 </header>
 
 <!-- Quarterbacks -->
@@ -29,44 +27,43 @@ team: bills
         <li class="pass-control">PC</li>
         <li class="avoid-pass-block">APB</li>
       </ul>
-    </li>
+      </li>
 
     <li class="player">
-    <i class="headshot headshot-{{ team.short_name }} headshot-qb1"></i>
+      <i class="headshot headshot-colts headshot-qb1"></i>
 
       <section class="player-info">
-        <h3 class="player-name">{{ team.players[0].name }}</h3>
-        <h4 class="player-position-number">{{ team.players[0].position }} {{ team.players[0].number }}</h4>
+        <h3 class="player-name">Jeff George</h3>
+        <h4 class="player-position-number">QB1 #11</h4>
       </section>
 
       <section class="player-ranking">
-        <h5>{{ team.players[0].ranking }}</h5>
+        <h5>54</h5>
       </section>
 
       <ul class="player-abilities">
-        <li class="maximum-speed power-{{ team.players[0].maximum_speed }}">{{ team.players[0].maximum_speed }}</li>
-        <li class="passing-speed power-{{ team.players[0].passing_speed }}">{{ team.players[0].passing_speed }}</li>
-        <li class="pass-control power-{{ team.players[0].pass_control }}">{{ team.players[0].pass_control }}</li>
-        <li class="avoid-pass-block power-{{ team.players[0].avoid_pass_block }}">{{ team.players[0].avoid_pass_block }}</li>
+        <li class="maximum-speed power-6">6</li>
+        <li class="passing-speed power-50">50</li>
+        <li class="pass-control power-31">31</li>
+        <li class="avoid-pass-block power-25">25</li>
       </ul>
     </li>
     <li class="player">
-      <i class="headshot headshot-{{ team.short_name }} headshot-qb2"></i>
-
+      <i class="headshot headshot-colts headshot-qb2"></i>
       <section class="player-info">
-        <h3 class="player-name">{{ team.players[1].name }}</h3>
-        <h4 class="player-position-number">{{ team.players[1].position }} {{ team.players[1].number }}</h4>
+        <h3 class="player-name">Jack Trudeau</h3>
+        <h4 class="player-position-number">QB2 #10</h4>
       </section>
 
       <section class="player-ranking">
-        <h5>{{ team.players[1].ranking }}</h5>
+        <h5>46</h5>
       </section>
 
       <ul class="player-abilities">
-        <li class="maximum-speed power-{{ team.players[1].maximum_speed }}">{{ team.players[1].maximum_speed }}</li>
-        <li class="passing-speed power-{{ team.players[1].passing_speed }}">{{ team.players[1].passing_speed }}</li>
-        <li class="pass-control power-{{ team.players[1].pass_control }}">{{ team.players[1].pass_control }}</li>
-        <li class="avoid-pass-block power-{{ team.players[1].avoid_pass_block }}">{{ team.players[1].avoid_pass_block }}</li>
+        <li class="maximum-speed power-13">13</li>
+        <li class="passing-speed power-31">31</li>
+        <li class="pass-control power-38">38</li>
+        <li class="avoid-pass-block power-50">50</li>
       </ul>
     </li>
   </ol>
@@ -106,33 +103,256 @@ team: bills
       </ul>
     </li>
 
-    {% for x in (2..11) %}
     <li class="player">
-      <i class="headshot headshot-{{ team.short_name }} headshot-{{ team.players[x].position }}"></i>
+      <i class="headshot headshot-colts headshot-rb1"></i>
 
       <section class="player-info">
-        <h3 class="player-name">{{ team.players[x].name }}</h3>
-        <h4 class="player-position-number">{{ team.players[x].position }} {{ team.players[x].number }}</h4>
+        <h3 class="player-name">Thurman Thomas</h3>
+        <h4 class="player-position-number">RB1 #34</h4>
       </section>
 
       <section class="player-ranking">
-        <h5 class="rushing-ranking">{{ team.players[x].rushing_ranking }}</h5>
-        <h5 class="receiving-ranking">{{ team.players[x].receiving_ranking }}</h5>
-        <h5 class="kick-return-ranking">{{ team.players[x].kick_return_ranking }}</h5>
-        <h5 class="punt-return-ranking">{{ team.players[x].punk_return_ranking }}</h5>
+        <h5 class="rushing-rating">8</h5>
+        <h5 class="receiving-rating">15</h5>
+        <h5 class="kick-return-rating">198</h5>
+        <h5 class="punt-return-rating">108</h5>
       </section>
 
       <ul class="player-abilities">
-        <li class="running-speed power-{{ team.players[x].running_speed }}">{{ team.players[x].running_speed }}</li>
-        <li class="maximum-speed power-{{ team.players[x].maximum_speed }}">{{ team.players[x].maximum_speed }}</li>
-        <li class="maximum-speed kick-return power-{{ team.players[x].maximum_speed }}">{{ team.players[x].maximum_speed }}</li>
-        <li class="maximum-speed punt-return power-{{ team.players[x].maximum_speed }}">{{ team.players[x].maximum_speed }}</li>
-        <li class="hitting-power power-{{ team.players[x].hitting_power }}">{{ team.players[x].hitting_power }}</li>
-        <li class="ball-control power-{{ team.players[x].ball_control }}">{{ team.players[x].ball_control }}</li>
-        <li class="receptions power-{{ team.players[x].receptions }}">{{ team.players[x].receptions }}</li>
+        <li class="running-speed power-38">38</li>
+        <li class="maximum-speed power-63">63</li>
+        <li class="maximum-speed kick-return power-19">19</li>
+        <li class="maximum-speed punt-return power-50">50</li>
+        <li class="hitting-power power-25">25</li>
+        <li class="ball-control power-75">75</li>
+        <li class="receptions power-50">50</li>
       </ul>
     </li>
-    {% endfor %}
+    <li class="player">
+      <i class="headshot headshot-colts headshot-rb2"></i>
+
+      <section class="player-info">
+        <h3 class="player-name">Jamie Mueller</h3>
+        <h4 class="player-position-number">RB2 #41</h4>
+      </section>
+
+      <section class="player-ranking">
+        <h5 class="rushing-rating">130</h5>
+        <h5 class="receiving-rating">220</h5>
+        <h5 class="kick-return-rating">66</h5>
+        <h5 class="punt-return-rating">18</h5>
+      </section>
+
+      <ul class="player-abilities">
+        <li class="running-speed power-44">44</li>
+        <li class="maximum-speed power-25">25</li>
+        <li class="maximum-speed kick-return power-19">19</li>
+        <li class="maximum-speed punt-return power-50">50</li>
+        <li class="hitting-power power-88">88</li>
+        <li class="ball-control power-50">50</li>
+        <li class="receptions power-25">25</li>
+      </ul>
+    </li>
+    <li class="player">
+      <i class="headshot headshot-colts headshot-rb3"></i>
+
+      <section class="player-info">
+        <h3 class="player-name">Kenneth Davis</h3>
+        <h4 class="player-position-number">RB3 #23</h4>
+      </section>
+
+      <section class="player-ranking">
+        <h5 class="rushing-rating">214</h5>
+        <h5 class="receiving-rating">244</h5>
+        <h5 class="kick-return-rating">257</h5>
+        <h5 class="punt-return-rating">114</h5>
+      </section>
+
+      <ul class="player-abilities">
+        <li class="running-speed power-38">38</li>
+        <li class="maximum-speed power-25">25</li>
+        <li class="maximum-speed kick-return power-19">19</li>
+        <li class="maximum-speed punt-return power-50">50</li>
+        <li class="hitting-power power-19">19</li>
+        <li class="ball-control power-50">50</li>
+        <li class="receptions power-31">31</li>
+      </ul>
+    </li>
+    <li class="player">
+      <i class="headshot headshot-colts headshot-rb4"></i>
+
+      <section class="player-info">
+        <h3 class="player-name">Don Smith</h3>
+        <h4 class="player-position-number">RB4 #30</h4>
+      </section>
+
+      <section class="player-ranking">
+        <h5 class="rushing-rating">215</h5>
+        <h5 class="receiving-rating">245</h5>
+        <h5 class="kick-return-rating">258</h5>
+        <h5 class="punt-return-rating">115</h5>
+      </section>
+
+      <ul class="player-abilities">
+        <li class="running-speed power-38">38</li>
+        <li class="maximum-speed power-25">25</li>
+        <li class="maximum-speed kick-return power-19">19</li>
+        <li class="maximum-speed punt-return power-50">50</li>
+        <li class="hitting-power power-19">19</li>
+        <li class="ball-control power-50">50</li>
+        <li class="receptions power-31">31</li>
+      </ul>
+    </li>
+    <li class="player">
+      <i class="headshot headshot-colts headshot-wr1"></i>
+
+      <section class="player-info">
+        <h3 class="player-name">James Lofton</h3>
+        <h4 class="player-position-number">WR1 #80</h4>
+      </section>
+
+      <section class="player-ranking">
+        <h5 class="rushing-rating">138</h5>
+        <h5 class="receiving-rating">77</h5>
+        <h5 class="kick-return-rating">274</h5>
+        <h5 class="punt-return-rating">204</h5>
+      </section>
+
+      <ul class="player-abilities">
+        <li class="running-speed power-25">25</li>
+        <li class="maximum-speed power-38">38</li>
+        <li class="maximum-speed kick-return power-19">19</li>
+        <li class="maximum-speed punt-return power-50">50</li>
+        <li class="hitting-power power-13">13</li>
+        <li class="ball-control power-50">50</li>
+        <li class="receptions power-56">56</li>
+      </ul>
+    </li>
+    <li class="player">
+      <i class="headshot headshot-colts headshot-wr2"></i>
+
+      <section class="player-info">
+        <h3 class="player-name">Andre Reed</h3>
+        <h4 class="player-position-number">WR2 #83</h4>
+      </section>
+
+      <section class="player-ranking">
+        <h5 class="rushing-rating">27</h5>
+        <h5 class="receiving-rating">12</h5>
+        <h5 class="kick-return-rating">273</h5>
+        <h5 class="punt-return-rating">203</h5>
+      </section>
+
+      <ul class="player-abilities">
+        <li class="running-speed power-25">25</li>
+        <li class="maximum-speed power-56">56</li>
+        <li class="maximum-speed kick-return power-19">19</li>
+        <li class="maximum-speed punt-return power-50">50</li>
+        <li class="hitting-power power-13">13</li>
+        <li class="ball-control power-56">56</li>
+        <li class="receptions power-69">69</li>
+      </ul>
+    </li>
+    <li class="player">
+      <i class="headshot headshot-colts headshot-wr3"></i>
+
+      <section class="player-info">
+        <h3 class="player-name">Don Beebe</h3>
+        <h4 class="player-position-number">WR3 #82</h4>
+      </section>
+
+      <section class="player-ranking">
+        <h5 class="rushing-rating">96</h5>
+        <h5 class="receiving-rating">94</h5>
+        <h5 class="kick-return-rating">275</h5>
+        <h5 class="punt-return-rating">205</h5>
+      </section>
+
+      <ul class="player-abilities">
+        <li class="running-speed power-25">25</li>
+        <li class="maximum-speed power-44">44</li>
+        <li class="maximum-speed kick-return power-19">19</li>
+        <li class="maximum-speed punt-return power-50">50</li>
+        <li class="hitting-power power-13">13</li>
+        <li class="ball-control power-50">50</li>
+        <li class="receptions power-44">44</li>
+      </ul>
+    </li>
+    <li class="player">
+      <i class="headshot headshot-colts headshot-wr4"></i>
+
+      <section class="player-info">
+        <h3 class="player-name">Al Edwards</h3>
+        <h4 class="player-position-number">WR4 #85</h4>
+      </section>
+
+      <section class="player-ranking">
+        <h5 class="rushing-rating">279</h5>
+        <h5 class="receiving-rating">233</h5>
+        <h5 class="kick-return-rating">276</h5>
+        <h5 class="punt-return-rating">206</h5>
+      </section>
+
+      <ul class="player-abilities">
+        <li class="running-speed power-25">25</li>
+        <li class="maximum-speed power-19">19</li>
+        <li class="maximum-speed kick-return power-19">19</li>
+        <li class="maximum-speed punt-return power-50">50</li>
+        <li class="hitting-power power-13">13</li>
+        <li class="ball-control power-50">50</li>
+        <li class="receptions power-44">44</li>
+      </ul>
+    </li>
+    <li class="player">
+      <i class="headshot headshot-colts headshot-te1"></i>
+
+      <section class="player-info">
+        <h3 class="player-name">Keith Mckeller</h3>
+        <h4 class="player-position-number">TE1 #84</h4>
+      </section>
+
+      <section class="player-ranking">
+        <h5 class="rushing-rating">85</h5>
+        <h5 class="receiving-rating">86</h5>
+        <h5 class="kick-return-rating">259</h5>
+        <h5 class="punt-return-rating">116</h5>
+      </section>
+
+      <ul class="player-abilities">
+        <li class="running-speed power-25">25</li>
+        <li class="maximum-speed power-38">38</li>
+        <li class="maximum-speed kick-return power-19">19</li>
+        <li class="maximum-speed punt-return power-50">50</li>
+        <li class="hitting-power power-50">50</li>
+        <li class="ball-control power-50">50</li>
+        <li class="receptions power-50">50</li>
+      </ul>
+    </li>
+    <li class="player">
+      <i class="headshot headshot-colts headshot-te2"></i>
+
+      <section class="player-info">
+        <h3 class="player-name">Pete Metzelaars</h3>
+        <h4 class="player-position-number">TE2 #88</h4>
+      </section>
+
+      <section class="player-ranking">
+        <h5 class="rushing-rating">257</h5>
+        <h5 class="receiving-rating">269</h5>
+        <h5 class="kick-return-rating">266</h5>
+        <h5 class="punt-return-rating">139</h5>
+      </section>
+
+      <ul class="player-abilities">
+        <li class="running-speed power-25">25</li>
+        <li class="maximum-speed power-19">19</li>
+        <li class="maximum-speed kick-return power-19">19</li>
+        <li class="maximum-speed punt-return power-50">50</li>
+        <li class="hitting-power power-44">44</li>
+        <li class="ball-control power-50">50</li>
+        <li class="receptions power-31">31</li>
+      </ul>
+    </li>
   </ol>
   <p class="ability-notes rb-wr-te-notes">{{ site.rb-wr-te-text }}</p>
   <p class="ability-notes kick-return-notes">{{ site.kr-text }}</p>
@@ -158,25 +378,91 @@ team: bills
       </ul>
     </li>
 
-    {% for x in (12..16) %}
     <li class="player">
-      <i class="headshot headshot-{{ team.short_name }} headshot-{{ team.players[x].position }}"></i>
+      <i class="headshot headshot-colts headshot-c"></i>
 
       <section class="player-info">
-        <h3 class="player-name">{{ team.players[x].name }}</h3>
-        <h4 class="player-position-number">{{ team.players[x].position }} {{ team.players[x].number }}</h4>
+        <h3 class="player-name">Kent Hull</h3>
+        <h4 class="player-position-number">C #67</h4>
       </section>
 
       <section class="player-ranking">
-        <h5>{{ team.players[x].ranking }}</h5>
+        <h5>14</h5>
       </section>
 
       <ul class="player-abilities">
-        <li class="maximum-speed power-{{ team.players[x].maximum_speed }}">{{ team.players[x].maximum_speed }}</li>
-        <li class="hitting-power power-{{ team.players[x].hitting_power }}">{{ team.players[x].hitting_power }}</li>
+        <li class="maximum-speed power-38">38</li>
+        <li class="hitting-power power-69">69</li>
       </ul>
     </li>
-    {% endfor %}
+    <li class="player">
+      <i class="headshot headshot-colts headshot-lg"></i>
+
+      <section class="player-info">
+        <h3 class="player-name">Jim Ritcher</h3>
+        <h4 class="player-position-number">LG #51</h4>
+      </section>
+
+      <section class="player-ranking">
+        <h5>29</h5>
+      </section>
+
+      <ul class="player-abilities">
+        <li class="maximum-speed power-38">38</li>
+        <li class="hitting-power power-56">56</li>
+      </ul>
+    </li>
+    <li class="player">
+      <i class="headshot headshot-colts headshot-rg"></i>
+
+      <section class="player-info">
+        <h3 class="player-name">John Davis</h3>
+        <h4 class="player-position-number">RG #65</h4>
+      </section>
+
+      <section class="player-ranking">
+        <h5>62</h5>
+      </section>
+
+      <ul class="player-abilities">
+        <li class="maximum-speed power-25">25</li>
+        <li class="hitting-power power-63">63</li>
+      </ul>
+    </li>
+    <li class="player">
+      <i class="headshot headshot-colts headshot-lt"></i>
+
+      <section class="player-info">
+        <h3 class="player-name">Will Wolford</h3>
+        <h4 class="player-position-number">LT #69</h4>
+      </section>
+
+      <section class="player-ranking">
+        <h5>106</h5>
+      </section>
+
+      <ul class="player-abilities">
+        <li class="maximum-speed power-25">25</li>
+        <li class="hitting-power power-50">50</li>
+      </ul>
+    </li>
+    <li class="player">
+      <i class="headshot headshot-colts headshot-rt"></i>
+
+      <section class="player-info">
+        <h3 class="player-name">Howard Ballard</h3>
+        <h4 class="player-position-number">RT #75</h4>
+      </section>
+
+      <section class="player-ranking">
+        <h5>100</h5>
+      </section>
+
+      <ul class="player-abilities">
+        <li class="maximum-speed power-19">19</li>
+        <li class="hitting-power power-63">63</li>
+      </ul>
+    </li>
   </ol>
   <p class="ability-notes">{{ site.ol-text }}</p>
 </section>
@@ -204,7 +490,7 @@ team: bills
     </li>
 
     <li class="player">
-      <i class="headshot headshot-{{ team.short_name }} headshot-re"></i>
+      <i class="headshot headshot-colts headshot-re"></i>
 
       <section class="player-info">
         <h3 class="player-name">Bruce Smith</h3>
@@ -224,7 +510,7 @@ team: bills
       </ul>
     </li>
     <li class="player">
-      <i class="headshot headshot-{{ team.short_name }} headshot-nt"></i>
+      <i class="headshot headshot-colts headshot-nt"></i>
 
       <section class="player-info">
         <h3 class="player-name">Jeff Wright</h3>
@@ -244,7 +530,7 @@ team: bills
       </ul>
     </li>
     <li class="player">
-      <i class="headshot headshot-{{ team.short_name }} headshot-le"></i>
+      <i class="headshot headshot-colts headshot-le"></i>
 
       <section class="player-info">
         <h3 class="player-name">Leon Seals</h3>
@@ -289,7 +575,7 @@ team: bills
       </ul>
     </li>
     <li class="player">
-      <i class="headshot headshot-{{ team.short_name }} headshot-rolb"></i>
+      <i class="headshot headshot-colts headshot-rolb"></i>
 
       <section class="player-info">
         <h3 class="player-name">Darryl Talley</h3>
@@ -309,7 +595,7 @@ team: bills
       </ul>
     </li>
     <li class="player">
-      <i class="headshot headshot-{{ team.short_name }} headshot-rilb"></i>
+      <i class="headshot headshot-colts headshot-rilb"></i>
 
       <section class="player-info">
         <h3 class="player-name">Ray Bentley</h3>
@@ -329,7 +615,7 @@ team: bills
       </ul>
     </li>
     <li class="player">
-      <i class="headshot headshot-{{ team.short_name }} headshot-lilb"></i>
+      <i class="headshot headshot-colts headshot-lilb"></i>
 
       <section class="player-info">
         <h3 class="player-name">Shane Conlan</h3>
@@ -349,7 +635,7 @@ team: bills
       </ul>
     </li>
     <li class="player">
-      <i class="headshot headshot-{{ team.short_name }} headshot-lolb"></i>
+      <i class="headshot headshot-colts headshot-lolb"></i>
 
       <section class="player-info">
         <h3 class="player-name">C. Bennett</h3>
@@ -395,7 +681,7 @@ team: bills
       </ul>
     </li>
     <li class="player">
-      <i class="headshot headshot-{{ team.short_name }} headshot-rcb"></i>
+      <i class="headshot headshot-colts headshot-rcb"></i>
 
       <section class="player-info">
         <h3 class="player-name">Nate Odomes</h3>
@@ -415,7 +701,7 @@ team: bills
       </ul>
     </li>
     <li class="player">
-      <i class="headshot headshot-{{ team.short_name }} headshot-lcb"></i>
+      <i class="headshot headshot-colts headshot-lcb"></i>
 
       <section class="player-info">
         <h3 class="player-name">Kirby Jackson</h3>
@@ -435,7 +721,7 @@ team: bills
       </ul>
     </li>
     <li class="player">
-      <i class="headshot headshot-{{ team.short_name }} headshot-fs"></i>
+      <i class="headshot headshot-colts headshot-fs"></i>
 
       <section class="player-info">
         <h3 class="player-name">Mark Kelso</h3>
@@ -455,7 +741,7 @@ team: bills
       </ul>
     </li>
     <li class="player">
-      <i class="headshot headshot-{{ team.short_name }} headshot-ss"></i>
+      <i class="headshot headshot-colts headshot-ss"></i>
 
       <section class="player-info">
         <h3 class="player-name">Leonard Smith</h3>
@@ -497,7 +783,7 @@ team: bills
       </ul>
     </li>
     <li class="player">
-      <i class="headshot headshot-{{ team.short_name }} headshot-k"></i>
+      <i class="headshot headshot-colts headshot-k"></i>
 
       <section class="player-info">
         <h3 class="player-name">Scott Norwood</h3>
@@ -536,7 +822,7 @@ team: bills
       </ul>
     </li>
     <li class="player">
-      <i class="headshot headshot-{{ team.short_name }} headshot-p"></i>
+      <i class="headshot headshot-colts headshot-p"></i>
 
       <section class="player-info">
         <h3 class="player-name">Rick Tuten</h3>

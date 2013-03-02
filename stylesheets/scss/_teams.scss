@@ -2,6 +2,10 @@ body.bills {
   background: #cc3333;
 }
 
+body.colts {
+  background: #3333ff;
+}
+
 header {
   margin: 0 0 1em 0;
   padding: 2em 2.5em;
@@ -238,9 +242,9 @@ header {
 // Rushing Rating values
 // *****************************************************************************
 .players.rushing {
-  .receiving-rating,
-  .kick-return-rating,
-  .punt-return-rating,
+  .receiving-ranking,
+  .kick-return-ranking,
+  .punt-return-ranking,
   .kick-return-notes,
   .punt-return-notes {
     display: none;
@@ -279,9 +283,9 @@ header {
 // Receiving Rating values
 // *****************************************************************************
 .players.receiving {
-  .rushing-rating,
-  .kick-return-rating,
-  .punt-return-rating,
+  .rushing-ranking,
+  .kick-return-ranking,
+  .punt-return-ranking,
   .kick-return-notes,
   .punt-return-notes {
     display: none;
@@ -322,10 +326,10 @@ header {
 // Kick return Rating values
 // *****************************************************************************
 .players.kick-return {
-  .rushing-rating,
-  .receiving-rating,
+  .rushing-ranking,
+  .receiving-ranking,
   .rb-wr-te-notes,
-  .punt-return-rating,
+  .punt-return-ranking,
   .punt-return-notes {
     display: none;
   }
@@ -365,9 +369,9 @@ header {
 // Punt return Rating values
 // *****************************************************************************
 .players.punt-return {
-  .rushing-rating,
-  .receiving-rating,
-  .kick-return-rating,
+  .rushing-ranking,
+  .receiving-ranking,
+  .kick-return-ranking,
   .rb-wr-te-notes,
   .kick-return-notes {
     display: none;
@@ -574,7 +578,7 @@ $z: 0;
 
 // Player headshots
 // *****************************************************************************
-$positions: qb1 qb2 rb1 rb2 rb3 rb4 wr1 wr2 wr3 wr4 te1 te2 c lg rg lt rt re nt le rolb rilb lilb lolb rcb lcb fs ss k p;
+$positions: qb1 qb2 RB1 RB2 RB3 RB4 WR1 WR2 WR3 WR4 TE1 TE2 C LG RG LT RT re nt le rolb rilb lilb lolb rcb lcb fs ss k p;
 
 .headshot {
   background-repeat: no-repeat;
@@ -585,6 +589,10 @@ $positions: qb1 qb2 rb1 rb2 rb3 rb4 wr1 wr2 wr3 wr4 te1 te2 c lg rg lt rt re nt 
 
 .headshot-bills {
   background-image: url("../images/players/bills.png");
+}
+
+.headshot-colts {
+  background-image: url("../images/players/colts.png");
 }
 
 $z: 0;

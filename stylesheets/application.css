@@ -70,6 +70,9 @@ body {
 body.bills {
   background: #cc3333; }
 
+body.colts {
+  background: #3333ff; }
+
 header {
   margin: 0 0 1em 0;
   padding: 2em 2.5em; }
@@ -220,9 +223,9 @@ header {
 .players.qb .player-abilities li.avoid-pass-block {
   width: 8%; }
 
-.players.rushing .receiving-rating,
-.players.rushing .kick-return-rating,
-.players.rushing .punt-return-rating,
+.players.rushing .receiving-ranking,
+.players.rushing .kick-return-ranking,
+.players.rushing .punt-return-ranking,
 .players.rushing .kick-return-notes,
 .players.rushing .punt-return-notes {
   display: none; }
@@ -241,9 +244,9 @@ header {
 .players.rushing .player-abilities li.receptions {
   width: 8%; }
 
-.players.receiving .rushing-rating,
-.players.receiving .kick-return-rating,
-.players.receiving .punt-return-rating,
+.players.receiving .rushing-ranking,
+.players.receiving .kick-return-ranking,
+.players.receiving .punt-return-ranking,
 .players.receiving .kick-return-notes,
 .players.receiving .punt-return-notes {
   display: none; }
@@ -264,10 +267,10 @@ header {
 .players.receiving .player-abilities li.receptions {
   width: 38%; }
 
-.players.kick-return .rushing-rating,
-.players.kick-return .receiving-rating,
+.players.kick-return .rushing-ranking,
+.players.kick-return .receiving-ranking,
 .players.kick-return .rb-wr-te-notes,
-.players.kick-return .punt-return-rating,
+.players.kick-return .punt-return-ranking,
 .players.kick-return .punt-return-notes {
   display: none; }
 .players.kick-return .player-abilities li.running-speed {
@@ -286,9 +289,9 @@ header {
 .players.kick-return .player-abilities li.receptions {
   display: none; }
 
-.players.punt-return .rushing-rating,
-.players.punt-return .receiving-rating,
-.players.punt-return .kick-return-rating,
+.players.punt-return .rushing-ranking,
+.players.punt-return .receiving-ranking,
+.players.punt-return .kick-return-ranking,
 .players.punt-return .rb-wr-te-notes,
 .players.punt-return .kick-return-notes {
   display: none; }
@@ -573,55 +576,58 @@ header {
 .headshot-bills {
   background-image: url("../images/players/bills.png"); }
 
+.headshot-colts {
+  background-image: url("../images/players/colts.png"); }
+
 .headshot-qb1 {
   background-position: 0px 0; }
 
 .headshot-qb2 {
   background-position: -32px 0; }
 
-.headshot-rb1 {
+.headshot-RB1 {
   background-position: -64px 0; }
 
-.headshot-rb2 {
+.headshot-RB2 {
   background-position: -96px 0; }
 
-.headshot-rb3 {
+.headshot-RB3 {
   background-position: -128px 0; }
 
-.headshot-rb4 {
+.headshot-RB4 {
   background-position: -160px 0; }
 
-.headshot-wr1 {
+.headshot-WR1 {
   background-position: -192px 0; }
 
-.headshot-wr2 {
+.headshot-WR2 {
   background-position: -224px 0; }
 
-.headshot-wr3 {
+.headshot-WR3 {
   background-position: -256px 0; }
 
-.headshot-wr4 {
+.headshot-WR4 {
   background-position: -288px 0; }
 
-.headshot-te1 {
+.headshot-TE1 {
   background-position: -320px 0; }
 
-.headshot-te2 {
+.headshot-TE2 {
   background-position: -352px 0; }
 
-.headshot-c {
+.headshot-C {
   background-position: -384px 0; }
 
-.headshot-lg {
+.headshot-LG {
   background-position: -416px 0; }
 
-.headshot-rg {
+.headshot-RG {
   background-position: -448px 0; }
 
-.headshot-lt {
+.headshot-LT {
   background-position: -480px 0; }
 
-.headshot-rt {
+.headshot-RT {
   background-position: -512px 0; }
 
 .headshot-re {
