@@ -1,0 +1,38 @@
+{
+  "full_name": "Miami Dolphins",
+  "short_name": "dolphins",
+  "players": [
+    {"team":"Dolphins","position":"QB1","name":"Dan Marino","number":"#13","maximum_speed":6,"passing_speed":81,"pass_control":69,"avoid_pass_block":69,"ranking":6},
+    {"team":"Dolphins","position":"QB2","name":"Scott Mitchell","number":"#19","maximum_speed":13,"passing_speed":44,"pass_control":44,"avoid_pass_block":50,"ranking":20},
+    {"team":"Dolphins","position":"RB1","name":"Sammie Smith","number":"#33","running_speed":44,"maximum_speed":38,"hitting_power":63,"ball_control":50,"receptions":25,"rushing_ranking":67,"receiving_ranking":146,"kick_return_ranking":42,"punk_return_ranking":12},
+    {"team":"Dolphins","position":"RB2","name":"Tony Paige","number":"#49","running_speed":44,"maximum_speed":31,"hitting_power":88,"ball_control":50,"receptions":44,"rushing_ranking":61,"receiving_ranking":93,"kick_return_ranking":31,"punk_return_ranking":4},
+    {"team":"Dolphins","position":"RB3","name":"Marc Logan","number":"#20","running_speed":44,"maximum_speed":38,"hitting_power":44,"ball_control":50,"receptions":25,"rushing_ranking":88,"receiving_ranking":164,"kick_return_ranking":69,"punk_return_ranking":28},
+    {"team":"Dolphins","position":"RB4","name":"Troy Stradford","number":"#23","running_speed":38,"maximum_speed":38,"hitting_power":25,"ball_control":50,"receptions":38,"rushing_ranking":115,"receiving_ranking":118,"kick_return_ranking":143,"punk_return_ranking":57},
+    {"team":"Dolphins","position":"WR1","name":"Mark Clayton","number":"#83","running_speed":31,"maximum_speed":44,"hitting_power":13,"ball_control":50,"receptions":69,"rushing_ranking":66,"receiving_ranking":29,"kick_return_ranking":209,"punk_return_ranking":95},
+    {"team":"Dolphins","position":"WR2","name":"Mark Duper","number":"#85","running_speed":38,"maximum_speed":50,"hitting_power":13,"ball_control":50,"receptions":63,"rushing_ranking":45,"receiving_ranking":25,"kick_return_ranking":178,"punk_return_ranking":68},
+    {"team":"Dolphins","position":"WR3","name":"Fred Banks","number":"#86","running_speed":25,"maximum_speed":19,"hitting_power":13,"ball_control":50,"receptions":44,"rushing_ranking":275,"receiving_ranking":237,"kick_return_ranking":247,"punk_return_ranking":125},
+    {"team":"Dolphins","position":"WR4","name":"Tony Martin","number":"#89","running_speed":25,"maximum_speed":25,"hitting_power":13,"ball_control":50,"receptions":50,"rushing_ranking":222,"receiving_ranking":155,"kick_return_ranking":246,"punk_return_ranking":124},
+    {"team":"Dolphins","position":"TE1","name":"Ferrell Edmunds","number":"#80","running_speed":25,"maximum_speed":38,"hitting_power":56,"ball_control":50,"receptions":50,"rushing_ranking":73,"receiving_ranking":80,"kick_return_ranking":147,"punk_return_ranking":59},
+    {"team":"Dolphins","position":"TE2","name":"Jim Jensen","number":"#11","running_speed":25,"maximum_speed":31,"hitting_power":44,"ball_control":50,"receptions":69,"rushing_ranking":127,"receiving_ranking":52,"kick_return_ranking":185,"punk_return_ranking":73},
+    {"team":"Dolphins","position":"C","name":"Jeff Uhlenhake","number":"#63","maximum_speed":31,"hitting_power":69,"ranking":23},
+    {"team":"Dolphins","position":"LG","name":"Keith Sims","number":"#69","maximum_speed":25,"hitting_power":69,"ranking":48},
+    {"team":"Dolphins","position":"RG","name":"Harry Galbreath","number":"#62","maximum_speed":38,"hitting_power":63,"ranking":18},
+    {"team":"Dolphins","position":"LT","name":"Richmond Webb","number":"#78","maximum_speed":38,"hitting_power":75,"ranking":9},
+    {"team":"Dolphins","position":"RT","name":"Mark Dennis","number":"#74","maximum_speed":25,"hitting_power":56,"ranking":91},
+    {"team":"Dolphins","position":"RE","name":"Jeff Cross","number":"#91","running_speed":38,"rushing_power":50,"maximum_speed":56,"hitting_power":50,"pass_interceptions":19,"ranking":15},
+    {"team":"Dolphins","position":"NT","name":"Shawn Lee","number":"#98","running_speed":25,"rushing_power":31,"maximum_speed":31,"hitting_power":56,"pass_interceptions":19,"ranking":61},
+    {"team":"Dolphins","position":"LE","name":"Karl Wilson","number":"#77","running_speed":25,"rushing_power":31,"maximum_speed":38,"hitting_power":50,"pass_interceptions":19,"ranking":51},
+    {"team":"Dolphins","position":"ROLB","name":"Hugh Green","number":"#55","running_speed":25,"rushing_power":31,"maximum_speed":38,"hitting_power":44,"pass_interceptions":25,"ranking":60},
+    {"team":"Dolphins","position":"RILB","name":"Cliff Odom","number":"#93","running_speed":25,"rushing_power":31,"maximum_speed":38,"hitting_power":44,"pass_interceptions":25,"ranking":59},
+    {"team":"Dolphins","position":"LILB","name":"John Offerdahl","number":"#56","running_speed":38,"rushing_power":50,"maximum_speed":56,"hitting_power":44,"pass_interceptions":31,"ranking":30},
+    {"team":"Dolphins","position":"LOLB","name":"David Griggs","number":"#92","running_speed":25,"rushing_power":38,"maximum_speed":44,"hitting_power":44,"pass_interceptions":25,"ranking":48},
+    {"team":"Dolphins","position":"RCB","name":"J.B. Brown","number":"#37","running_speed":25,"rushing_power":31,"maximum_speed":44,"hitting_power":50,"pass_interceptions":44,"ranking":76},
+    {"team":"Dolphins","position":"LCB","name":"Tim Mckyer","number":"#22","running_speed":31,"rushing_power":38,"maximum_speed":50,"hitting_power":44,"pass_interceptions":50,"ranking":42},
+    {"team":"Dolphins","position":"FS","name":"Louis Oliver","number":"#25","running_speed":38,"rushing_power":44,"maximum_speed":56,"hitting_power":56,"pass_interceptions":56,"ranking":20},
+    {"team":"Dolphins","position":"SS","name":"Jarvis Williams","number":"#26","running_speed":38,"rushing_power":44,"maximum_speed":56,"hitting_power":56,"pass_interceptions":56,"ranking":19},
+    {"team":"Dolphins","position":"K","name":"Pete Stoyanovich","number":"#10","kicking_ability":69,"avoid_kick_block":75,"ranking":4},
+    {"team":"Dolphins","position":"P","name":"Reggie Roby","number":"#4","kicking_ability":75,"avoid_kick_block":38,"ranking":9}
+  ]
+}
+
+
