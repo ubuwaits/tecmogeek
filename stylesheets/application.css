@@ -49,23 +49,47 @@ table {
 
 /* Clear Floated Elements
 ------------------------------------------------------------------------------*/
-.clearfix:before, .players .player:before, .skill-toggles:before, footer:before,
+.clearfix:before, nav ul:before, .players .player:before, .skill-toggles:before, footer:before,
 .clearfix:after,
+nav ul:after,
 .players .player:after,
 .skill-toggles:after,
 footer:after {
   content: " ";
   display: table; }
 
-.clearfix:after, .players .player:after, .skill-toggles:after, footer:after {
+.clearfix:after, nav ul:after, .players .player:after, .skill-toggles:after, footer:after {
   clear: both; }
 
-.clearfix, .players .player, .skill-toggles, footer {
+.clearfix, nav ul, .players .player, .skill-toggles, footer {
   *zoom: 1; }
 
 body {
   color: #292929;
   font-family: "helvetica neue", helvetica, arial, sans-serif; }
+
+nav {
+  background: rgba(255, 255, 255, 0.5);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 8px;
+  position: fixed;
+  width: 100%;
+  z-index: 1000; }
+  nav ul li {
+    float: left; }
+    nav ul li a {
+      color: #333;
+      display: block;
+      font-size: 13px;
+      font-weight: bold;
+      padding: 6px 12px;
+      text-decoration: none; }
+      nav ul li a:hover {
+        background: rgba(255, 255, 255, 0.5);
+        border-radius: 3px; }
 
 body.fortyniners {
   background: #ff9933; }
@@ -192,7 +216,7 @@ body.rams .players .ability-notes {
 
 header {
   margin: 0 0 1em 0;
-  padding: 2em 2.5em; }
+  padding: 4.5em 2.5em 2em 2.5em; }
   header h1 {
     color: #fff;
     font-size: 2em;

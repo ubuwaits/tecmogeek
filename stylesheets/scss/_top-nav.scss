@@ -1,0 +1,32 @@
+nav {
+  background: rgba(#fff, 0.5);
+  border-bottom: 1px solid rgba(#fff, 0.5);
+  @include box-sizing(border-box);
+  padding: 8px;
+  position: fixed;
+  width: 100%;
+  z-index: 1000;
+
+  ul {
+    @extend .clearfix;
+
+    li {
+      float: left;
+
+      a {
+        color: #333;
+        display: block;
+        font-size: 13px;
+        font-weight: bold;
+        padding: 6px 12px;
+        text-decoration: none;
+
+        &:hover {
+          background: rgba(#fff, 0.5);
+          border-radius: 3px;
+        }
+      }
+    }
+  }
+}
+
