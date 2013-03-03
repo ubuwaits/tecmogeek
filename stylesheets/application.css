@@ -151,6 +151,45 @@ body.steelers {
 body.vikings {
   background: #6633ff; }
 
+body.bears .players .player-info,
+body.bears .players .player-ranking,
+body.bears .players .skill-toggles li a,
+body.bears .players .ability-notes,
+body.broncos .players .player-info,
+body.broncos .players .player-ranking,
+body.broncos .players .skill-toggles li a,
+body.broncos .players .ability-notes,
+body.chargers .players .player-info,
+body.chargers .players .player-ranking,
+body.chargers .players .skill-toggles li a,
+body.chargers .players .ability-notes,
+body.colts .players .player-info,
+body.colts .players .player-ranking,
+body.colts .players .skill-toggles li a,
+body.colts .players .ability-notes,
+body.cowboys .players .player-info,
+body.cowboys .players .player-ranking,
+body.cowboys .players .skill-toggles li a,
+body.cowboys .players .ability-notes,
+body.cardinals .players .player-info,
+body.cardinals .players .player-ranking,
+body.cardinals .players .skill-toggles li a,
+body.cardinals .players .ability-notes,
+body.falcons .players .player-info,
+body.falcons .players .player-ranking,
+body.falcons .players .skill-toggles li a,
+body.falcons .players .ability-notes,
+body.giants .players .player-info,
+body.giants .players .player-ranking,
+body.giants .players .skill-toggles li a,
+body.giants .players .ability-notes,
+body.rams .players .player-info,
+body.rams .players .player-ranking,
+body.rams .players .skill-toggles li a,
+body.rams .players .ability-notes {
+  color: #f0f0f0;
+  text-shadow: none; }
+
 header {
   margin: 0 0 1em 0;
   padding: 2em 2.5em; }
@@ -179,18 +218,19 @@ header {
       float: left;
       left: 42px;
       position: absolute;
-      width: 160px; }
+      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.2);
+      width: 170px; }
       .players .player .player-info .player-name {
         font-size: 18px;
         font-weight: bold;
-        margin: 0 0 2px 0;
-        text-shadow: 0 1px 0 rgba(255, 255, 255, 0.2); }
+        margin: 0 0 2px 0; }
       .players .player .player-info .player-position-number {
-        color: #fff;
-        font-size: 14px; }
+        font-size: 14px;
+        font-weight: bold;
+        opacity: 0.8; }
     .players .player .player-ranking {
       float: left;
-      left: 202px;
+      left: 212px;
       position: absolute;
       text-align: center;
       width: 80px; }
@@ -200,7 +240,7 @@ header {
         margin: 4px 0 0 0;
         text-shadow: 0 1px 0 rgba(255, 255, 255, 0.2); }
     .players .player .player-abilities {
-      margin-left: 282px;
+      margin-left: 292px;
       width: auto; }
       .players .player .player-abilities > li {
         background-color: rgba(255, 255, 255, 0.25);
@@ -226,7 +266,7 @@ header {
     padding: 0 0 2px 0; }
     .players .labels .section-label {
       float: left;
-      width: 202px; }
+      width: 212px; }
       .players .labels .section-label h3 {
         color: rgba(255, 255, 255, 0.25);
         font-size: 20px;
@@ -249,9 +289,10 @@ header {
       font-size: 14px;
       padding: 0; }
   .players .ability-notes {
-    color: rgba(41, 41, 41, 0.6);
+    color: #292929;
     font-size: 14px;
-    margin: 1em 0 1em 300px; }
+    margin: 1em 0 1em 310px;
+    opacity: 0.6; }
 
 .skill-toggles {
   /*background: rgba(#fff, 0.125);*/
@@ -651,11 +692,89 @@ header {
   height: 32px;
   width: 32px; }
 
+.headshot-49ers {
+  background-image: url("../images/players/49ers.png"); }
+
+.headshot-bears {
+  background-image: url("../images/players/bears.png"); }
+
+.headshot-bengals {
+  background-image: url("../images/players/bengals.png"); }
+
 .headshot-bills {
   background-image: url("../images/players/bills.png"); }
 
+.headshot-broncos {
+  background-image: url("../images/players/broncos.png"); }
+
+.headshot-browns {
+  background-image: url("../images/players/browns.png"); }
+
+.headshot-buccaneers {
+  background-image: url("../images/players/buccaneers.png"); }
+
+.headshot-cardinals {
+  background-image: url("../images/players/cardinals.png"); }
+
+.headshot-chargers {
+  background-image: url("../images/players/chargers.png"); }
+
+.headshot-chiefs {
+  background-image: url("../images/players/chiefs.png"); }
+
 .headshot-colts {
   background-image: url("../images/players/colts.png"); }
+
+.headshot-cowboys {
+  background-image: url("../images/players/cowboys.png"); }
+
+.headshot-dolphins {
+  background-image: url("../images/players/dolphins.png"); }
+
+.headshot-eagles {
+  background-image: url("../images/players/eagles.png"); }
+
+.headshot-falcons {
+  background-image: url("../images/players/falcons.png"); }
+
+.headshot-giants {
+  background-image: url("../images/players/giants.png"); }
+
+.headshot-jets {
+  background-image: url("../images/players/jets.png"); }
+
+.headshot-lions {
+  background-image: url("../images/players/lions.png"); }
+
+.headshot-oilers {
+  background-image: url("../images/players/oilers.png"); }
+
+.headshot-packers {
+  background-image: url("../images/players/packers.png"); }
+
+.headshot-patriots {
+  background-image: url("../images/players/patriots.png"); }
+
+.headshot-raiders {
+  background-image: url("../images/players/raiders.png"); }
+
+.headshot-rams {
+  background-image: url("../images/players/rams.png"); }
+
+.headshot-redskins {
+  background-image: url("../images/players/redskins.png"); }
+
+.headshot-saints {
+  background-image: url("../images/players/saints.png"); }
+
+.headshot-seahawks {
+  background-image: url("../images/players/seahawks.png"); }
+
+.headshot-steelers {
+  background-image: url("../images/players/steelers.png"); }
+
+.headshot-vikings {
+  background-image: url("../images/players/vikings.png"); }
 
 .headshot-0 {
   background-position: 0px 0; }
