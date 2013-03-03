@@ -11,7 +11,7 @@
 {"team":"Colts","position":"P","name":"Rohn Stark","number":"#3","kicking_ability":75,"avoid_kick_block":56,"ranking":5},
 {"team":"Cowboys","position":"P","name":"Mike Saxon","number":"#4","kicking_ability":56,"avoid_kick_block":75,"ranking":10},
 {"team":"Dolphins","position":"P","name":"Reggie Roby","number":"#4","kicking_ability":75,"avoid_kick_block":38,"ranking":9},
-{"team":"Eagles","position":"P","name":"Jeff Feagles","number":"#5","kicking_ability":50,"avoid_kick_block":31,"ranking":16},
+{"team":"Bills","position":"K","name":"Scott Norwood","number":"#11","kicking_ability":44,"avoid_kick_block":44,"ranking":17},
 {"team":"Falcons","position":"P","name":"Scott Fulhage","number":"#17","kicking_ability":63,"avoid_kick_block":69,"ranking":8},
 {"team":"Giants","position":"P","name":"Sean Landeta","number":"#5","kicking_ability":81,"avoid_kick_block":81,"ranking":1},
 {"team":"Jets","position":"P","name":"Joe Prokop","number":"#6","kicking_ability":69,"avoid_kick_block":75,"ranking":4},
