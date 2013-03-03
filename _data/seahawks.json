@@ -1,0 +1,37 @@
+{
+  "full_name": "Seattle Seahawks",
+  "short_name": "seahawks",
+  "players": [
+    {"team":"Seahawks","position":"QB1","name":"Dave Krieg","number":"#17","maximum_speed":13,"passing_speed":25,"pass_control":69,"avoid_pass_block":69,"ranking":9},
+    {"team":"Seahawks","position":"QB2","name":"Kelly Stouffer","number":"#11","maximum_speed":13,"passing_speed":44,"pass_control":38,"avoid_pass_block":38,"ranking":42},
+    {"team":"Seahawks","position":"RB1","name":"John L. Williams","number":"#32","running_speed":44,"maximum_speed":25,"hitting_power":38,"ball_control":50,"receptions":63,"rushing_ranking":151,"receiving_ranking":71,"kick_return_ranking":77,"punk_return_ranking":60},
+    {"team":"Seahawks","position":"RB2","name":"Derrick Fenner","number":"#44","running_speed":56,"maximum_speed":25,"hitting_power":75,"ball_control":50,"receptions":25,"rushing_ranking":131,"receiving_ranking":211,"kick_return_ranking":25,"punk_return_ranking":11},
+    {"team":"Seahawks","position":"RB3","name":"James Jones","number":"#30","running_speed":38,"maximum_speed":38,"hitting_power":31,"ball_control":50,"receptions":25,"rushing_ranking":116,"receiving_ranking":184,"kick_return_ranking":123,"punk_return_ranking":86},
+    {"team":"Seahawks","position":"RB4","name":"Chris Warren","number":"#42","running_speed":38,"maximum_speed":38,"hitting_power":31,"ball_control":50,"receptions":25,"rushing_ranking":117,"receiving_ranking":185,"kick_return_ranking":124,"punk_return_ranking":87},
+    {"team":"Seahawks","position":"WR1","name":"Brian Blades","number":"#89","running_speed":31,"maximum_speed":31,"hitting_power":13,"ball_control":50,"receptions":50,"rushing_ranking":175,"receiving_ranking":115,"kick_return_ranking":218,"punk_return_ranking":155},
+    {"team":"Seahawks","position":"WR2","name":"Tommy Kane","number":"#81","running_speed":31,"maximum_speed":38,"hitting_power":13,"ball_control":50,"receptions":56,"rushing_ranking":122,"receiving_ranking":69,"kick_return_ranking":216,"punk_return_ranking":153},
+    {"team":"Seahawks","position":"WR3","name":"Paul Skansi","number":"#82","running_speed":25,"maximum_speed":25,"hitting_power":13,"ball_control":50,"receptions":44,"rushing_ranking":230,"receiving_ranking":204,"kick_return_ranking":255,"punk_return_ranking":194},
+    {"team":"Seahawks","position":"WR4","name":"Jeff Chadwick","number":"#88","running_speed":31,"maximum_speed":38,"hitting_power":13,"ball_control":50,"receptions":44,"rushing_ranking":140,"receiving_ranking":104,"kick_return_ranking":217,"punk_return_ranking":154},
+    {"team":"Seahawks","position":"TE1","name":"Ron Heller","number":"#85","running_speed":25,"maximum_speed":19,"hitting_power":44,"ball_control":50,"receptions":31,"rushing_ranking":254,"receiving_ranking":272,"kick_return_ranking":187,"punk_return_ranking":134},
+    {"team":"Seahawks","position":"TE2","name":"Travis Mcneal","number":"#86","running_speed":25,"maximum_speed":25,"hitting_power":44,"ball_control":50,"receptions":31,"rushing_ranking":208,"receiving_ranking":250,"kick_return_ranking":186,"punk_return_ranking":133},
+    {"team":"Seahawks","position":"C","name":"Grant Feasel","number":"#54","maximum_speed":31,"hitting_power":56,"ranking":53},
+    {"team":"Seahawks","position":"LG","name":"Edwin Bailey","number":"#65","maximum_speed":38,"hitting_power":44,"ranking":59},
+    {"team":"Seahawks","position":"RG","name":"Bryan Millard","number":"#71","maximum_speed":31,"hitting_power":50,"ranking":78},
+    {"team":"Seahawks","position":"LT","name":"Andy Heck","number":"#66","maximum_speed":44,"hitting_power":50,"ranking":20},
+    {"team":"Seahawks","position":"RT","name":"Ron Mattes","number":"#70","maximum_speed":25,"hitting_power":56,"ranking":94},
+    {"team":"Seahawks","position":"RE","name":"Tony Woods","number":"#57","running_speed":25,"rushing_power":38,"maximum_speed":44,"hitting_power":50,"pass_interceptions":19,"ranking":31},
+    {"team":"Seahawks","position":"NT","name":"Joe Nash","number":"#72","running_speed":25,"rushing_power":31,"maximum_speed":38,"hitting_power":44,"pass_interceptions":19,"ranking":72},
+    {"team":"Seahawks","position":"LE","name":"Jacob Green","number":"#79","running_speed":38,"rushing_power":50,"maximum_speed":63,"hitting_power":56,"pass_interceptions":19,"ranking":5},
+    {"team":"Seahawks","position":"ROLB","name":"Rufus Porter","number":"#97","running_speed":25,"rushing_power":38,"maximum_speed":44,"hitting_power":44,"pass_interceptions":19,"ranking":50},
+    {"team":"Seahawks","position":"RILB","name":"Cortez Kennedy","number":"#96","running_speed":25,"rushing_power":31,"maximum_speed":38,"hitting_power":56,"pass_interceptions":19,"ranking":46},
+    {"team":"Seahawks","position":"LILB","name":"David Wyman","number":"#92","running_speed":25,"rushing_power":31,"maximum_speed":38,"hitting_power":38,"pass_interceptions":19,"ranking":88},
+    {"team":"Seahawks","position":"LOLB","name":"Terry Wooden","number":"#51","running_speed":25,"rushing_power":31,"maximum_speed":38,"hitting_power":38,"pass_interceptions":19,"ranking":89},
+    {"team":"Seahawks","position":"RCB","name":"Patrick Hunter","number":"#27","running_speed":25,"rushing_power":31,"maximum_speed":38,"hitting_power":38,"pass_interceptions":38,"ranking":98},
+    {"team":"Seahawks","position":"LCB","name":"Dwayne Harper","number":"#29","running_speed":31,"rushing_power":38,"maximum_speed":50,"hitting_power":31,"pass_interceptions":50,"ranking":59},
+    {"team":"Seahawks","position":"FS","name":"Eugene Robinson","number":"#41","running_speed":25,"rushing_power":31,"maximum_speed":38,"hitting_power":38,"pass_interceptions":50,"ranking":80},
+    {"team":"Seahawks","position":"SS","name":"Nesby Glasgow","number":"#22","running_speed":31,"rushing_power":38,"maximum_speed":50,"hitting_power":56,"pass_interceptions":25,"ranking":78},
+    {"team":"Seahawks","position":"K","name":"Norm Johnson","number":"#9","kicking_ability":44,"avoid_kick_block":38,"ranking":20},
+    {"team":"Seahawks","position":"P","name":"Rick Donnelly","number":"#3","kicking_ability":44,"avoid_kick_block":63,"ranking":14}
+  ]
+}
+

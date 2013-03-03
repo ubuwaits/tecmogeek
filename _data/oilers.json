@@ -1,0 +1,37 @@
+{
+  "full_name": "Houston Oilers",
+  "short_name": "oilers",
+  "players": [
+    {"team":"Oilers","position":"QB1","name":"Warren Moon","number":"#1","maximum_speed":19,"passing_speed":69,"pass_control":75,"avoid_pass_block":63,"ranking":4},
+    {"team":"Oilers","position":"QB2","name":"Cody Carlson","number":"#14","maximum_speed":13,"passing_speed":44,"pass_control":31,"avoid_pass_block":44,"ranking":50},
+    {"team":"Oilers","position":"RB1","name":"Lorenzo White","number":"#44","running_speed":38,"maximum_speed":44,"hitting_power":38,"ball_control":19,"receptions":44,"rushing_ranking":64,"receiving_ranking":87,"kick_return_ranking":170,"punk_return_ranking":143},
+    {"team":"Oilers","position":"RB2","name":"Allen Pinkett","number":"#20","running_speed":38,"maximum_speed":38,"hitting_power":25,"ball_control":81,"receptions":25,"rushing_ranking":107,"receiving_ranking":168,"kick_return_ranking":84,"punk_return_ranking":174},
+    {"team":"Oilers","position":"RB3","name":"Victor Jones","number":"#37","running_speed":38,"maximum_speed":38,"hitting_power":25,"ball_control":81,"receptions":25,"rushing_ranking":108,"receiving_ranking":169,"kick_return_ranking":82,"punk_return_ranking":172},
+    {"team":"Oilers","position":"RB4","name":"Doug Lloyd","number":"#35","running_speed":38,"maximum_speed":38,"hitting_power":25,"ball_control":81,"receptions":25,"rushing_ranking":109,"receiving_ranking":170,"kick_return_ranking":83,"punk_return_ranking":173},
+    {"team":"Oilers","position":"WR1","name":"Ernest Givins","number":"#81","running_speed":44,"maximum_speed":56,"hitting_power":13,"ball_control":81,"receptions":75,"rushing_ranking":13,"receiving_ranking":5,"kick_return_ranking":79,"punk_return_ranking":167},
+    {"team":"Oilers","position":"WR2","name":"Haywood Jeffries","number":"#84","running_speed":38,"maximum_speed":50,"hitting_power":13,"ball_control":81,"receptions":75,"rushing_ranking":30,"receiving_ranking":8,"kick_return_ranking":112,"punk_return_ranking":211},
+    {"team":"Oilers","position":"WR3","name":"Drew Hill","number":"#85","running_speed":44,"maximum_speed":63,"hitting_power":13,"ball_control":81,"receptions":75,"rushing_ranking":5,"receiving_ranking":2,"kick_return_ranking":78,"punk_return_ranking":166},
+    {"team":"Oilers","position":"WR4","name":"Curtis Duncan","number":"#80","running_speed":38,"maximum_speed":50,"hitting_power":13,"ball_control":81,"receptions":63,"rushing_ranking":33,"receiving_ranking":18,"kick_return_ranking":113,"punk_return_ranking":212},
+    {"team":"Oilers","position":"WR5","name":"Tony Jones","number":"#82","running_speed":25,"maximum_speed":19,"hitting_power":13,"ball_control":81,"receptions":50,"rushing_ranking":260,"receiving_ranking":175,"kick_return_ranking":196,"punk_return_ranking":239},
+    {"team":"Oilers","position":"WR6","name":"Gerald Mcneil","number":"#89","running_speed":25,"maximum_speed":44,"hitting_power":13,"ball_control":81,"receptions":44,"rushing_ranking":83,"receiving_ranking":83,"kick_return_ranking":195,"punk_return_ranking":238},
+    {"team":"Oilers","position":"C","name":"Jay Pennison","number":"#52","maximum_speed":31,"hitting_power":50,"ranking":74},
+    {"team":"Oilers","position":"LG","name":"Mike Munchak","number":"#63","maximum_speed":31,"hitting_power":63,"ranking":39},
+    {"team":"Oilers","position":"RG","name":"Bruce Matthews","number":"#74","maximum_speed":44,"hitting_power":69,"ranking":7},
+    {"team":"Oilers","position":"LT","name":"Don Maggs","number":"#78","maximum_speed":25,"hitting_power":50,"ranking":118},
+    {"team":"Oilers","position":"RT","name":"Dean Steinkuhler","number":"#70","maximum_speed":25,"hitting_power":50,"ranking":117},
+    {"team":"Oilers","position":"RE","name":"Sean Jones","number":"#96","running_speed":38,"rushing_power":50,"maximum_speed":56,"hitting_power":56,"pass_interceptions":19,"ranking":10},
+    {"team":"Oilers","position":"NT","name":"Doug Smith","number":"#99","running_speed":25,"rushing_power":31,"maximum_speed":38,"hitting_power":50,"pass_interceptions":19,"ranking":56},
+    {"team":"Oilers","position":"LE","name":"William Fuller","number":"#95","running_speed":25,"rushing_power":38,"maximum_speed":50,"hitting_power":56,"pass_interceptions":19,"ranking":22},
+    {"team":"Oilers","position":"ROLB","name":"Johnny Meads","number":"#91","running_speed":25,"rushing_power":31,"maximum_speed":38,"hitting_power":31,"pass_interceptions":31,"ranking":93},
+    {"team":"Oilers","position":"RILB","name":"Al Smith","number":"#54","running_speed":25,"rushing_power":38,"maximum_speed":44,"hitting_power":38,"pass_interceptions":19,"ranking":63},
+    {"team":"Oilers","position":"LILB","name":"John Grimsley","number":"#59","running_speed":25,"rushing_power":31,"maximum_speed":38,"hitting_power":31,"pass_interceptions":19,"ranking":98},
+    {"team":"Oilers","position":"LOLB","name":"Ray Childress","number":"#79","running_speed":38,"rushing_power":50,"maximum_speed":56,"hitting_power":63,"pass_interceptions":19,"ranking":13},
+    {"team":"Oilers","position":"RCB","name":"Richard Johnson","number":"#23","running_speed":38,"rushing_power":50,"maximum_speed":63,"hitting_power":44,"pass_interceptions":75,"ranking":5},
+    {"team":"Oilers","position":"LCB","name":"Cris Dishman","number":"#28","running_speed":25,"rushing_power":31,"maximum_speed":44,"hitting_power":31,"pass_interceptions":56,"ranking":69},
+    {"team":"Oilers","position":"FS","name":"Terry Kinard","number":"#27","running_speed":31,"rushing_power":38,"maximum_speed":50,"hitting_power":44,"pass_interceptions":56,"ranking":34},
+    {"team":"Oilers","position":"SS","name":"Bubba Mcdowell","number":"#25","running_speed":25,"rushing_power":31,"maximum_speed":44,"hitting_power":44,"pass_interceptions":50,"ranking":66},
+    {"team":"Oilers","position":"K","name":"Tony Zendejas","number":"#7","kicking_ability":38,"avoid_kick_block":31,"ranking":25},
+    {"team":"Oilers","position":"P","name":"Greg Montgomery","number":"#9","kicking_ability":69,"avoid_kick_block":56,"ranking":7}
+  ]
+}
+

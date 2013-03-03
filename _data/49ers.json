@@ -1,0 +1,39 @@
+{
+  "full_name": "San Francisco 49ers",
+  "short_name": "49ers",
+  "players": [
+    {"team":"49ers","position":"QB1","name":"Joe Montana","number":"#16","maximum_speed":19,"passing_speed":56,"pass_control":81,"avoid_pass_block":75,"ranking":2},
+    {"team":"49ers","position":"QB2","name":"Steve Young","number":"#8","maximum_speed":25,"passing_speed":56,"pass_control":44,"avoid_pass_block":56,"ranking":13},
+    {"team":"49ers","position":"RB1","name":"Roger Craig","number":"#33","running_speed":38,"maximum_speed":50,"hitting_power":25,"ball_control":50,"receptions":44,"rushing_ranking":47,"receiving_ranking":57,"kick_return_ranking":53,"punk_return_ranking":26},
+    {"team":"49ers","position":"RB2","name":"Tom Rathman","number":"#44","running_speed":44,"maximum_speed":25,"hitting_power":94,"ball_control":50,"receptions":56,"rushing_ranking":81,"receiving_ranking":74,"kick_return_ranking":15,"punk_return_ranking":2},
+    {"team":"49ers","position":"RB3","name":"Dexter Carter","number":"#35","running_speed":38,"maximum_speed":44,"hitting_power":19,"ball_control":50,"receptions":38,"rushing_ranking":79,"receiving_ranking":98,"kick_return_ranking":65,"punk_return_ranking":30},
+    {"team":"49ers","position":"RB4","name":"Harry Sydney","number":"#24","running_speed":38,"maximum_speed":44,"hitting_power":25,"ball_control":50,"receptions":31,"rushing_ranking":77,"receiving_ranking":121,"kick_return_ranking":54,"punk_return_ranking":27},
+    {"team":"49ers","position":"WR1","name":"John Taylor","number":"#82","running_speed":38,"maximum_speed":50,"hitting_power":13,"ball_control":63,"receptions":63,"rushing_ranking":40,"receiving_ranking":20,"kick_return_ranking":61,"punk_return_ranking":34},
+    {"team":"49ers","position":"WR2","name":"Jerry Rice","number":"#80","running_speed":44,"maximum_speed":69,"hitting_power":13,"ball_control":81,"receptions":81,"rushing_ranking":1,"receiving_ranking":1,"kick_return_ranking":34,"punk_return_ranking":25},
+    {"team":"49ers","position":"WR3","name":"Mike Wilson","number":"#85","running_speed":25,"maximum_speed":25,"hitting_power":13,"ball_control":50,"receptions":44,"rushing_ranking":244,"receiving_ranking":190,"kick_return_ranking":149,"punk_return_ranking":64},
+    {"team":"49ers","position":"WR4","name":"Mike Sherrard","number":"#88","running_speed":38,"maximum_speed":44,"hitting_power":13,"ball_control":50,"receptions":50,"rushing_ranking":72,"receiving_ranking":60,"kick_return_ranking":70,"punk_return_ranking":35},
+    {"team":"49ers","position":"TE1","name":"Brent Jones","number":"#84","running_speed":25,"maximum_speed":38,"hitting_power":69,"ball_control":50,"receptions":69,"rushing_ranking":51,"receiving_ranking":35,"kick_return_ranking":41,"punk_return_ranking":17},
+    {"team":"49ers","position":"TE2","name":"Jamie Williams","number":"#81","running_speed":25,"maximum_speed":19,"hitting_power":38,"ball_control":50,"receptions":31,"rushing_ranking":263,"receiving_ranking":273,"kick_return_ranking":86,"punk_return_ranking":37},
+    {"team":"49ers","position":"C","name":"Jesse Sapolu","number":"#61","maximum_speed":38,"hitting_power":63,"ranking":17},
+    {"team":"49ers","position":"LG","name":"Guy Mcintyre","number":"#62","maximum_speed":31,"hitting_power":50,"ranking":66},
+    {"team":"49ers","position":"RG","name":"Harris Barton","number":"#79","maximum_speed":25,"hitting_power":56,"ranking":84},
+    {"team":"49ers","position":"LT","name":"Bubba Paris","number":"#77","maximum_speed":19,"hitting_power":69,"ranking":79},
+    {"team":"49ers","position":"RT","name":"Steve Wallace","number":"#74","maximum_speed":31,"hitting_power":63,"ranking":36},
+    {"team":"49ers","position":"RE","name":"Kevin Fagan","number":"#75","running_speed":25,"rushing_power":31,"maximum_speed":38,"hitting_power":50,"pass_interceptions":19,"ranking":43},
+    {"team":"49ers","position":"NT","name":"Michael Carter","number":"#95","running_speed":25,"rushing_power":31,"maximum_speed":38,"hitting_power":69,"pass_interceptions":19,"ranking":23},
+    {"team":"49ers","position":"LE","name":"Pierce Holt","number":"#78","running_speed":31,"rushing_power":44,"maximum_speed":50,"hitting_power":69,"pass_interceptions":19,"ranking":7},
+    {"team":"49ers","position":"ROLB","name":"Bill Romanowski","number":"#53","running_speed":31,"rushing_power":44,"maximum_speed":50,"hitting_power":50,"pass_interceptions":19,"ranking":38},
+    {"team":"49ers","position":"RILB","name":"Keith Delong","number":"#59","running_speed":25,"rushing_power":31,"maximum_speed":38,"hitting_power":44,"pass_interceptions":19,"ranking":68},
+    {"team":"49ers","position":"LILB","name":"Matt Millen","number":"#54","running_speed":25,"rushing_power":38,"maximum_speed":50,"hitting_power":63,"pass_interceptions":31,"ranking":20},
+    {"team":"49ers","position":"LOLB","name":"Charles Haley","number":"#94","running_speed":38,"rushing_power":50,"maximum_speed":56,"hitting_power":63,"pass_interceptions":19,"ranking":11},
+    {"team":"49ers","position":"RCB","name":"Don Griffin","number":"#29","running_speed":31,"rushing_power":38,"maximum_speed":50,"hitting_power":38,"pass_interceptions":50,"ranking":51},
+    {"team":"49ers","position":"LCB","name":"Darryl Pollard","number":"#26","running_speed":25,"rushing_power":31,"maximum_speed":44,"hitting_power":44,"pass_interceptions":38,"ranking":82},
+    {"team":"49ers","position":"FS","name":"Ronnie Lott","number":"#42","running_speed":44,"rushing_power":56,"maximum_speed":69,"hitting_power":69,"pass_interceptions":50,"ranking":10},
+    {"team":"49ers","position":"SS","name":"Dave Waymer","number":"#43","running_speed":38,"rushing_power":50,"maximum_speed":63,"hitting_power":50,"pass_interceptions":69,"ranking":8},
+    {"team":"49ers","position":"K","name":"Mike Cofer","number":"#6","kicking_ability":56,"avoid_kick_block":56,"ranking":11},
+    {"team":"49ers","position":"P","name":"Barry Helton","number":"#9","kicking_ability":19,"avoid_kick_block":38,"ranking":27}
+  ]
+}
+
+
+

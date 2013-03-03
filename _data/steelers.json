@@ -1,0 +1,37 @@
+{
+  "full_name": "Pittsburgh Steelers",
+  "short_name": "steelers",
+  "players": [
+    {"team":"Steelers","position":"QB1","name":"Bubby Brister","number":"#6","maximum_speed":13,"passing_speed":75,"pass_control":25,"avoid_pass_block":38,"ranking":48},
+    {"team":"Steelers","position":"QB2","name":"Rick Strom","number":"#11","maximum_speed":13,"passing_speed":44,"pass_control":38,"avoid_pass_block":38,"ranking":43},
+    {"team":"Steelers","position":"RB1","name":"Merril Hoge","number":"#33","running_speed":38,"maximum_speed":38,"hitting_power":38,"ball_control":81,"receptions":44,"rushing_ranking":70,"receiving_ranking":79,"kick_return_ranking":2,"punk_return_ranking":42},
+    {"team":"Steelers","position":"RB2","name":"Warren Williams","number":"#42","running_speed":38,"maximum_speed":38,"hitting_power":31,"ball_control":81,"receptions":44,"rushing_ranking":82,"receiving_ranking":85,"kick_return_ranking":4,"punk_return_ranking":50},
+    {"team":"Steelers","position":"RB3","name":"Tim Worley","number":"#38","running_speed":38,"maximum_speed":38,"hitting_power":31,"ball_control":81,"receptions":25,"rushing_ranking":98,"receiving_ranking":163,"kick_return_ranking":5,"punk_return_ranking":51},
+    {"team":"Steelers","position":"RB4","name":"Richard Bell","number":"#21","running_speed":38,"maximum_speed":31,"hitting_power":19,"ball_control":81,"receptions":25,"rushing_ranking":167,"receiving_ranking":216,"kick_return_ranking":7,"punk_return_ranking":61},
+    {"team":"Steelers","position":"WR1","name":"Louis Lipps","number":"#83","running_speed":31,"maximum_speed":31,"hitting_power":13,"ball_control":81,"receptions":56,"rushing_ranking":152,"receiving_ranking":84,"kick_return_ranking":13,"punk_return_ranking":92},
+    {"team":"Steelers","position":"WR2","name":"Derek Hill","number":"#82","running_speed":25,"maximum_speed":25,"hitting_power":13,"ball_control":81,"receptions":44,"rushing_ranking":211,"receiving_ranking":172,"kick_return_ranking":19,"punk_return_ranking":118},
+    {"team":"Steelers","position":"WR3","name":"Chris Calloway","number":"#88","running_speed":25,"maximum_speed":19,"hitting_power":13,"ball_control":81,"receptions":44,"rushing_ranking":264,"receiving_ranking":212,"kick_return_ranking":20,"punk_return_ranking":119},
+    {"team":"Steelers","position":"WR4","name":"Dwight Stone","number":"#20","running_speed":31,"maximum_speed":31,"hitting_power":13,"ball_control":81,"receptions":44,"rushing_ranking":160,"receiving_ranking":126,"kick_return_ranking":14,"punk_return_ranking":93},
+    {"team":"Steelers","position":"TE1","name":"Eric Green","number":"#86","running_speed":25,"maximum_speed":31,"hitting_power":63,"ball_control":81,"receptions":44,"rushing_ranking":100,"receiving_ranking":105,"kick_return_ranking":6,"punk_return_ranking":52},
+    {"team":"Steelers","position":"TE2","name":"Mike Mularkey","number":"#84","running_speed":25,"maximum_speed":25,"hitting_power":44,"ball_control":81,"receptions":44,"rushing_ranking":173,"receiving_ranking":143,"kick_return_ranking":8,"punk_return_ranking":72},
+    {"team":"Steelers","position":"C","name":"Dermontti Dawson","number":"#63","maximum_speed":38,"hitting_power":56,"ranking":32},
+    {"team":"Steelers","position":"LG","name":"B. Blankenship","number":"#60","maximum_speed":38,"hitting_power":44,"ranking":60},
+    {"team":"Steelers","position":"RG","name":"Terry Long","number":"#74","maximum_speed":38,"hitting_power":44,"ranking":61},
+    {"team":"Steelers","position":"LT","name":"John Jackson","number":"#65","maximum_speed":25,"hitting_power":50,"ranking":121},
+    {"team":"Steelers","position":"RT","name":"Tunch Ilkin","number":"#62","maximum_speed":44,"hitting_power":69,"ranking":6},
+    {"team":"Steelers","position":"RE","name":"Donald Evans","number":"#66","running_speed":25,"rushing_power":38,"maximum_speed":44,"hitting_power":50,"pass_interceptions":19,"ranking":32},
+    {"team":"Steelers","position":"NT","name":"Gerald Williams","number":"#98","running_speed":38,"rushing_power":44,"maximum_speed":50,"hitting_power":56,"pass_interceptions":19,"ranking":16},
+    {"team":"Steelers","position":"LE","name":"Keith Willis","number":"#93","running_speed":25,"rushing_power":38,"maximum_speed":44,"hitting_power":44,"pass_interceptions":19,"ranking":41},
+    {"team":"Steelers","position":"ROLB","name":"Greg Lloyd","number":"#95","running_speed":38,"rushing_power":50,"maximum_speed":56,"hitting_power":63,"pass_interceptions":31,"ranking":10},
+    {"team":"Steelers","position":"RILB","name":"David Little","number":"#50","running_speed":38,"rushing_power":44,"maximum_speed":56,"hitting_power":50,"pass_interceptions":31,"ranking":26},
+    {"team":"Steelers","position":"LILB","name":"Hardy Nickerson","number":"#54","running_speed":25,"rushing_power":38,"maximum_speed":44,"hitting_power":44,"pass_interceptions":19,"ranking":51},
+    {"team":"Steelers","position":"LOLB","name":"Bryan Hinkle","number":"#53","running_speed":25,"rushing_power":38,"maximum_speed":44,"hitting_power":44,"pass_interceptions":19,"ranking":52},
+    {"team":"Steelers","position":"RCB","name":"Rod Woodson","number":"#26","running_speed":44,"rushing_power":56,"maximum_speed":75,"hitting_power":69,"pass_interceptions":63,"ranking":3},
+    {"team":"Steelers","position":"LCB","name":"Dwayne Woodruff","number":"#49","running_speed":38,"rushing_power":44,"maximum_speed":56,"hitting_power":56,"pass_interceptions":56,"ranking":22},
+    {"team":"Steelers","position":"FS","name":"Thomas Everett","number":"#27","running_speed":31,"rushing_power":38,"maximum_speed":50,"hitting_power":38,"pass_interceptions":56,"ranking":38},
+    {"team":"Steelers","position":"SS","name":"Carnell Lake","number":"#37","running_speed":38,"rushing_power":44,"maximum_speed":56,"hitting_power":50,"pass_interceptions":50,"ranking":27},
+    {"team":"Steelers","position":"K","name":"Gary Anderson","number":"#1","kicking_ability":63,"avoid_kick_block":50,"ranking":8},
+    {"team":"Steelers","position":"P","name":"Dan Stryzinski","number":"#4","kicking_ability":38,"avoid_kick_block":50,"ranking":17}
+  ]
+}
+

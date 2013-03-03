@@ -1,0 +1,37 @@
+{
+  "full_name": "San Diego Chargers",
+  "short_name": "chargers",
+  "players": [
+    {"team":"Chargers","position":"QB1","name":"B.J. Tolliver","number":"#11","maximum_speed":13,"passing_speed":81,"pass_control":31,"avoid_pass_block":44,"ranking":25},
+    {"team":"Chargers","position":"QB2","name":"Mark Vlasic","number":"#13","maximum_speed":13,"passing_speed":44,"pass_control":38,"avoid_pass_block":38,"ranking":35},
+    {"team":"Chargers","position":"RB1","name":"Marion Butts","number":"#35","running_speed":38,"maximum_speed":63,"hitting_power":38,"ball_control":50,"receptions":25,"rushing_ranking":12,"receiving_ranking":64,"kick_return_ranking":105,"punk_return_ranking":145},
+    {"team":"Chargers","position":"RB2","name":"Rod Bernstine","number":"#82","running_speed":44,"maximum_speed":25,"hitting_power":44,"ball_control":50,"receptions":19,"rushing_ranking":198,"receiving_ranking":267,"kick_return_ranking":68,"punk_return_ranking":101},
+    {"team":"Chargers","position":"RB3","name":"Joe Caravello","number":"#46","running_speed":38,"maximum_speed":25,"hitting_power":44,"ball_control":50,"receptions":25,"rushing_ranking":200,"receiving_ranking":258,"kick_return_ranking":90,"punk_return_ranking":140},
+    {"team":"Chargers","position":"RB4","name":"Ronnie Harmon","number":"#33","running_speed":38,"maximum_speed":31,"hitting_power":25,"ball_control":50,"receptions":50,"rushing_ranking":150,"receiving_ranking":101,"kick_return_ranking":141,"punk_return_ranking":179},
+    {"team":"Chargers","position":"WR1","name":"Quinn Early","number":"#87","running_speed":31,"maximum_speed":31,"hitting_power":13,"ball_control":50,"receptions":44,"rushing_ranking":191,"receiving_ranking":133,"kick_return_ranking":205,"punk_return_ranking":229},
+    {"team":"Chargers","position":"WR2","name":"Anthony Miller","number":"#83","running_speed":38,"maximum_speed":44,"hitting_power":13,"ball_control":50,"receptions":69,"rushing_ranking":58,"receiving_ranking":27,"kick_return_ranking":175,"punk_return_ranking":216},
+    {"team":"Chargers","position":"WR3","name":"Nate Lewis","number":"#81","running_speed":25,"maximum_speed":25,"hitting_power":13,"ball_control":50,"receptions":44,"rushing_ranking":240,"receiving_ranking":194,"kick_return_ranking":242,"punk_return_ranking":245},
+    {"team":"Chargers","position":"WR4","name":"Wayne Walker","number":"#80","running_speed":31,"maximum_speed":31,"hitting_power":13,"ball_control":50,"receptions":44,"rushing_ranking":192,"receiving_ranking":134,"kick_return_ranking":204,"punk_return_ranking":228},
+    {"team":"Chargers","position":"TE1","name":"Derrick Walker","number":"#89","running_speed":25,"maximum_speed":31,"hitting_power":50,"ball_control":50,"receptions":38,"rushing_ranking":148,"receiving_ranking":166,"kick_return_ranking":164,"punk_return_ranking":193},
+    {"team":"Chargers","position":"TE2","name":"Arthur Cox","number":"#88","running_speed":25,"maximum_speed":19,"hitting_power":63,"ball_control":50,"receptions":31,"rushing_ranking":213,"receiving_ranking":261,"kick_return_ranking":127,"punk_return_ranking":151},
+    {"team":"Chargers","position":"C","name":"Frank Cornish","number":"#63","maximum_speed":31,"hitting_power":56,"ranking":50},
+    {"team":"Chargers","position":"LG","name":"Courtney Hall","number":"#53","maximum_speed":38,"hitting_power":50,"ranking":42},
+    {"team":"Chargers","position":"RG","name":"David Richards","number":"#65","maximum_speed":25,"hitting_power":69,"ranking":46},
+    {"team":"Chargers","position":"LT","name":"Joel Patten","number":"#78","maximum_speed":25,"hitting_power":63,"ranking":63},
+    {"team":"Chargers","position":"RT","name":"B. Thompson","number":"#76","maximum_speed":25,"hitting_power":56,"ranking":89},
+    {"team":"Chargers","position":"RE","name":"Burt Grossman","number":"#92","running_speed":31,"rushing_power":44,"maximum_speed":50,"hitting_power":50,"pass_interceptions":19,"ranking":24},
+    {"team":"Chargers","position":"NT","name":"Les Miller","number":"#69","running_speed":25,"rushing_power":38,"maximum_speed":44,"hitting_power":56,"pass_interceptions":19,"ranking":28},
+    {"team":"Chargers","position":"LE","name":"Lee Williams","number":"#99","running_speed":31,"rushing_power":44,"maximum_speed":50,"hitting_power":56,"pass_interceptions":19,"ranking":18},
+    {"team":"Chargers","position":"ROLB","name":"Leslie O.Neal","number":"#91","running_speed":38,"rushing_power":50,"maximum_speed":56,"hitting_power":63,"pass_interceptions":19,"ranking":12},
+    {"team":"Chargers","position":"RILB","name":"Junior Seau","number":"#55","running_speed":25,"rushing_power":31,"maximum_speed":38,"hitting_power":44,"pass_interceptions":19,"ranking":69},
+    {"team":"Chargers","position":"LILB","name":"Gary Plummer","number":"#50","running_speed":25,"rushing_power":38,"maximum_speed":44,"hitting_power":69,"pass_interceptions":19,"ranking":27},
+    {"team":"Chargers","position":"LOLB","name":"Henry Rolling","number":"#57","running_speed":25,"rushing_power":31,"maximum_speed":38,"hitting_power":38,"pass_interceptions":31,"ranking":75},
+    {"team":"Chargers","position":"RCB","name":"Sam Seale","number":"#30","running_speed":38,"rushing_power":44,"maximum_speed":56,"hitting_power":38,"pass_interceptions":50,"ranking":30},
+    {"team":"Chargers","position":"LCB","name":"Gill Byrd","number":"#22","running_speed":38,"rushing_power":50,"maximum_speed":63,"hitting_power":50,"pass_interceptions":69,"ranking":9},
+    {"team":"Chargers","position":"FS","name":"Vencie Glenn","number":"#25","running_speed":31,"rushing_power":38,"maximum_speed":50,"hitting_power":44,"pass_interceptions":44,"ranking":57},
+    {"team":"Chargers","position":"SS","name":"Martin Bayless","number":"#44","running_speed":25,"rushing_power":31,"maximum_speed":44,"hitting_power":56,"pass_interceptions":44,"ranking":70},
+    {"team":"Chargers","position":"K","name":"John Carney","number":"#3","kicking_ability":75,"avoid_kick_block":50,"ranking":5},
+    {"team":"Chargers","position":"P","name":"John Kidd","number":"#10","kicking_ability":69,"avoid_kick_block":56,"ranking":6}
+  ]
+}
+

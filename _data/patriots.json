@@ -1,0 +1,37 @@
+{
+  "full_name": "New England Patriots",
+  "short_name": "patriots",
+  "players": [
+    {"team":"Patriots","position":"QB1","name":"Steve Grogan","number":"#14","maximum_speed":6,"passing_speed":19,"pass_control":25,"avoid_pass_block":44,"ranking":56},
+    {"team":"Patriots","position":"QB2","name":"Marc Wilson","number":"#15","maximum_speed":13,"passing_speed":38,"pass_control":44,"avoid_pass_block":38,"ranking":29},
+    {"team":"Patriots","position":"RB1","name":"Marvin Allen","number":"#39","running_speed":44,"maximum_speed":25,"hitting_power":38,"ball_control":50,"receptions":25,"rushing_ranking":201,"receiving_ranking":253,"kick_return_ranking":188,"punk_return_ranking":235},
+    {"team":"Patriots","position":"RB2","name":"John Stephens","number":"#44","running_speed":44,"maximum_speed":31,"hitting_power":50,"ball_control":50,"receptions":31,"rushing_ranking":134,"receiving_ranking":173,"kick_return_ranking":159,"punk_return_ranking":232},
+    {"team":"Patriots","position":"RB3","name":"George Adams","number":"#33","running_speed":38,"maximum_speed":31,"hitting_power":31,"ball_control":50,"receptions":25,"rushing_ranking":164,"receiving_ranking":227,"kick_return_ranking":225,"punk_return_ranking":251},
+    {"team":"Patriots","position":"RB4","name":"Mosi Tatupu","number":"#30","running_speed":38,"maximum_speed":31,"hitting_power":31,"ball_control":50,"receptions":25,"rushing_ranking":165,"receiving_ranking":228,"kick_return_ranking":224,"punk_return_ranking":250},
+    {"team":"Patriots","position":"WR1","name":"Irving Fryar","number":"#80","running_speed":31,"maximum_speed":31,"hitting_power":13,"ball_control":50,"receptions":63,"rushing_ranking":159,"receiving_ranking":72,"kick_return_ranking":271,"punk_return_ranking":259},
+    {"team":"Patriots","position":"WR2","name":"Hart Lee Dykes","number":"#88","running_speed":31,"maximum_speed":31,"hitting_power":13,"ball_control":50,"receptions":50,"rushing_ranking":176,"receiving_ranking":114,"kick_return_ranking":272,"punk_return_ranking":260},
+    {"team":"Patriots","position":"WR3","name":"Greg Mcmurty","number":"#19","running_speed":25,"maximum_speed":19,"hitting_power":13,"ball_control":50,"receptions":50,"rushing_ranking":268,"receiving_ranking":208,"kick_return_ranking":280,"punk_return_ranking":266},
+    {"team":"Patriots","position":"WR4","name":"Sammy Martin","number":"#82","running_speed":25,"maximum_speed":25,"hitting_power":13,"ball_control":50,"receptions":44,"rushing_ranking":232,"receiving_ranking":202,"kick_return_ranking":279,"punk_return_ranking":265},
+    {"team":"Patriots","position":"TE1","name":"Marv Cook","number":"#46","running_speed":25,"maximum_speed":44,"hitting_power":56,"ball_control":50,"receptions":63,"rushing_ranking":46,"receiving_ranking":37,"kick_return_ranking":230,"punk_return_ranking":252},
+    {"team":"Patriots","position":"TE2","name":"Eric Sievers","number":"#85","running_speed":25,"maximum_speed":25,"hitting_power":31,"ball_control":50,"receptions":50,"rushing_ranking":204,"receiving_ranking":141,"kick_return_ranking":268,"punk_return_ranking":257},
+    {"team":"Patriots","position":"C","name":"Paul Fairchild","number":"#66","maximum_speed":38,"hitting_power":38,"ranking":83},
+    {"team":"Patriots","position":"LG","name":"Chris Gambol","number":"#74","maximum_speed":19,"hitting_power":50,"ranking":135},
+    {"team":"Patriots","position":"RG","name":"Damian Johnson","number":"#68","maximum_speed":25,"hitting_power":44,"ranking":132},
+    {"team":"Patriots","position":"LT","name":"Bruce Armstrong","number":"#78","maximum_speed":38,"hitting_power":69,"ranking":15},
+    {"team":"Patriots","position":"RT","name":"Danny Villa","number":"#75","maximum_speed":19,"hitting_power":50,"ranking":136},
+    {"team":"Patriots","position":"RE","name":"Garin Veris","number":"#60","running_speed":25,"rushing_power":31,"maximum_speed":31,"hitting_power":50,"pass_interceptions":19,"ranking":75},
+    {"team":"Patriots","position":"NT","name":"Tim Goad","number":"#72","running_speed":25,"rushing_power":31,"maximum_speed":25,"hitting_power":50,"pass_interceptions":19,"ranking":82},
+    {"team":"Patriots","position":"LE","name":"Ray Agnew","number":"#92","running_speed":38,"rushing_power":50,"maximum_speed":56,"hitting_power":56,"pass_interceptions":31,"ranking":9},
+    {"team":"Patriots","position":"ROLB","name":"Andre Tippett","number":"#56","running_speed":25,"rushing_power":38,"maximum_speed":44,"hitting_power":56,"pass_interceptions":31,"ranking":37},
+    {"team":"Patriots","position":"RILB","name":"Ed Reynolds","number":"#95","running_speed":25,"rushing_power":31,"maximum_speed":38,"hitting_power":38,"pass_interceptions":19,"ranking":84},
+    {"team":"Patriots","position":"LILB","name":"Richard Harvey","number":"#58","running_speed":25,"rushing_power":31,"maximum_speed":31,"hitting_power":38,"pass_interceptions":19,"ranking":101},
+    {"team":"Patriots","position":"LOLB","name":"Chris Singleton","number":"#55","running_speed":25,"rushing_power":31,"maximum_speed":31,"hitting_power":38,"pass_interceptions":19,"ranking":102},
+    {"team":"Patriots","position":"RCB","name":"Maurice Hurst","number":"#37","running_speed":31,"rushing_power":38,"maximum_speed":50,"hitting_power":44,"pass_interceptions":50,"ranking":43},
+    {"team":"Patriots","position":"LCB","name":"Ronnie Lippett","number":"#42","running_speed":38,"rushing_power":44,"maximum_speed":56,"hitting_power":50,"pass_interceptions":63,"ranking":16},
+    {"team":"Patriots","position":"FS","name":"Fred Marion","number":"#31","running_speed":25,"rushing_power":31,"maximum_speed":44,"hitting_power":50,"pass_interceptions":50,"ranking":60},
+    {"team":"Patriots","position":"SS","name":"Rod Mcswain","number":"#23","running_speed":25,"rushing_power":31,"maximum_speed":31,"hitting_power":56,"pass_interceptions":31,"ranking":107},
+    {"team":"Patriots","position":"K","name":"Jason Staurovsky","number":"#4","kicking_ability":63,"avoid_kick_block":44,"ranking":10},
+    {"team":"Patriots","position":"P","name":"Brian Hansen","number":"#10","kicking_ability":31,"avoid_kick_block":31,"ranking":23}
+  ]
+}
+
