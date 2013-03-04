@@ -62,7 +62,7 @@ header {
 }
 
 .players {
-  margin: 0 2.5em 4em;
+  margin: 0 2.5em 3em 2.5em;
   max-width: 1440px;
 
   .player {
@@ -143,7 +143,8 @@ header {
   // Player info labels
   // ***************************************************************************
   .labels {
-    border-bottom: 3px solid rgba(#fff, 0.25);
+    border-bottom: 3px solid rgba(#fff, 0.35);
+    color: rgba(#fff, 0.35);
     margin: 0 0 12px 0;
     padding: 0 0 2px 0;
 
@@ -152,7 +153,6 @@ header {
       width: 212px;
 
       h3 {
-        color: rgba(#fff, 0.25);
         font-size: 20px;
         font-weight: bold;
       }
@@ -163,13 +163,11 @@ header {
       position: static;
 
       h5 {
-        color: rgba(#fff, 0.25);
         font-size: 12px;
         margin: 0 0 2px 0;
       }
 
       h6 {
-        color: rgba(#fff, 0.25);
         font-size: 12px;
         font-weight: bold;
       }
@@ -189,7 +187,7 @@ header {
   .ability-notes {
     color: #292929;
     font-size: 14px;
-    margin: 1em 0 1em 310px;
+    margin: 0.5em 0 1em 310px;
     opacity: 0.6;
   }
 }
@@ -587,7 +585,7 @@ header {
 $power-values: 6, 13, 19, 25, 31, 38, 44, 50, 56, 63, 69, 75, 81, 88, 94;
 
 @mixin power-meter($ability) {
-  @include background-image(linear-gradient(left, #63adff 0%, #63adff $ability, transparent $ability));
+  @include background-image(linear-gradient(left, #6699ff 0%, #6699ff $ability, transparent $ability));
 }
 
 @each $value in $power-values {
