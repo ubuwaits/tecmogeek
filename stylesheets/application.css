@@ -99,7 +99,7 @@ body.fortyniners {
   background: #ff9933; }
 
 body.bears {
-  background: #000099; }
+  background: #cc3366; }
 
 body.bengals {
   background: #cc3333; }
@@ -108,7 +108,7 @@ body.bills {
   background: #cc3333; }
 
 body.broncos {
-  background: #3333ff; }
+  background: #cc3366; }
 
 body.browns {
   background: #ff9966; }
@@ -117,19 +117,19 @@ body.buccaneers {
   background: #ff9966; }
 
 body.cardinals {
-  background: #660000; }
+  background: #cc0000; }
 
 body.chargers {
-  background: #3333ff; }
+  background: #cccc00; }
 
 body.chiefs {
   background: #cc3333; }
 
 body.colts {
-  background: #3333ff; }
+  background: #4242ff; }
 
 body.cowboys {
-  background: #3333ff; }
+  background: #ccccff; }
 
 body.dolphins {
   background: #33cccc; }
@@ -138,10 +138,10 @@ body.eagles {
   background: #009933; }
 
 body.falcons {
-  background: #000099; }
+  background: #cc3333; }
 
 body.giants {
-  background: #3333ff; }
+  background: #4242ff; }
 
 body.jets {
   background: #009933; }
@@ -162,13 +162,13 @@ body.raiders {
   background: #999999; }
 
 body.rams {
-  background: #330099; }
+  background: #cccc00; }
 
 body.redskins {
   background: #cc3366; }
 
 body.saints {
-  background: #666600; }
+  background: #6b6b00; }
 
 body.seahawks {
   background: #ccccff; }
@@ -178,45 +178,6 @@ body.steelers {
 
 body.vikings {
   background: #6633ff; }
-
-body.bears .players .player-info,
-body.bears .players .player-ranking,
-body.bears .players .skill-toggles li a,
-body.bears .players .ability-notes,
-body.broncos .players .player-info,
-body.broncos .players .player-ranking,
-body.broncos .players .skill-toggles li a,
-body.broncos .players .ability-notes,
-body.chargers .players .player-info,
-body.chargers .players .player-ranking,
-body.chargers .players .skill-toggles li a,
-body.chargers .players .ability-notes,
-body.colts .players .player-info,
-body.colts .players .player-ranking,
-body.colts .players .skill-toggles li a,
-body.colts .players .ability-notes,
-body.cowboys .players .player-info,
-body.cowboys .players .player-ranking,
-body.cowboys .players .skill-toggles li a,
-body.cowboys .players .ability-notes,
-body.cardinals .players .player-info,
-body.cardinals .players .player-ranking,
-body.cardinals .players .skill-toggles li a,
-body.cardinals .players .ability-notes,
-body.falcons .players .player-info,
-body.falcons .players .player-ranking,
-body.falcons .players .skill-toggles li a,
-body.falcons .players .ability-notes,
-body.giants .players .player-info,
-body.giants .players .player-ranking,
-body.giants .players .skill-toggles li a,
-body.giants .players .ability-notes,
-body.rams .players .player-info,
-body.rams .players .player-ranking,
-body.rams .players .skill-toggles li a,
-body.rams .players .ability-notes {
-  color: #f0f0f0;
-  text-shadow: none; }
 
 header {
   margin: 0 0 1em 0;
