@@ -28,8 +28,7 @@ body.steelers { background: #cccc00; }
 body.vikings { background: #6633ff; }
 
 header {
-  margin: 0 0 1em 0;
-  padding: 4.5em 2.5em 2em 2.5em;
+  padding: 4.5em 2.5em 2.5em 2.5em;
 
   h1 {
     color: #fff;
@@ -170,13 +169,12 @@ header {
     color: #292929;
     font-size: 14px;
     margin: 0.5em 0 1em 310px;
-    opacity: 0.6;
+    opacity: 0.5;
   }
 }
 
 .skill-toggles {
   @extend .clearfix;
-  /*background: rgba(#fff, 0.125);*/
   margin: -12px 0 1.25em 0;
   text-align: center;
 
@@ -184,7 +182,6 @@ header {
     display: inline-block;
 
     a {
-      /*border-right: 1px solid rgba(#fff, 0.2);*/
       color: #292929;
       display: block;
       font-weight: bold;
@@ -196,7 +193,6 @@ header {
 
       &.active,
       &:hover {
-        /*background: rgba(#fff, 0.2);*/
         opacity: 1;
       }
 
@@ -277,7 +273,7 @@ header {
     }
 
     &.maximum-speed {
-      width: 58%;
+      width: 63%;
 
       &.kick-return,
       &.punt-return {
@@ -286,7 +282,7 @@ header {
     }
 
     &.hitting-power {
-      width: 13%;
+      width: 8%;
     }
 
     &.ball-control {
@@ -357,7 +353,7 @@ header {
 
   .player-abilities li {
     &.running-speed {
-      width: 23%;
+      width: 18%;
     }
 
     &.maximum-speed {
@@ -369,12 +365,12 @@ header {
 
       &.kick-return {
         display: block;
-        width: 48%;
+        width: 58%;
       }
     }
 
     &.hitting-power {
-      width: 13%;
+      width: 8%;
     }
 
     &.ball-control {
@@ -400,7 +396,7 @@ header {
 
   .player-abilities li {
     &.running-speed {
-      width: 23%;
+      width: 18%;
     }
 
     &.maximum-speed {
@@ -412,12 +408,12 @@ header {
 
       &.punt-return {
         display: block;
-        width: 58%;
+        width: 68%;
       }
     }
 
     &.hitting-power {
-      width: 13%;
+      width: 8%;
     }
 
     &.ball-control {
@@ -588,10 +584,25 @@ $teams: 49ers bears bengals bills broncos browns buccaneers cardinals chargers c
   width: 60px;
 }
 
+.top-nav .helmet {
+  background-size: 867px 30px;
+  height: 30px;
+  width: 30px;
+}
+
 $z: 0;
 @each $team in $teams {
   .helmet-#{$team} {
     background-position: $z * -62px 0;
+  }
+
+  $z: $z + 1;
+}
+
+$z: 0;
+@each $team in $teams {
+  .top-nav .helmet-#{$team} {
+    background-position: $z * -31px 0;
   }
 
   $z: $z + 1;

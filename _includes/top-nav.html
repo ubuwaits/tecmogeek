@@ -1,9 +1,12 @@
-<nav>
+<nav class="top-nav">
   <ul>
-    <li><a href="#">Teams</a></li>
-    <li>
+    <li class="nav-teams">
+      <a href="#">Teams</a>
+      {% include team-list.html %}
+    </li>
+    <li class="nav-players">
       <a href="#">Players</a>
-      <ul>
+      <ol>
         <li><a href="#">QB</a></li>
         <li><a href="#">Rushers</a></li>
         <li><a href="#">Receivers</a></li>
@@ -15,7 +18,7 @@
         <li><a href="#">CB/S</a></li>
         <li><a href="#">K</a></li>
         <li><a href="#">P</a></li>
-      </ul>
+      </ol>
     </li>
   </ul>
 </nav>

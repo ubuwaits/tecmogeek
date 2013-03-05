@@ -49,19 +49,20 @@ table {
 
 /* Clear Floated Elements
 ------------------------------------------------------------------------------*/
-.clearfix:before, nav ul:before, .players .player:before, .skill-toggles:before, footer:before,
+.clearfix:before, nav ul:before, nav ul > li > ol:before, .players .player:before, .skill-toggles:before, footer:before,
 .clearfix:after,
 nav ul:after,
+nav ul > li > ol:after,
 .players .player:after,
 .skill-toggles:after,
 footer:after {
   content: " ";
   display: table; }
 
-.clearfix:after, nav ul:after, .players .player:after, .skill-toggles:after, footer:after {
+.clearfix:after, nav ul:after, nav ul > li > ol:after, .players .player:after, .skill-toggles:after, footer:after {
   clear: both; }
 
-.clearfix, nav ul, .players .player, .skill-toggles, footer {
+.clearfix, nav ul, nav ul > li > ol, .players .player, .skill-toggles, footer {
   *zoom: 1; }
 
 body {
@@ -74,26 +75,60 @@ nav {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+  -webkit-box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.1);
   padding: 10px;
   position: fixed;
   width: 100%;
   z-index: 1000; }
   nav ul {
     margin: 0 0 0 1.35em; }
-    nav ul li {
-      float: left; }
-      nav ul li a {
+    nav ul > li {
+      float: left;
+      position: relative; }
+      nav ul > li a {
         color: #333;
         display: block;
         font-size: 14px;
         font-weight: bold;
         padding: 6px 12px;
         text-decoration: none; }
-        nav ul li a:hover {
+        nav ul > li a:hover {
           background: rgba(255, 255, 255, 0.5);
           border-radius: 3px; }
-      nav ul li > ul {
-        display: none; }
+        nav ul > li a.active {
+          background: rgba(0, 0, 0, 0.9);
+          border-radius: 4px 4px 0 0;
+          color: #fff; }
+      nav ul > li > ol {
+        background: rgba(0, 0, 0, 0.9);
+        border-radius: 0 4px 4px 4px;
+        display: none;
+        padding: 12px 0 12px 12px;
+        position: absolute;
+        width: 500px; }
+        nav ul > li > ol > li {
+          float: left;
+          width: 33.333333333333333%; }
+          nav ul > li > ol > li h6 {
+            display: none; }
+          nav ul > li > ol > li ol li a {
+            border-radius: 4px;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            color: #fff;
+            display: block;
+            font-size: 14px;
+            font-weight: bold;
+            margin: 0 20px 0 0;
+            padding: 6px;
+            text-decoration: none; }
+            nav ul > li > ol > li ol li a i {
+              margin-right: 8px;
+              vertical-align: middle; }
+            nav ul > li > ol > li ol li a:hover {
+              background: #272727; }
 
 body.fortyniners {
   background: #ff9933; }
@@ -180,8 +215,7 @@ body.vikings {
   background: #6633ff; }
 
 header {
-  margin: 0 0 1em 0;
-  padding: 4.5em 2.5em 2em 2.5em; }
+  padding: 4.5em 2.5em 2.5em 2.5em; }
   header h1 {
     color: #fff;
     font-size: 2em;
@@ -279,16 +313,14 @@ header {
     color: #292929;
     font-size: 14px;
     margin: 0.5em 0 1em 310px;
-    opacity: 0.6; }
+    opacity: 0.5; }
 
 .skill-toggles {
-  /*background: rgba(#fff, 0.125);*/
   margin: -12px 0 1.25em 0;
   text-align: center; }
   .skill-toggles li {
     display: inline-block; }
     .skill-toggles li a {
-      /*border-right: 1px solid rgba(#fff, 0.2);*/
       color: #292929;
       display: block;
       font-weight: bold;
@@ -298,7 +330,6 @@ header {
       text-align: center;
       text-decoration: none; }
       .skill-toggles li a.active, .skill-toggles li a:hover {
-        /*background: rgba(#fff, 0.2);*/
         opacity: 1; }
       .skill-toggles li a.active:after {
         border-left: 8px solid transparent;
@@ -338,11 +369,11 @@ header {
 .players.rushing .player-abilities li.running-speed {
   width: 8%; }
 .players.rushing .player-abilities li.maximum-speed {
-  width: 58%; }
+  width: 63%; }
   .players.rushing .player-abilities li.maximum-speed.kick-return, .players.rushing .player-abilities li.maximum-speed.punt-return {
     display: none; }
 .players.rushing .player-abilities li.hitting-power {
-  width: 13%; }
+  width: 8%; }
 .players.rushing .player-abilities li.ball-control {
   width: 3%;
   padding-left: 1px;
@@ -380,16 +411,16 @@ header {
 .players.kick-return .punt-return-notes {
   display: none; }
 .players.kick-return .player-abilities li.running-speed {
-  width: 23%; }
+  width: 18%; }
 .players.kick-return .player-abilities li.maximum-speed {
   display: none; }
   .players.kick-return .player-abilities li.maximum-speed.punt-return {
     display: none; }
   .players.kick-return .player-abilities li.maximum-speed.kick-return {
     display: block;
-    width: 48%; }
+    width: 58%; }
 .players.kick-return .player-abilities li.hitting-power {
-  width: 13%; }
+  width: 8%; }
 .players.kick-return .player-abilities li.ball-control {
   width: 8%; }
 .players.kick-return .player-abilities li.receptions {
@@ -402,16 +433,16 @@ header {
 .players.punt-return .kick-return-notes {
   display: none; }
 .players.punt-return .player-abilities li.running-speed {
-  width: 23%; }
+  width: 18%; }
 .players.punt-return .player-abilities li.maximum-speed {
   display: none; }
   .players.punt-return .player-abilities li.maximum-speed.kick-return {
     display: none; }
   .players.punt-return .player-abilities li.maximum-speed.punt-return {
     display: block;
-    width: 58%; }
+    width: 68%; }
 .players.punt-return .player-abilities li.hitting-power {
-  width: 13%; }
+  width: 8%; }
 .players.punt-return .player-abilities li.ball-control {
   display: none; }
 .players.punt-return .player-abilities li.receptions {
@@ -589,6 +620,11 @@ header {
   height: 60px;
   width: 60px; }
 
+.top-nav .helmet {
+  background-size: 867px 30px;
+  height: 30px;
+  width: 30px; }
+
 .helmet-49ers {
   background-position: 0px 0; }
 
@@ -672,6 +708,90 @@ header {
 
 .helmet-vikings {
   background-position: -1674px 0; }
+
+.top-nav .helmet-49ers {
+  background-position: 0px 0; }
+
+.top-nav .helmet-bears {
+  background-position: -31px 0; }
+
+.top-nav .helmet-bengals {
+  background-position: -62px 0; }
+
+.top-nav .helmet-bills {
+  background-position: -93px 0; }
+
+.top-nav .helmet-broncos {
+  background-position: -124px 0; }
+
+.top-nav .helmet-browns {
+  background-position: -155px 0; }
+
+.top-nav .helmet-buccaneers {
+  background-position: -186px 0; }
+
+.top-nav .helmet-cardinals {
+  background-position: -217px 0; }
+
+.top-nav .helmet-chargers {
+  background-position: -248px 0; }
+
+.top-nav .helmet-chiefs {
+  background-position: -279px 0; }
+
+.top-nav .helmet-colts {
+  background-position: -310px 0; }
+
+.top-nav .helmet-cowboys {
+  background-position: -341px 0; }
+
+.top-nav .helmet-dolphins {
+  background-position: -372px 0; }
+
+.top-nav .helmet-eagles {
+  background-position: -403px 0; }
+
+.top-nav .helmet-falcons {
+  background-position: -434px 0; }
+
+.top-nav .helmet-giants {
+  background-position: -465px 0; }
+
+.top-nav .helmet-jets {
+  background-position: -496px 0; }
+
+.top-nav .helmet-lions {
+  background-position: -527px 0; }
+
+.top-nav .helmet-oilers {
+  background-position: -558px 0; }
+
+.top-nav .helmet-packers {
+  background-position: -589px 0; }
+
+.top-nav .helmet-patriots {
+  background-position: -620px 0; }
+
+.top-nav .helmet-raiders {
+  background-position: -651px 0; }
+
+.top-nav .helmet-rams {
+  background-position: -682px 0; }
+
+.top-nav .helmet-redskins {
+  background-position: -713px 0; }
+
+.top-nav .helmet-saints {
+  background-position: -744px 0; }
+
+.top-nav .helmet-seahawks {
+  background-position: -775px 0; }
+
+.top-nav .helmet-steelers {
+  background-position: -806px 0; }
+
+.top-nav .helmet-vikings {
+  background-position: -837px 0; }
 
 .headshot {
   background-repeat: no-repeat;

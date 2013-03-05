@@ -2,6 +2,7 @@ nav {
   background: inherit;
   border-bottom: 1px solid rgba(#000, 0.1);
   @include box-sizing(border-box);
+  @include box-shadow(0 0 3px 0 rgba(#000, 0.1));
   padding: 10px;
   position: fixed;
   width: 100%;
@@ -11,8 +12,9 @@ nav {
     @extend .clearfix;
     margin: 0 0 0 1.35em;
 
-    li {
+    > li {
       float: left;
+      position: relative;
 
       a {
         color: #333;
@@ -26,10 +28,56 @@ nav {
           background: rgba(#fff, 0.5);
           border-radius: 3px;
         }
+
+        &.active {
+          background: rgba(#000, 0.9);
+          border-radius: 4px 4px 0 0;
+          color: #fff;
+        }
       }
 
-      > ul {
+      > ol {
+        @extend .clearfix;
+        background: rgba(#000, 0.9);
+        border-radius: 0 4px 4px 4px;
         display: none;
+        padding: 12px 0 12px 12px;
+        position: absolute;
+        width: 500px;
+
+        > li {
+          float: left;
+          width: 33.333333333333333%;
+
+          h6 {
+            display: none;
+          }
+
+          ol {
+            li {
+              a {
+                border-radius: 4px;
+                @include box-sizing(border-box);
+                color: #fff;
+                display: block;
+                font-size: 14px;
+                font-weight: bold;
+                margin: 0 20px 0 0;
+                padding: 6px;
+                text-decoration: none;
+
+                i {
+                  margin-right: 8px;
+                  vertical-align: middle;
+                }
+
+                &:hover {
+                  background: #272727;
+                }
+              }
+            }
+          }
+        }
       }
     }
   }
