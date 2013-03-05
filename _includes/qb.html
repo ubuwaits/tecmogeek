@@ -1,0 +1,52 @@
+<header>
+  <h1>{{ page.title }}</h1>
+</header>
+
+<!-- Quarterbacks -->
+<section class="players qb">
+  <ol>
+    <li class="player labels">
+      <section class="section-label">
+        <h3>QB</h3>
+      </section>
+
+      <section class="player-ranking">
+        <h5>Ranking</h5>
+        <h6>out of 56</h6>
+      </section>
+
+      <ul class="player-abilities">
+        <li class="maximum-speed"><abbr title="Maximum Speed">MS<abbr></li>
+        <li class="passing-speed">PS</li>
+        <li class="pass-control">PC</li>
+        <li class="avoid-pass-block">APB</li>
+      </ul>
+    </li>
+
+    {% for x in (0..55) %}
+      <li class="player">
+        <a href="/teams/{{ players[x].team | downcase }}/"><i class="helmet helmet-{{ players[x].team | downcase }}"></i></a>
+        <i class="headshot headshot-{{ players[x].team | downcase }} headshot-{{ players[x].position }}"></i>
+
+        <section class="player-info">
+          <h3 class="player-name">{{ players[x].name }}</h3>
+          <h4 class="player-position-number">{{ players[x].position }} {{ players[x].number }}</h4>
+        </section>
+
+        <section class="player-ranking">
+          <h5>{{ players[x].ranking }}</h5>
+        </section>
+
+        <ul class="player-abilities">
+          <li class="maximum-speed power-{{ players[x].maximum_speed }}">{{ players[x].maximum_speed }}</li>
+          <li class="passing-speed power-{{ players[x].passing_speed }}">{{ players[x].passing_speed }}</li>
+          <li class="pass-control power-{{ players[x].pass_control }}">{{ players[x].pass_control }}</li>
+          <li class="avoid-pass-block power-{{ players[x].avoid_pass_block }}">{{ players[x].avoid_pass_block }}</li>
+        </ul>
+      </li>
+    {% endfor %}
+  </ol>
+
+  <p class="ability-notes">{{ site.qb-text }}</p>
+</section>
+

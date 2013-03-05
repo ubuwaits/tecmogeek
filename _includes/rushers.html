@@ -1,0 +1,54 @@
+<header>
+  <h1>{{ page.title }}</h1>
+</header>
+
+<!-- RB/WR/TE -->
+<section class="players rb-wr-te rushing">
+  <ol>
+    <li class="player labels">
+      <section class="section-label">
+        <h3>RB/WR/TE</h3>
+      </section>
+
+      <section class="player-ranking">
+        <h5>Ranking</h5>
+        <h6>out of 280</h6>
+      </section>
+
+      <ul class="player-abilities">
+        <li class="running-speed">RS</li>
+        <li class="maximum-speed">MS</li>
+        <li class="hitting-power">HP</li>
+        <li class="ball-control">BC</li>
+        <li class="receptions">PR</li>
+      </ul>
+    </li>
+
+    {% for x in (0..279) %}
+      <li class="player">
+        <a href="/teams/{{ players[x].team | downcase }}/"><i class="helmet helmet-{{ players[x].team | downcase }}"></i></a>
+        <i class="headshot headshot-{{ players[x].team | downcase }} headshot-{{ players[x].position }}"></i>
+
+        <section class="player-info">
+          <h3 class="player-name">{{ players[x].name }}</h3>
+          <h4 class="player-position-number">{{ players[x].position }} {{ players[x].number }}</h4>
+        </section>
+
+        <section class="player-ranking">
+          <h5>{{ players[x].rushing_ranking }}</h5>
+        </section>
+
+        <ul class="player-abilities">
+          <li class="running-speed power-{{ players[x].running_speed }}">{{ players[x].running_speed }}</li>
+          <li class="maximum-speed power-{{ players[x].maximum_speed }}">{{ players[x].maximum_speed }}</li>
+          <li class="hitting-power power-{{ players[x].hitting_power }}">{{ players[x].hitting_power }}</li>
+          <li class="ball-control power-{{ players[x].ball_control }}">{{ players[x].ball_control }}</li>
+          <li class="receptions power-{{ players[x].receptions }}">{{ players[x].receptions }}</li>
+        </ul>
+      </li>
+    {% endfor %}
+  </ol>
+
+  <p class="ability-notes rb-wr-te-notes">{{ site.rb-wr-te-text }}</p>
+</section>
+

@@ -32,5 +32,11 @@ $(document).ready(function() {
     $("nav li.nav-teams > ol").toggle();
     return false;
   });
+
+  $("nav li.nav-players > a").click(function() {
+    $("nav li.nav-players > a").toggleClass("active");
+    $("nav li.nav-players > ol").toggle();
+    return false;
+  });
 });
 

@@ -1,5 +1,17 @@
 body {
+  background: #1863d6;
   color: #292929;
   font-family: "helvetica neue", helvetica, arial, sans-serif;
+}
+
+@font-face {
+    font-family: 'tecmo';
+    src: url('/fonts/gf-tecmoset1-webfont.eot');
+    src: url('/fonts/gf-tecmoset1-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/fonts/gf-tecmoset1-webfont.woff') format('woff'),
+         url('/fonts/gf-tecmoset1-webfont.ttf') format('truetype'),
+         url('/fonts/gf-tecmoset1-webfont.svg#gf_tecmo_set_1regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
 }
 

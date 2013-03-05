@@ -1,0 +1,31 @@
+.body-players {
+  .players {
+    .section-label {
+      width: 256px;
+    }
+
+    .helmet {
+      position: absolute;
+      left: 0px;
+      top: 2px;
+    }
+
+    .headshot {
+      position: absolute;
+      left: 44px;
+    }
+
+    .player-info {
+      left: 86px;
+    }
+
+    .player-ranking {
+      left: 258px;
+    }
+
+    .player-abilities {
+      margin-left: 336px;
+    }
+  }
+}
+

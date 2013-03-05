@@ -49,179 +49,149 @@ table {
 
 /* Clear Floated Elements
 ------------------------------------------------------------------------------*/
-.clearfix:before, nav ul:before, nav ul > li > ol:before, .players .player:before, .skill-toggles:before, footer:before,
+.clearfix:before, .main-header:before, .main-header nav:before, .main-header nav ul:before, .main-header nav ul > li > ol:before, .players .player:before, .skill-toggles:before, footer:before,
 .clearfix:after,
-nav ul:after,
-nav ul > li > ol:after,
+.main-header:after,
+.main-header nav:after,
+.main-header nav ul:after,
+.main-header nav ul > li > ol:after,
 .players .player:after,
 .skill-toggles:after,
 footer:after {
   content: " ";
   display: table; }
 
-.clearfix:after, nav ul:after, nav ul > li > ol:after, .players .player:after, .skill-toggles:after, footer:after {
+.clearfix:after, .main-header:after, .main-header nav:after, .main-header nav ul:after, .main-header nav ul > li > ol:after, .players .player:after, .skill-toggles:after, footer:after {
   clear: both; }
 
-.clearfix, nav ul, nav ul > li > ol, .players .player, .skill-toggles, footer {
+.clearfix, .main-header, .main-header nav, .main-header nav ul, .main-header nav ul > li > ol, .players .player, .skill-toggles, footer {
   *zoom: 1; }
 
 body {
+  background: #1863d6;
   color: #292929;
   font-family: "helvetica neue", helvetica, arial, sans-serif; }
 
-nav {
-  background: inherit;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+@font-face {
+  font-family: 'tecmo';
+  src: url("/fonts/gf-tecmoset1-webfont.eot");
+  src: url("/fonts/gf-tecmoset1-webfont.eot?#iefix") format("embedded-opentype"), url("/fonts/gf-tecmoset1-webfont.woff") format("woff"), url("/fonts/gf-tecmoset1-webfont.ttf") format("truetype"), url("/fonts/gf-tecmoset1-webfont.svg#gf_tecmo_set_1regular") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+
+.main-header {
+  background: #165dcb;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  -webkit-box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.1);
-  box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.1);
-  padding: 10px;
+  -webkit-box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
+  padding: 1em 1em 0.75em 1em;
   position: fixed;
+  top: 0;
   width: 100%;
-  z-index: 1000; }
-  nav ul {
-    margin: 0 0 0 1.35em; }
-    nav ul > li {
-      float: left;
-      position: relative; }
-      nav ul > li a {
-        color: #333;
-        display: block;
-        font-size: 14px;
-        font-weight: bold;
-        padding: 6px 12px;
-        text-decoration: none; }
-        nav ul > li a:hover {
-          background: rgba(255, 255, 255, 0.5);
-          border-radius: 3px; }
-        nav ul > li a.active {
+  z-index: 999; }
+  .main-header h1 {
+    color: #fff;
+    font-family: tecmo;
+    float: left;
+    font-size: 26px;
+    font-weight: normal;
+    text-align: center;
+    width: 160px; }
+  .main-header nav {
+    float: left;
+    padding: 12px 10px 10px 10px;
+    width: 500px; }
+    .main-header nav ul {
+      margin: 0 0 0 1.35em; }
+      .main-header nav ul > li {
+        float: left;
+        margin: 0 24px 0 0;
+        position: relative; }
+        .main-header nav ul > li > a {
+          border-bottom: 2px solid white;
+          color: #fff;
+          display: block;
+          font-family: tecmo;
+          font-size: 13px;
+          font-weight: normal;
+          padding: 6px 0;
+          text-decoration: none;
+          text-transform: uppercase; }
+          .main-header nav ul > li > a.active {
+            background: rgba(0, 0, 0, 0.9);
+            border-radius: 4px 4px 0 0;
+            color: #fff; }
+        .main-header nav ul > li > ol {
           background: rgba(0, 0, 0, 0.9);
-          border-radius: 4px 4px 0 0;
-          color: #fff; }
-      nav ul > li > ol {
-        background: rgba(0, 0, 0, 0.9);
-        border-radius: 0 4px 4px 4px;
-        display: none;
-        padding: 12px 0 12px 12px;
-        position: absolute;
-        width: 500px; }
-        nav ul > li > ol > li {
-          float: left;
-          width: 33.333333333333333%; }
-          nav ul > li > ol > li h6 {
-            display: none; }
-          nav ul > li > ol > li ol li a {
-            border-radius: 4px;
-            -webkit-box-sizing: border-box;
-            -moz-box-sizing: border-box;
-            box-sizing: border-box;
-            color: #fff;
-            display: block;
-            font-size: 14px;
-            font-weight: bold;
-            margin: 0 20px 0 0;
-            padding: 6px;
-            text-decoration: none; }
-            nav ul > li > ol > li ol li a i {
-              margin-right: 8px;
-              vertical-align: middle; }
-            nav ul > li > ol > li ol li a:hover {
-              background: #272727; }
+          border-radius: 0 4px 4px 4px;
+          display: none;
+          padding: 12px 0 12px 12px;
+          position: absolute;
+          width: 500px;
+          z-index: 1000; }
+          .main-header nav ul > li > ol > li {
+            float: left;
+            width: 33.333333333333333%; }
+            .main-header nav ul > li > ol > li h6 {
+              display: none; }
+            .main-header nav ul > li > ol > li ol li a {
+              border-radius: 4px;
+              -webkit-box-sizing: border-box;
+              -moz-box-sizing: border-box;
+              box-sizing: border-box;
+              color: #fff;
+              display: block;
+              font-size: 14px;
+              font-weight: bold;
+              margin: 0 20px 0 0;
+              padding: 6px;
+              text-decoration: none; }
+              .main-header nav ul > li > ol > li ol li a i {
+                margin-right: 8px;
+                vertical-align: middle; }
+              .main-header nav ul > li > ol > li ol li a:hover {
+                background: #272727; }
 
-body.fortyniners {
-  background: #ff9933; }
-
-body.bears {
-  background: #cc3366; }
-
-body.bengals {
-  background: #cc3333; }
-
-body.bills {
-  background: #cc3333; }
-
-body.broncos {
-  background: #cc3366; }
-
-body.browns {
-  background: #ff9966; }
-
-body.buccaneers {
-  background: #ff9966; }
-
-body.cardinals {
-  background: #cc0000; }
-
-body.chargers {
-  background: #cccc00; }
-
-body.chiefs {
-  background: #cc3333; }
-
-body.colts {
-  background: #4242ff; }
-
-body.cowboys {
-  background: #ccccff; }
-
-body.dolphins {
-  background: #33cccc; }
-
-body.eagles {
-  background: #009933; }
-
-body.falcons {
-  background: #cc3333; }
-
-body.giants {
-  background: #4242ff; }
-
-body.jets {
-  background: #009933; }
-
-body.lions {
-  background: #0066cc; }
-
-body.oilers {
-  background: #6699ff; }
-
-body.packers {
-  background: #006600; }
-
-body.patriots {
-  background: #ff66cc; }
-
-body.raiders {
-  background: #999999; }
-
-body.rams {
-  background: #cccc00; }
-
-body.redskins {
-  background: #cc3366; }
-
-body.saints {
-  background: #6b6b00; }
-
-body.seahawks {
-  background: #ccccff; }
-
-body.steelers {
-  background: #cccc00; }
-
-body.vikings {
-  background: #6633ff; }
-
-header {
-  padding: 4.5em 2.5em 2.5em 2.5em; }
-  header h1 {
+/*body.fortyniners { background: #4eb55f; }*/
+/*body.bears { background: #cc3366; }*/
+/*body.bengals { background: #cc3333; }*/
+/*body.bills { background: #cc3333; }*/
+/*body.broncos { background: #cc3366; }*/
+/*body.browns { background: #ff9966; }*/
+/*body.buccaneers { background: #ff9966; }*/
+/*body.cardinals { background: #cc0000; }*/
+/*body.chargers { background: #cccc00; }*/
+/*body.chiefs header h1 { color: #cc3333; }*/
+/*body.colts { background: #4242ff; }*/
+/*body.cowboys { background: #ccccff; }*/
+/*body.dolphins { background: #33cccc; }*/
+/*body.eagles { background: #009933; }*/
+/*body.falcons { background: #cc3333; }*/
+/*body.giants { background: #4242ff; }*/
+/*body.jets { background: #009933; }*/
+/*body.lions { background: #0066cc; }*/
+/*body.oilers { background: #6699ff; }*/
+/*body.packers { background: #006600; }*/
+/*body.patriots { background: #ff66cc; }*/
+/*body.raiders { background: #999999; }*/
+/*body.rams { background: #cccc00; }*/
+/*body.redskins { background: #cc3366; }*/
+/*body.saints { background: #6b6b00; }*/
+/*body.seahawks { background: #ccccff; }*/
+/*body.steelers { background: #cccc00; }*/
+/*body.vikings { background: #6633ff; }*/
+#container header {
+  margin: 7em 0 3em 0;
+  padding: 0 2.5em 0 2.5em; }
+  #container header h1 {
     color: #fff;
     font-size: 2em;
-    font-weight: 700; }
-    header h1 i {
-      margin: 0 0.75em 0 0;
+    font-weight: 300; }
+    #container header h1 i {
+      margin: 0 0.5em 0 0;
       vertical-align: middle; }
 
 .players {
@@ -285,7 +255,7 @@ header {
         width: 18%; }
   .players .labels {
     border-bottom: 3px solid rgba(255, 255, 255, 0.35);
-    color: rgba(255, 255, 255, 0.35);
+    color: white;
     margin: 0 0 12px 0;
     padding: 0 0 2px 0; }
     .players .labels .section-label {
@@ -509,109 +479,109 @@ header {
   width: 28%; }
 
 .power-6 {
-  background-image: -webkit-linear-gradient(left, #6699ff 0%, #6699ff 6%, transparent 6%);
-  background-image: -moz-linear-gradient(left, #6699ff 0%, #6699ff 6%, transparent 6%);
-  background-image: -ms-linear-gradient(left, #6699ff 0%, #6699ff 6%, transparent 6%);
-  background-image: -o-linear-gradient(left, #6699ff 0%, #6699ff 6%, transparent 6%);
-  background-image: linear-gradient(left, #6699ff 0%, #6699ff 6%, transparent 6%); }
+  background-image: -webkit-linear-gradient(left, #ff6bce 0%, #ff6bce 6%, transparent 6%);
+  background-image: -moz-linear-gradient(left, #ff6bce 0%, #ff6bce 6%, transparent 6%);
+  background-image: -ms-linear-gradient(left, #ff6bce 0%, #ff6bce 6%, transparent 6%);
+  background-image: -o-linear-gradient(left, #ff6bce 0%, #ff6bce 6%, transparent 6%);
+  background-image: linear-gradient(left, #ff6bce 0%, #ff6bce 6%, transparent 6%); }
 
 .power-13 {
-  background-image: -webkit-linear-gradient(left, #6699ff 0%, #6699ff 13%, transparent 13%);
-  background-image: -moz-linear-gradient(left, #6699ff 0%, #6699ff 13%, transparent 13%);
-  background-image: -ms-linear-gradient(left, #6699ff 0%, #6699ff 13%, transparent 13%);
-  background-image: -o-linear-gradient(left, #6699ff 0%, #6699ff 13%, transparent 13%);
-  background-image: linear-gradient(left, #6699ff 0%, #6699ff 13%, transparent 13%); }
+  background-image: -webkit-linear-gradient(left, #ff6bce 0%, #ff6bce 13%, transparent 13%);
+  background-image: -moz-linear-gradient(left, #ff6bce 0%, #ff6bce 13%, transparent 13%);
+  background-image: -ms-linear-gradient(left, #ff6bce 0%, #ff6bce 13%, transparent 13%);
+  background-image: -o-linear-gradient(left, #ff6bce 0%, #ff6bce 13%, transparent 13%);
+  background-image: linear-gradient(left, #ff6bce 0%, #ff6bce 13%, transparent 13%); }
 
 .power-19 {
-  background-image: -webkit-linear-gradient(left, #6699ff 0%, #6699ff 19%, transparent 19%);
-  background-image: -moz-linear-gradient(left, #6699ff 0%, #6699ff 19%, transparent 19%);
-  background-image: -ms-linear-gradient(left, #6699ff 0%, #6699ff 19%, transparent 19%);
-  background-image: -o-linear-gradient(left, #6699ff 0%, #6699ff 19%, transparent 19%);
-  background-image: linear-gradient(left, #6699ff 0%, #6699ff 19%, transparent 19%); }
+  background-image: -webkit-linear-gradient(left, #ff6bce 0%, #ff6bce 19%, transparent 19%);
+  background-image: -moz-linear-gradient(left, #ff6bce 0%, #ff6bce 19%, transparent 19%);
+  background-image: -ms-linear-gradient(left, #ff6bce 0%, #ff6bce 19%, transparent 19%);
+  background-image: -o-linear-gradient(left, #ff6bce 0%, #ff6bce 19%, transparent 19%);
+  background-image: linear-gradient(left, #ff6bce 0%, #ff6bce 19%, transparent 19%); }
 
 .power-25 {
-  background-image: -webkit-linear-gradient(left, #6699ff 0%, #6699ff 25%, transparent 25%);
-  background-image: -moz-linear-gradient(left, #6699ff 0%, #6699ff 25%, transparent 25%);
-  background-image: -ms-linear-gradient(left, #6699ff 0%, #6699ff 25%, transparent 25%);
-  background-image: -o-linear-gradient(left, #6699ff 0%, #6699ff 25%, transparent 25%);
-  background-image: linear-gradient(left, #6699ff 0%, #6699ff 25%, transparent 25%); }
+  background-image: -webkit-linear-gradient(left, #ff6bce 0%, #ff6bce 25%, transparent 25%);
+  background-image: -moz-linear-gradient(left, #ff6bce 0%, #ff6bce 25%, transparent 25%);
+  background-image: -ms-linear-gradient(left, #ff6bce 0%, #ff6bce 25%, transparent 25%);
+  background-image: -o-linear-gradient(left, #ff6bce 0%, #ff6bce 25%, transparent 25%);
+  background-image: linear-gradient(left, #ff6bce 0%, #ff6bce 25%, transparent 25%); }
 
 .power-31 {
-  background-image: -webkit-linear-gradient(left, #6699ff 0%, #6699ff 31%, transparent 31%);
-  background-image: -moz-linear-gradient(left, #6699ff 0%, #6699ff 31%, transparent 31%);
-  background-image: -ms-linear-gradient(left, #6699ff 0%, #6699ff 31%, transparent 31%);
-  background-image: -o-linear-gradient(left, #6699ff 0%, #6699ff 31%, transparent 31%);
-  background-image: linear-gradient(left, #6699ff 0%, #6699ff 31%, transparent 31%); }
+  background-image: -webkit-linear-gradient(left, #ff6bce 0%, #ff6bce 31%, transparent 31%);
+  background-image: -moz-linear-gradient(left, #ff6bce 0%, #ff6bce 31%, transparent 31%);
+  background-image: -ms-linear-gradient(left, #ff6bce 0%, #ff6bce 31%, transparent 31%);
+  background-image: -o-linear-gradient(left, #ff6bce 0%, #ff6bce 31%, transparent 31%);
+  background-image: linear-gradient(left, #ff6bce 0%, #ff6bce 31%, transparent 31%); }
 
 .power-38 {
-  background-image: -webkit-linear-gradient(left, #6699ff 0%, #6699ff 38%, transparent 38%);
-  background-image: -moz-linear-gradient(left, #6699ff 0%, #6699ff 38%, transparent 38%);
-  background-image: -ms-linear-gradient(left, #6699ff 0%, #6699ff 38%, transparent 38%);
-  background-image: -o-linear-gradient(left, #6699ff 0%, #6699ff 38%, transparent 38%);
-  background-image: linear-gradient(left, #6699ff 0%, #6699ff 38%, transparent 38%); }
+  background-image: -webkit-linear-gradient(left, #ff6bce 0%, #ff6bce 38%, transparent 38%);
+  background-image: -moz-linear-gradient(left, #ff6bce 0%, #ff6bce 38%, transparent 38%);
+  background-image: -ms-linear-gradient(left, #ff6bce 0%, #ff6bce 38%, transparent 38%);
+  background-image: -o-linear-gradient(left, #ff6bce 0%, #ff6bce 38%, transparent 38%);
+  background-image: linear-gradient(left, #ff6bce 0%, #ff6bce 38%, transparent 38%); }
 
 .power-44 {
-  background-image: -webkit-linear-gradient(left, #6699ff 0%, #6699ff 44%, transparent 44%);
-  background-image: -moz-linear-gradient(left, #6699ff 0%, #6699ff 44%, transparent 44%);
-  background-image: -ms-linear-gradient(left, #6699ff 0%, #6699ff 44%, transparent 44%);
-  background-image: -o-linear-gradient(left, #6699ff 0%, #6699ff 44%, transparent 44%);
-  background-image: linear-gradient(left, #6699ff 0%, #6699ff 44%, transparent 44%); }
+  background-image: -webkit-linear-gradient(left, #ff6bce 0%, #ff6bce 44%, transparent 44%);
+  background-image: -moz-linear-gradient(left, #ff6bce 0%, #ff6bce 44%, transparent 44%);
+  background-image: -ms-linear-gradient(left, #ff6bce 0%, #ff6bce 44%, transparent 44%);
+  background-image: -o-linear-gradient(left, #ff6bce 0%, #ff6bce 44%, transparent 44%);
+  background-image: linear-gradient(left, #ff6bce 0%, #ff6bce 44%, transparent 44%); }
 
 .power-50 {
-  background-image: -webkit-linear-gradient(left, #6699ff 0%, #6699ff 50%, transparent 50%);
-  background-image: -moz-linear-gradient(left, #6699ff 0%, #6699ff 50%, transparent 50%);
-  background-image: -ms-linear-gradient(left, #6699ff 0%, #6699ff 50%, transparent 50%);
-  background-image: -o-linear-gradient(left, #6699ff 0%, #6699ff 50%, transparent 50%);
-  background-image: linear-gradient(left, #6699ff 0%, #6699ff 50%, transparent 50%); }
+  background-image: -webkit-linear-gradient(left, #ff6bce 0%, #ff6bce 50%, transparent 50%);
+  background-image: -moz-linear-gradient(left, #ff6bce 0%, #ff6bce 50%, transparent 50%);
+  background-image: -ms-linear-gradient(left, #ff6bce 0%, #ff6bce 50%, transparent 50%);
+  background-image: -o-linear-gradient(left, #ff6bce 0%, #ff6bce 50%, transparent 50%);
+  background-image: linear-gradient(left, #ff6bce 0%, #ff6bce 50%, transparent 50%); }
 
 .power-56 {
-  background-image: -webkit-linear-gradient(left, #6699ff 0%, #6699ff 56%, transparent 56%);
-  background-image: -moz-linear-gradient(left, #6699ff 0%, #6699ff 56%, transparent 56%);
-  background-image: -ms-linear-gradient(left, #6699ff 0%, #6699ff 56%, transparent 56%);
-  background-image: -o-linear-gradient(left, #6699ff 0%, #6699ff 56%, transparent 56%);
-  background-image: linear-gradient(left, #6699ff 0%, #6699ff 56%, transparent 56%); }
+  background-image: -webkit-linear-gradient(left, #ff6bce 0%, #ff6bce 56%, transparent 56%);
+  background-image: -moz-linear-gradient(left, #ff6bce 0%, #ff6bce 56%, transparent 56%);
+  background-image: -ms-linear-gradient(left, #ff6bce 0%, #ff6bce 56%, transparent 56%);
+  background-image: -o-linear-gradient(left, #ff6bce 0%, #ff6bce 56%, transparent 56%);
+  background-image: linear-gradient(left, #ff6bce 0%, #ff6bce 56%, transparent 56%); }
 
 .power-63 {
-  background-image: -webkit-linear-gradient(left, #6699ff 0%, #6699ff 63%, transparent 63%);
-  background-image: -moz-linear-gradient(left, #6699ff 0%, #6699ff 63%, transparent 63%);
-  background-image: -ms-linear-gradient(left, #6699ff 0%, #6699ff 63%, transparent 63%);
-  background-image: -o-linear-gradient(left, #6699ff 0%, #6699ff 63%, transparent 63%);
-  background-image: linear-gradient(left, #6699ff 0%, #6699ff 63%, transparent 63%); }
+  background-image: -webkit-linear-gradient(left, #ff6bce 0%, #ff6bce 63%, transparent 63%);
+  background-image: -moz-linear-gradient(left, #ff6bce 0%, #ff6bce 63%, transparent 63%);
+  background-image: -ms-linear-gradient(left, #ff6bce 0%, #ff6bce 63%, transparent 63%);
+  background-image: -o-linear-gradient(left, #ff6bce 0%, #ff6bce 63%, transparent 63%);
+  background-image: linear-gradient(left, #ff6bce 0%, #ff6bce 63%, transparent 63%); }
 
 .power-69 {
-  background-image: -webkit-linear-gradient(left, #6699ff 0%, #6699ff 69%, transparent 69%);
-  background-image: -moz-linear-gradient(left, #6699ff 0%, #6699ff 69%, transparent 69%);
-  background-image: -ms-linear-gradient(left, #6699ff 0%, #6699ff 69%, transparent 69%);
-  background-image: -o-linear-gradient(left, #6699ff 0%, #6699ff 69%, transparent 69%);
-  background-image: linear-gradient(left, #6699ff 0%, #6699ff 69%, transparent 69%); }
+  background-image: -webkit-linear-gradient(left, #ff6bce 0%, #ff6bce 69%, transparent 69%);
+  background-image: -moz-linear-gradient(left, #ff6bce 0%, #ff6bce 69%, transparent 69%);
+  background-image: -ms-linear-gradient(left, #ff6bce 0%, #ff6bce 69%, transparent 69%);
+  background-image: -o-linear-gradient(left, #ff6bce 0%, #ff6bce 69%, transparent 69%);
+  background-image: linear-gradient(left, #ff6bce 0%, #ff6bce 69%, transparent 69%); }
 
 .power-75 {
-  background-image: -webkit-linear-gradient(left, #6699ff 0%, #6699ff 75%, transparent 75%);
-  background-image: -moz-linear-gradient(left, #6699ff 0%, #6699ff 75%, transparent 75%);
-  background-image: -ms-linear-gradient(left, #6699ff 0%, #6699ff 75%, transparent 75%);
-  background-image: -o-linear-gradient(left, #6699ff 0%, #6699ff 75%, transparent 75%);
-  background-image: linear-gradient(left, #6699ff 0%, #6699ff 75%, transparent 75%); }
+  background-image: -webkit-linear-gradient(left, #ff6bce 0%, #ff6bce 75%, transparent 75%);
+  background-image: -moz-linear-gradient(left, #ff6bce 0%, #ff6bce 75%, transparent 75%);
+  background-image: -ms-linear-gradient(left, #ff6bce 0%, #ff6bce 75%, transparent 75%);
+  background-image: -o-linear-gradient(left, #ff6bce 0%, #ff6bce 75%, transparent 75%);
+  background-image: linear-gradient(left, #ff6bce 0%, #ff6bce 75%, transparent 75%); }
 
 .power-81 {
-  background-image: -webkit-linear-gradient(left, #6699ff 0%, #6699ff 81%, transparent 81%);
-  background-image: -moz-linear-gradient(left, #6699ff 0%, #6699ff 81%, transparent 81%);
-  background-image: -ms-linear-gradient(left, #6699ff 0%, #6699ff 81%, transparent 81%);
-  background-image: -o-linear-gradient(left, #6699ff 0%, #6699ff 81%, transparent 81%);
-  background-image: linear-gradient(left, #6699ff 0%, #6699ff 81%, transparent 81%); }
+  background-image: -webkit-linear-gradient(left, #ff6bce 0%, #ff6bce 81%, transparent 81%);
+  background-image: -moz-linear-gradient(left, #ff6bce 0%, #ff6bce 81%, transparent 81%);
+  background-image: -ms-linear-gradient(left, #ff6bce 0%, #ff6bce 81%, transparent 81%);
+  background-image: -o-linear-gradient(left, #ff6bce 0%, #ff6bce 81%, transparent 81%);
+  background-image: linear-gradient(left, #ff6bce 0%, #ff6bce 81%, transparent 81%); }
 
 .power-88 {
-  background-image: -webkit-linear-gradient(left, #6699ff 0%, #6699ff 88%, transparent 88%);
-  background-image: -moz-linear-gradient(left, #6699ff 0%, #6699ff 88%, transparent 88%);
-  background-image: -ms-linear-gradient(left, #6699ff 0%, #6699ff 88%, transparent 88%);
-  background-image: -o-linear-gradient(left, #6699ff 0%, #6699ff 88%, transparent 88%);
-  background-image: linear-gradient(left, #6699ff 0%, #6699ff 88%, transparent 88%); }
+  background-image: -webkit-linear-gradient(left, #ff6bce 0%, #ff6bce 88%, transparent 88%);
+  background-image: -moz-linear-gradient(left, #ff6bce 0%, #ff6bce 88%, transparent 88%);
+  background-image: -ms-linear-gradient(left, #ff6bce 0%, #ff6bce 88%, transparent 88%);
+  background-image: -o-linear-gradient(left, #ff6bce 0%, #ff6bce 88%, transparent 88%);
+  background-image: linear-gradient(left, #ff6bce 0%, #ff6bce 88%, transparent 88%); }
 
 .power-94 {
-  background-image: -webkit-linear-gradient(left, #6699ff 0%, #6699ff 94%, transparent 94%);
-  background-image: -moz-linear-gradient(left, #6699ff 0%, #6699ff 94%, transparent 94%);
-  background-image: -ms-linear-gradient(left, #6699ff 0%, #6699ff 94%, transparent 94%);
-  background-image: -o-linear-gradient(left, #6699ff 0%, #6699ff 94%, transparent 94%);
-  background-image: linear-gradient(left, #6699ff 0%, #6699ff 94%, transparent 94%); }
+  background-image: -webkit-linear-gradient(left, #ff6bce 0%, #ff6bce 94%, transparent 94%);
+  background-image: -moz-linear-gradient(left, #ff6bce 0%, #ff6bce 94%, transparent 94%);
+  background-image: -ms-linear-gradient(left, #ff6bce 0%, #ff6bce 94%, transparent 94%);
+  background-image: -o-linear-gradient(left, #ff6bce 0%, #ff6bce 94%, transparent 94%);
+  background-image: linear-gradient(left, #ff6bce 0%, #ff6bce 94%, transparent 94%); }
 
 .helmet {
   background-image: url("../images/helmets.png");
@@ -620,6 +590,7 @@ header {
   height: 60px;
   width: 60px; }
 
+.player .helmet,
 .top-nav .helmet {
   background-size: 867px 30px;
   height: 30px;
@@ -709,87 +680,115 @@ header {
 .helmet-vikings {
   background-position: -1674px 0; }
 
+.player .helmet-49ers,
 .top-nav .helmet-49ers {
   background-position: 0px 0; }
 
+.player .helmet-bears,
 .top-nav .helmet-bears {
   background-position: -31px 0; }
 
+.player .helmet-bengals,
 .top-nav .helmet-bengals {
   background-position: -62px 0; }
 
+.player .helmet-bills,
 .top-nav .helmet-bills {
   background-position: -93px 0; }
 
+.player .helmet-broncos,
 .top-nav .helmet-broncos {
   background-position: -124px 0; }
 
+.player .helmet-browns,
 .top-nav .helmet-browns {
   background-position: -155px 0; }
 
+.player .helmet-buccaneers,
 .top-nav .helmet-buccaneers {
   background-position: -186px 0; }
 
+.player .helmet-cardinals,
 .top-nav .helmet-cardinals {
   background-position: -217px 0; }
 
+.player .helmet-chargers,
 .top-nav .helmet-chargers {
   background-position: -248px 0; }
 
+.player .helmet-chiefs,
 .top-nav .helmet-chiefs {
   background-position: -279px 0; }
 
+.player .helmet-colts,
 .top-nav .helmet-colts {
   background-position: -310px 0; }
 
+.player .helmet-cowboys,
 .top-nav .helmet-cowboys {
   background-position: -341px 0; }
 
+.player .helmet-dolphins,
 .top-nav .helmet-dolphins {
   background-position: -372px 0; }
 
+.player .helmet-eagles,
 .top-nav .helmet-eagles {
   background-position: -403px 0; }
 
+.player .helmet-falcons,
 .top-nav .helmet-falcons {
   background-position: -434px 0; }
 
+.player .helmet-giants,
 .top-nav .helmet-giants {
   background-position: -465px 0; }
 
+.player .helmet-jets,
 .top-nav .helmet-jets {
   background-position: -496px 0; }
 
+.player .helmet-lions,
 .top-nav .helmet-lions {
   background-position: -527px 0; }
 
+.player .helmet-oilers,
 .top-nav .helmet-oilers {
   background-position: -558px 0; }
 
+.player .helmet-packers,
 .top-nav .helmet-packers {
   background-position: -589px 0; }
 
+.player .helmet-patriots,
 .top-nav .helmet-patriots {
   background-position: -620px 0; }
 
+.player .helmet-raiders,
 .top-nav .helmet-raiders {
   background-position: -651px 0; }
 
+.player .helmet-rams,
 .top-nav .helmet-rams {
   background-position: -682px 0; }
 
+.player .helmet-redskins,
 .top-nav .helmet-redskins {
   background-position: -713px 0; }
 
+.player .helmet-saints,
 .top-nav .helmet-saints {
   background-position: -744px 0; }
 
+.player .helmet-seahawks,
 .top-nav .helmet-seahawks {
   background-position: -775px 0; }
 
+.player .helmet-steelers,
 .top-nav .helmet-steelers {
   background-position: -806px 0; }
 
+.player .helmet-vikings,
 .top-nav .helmet-vikings {
   background-position: -837px 0; }
 
@@ -975,6 +974,112 @@ header {
 
 .headshot-30 {
   background-position: -960px 0; }
+
+.headshot-QB1 {
+  background-position: 0px 0; }
+
+.headshot-QB2 {
+  background-position: -32px 0; }
+
+.headshot-RB1 {
+  background-position: -64px 0; }
+
+.headshot-RB2 {
+  background-position: -96px 0; }
+
+.headshot-RB3 {
+  background-position: -128px 0; }
+
+.headshot-RB4 {
+  background-position: -160px 0; }
+
+.headshot-WR1 {
+  background-position: -192px 0; }
+
+.headshot-WR2 {
+  background-position: -224px 0; }
+
+.headshot-WR3 {
+  background-position: -256px 0; }
+
+.headshot-WR4 {
+  background-position: -288px 0; }
+
+.headshot-TE1 {
+  background-position: -320px 0; }
+
+.headshot-TE2 {
+  background-position: -352px 0; }
+
+.headshot-C {
+  background-position: -384px 0; }
+
+.headshot-LG {
+  background-position: -416px 0; }
+
+.headshot-RG {
+  background-position: -448px 0; }
+
+.headshot-LT {
+  background-position: -480px 0; }
+
+.headshot-RT {
+  background-position: -512px 0; }
+
+.headshot-RE {
+  background-position: -544px 0; }
+
+.headshot-NT {
+  background-position: -576px 0; }
+
+.headshot-LE {
+  background-position: -608px 0; }
+
+.headshot-ROLB {
+  background-position: -640px 0; }
+
+.headshot-RILB {
+  background-position: -672px 0; }
+
+.headshot-LILB {
+  background-position: -704px 0; }
+
+.headshot-LOLB {
+  background-position: -736px 0; }
+
+.headshot-RCB {
+  background-position: -768px 0; }
+
+.headshot-LCB {
+  background-position: -800px 0; }
+
+.headshot-FS {
+  background-position: -832px 0; }
+
+.headshot-SS {
+  background-position: -864px 0; }
+
+.headshot-K {
+  background-position: -896px 0; }
+
+.headshot-P {
+  background-position: -928px 0; }
+
+.body-players .players .section-label {
+  width: 256px; }
+.body-players .players .helmet {
+  position: absolute;
+  left: 0px;
+  top: 2px; }
+.body-players .players .headshot {
+  position: absolute;
+  left: 44px; }
+.body-players .players .player-info {
+  left: 86px; }
+.body-players .players .player-ranking {
+  left: 258px; }
+.body-players .players .player-abilities {
+  margin-left: 336px; }
 
 footer {
   background: #111;
