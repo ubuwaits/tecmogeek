@@ -1,32 +1,3 @@
-/*body.fortyniners { background: #4eb55f; }*/
-/*body.bears { background: #cc3366; }*/
-/*body.bengals { background: #cc3333; }*/
-/*body.bills { background: #cc3333; }*/
-/*body.broncos { background: #cc3366; }*/
-/*body.browns { background: #ff9966; }*/
-/*body.buccaneers { background: #ff9966; }*/
-/*body.cardinals { background: #cc0000; }*/
-/*body.chargers { background: #cccc00; }*/
-/*body.chiefs header h1 { color: #cc3333; }*/
-/*body.colts { background: #4242ff; }*/
-/*body.cowboys { background: #ccccff; }*/
-/*body.dolphins { background: #33cccc; }*/
-/*body.eagles { background: #009933; }*/
-/*body.falcons { background: #cc3333; }*/
-/*body.giants { background: #4242ff; }*/
-/*body.jets { background: #009933; }*/
-/*body.lions { background: #0066cc; }*/
-/*body.oilers { background: #6699ff; }*/
-/*body.packers { background: #006600; }*/
-/*body.patriots { background: #ff66cc; }*/
-/*body.raiders { background: #999999; }*/
-/*body.rams { background: #cccc00; }*/
-/*body.redskins { background: #cc3366; }*/
-/*body.saints { background: #6b6b00; }*/
-/*body.seahawks { background: #ccccff; }*/
-/*body.steelers { background: #cccc00; }*/
-/*body.vikings { background: #6633ff; }*/
-
 #container header {
   margin: 7em 0 3em 0;
   padding: 0 2.5em 0 2.5em;
@@ -126,7 +97,7 @@
   // ***************************************************************************
   .labels {
     border-bottom: 3px solid rgba(#fff, 0.35);
-    color: rgba(#fff, 1);
+    color: rgba(#fff, 0.7);
     margin: 0 0 12px 0;
     padding: 0 0 2px 0;
 
@@ -159,7 +130,7 @@
       > li {
         background-color: transparent;
         border: 0;
-        color: rgba(#fff, 0.35);
+        color: rgba(#fff, 0.7);
         font-size: 14px;
         padding: 0;
       }
@@ -167,7 +138,7 @@
   }
 
   .ability-notes {
-    color: #292929;
+    color: rgba(#000, 0.75);
     font-size: 14px;
     margin: 0.5em 0 1em 310px;
     opacity: 0.5;

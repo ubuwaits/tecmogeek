@@ -4,7 +4,7 @@
   border-bottom: 1px solid rgba(#fff, 0.15);
   @include box-sizing(border-box);
   @include box-shadow(0 0 5px 0 rgba(#000, 0.2));
-  padding: 1em 1em 0.75em 1em;
+  padding: 1em;
   position: fixed;
   top: 0;
   width: 100%;
@@ -18,6 +18,11 @@
     font-weight: normal;
     text-align: center;
     width: 160px;
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
   }
 
   nav {
@@ -32,21 +37,35 @@
 
       > li {
         float: left;
-        margin: 0 24px 0 0;
+        margin: 0 32px 0 0;
         position: relative;
 
         > a {
-          border-bottom: 2px solid #fff;
           color: #fff;
           display: block;
           font-family: tecmo;
           font-size: 13px;
           font-weight: normal;
-          padding: 6px 0;
+          padding: 6px 30px 6px 12px;
+          position: relative;
           text-decoration: none;
           text-transform: uppercase;
 
           &:hover {
+          }
+
+          &:after {
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-top: 6px solid #fff;
+            bottom: -0.15em;
+            content: " ";
+            height: 0;
+            right: 10px;
+            margin-left: -8px;
+            position: absolute;
+            top: 9px;
+            width: 0;
           }
 
           &.active {
@@ -104,3 +123,4 @@
     }
   }
 }
+

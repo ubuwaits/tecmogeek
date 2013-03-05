@@ -69,7 +69,7 @@ footer:after {
 
 body {
   background: #1863d6;
-  color: #292929;
+  color: #191919;
   font-family: "helvetica neue", helvetica, arial, sans-serif; }
 
 @font-face {
@@ -87,7 +87,7 @@ body {
   box-sizing: border-box;
   -webkit-box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
   box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
-  padding: 1em 1em 0.75em 1em;
+  padding: 1em;
   position: fixed;
   top: 0;
   width: 100%;
@@ -100,6 +100,9 @@ body {
     font-weight: normal;
     text-align: center;
     width: 160px; }
+    .main-header h1 a {
+      color: inherit;
+      text-decoration: none; }
   .main-header nav {
     float: left;
     padding: 12px 10px 10px 10px;
@@ -108,18 +111,30 @@ body {
       margin: 0 0 0 1.35em; }
       .main-header nav ul > li {
         float: left;
-        margin: 0 24px 0 0;
+        margin: 0 32px 0 0;
         position: relative; }
         .main-header nav ul > li > a {
-          border-bottom: 2px solid white;
           color: #fff;
           display: block;
           font-family: tecmo;
           font-size: 13px;
           font-weight: normal;
-          padding: 6px 0;
+          padding: 6px 30px 6px 12px;
+          position: relative;
           text-decoration: none;
           text-transform: uppercase; }
+          .main-header nav ul > li > a:after {
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-top: 6px solid white;
+            bottom: -0.15em;
+            content: " ";
+            height: 0;
+            right: 10px;
+            margin-left: -8px;
+            position: absolute;
+            top: 9px;
+            width: 0; }
           .main-header nav ul > li > a.active {
             background: rgba(0, 0, 0, 0.9);
             border-radius: 4px 4px 0 0;
@@ -155,34 +170,6 @@ body {
               .main-header nav ul > li > ol > li ol li a:hover {
                 background: #272727; }
 
-/*body.fortyniners { background: #4eb55f; }*/
-/*body.bears { background: #cc3366; }*/
-/*body.bengals { background: #cc3333; }*/
-/*body.bills { background: #cc3333; }*/
-/*body.broncos { background: #cc3366; }*/
-/*body.browns { background: #ff9966; }*/
-/*body.buccaneers { background: #ff9966; }*/
-/*body.cardinals { background: #cc0000; }*/
-/*body.chargers { background: #cccc00; }*/
-/*body.chiefs header h1 { color: #cc3333; }*/
-/*body.colts { background: #4242ff; }*/
-/*body.cowboys { background: #ccccff; }*/
-/*body.dolphins { background: #33cccc; }*/
-/*body.eagles { background: #009933; }*/
-/*body.falcons { background: #cc3333; }*/
-/*body.giants { background: #4242ff; }*/
-/*body.jets { background: #009933; }*/
-/*body.lions { background: #0066cc; }*/
-/*body.oilers { background: #6699ff; }*/
-/*body.packers { background: #006600; }*/
-/*body.patriots { background: #ff66cc; }*/
-/*body.raiders { background: #999999; }*/
-/*body.rams { background: #cccc00; }*/
-/*body.redskins { background: #cc3366; }*/
-/*body.saints { background: #6b6b00; }*/
-/*body.seahawks { background: #ccccff; }*/
-/*body.steelers { background: #cccc00; }*/
-/*body.vikings { background: #6633ff; }*/
 #container header {
   margin: 7em 0 3em 0;
   padding: 0 2.5em 0 2.5em; }
@@ -255,7 +242,7 @@ body {
         width: 18%; }
   .players .labels {
     border-bottom: 3px solid rgba(255, 255, 255, 0.35);
-    color: white;
+    color: rgba(255, 255, 255, 0.7);
     margin: 0 0 12px 0;
     padding: 0 0 2px 0; }
     .players .labels .section-label {
@@ -276,11 +263,11 @@ body {
     .players .labels .player-abilities > li {
       background-color: transparent;
       border: 0;
-      color: rgba(255, 255, 255, 0.35);
+      color: rgba(255, 255, 255, 0.7);
       font-size: 14px;
       padding: 0; }
   .players .ability-notes {
-    color: #292929;
+    color: rgba(0, 0, 0, 0.75);
     font-size: 14px;
     margin: 0.5em 0 1em 310px;
     opacity: 0.5; }
