@@ -13,7 +13,7 @@ task :server do
 end
 
 task :deploy do
-  sh 'echo "tecmogeek.com.com\n">CNAME'
+  sh 'echo "tecmogeek.com\n">CNAME'
   sh 'git init'
   sh 'git add .'
   sh 'git commit -m "Deploy site"'
