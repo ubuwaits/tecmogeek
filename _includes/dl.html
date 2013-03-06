@@ -3,7 +3,7 @@
 </header>
 
 <!-- Linebackers -->
-<section class="players lb">
+<section class="players dl">
   <ol>
     <li class="player labels">
       <section class="section-label">
@@ -12,7 +12,7 @@
 
       <section class="player-ranking">
         <h5>Ranking</h5>
-        <h6>out of 112</h6>
+        <h6>out of 84</h6>
       </section>
 
       <ul class="player-abilities">
@@ -23,7 +23,7 @@
         <li class="pass-interceptions"><a href="#" data-toggle="tooltip" title="Pass Interceptions">PI</a></li>
       </ul>
     </li>
-    {% for x in (0..111) %}
+    {% for x in (0..83) %}
     <li class="player">
       <a href="/teams/{{ players[x].team | downcase }}/"><i class="helmet helmet-{{ players[x].team | downcase }}"></i></a>
       <i class="headshot headshot-{{ players[x].team | downcase }} headshot-{{ players[x].position }}"></i>

@@ -3,7 +3,7 @@
 </header>
 
 <!-- RB/WR/TE -->
-<section class="players rb-wr-te receiving">
+<section class="players rb-wr-te punt-return">
   <ol>
     <li class="player labels">
       <section class="section-label">
@@ -17,7 +17,7 @@
 
       <ul class="player-abilities">
         <li class="running-speed"><a href="#" data-toggle="tooltip" title="Running Speed">RS</a></li>
-        <li class="maximum-speed"><a href="#" data-toggle="tooltip" title="Maximum Speed">MS</a></li>
+        <li class="maximum-speed punt-return"><a href="#" data-toggle="tooltip" title="Maximum Speed">MS</a></li>
         <li class="hitting-power"><a href="#" data-toggle="tooltip" title="Hitting Power">HP</a></li>
         <li class="ball-control"><a href="#" data-toggle="tooltip" title="Ball Control">BC</a></li>
         <li class="receptions"><a href="#" data-toggle="tooltip" title="Receptions">REC</a></li>
@@ -35,12 +35,12 @@
         </section>
 
         <section class="player-ranking">
-          <h5>{{ players[x].receiving_ranking }}</h5>
+          <h5>{{ players[x].punt_return_ranking }}</h5>
         </section>
 
         <ul class="player-abilities">
           <li class="running-speed power-{{ players[x].running_speed }}">{{ players[x].running_speed }}</li>
-          <li class="maximum-speed power-{{ players[x].maximum_speed }}">{{ players[x].maximum_speed }}</li>
+          <li class="maximum-speed punt-return power-{{ players[x].punt_return_maximum_speed }}">{{ players[x].punt_return_maximum_speed }}</li>
           <li class="hitting-power power-{{ players[x].hitting_power }}">{{ players[x].hitting_power }}</li>
           <li class="ball-control power-{{ players[x].ball_control }}">{{ players[x].ball_control }}</li>
           <li class="receptions power-{{ players[x].receptions }}">{{ players[x].receptions }}</li>
@@ -49,6 +49,6 @@
     {% endfor %}
   </ol>
 
-  <p class="ability-notes rb-wr-te-notes">{{ site.rb-wr-te-text }}</p>
+  <p class="ability-notes pr-notes">{{ site.pr-text }}</p>
 </section>
 
