@@ -74,6 +74,7 @@
     // Player abilities
     // *************************************************************************
     .player-abilities {
+      @extend .clearfix;
       margin-left: 310px;
       width: auto;
 
@@ -156,7 +157,7 @@
     opacity: 0.5;
 
     .body-players & {
-      margin-left: 336px;
+      margin-left: 356px;
     }
   }
 }
@@ -227,19 +228,19 @@
 .players.qb {
   .player-abilities li {
     &.maximum-speed {
-      width: 23%;
+      width: 23.5%;
     }
 
     &.passing-speed {
-      width: 13%;
+      width: 13.5%;
     }
 
     &.pass-control {
-      width: 48%;
+      width: 48.5%;
     }
 
     &.avoid-pass-block {
-      width: 8%;
+      width: 8.5%;
     }
   }
 }
@@ -257,11 +258,11 @@
 
   .player-abilities li {
     &.running-speed {
-      width: 8%;
+      width: 8.4%;
     }
 
     &.maximum-speed {
-      width: 63%;
+      width: 63.4%;
 
       &.kick-return,
       &.punt-return {
@@ -270,17 +271,17 @@
     }
 
     &.hitting-power {
-      width: 8%;
+      width: 8.4%;
     }
 
     &.ball-control {
-      width: 3%;
+      width: 3.4%;
       padding-left: 1px;
       padding-right: 0;
     }
 
     &.receptions {
-      width: 8%;
+      width: 8.4%;
     }
   }
 }
@@ -298,11 +299,11 @@
 
   .player-abilities li {
     &.running-speed {
-      width: 8%;
+      width: 8.4%;
     }
 
     &.maximum-speed {
-      width: 38%;
+      width: 38.4%;
 
       &.kick-return,
       &.punt-return {
@@ -311,26 +312,26 @@
     }
 
     &.hitting-power {
-      width: 3%;
+      width: 3.4%;
       padding-left: 1px;
       padding-right: 0;
     }
 
     &.ball-control {
-      width: 3%;
+      width: 3.4%;
       padding-left: 1px;
       padding-right: 0;
     }
 
     &.receptions {
-      width: 38%;
+      width: 38.4%;
     }
   }
 }
 
 // Kick return Rating values
 // *****************************************************************************
-.players.kick-return {
+.players.rb-wr-te.kick-return {
   .rushing-ranking,
   .receiving-ranking,
   .rb-wr-te-notes,
@@ -339,9 +340,15 @@
     display: none;
   }
 
+  .labels .player-abilities {
+    .maximum-speed {
+      display: none;
+    }
+  }
+
   .player-abilities li {
     &.running-speed {
-      width: 18%;
+      width: 18.5%;
     }
 
     &.maximum-speed {
@@ -353,16 +360,16 @@
 
       &.kick-return {
         display: block;
-        width: 58%;
+        width: 58.5%;
       }
     }
 
     &.hitting-power {
-      width: 8%;
+      width: 8.5%;
     }
 
     &.ball-control {
-      width: 8%;
+      width: 8.5%;
     }
 
     &.receptions {
@@ -373,7 +380,7 @@
 
 // Punt return Rating values
 // *****************************************************************************
-.players.punt-return {
+.players.rb-wr-te.punt-return {
   .rushing-ranking,
   .receiving-ranking,
   .kick-return-ranking,
@@ -382,9 +389,15 @@
     display: none;
   }
 
+  .labels .player-abilities {
+    .maximum-speed {
+      display: none;
+    }
+  }
+
   .player-abilities li {
     &.running-speed {
-      width: 18%;
+      width: 18.666666666666666667%;
     }
 
     &.maximum-speed {
@@ -396,12 +409,12 @@
 
       &.punt-return {
         display: block;
-        width: 68%;
+        width: 68.666666666666666667%;
       }
     }
 
     &.hitting-power {
-      width: 8%;
+      width: 8.6666666666666666667%;
     }
 
     &.ball-control {
@@ -419,11 +432,11 @@
 .players.ol {
   .player-abilities li {
     &.maximum-speed {
-      width: 48%;
+      width: 49%;
     }
 
     &.hitting-power {
-      width: 48%;
+      width: 49%;
     }
   }
 }
@@ -433,25 +446,25 @@
 .players.dl {
   .player-abilities li {
     &.running-speed {
-      width: 3%;
+      width: 3.4%;
       padding-left: 1px;
       padding-right: 0;
     }
 
     &.rushing-power {
-      width: 8%;
+      width: 8.4%;
     }
 
     &.maximum-speed {
-      width: 38%;
+      width: 38.4%;
     }
 
     &.hitting-power {
-      width: 38%;
+      width: 38.4%;
     }
 
     &.pass-interceptions {
-      width: 3%;
+      width: 3.4%;
       padding-left: 1px;
       padding-right: 0;
     }
@@ -463,27 +476,27 @@
 .players.lb {
   .player-abilities li {
     &.running-speed {
-      width: 3%;
+      width: 3.4%;
       padding-left: 1px;
       padding-right: 0;
     }
 
     &.rushing-power {
-      width: 3%;
+      width: 3.4%;
       padding-left: 1px;
       padding-right: 0;
     }
 
     &.maximum-speed {
-      width: 38%;
+      width: 38.4%;
     }
 
     &.hitting-power {
-      width: 38%;
+      width: 38.4%;
     }
 
     &.pass-interceptions {
-      width: 8%;
+      width: 8.4%;
     }
   }
 }
@@ -493,27 +506,27 @@
 .players.secondary {
   .player-abilities li {
     &.running-speed {
-      width: 3%;
+      width: 3.4%;
       padding-left: 1px;
       padding-right: 0;
     }
 
     &.rushing-power {
-      width: 3%;
+      width: 3.4%;
       padding-left: 1px;
       padding-right: 0;
     }
 
     &.maximum-speed {
-      width: 38%;
+      width: 38.4%;
     }
 
     &.hitting-power {
-      width: 13%;
+      width: 13.4%;
     }
 
     &.pass-interceptions {
-      width: 33%;
+      width: 33.4%;
     }
   }
 }
@@ -523,11 +536,11 @@
 .players.kicker {
   .player-abilities li {
     &.kicking-ability {
-      width: 68%;
+      width: 69%;
     }
 
     &.avoid-kick-block {
-      width: 28%;
+      width: 29%;
     }
   }
 }
@@ -537,11 +550,11 @@
 .players.punter {
   .player-abilities li {
     &.kicking-ability {
-      width: 68%;
+      width: 69%;
     }
 
     &.avoid-kick-block {
-      width: 28%;
+      width: 29%;
     }
   }
 }
