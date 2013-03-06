@@ -1,10 +1,10 @@
 .main-header {
   @extend .clearfix;
-  background: #165dcb;
+  background: #165ec9;
   border-bottom: 1px solid rgba(#fff, 0.15);
   @include box-sizing(border-box);
   @include box-shadow(0 0 5px 0 rgba(#000, 0.2));
-  padding: 1em;
+  padding: 1em 0.75em 0.75em 0.75em;
   position: fixed;
   top: 0;
   width: 100%;
@@ -14,10 +14,10 @@
     color: #fff;
     font-family: tecmo;
     float: left;
-    font-size: 26px;
+    font-size: 22px;
     font-weight: normal;
     text-align: center;
-    width: 160px;
+    width: 140px;
 
     a {
       color: inherit;
@@ -37,7 +37,7 @@
 
       > li {
         float: left;
-        margin: 0 32px 0 0;
+        margin: 0 1.5em 0 0;
         position: relative;
 
         > a {

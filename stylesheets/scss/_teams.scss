@@ -74,7 +74,7 @@
     // Player abilities
     // *************************************************************************
     .player-abilities {
-      margin-left: 292px;
+      margin-left: 310px;
       width: auto;
 
       > li {
@@ -89,6 +89,10 @@
         padding: 7px 4px;
         @include transition(all 0.6s ease-in-out);
         width: 18%;
+
+        &:first-child {
+          margin-left: 0;
+        }
       }
     }
   }
@@ -138,8 +142,9 @@
   }
 
   .ability-notes {
-    color: rgba(#000, 0.75);
+    color: rgba(#000, 0.8);
     font-size: 14px;
+    line-height: 1.2;
     margin: 0.5em 0 1em 310px;
     opacity: 0.5;
   }
