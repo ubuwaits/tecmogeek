@@ -70,7 +70,7 @@ footer:after {
 body {
   background: #1863d6;
   color: #191919;
-  font-family: "helvetica neue", helvetica, arial, sans-serif; }
+  font-family: proxima-nova, "helvetica neue", helvetica, arial, sans-serif; }
 
 @font-face {
   font-family: 'tecmo';
@@ -152,6 +152,20 @@ body {
             width: 33.333333333333333%; }
             .main-header nav ul > li > ol > li h6 {
               display: none; }
+            .main-header nav ul > li > ol > li a {
+              color: #fff;
+              display: block;
+              font-size: 13px;
+              font-weight: bold;
+              padding: 6px 30px 6px 12px;
+              position: relative;
+              text-decoration: none; }
+              .main-header nav ul > li > ol > li a:hover {
+                background: #272727; }
+              .main-header nav ul > li > ol > li a.active {
+                background: rgba(0, 0, 0, 0.9);
+                border-radius: 4px 4px 0 0;
+                color: #fff; }
             .main-header nav ul > li > ol > li ol li a {
               border-radius: 4px;
               -webkit-box-sizing: border-box;
@@ -176,7 +190,7 @@ body {
   #container header h1 {
     color: #fff;
     font-size: 2em;
-    font-weight: 300; }
+    font-weight: 700; }
     #container header h1 i {
       margin: 0 0.5em 0 0;
       vertical-align: middle; }

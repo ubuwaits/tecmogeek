@@ -1,0 +1,47 @@
+<header>
+  <h1>{{ page.title }}</h1>
+</header>
+
+<!-- Punter -->
+<section class="players punter">
+  <ol>
+    <li class="player labels">
+      <section class="section-label">
+        <h3>K</h3>
+      </section>
+
+      <section class="player-ranking">
+        <h5>Ranking</h5>
+        <h6>out of 28</h6>
+      </section>
+
+      <ul class="player-abilities">
+        <li class="kicking-ability">KA</li>
+        <li class="avoid-kick-block">AKB</li>
+      </ul>
+    </li>
+
+    {% for x in (0..27) %}
+    <li class="player">
+      <a href="/teams/{{ players[x].team | downcase }}/"><i class="helmet helmet-{{ players[x].team | downcase }}"></i></a>
+      <i class="headshot headshot-{{ players[x].team | downcase }} headshot-{{ players[x].position }}"></i>
+
+      <section class="player-info">
+        <h3 class="player-name">{{ players[x].name }}</h3>
+        <h4 class="player-position-number">{{ players[x].position }} {{ players[x].number }}</h4>
+      </section>
+
+      <section class="player-ranking">
+        <h5>{{ players[x].ranking }}</h5>
+      </section>
+
+      <ul class="player-abilities">
+        <li class="kicking-ability power-{{ players[x].kicking_ability }}">{{ players[x].kicking_ability }}</li>
+        <li class="avoid-kick-block power-{{ players[x].avoid_kick_block }}">{{ players[x].avoid_kick_block }}</li>
+      </ul>
+    </li>
+    {% endfor %}
+  </ol>
+  <p class="ability-notes">{{ site.k-text }}</p>
+</section>
+

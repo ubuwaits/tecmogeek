@@ -93,6 +93,26 @@
               display: none;
             }
 
+            a {
+              color: #fff;
+              display: block;
+              font-size: 13px;
+              font-weight: bold;
+              padding: 6px 30px 6px 12px;
+              position: relative;
+              text-decoration: none;
+
+              &:hover {
+                background: #272727;
+              }
+
+              &.active {
+                background: rgba(#000, 0.9);
+                border-radius: 4px 4px 0 0;
+                color: #fff;
+              }
+            }
+
             ol {
               li {
                 a {
