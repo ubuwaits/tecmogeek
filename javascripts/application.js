@@ -38,5 +38,9 @@ $(document).ready(function() {
     $("nav li.nav-players > ol").toggle();
     return false;
   });
+
+  $("a").tooltip({
+    'selector': '',
+  });
 });
 
