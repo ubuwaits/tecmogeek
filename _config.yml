@@ -1,4 +1,5 @@
 auto: true
+destination: ../tecmogeek-production
 
 permalink: "pretty"
 exclude:
