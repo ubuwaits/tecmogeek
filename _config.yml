@@ -3,7 +3,7 @@ destination: ../tecmogeek-production
 
 permalink: "pretty"
 exclude:
- - Rakefile
+ - README.md
 
 qb-text: All QB have Running Speed 25, Rushing Power 69, and Hitting Power 13. Accuracy of Passing has no effect on performance.
 rb-wr-te-text: All RB, WR and TE have Rushing Power 69.
