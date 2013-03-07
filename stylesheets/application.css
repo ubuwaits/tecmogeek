@@ -49,7 +49,7 @@ table {
 
 /* Clear Floated Elements
 ------------------------------------------------------------------------------*/
-.clearfix:before, .main-header:before, .main-header nav:before, .main-header nav ul:before, .main-header nav ul > li > ol:before, .players .player:before, .players .player .player-abilities:before, .skill-toggles:before, footer:before,
+.clearfix:before, .main-header:before, .main-header nav:before, .main-header nav ul:before, .main-header nav ul > li > ol:before, .players .player:before, .players .player .player-abilities:before, .skill-toggles:before, footer:before, footer .team-list:before, footer .player-list:before,
 .clearfix:after,
 .main-header:after,
 .main-header nav:after,
@@ -58,14 +58,16 @@ table {
 .players .player:after,
 .players .player .player-abilities:after,
 .skill-toggles:after,
-footer:after {
+footer:after,
+footer .team-list:after,
+footer .player-list:after {
   content: " ";
   display: table; }
 
-.clearfix:after, .main-header:after, .main-header nav:after, .main-header nav ul:after, .main-header nav ul > li > ol:after, .players .player:after, .players .player .player-abilities:after, .skill-toggles:after, footer:after {
+.clearfix:after, .main-header:after, .main-header nav:after, .main-header nav ul:after, .main-header nav ul > li > ol:after, .players .player:after, .players .player .player-abilities:after, .skill-toggles:after, footer:after, footer .team-list:after, footer .player-list:after {
   clear: both; }
 
-.clearfix, .main-header, .main-header nav, .main-header nav ul, .main-header nav ul > li > ol, .players .player, .players .player .player-abilities, .skill-toggles, footer {
+.clearfix, .main-header, .main-header nav, .main-header nav ul, .main-header nav ul > li > ol, .players .player, .players .player .player-abilities, .skill-toggles, footer, footer .team-list, footer .player-list {
   *zoom: 1; }
 
 body {
@@ -186,14 +188,10 @@ body {
               .main-header nav ul > li > ol > li ol li a:hover {
                 background: #272727; }
 
-.main-header .nav-players ol {
-  padding: 12px;
-  width: 280px; }
-  .main-header .nav-players ol li {
+.main-header .nav-players > ol {
+  width: 320px; }
+  .main-header .nav-players > ol > li {
     width: 50%; }
-    .main-header .nav-players ol li a {
-      border-radius: 4px;
-      padding: 8px 12px; }
 
 #container header {
   margin: 7em 0 3em 0;
@@ -243,6 +241,13 @@ body {
         font-weight: bold;
         margin: 4px 0 0 0;
         text-shadow: 0 1px 0 rgba(255, 255, 255, 0.2); }
+        .players .player .player-ranking h5 a {
+          border-radius: 4px;
+          color: inherit;
+          padding: 2px 8px;
+          text-decoration: none; }
+          .players .player .player-ranking h5 a:hover {
+            background: rgba(255, 255, 255, 0.2); }
     .players .player .player-abilities {
       margin-left: 310px;
       width: auto; }
@@ -289,11 +294,11 @@ body {
     .players .labels .player-abilities > li {
       background-color: transparent;
       border: 0;
-      color: rgba(255, 255, 255, 0.7);
+      color: rgba(255, 255, 255, 0.6);
       font-size: 14px;
       padding: 0; }
       .players .labels .player-abilities > li a {
-        border-bottom: 1px dotted rgba(255, 255, 255, 0.5);
+        border-bottom: 1px dotted rgba(255, 255, 255, 0.3);
         color: inherit;
         cursor: default;
         text-decoration: none; }
@@ -312,7 +317,7 @@ body {
   .skill-toggles li {
     display: inline-block; }
     .skill-toggles li a {
-      border-bottom: 2px solid #373737;
+      border-bottom: 2px solid #292929;
       color: #292929;
       display: block;
       font-weight: bold;
@@ -1190,17 +1195,44 @@ body {
 footer {
   background: #111;
   padding: 2em; }
-  footer .team-list > li {
+  footer .team-list {
     float: left;
-    margin: 0 0 2em 0;
-    width: 16.6666666666667%; }
-    footer .team-list > li h6 {
-      color: #aaa;
-      font-size: 14px;
-      font-weight: bold;
-      margin: 0 0 10px 0;
-      text-transform: uppercase; }
-    footer .team-list > li ol li a {
+    width: 75%; }
+    footer .team-list > li {
+      float: left;
+      margin: 0 0 2em 0;
+      text-align: left;
+      width: 16.6666666666667%; }
+      footer .team-list > li h6 {
+        display: none;
+        /*color: #aaa;*/
+        /*font-size: 14px;*/
+        /*font-weight: bold;*/
+        /*margin: 0 0 10px 0;*/
+        /*text-transform: uppercase;*/ }
+      footer .team-list > li ol li a {
+        border-radius: 4px;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        color: #fff;
+        display: block;
+        font-size: 14px;
+        font-weight: bold;
+        margin: 0 20px 0 0;
+        padding: 6px;
+        text-decoration: none; }
+        footer .team-list > li ol li a i {
+          margin-right: 8px;
+          vertical-align: middle; }
+        footer .team-list > li ol li a span {
+          display: none; }
+        footer .team-list > li ol li a:hover {
+          background: #272727; }
+  footer .player-list {
+    float: left;
+    width: 25%; }
+    footer .player-list a {
       border-radius: 4px;
       -webkit-box-sizing: border-box;
       -moz-box-sizing: border-box;
@@ -1212,8 +1244,5 @@ footer {
       margin: 0 20px 0 0;
       padding: 6px;
       text-decoration: none; }
-      footer .team-list > li ol li a i {
-        margin-right: 8px;
-        vertical-align: middle; }
-      footer .team-list > li ol li a:hover {
+      footer .player-list a:hover {
         background: #272727; }

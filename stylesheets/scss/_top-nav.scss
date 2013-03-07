@@ -145,17 +145,11 @@
 }
 
 .main-header .nav-players {
-  ol {
-    padding: 12px;
-    width: 280px;
+  > ol {
+    width: 320px;
 
-    li {
+    > li {
       width: 50%;
-
-      a {
-        border-radius: 4px;
-        padding: 8px 12px;
-      }
     }
   }
 }

@@ -4,17 +4,23 @@ footer {
   padding: 2em;
 
   .team-list {
+    @extend .clearfix;
+    float: left;
+    width: 75%;
+
     > li {
       float: left;
       margin: 0 0 2em 0;
+      text-align: left;
       width: 16.6666666666667%;
 
       h6 {
-        color: #aaa;
-        font-size: 14px;
-        font-weight: bold;
-        margin: 0 0 10px 0;
-        text-transform: uppercase;
+        display: none;
+        /*color: #aaa;*/
+        /*font-size: 14px;*/
+        /*font-weight: bold;*/
+        /*margin: 0 0 10px 0;*/
+        /*text-transform: uppercase;*/
       }
 
       ol {
@@ -35,11 +41,37 @@ footer {
               vertical-align: middle;
             }
 
+            span {
+              display: none;
+            }
+
             &:hover {
               background: #272727;
             }
           }
         }
+      }
+    }
+  }
+
+  .player-list {
+    @extend .clearfix;
+    float: left;
+    width: 25%;
+
+    a {
+      border-radius: 4px;
+      @include box-sizing(border-box);
+      color: #fff;
+      display: block;
+      font-size: 14px;
+      font-weight: bold;
+      margin: 0 20px 0 0;
+      padding: 6px;
+      text-decoration: none;
+
+      &:hover {
+        background: #272727;
       }
     }
   }

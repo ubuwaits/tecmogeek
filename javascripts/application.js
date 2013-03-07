@@ -28,19 +28,21 @@ $(document).ready(function() {
   });
 
   $("nav li.nav-teams > a").click(function() {
+    $("nav li.nav-players > a").removeClass("active");
+    $("nav li.nav-players > ol").hide();
     $("nav li.nav-teams > a").toggleClass("active");
     $("nav li.nav-teams > ol").toggle();
     return false;
   });
 
   $("nav li.nav-players > a").click(function() {
+    $("nav li.nav-teams > a").removeClass("active");
+    $("nav li.nav-teams > ol").hide();
     $("nav li.nav-players > a").toggleClass("active");
     $("nav li.nav-players > ol").toggle();
     return false;
   });
 
-  $("a").tooltip({
-    'selector': '',
-  });
+  $("a").tooltip();
 });
 
