@@ -153,7 +153,7 @@ body.text {
   .main-header nav {
     float: left;
     padding: 12px 10px 10px 10px;
-    width: 500px; }
+    width: 700px; }
     .main-header nav ul {
       margin: 0 0 0 1.35em; }
       .main-header nav ul > li {
@@ -230,6 +230,8 @@ body.text {
                 vertical-align: middle; }
               .main-header nav ul > li > ol > li ol li a:hover {
                 background: #272727; }
+        .main-header nav ul > li.rankings a:after {
+          content: none; }
 
 .main-header .nav-players > ol {
   width: 320px; }
