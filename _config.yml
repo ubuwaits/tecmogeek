@@ -1,6 +1,10 @@
 auto: true
 destination: ../tecmogeek-production
 
+markdown: rdiscount
+rdiscount:
+ extensions: [smart]
+
 permalink: "pretty"
 exclude:
  - README.md

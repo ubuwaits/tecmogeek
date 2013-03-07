@@ -1,0 +1,180 @@
+---
+layout: default
+title: How rankings are determined
+team: text
+---
+
+<section class="text-column">
+
+<h1>How player rankings are determined</h1>
+
+<img src="/images/about/ranking-show.png">
+<p class="caption">A sample of player data.</p>
+
+<p>Throughout this site I refer to a ranking for each player in the game. Below is an explanation of how this ranking is calculated.</p>
+
+<h2>Step one: Forget about attributes that don't matter</h2>
+
+<p>First, for each type of player, I disregard attributes which are either the same for each player or not used by the game to determine performance. Yes, that's right, for whatever reason (the programmers forgot, ran out of time, etc.), the Accuracy of Passing attribute for QBs, and Quickness attribute for defensive players has no effect on actual performance.</p>
+
+<p>Below are the attributes that are either the same for every player at a position or not used. Note that I am grouping RBs, WRs, and TEs into one group, since every player at one of those positions can play each of the other two positions.</p>
+
+<p>If you want to learn more about attributes and how they affect player performance, I highly recommend <a href="http://www.gamefaqs.com/nes/587686-tecmo-super-bowl/faqs/44195">this guide</a>.</p>
+
+<h3>QB</h3>
+<p>Running Speed: <strong>25</strong><br>
+Rushing Power: <strong>69</strong><br>
+Hitting Power: <strong>13</strong><br>
+Accuracy of Passing: <strong>not used</strong></p>
+
+<h3>RB/WR/TE</h3>
+<p>Rushing Power: <strong>69</strong> (Even Okoye, who has a listed Rushing Power of 75)</p>
+
+<h3>Kick Returners</h3>
+<p>Receptions: <strong>not used</strong></p>
+
+<h3>Punt Returners</h3>
+<p>Ball Control: <strong>44</strong><br>
+Receptions: <strong>not used</strong></p>
+
+<h3>OL</h3>
+<p>Running Speed: <strong>25</strong><br>
+Rushing Power: <strong>69</strong></p>
+
+<h3>DL/LB/C/S</h3>
+<p>Quickness: <strong>not used</strong></p>
+
+<h3>K</h3>
+<p>Running Speed: <strong>56</strong><br>
+Rushing Power: <strong>81</strong><br>
+Maximum Speed: <strong>81</strong><br>
+Hitting Power: <strong>31</strong></p>
+
+<h3>P</h3>
+<p>Running Speed: <strong>25</strong><br>
+Rushing Power: <strong>56</strong><br>
+Maximum Speed: <strong>44</strong><br>
+Hitting Power: <strong>31</strong></p>
+
+<h2>Step two: Calculate a score for attributes that do matter</h2>
+<p>Next, for the attributes that remain, I assign a score based on the highest value for a player at that position.</p>
+
+<p>For example, the highest Maximum Speed value for a QB is 56, which belongs to QB Eagles. So he scores 100% on that attribute. The highest Pass Control value is 81, shared by both Montana and QB Bills, who again both get 100%. Since QB Eagles has Pass Control of 69, he receives an 85% (69/81 * 100) for that attribute.</p>
+
+<h2>Step three: Weight each attribute to determine a total score</h2>
+<p>Once each attribute score is calculated, they are averaged to give a final score. However, rather than treating all scores as equal, I weight each score based on its importance for determining the performance of the player at that position.</p>
+
+<p>For instance, for rushers, Maximum Speed is by far the most important attribute. For receivers, Maximum Speed and Receptions are both equally important.</p>
+
+<p>Below are the exact weightings of attributes for players at each position.</p>
+
+<img src="/images/about/ranking-explain.png">
+<p class="caption">When player attributes are shown, the width of the bars corresponds to the weight that attribute has in determining the total player score. Above are the attribute scores and weightings for a rusher.</p>
+
+<h3>QB</h3>
+<p>Maximum Speed: 25%<br>
+Passing Speed: 15%<br>
+Pass Control: 50%<br>
+Avoid Pass Block: 10%</p>
+
+<h3>Rushers (all RB, WR, TE receive a rusher rating)</h3>
+<p>Running Speed: 10%<br>
+Maximum Speed: 65%<br>
+Hitting Power: 10%<br>
+Ball Control: 5%<br>
+Receptions: 10%</p>
+
+<h3>Receivers (all RB, WR, TE receive a receiver rating)</h3>
+<p>Running Speed: 10%<br>
+Maximum Speed: 40%<br>
+Hitting Power: 5%<br>
+Ball Control: 5%<br>
+Receptions: 40%</p>
+
+<h3>Kick Returners (all RB, WR, TE receive a kick returner rating)</h3>
+<p>Running Speed: 20%<br>
+Maximum Speed: 60%<br>
+Hitting Power: 10%<br>
+Ball Control: 10%</p>
+
+<h3>Punt Returners (all RB, WR, TE receive a punt returner rating)</h3>
+<p>Running Speed: 20%<br>
+Maximum Speed: 70%<br>
+Hitting Power: 10%
+
+<h3>OL</h3>
+<p>Maximum Speed: 50%<br>
+Hitting Power: 50%</p>
+
+<h3>DL</h3>
+<p>Running Speed: 5%<br>
+Rushing Power: 10%<br>
+Maximum Speed: 40%<br>
+Hitting Power: 40%<br>
+Pass Interceptions: 5%</p>
+
+<h3>LB</h3>
+<p>Running Speed: 5%<br>
+Rushing Power: 5%<br>
+Maximum Speed: 40%<br>
+Hitting Power: 40%<br>
+Pass Interceptions: 10%</p>
+
+<h3>CB/S</h3>
+<p>Running Speed: 5%<br>
+Rushing Power: 5%<br>
+Maximum Speed: 40%<br>
+Hitting Power: 15%<br>
+Pass Interceptions: 35%</p>
+
+<h3>K</h3>
+<p>Kicking attribute: 70%<br>
+Avoid Kick Block: 30%</p>
+
+<h3>P</h3>
+<p>Kicking attribute: 70%<br>
+Avoid Kick Block: 30%</p>
+
+<h2>Example: calculating weighted scores for Jerry Rice and Bo Jackson</h2>
+<p>Let's take a closer look at how this scoring system works for two players: Jerry Rice and Bo Jackson.</p>
+
+<p>First, here are the attributes and scores for each player.</p>
+
+<p>(Reminder: Score = Highest value for any player at that position/player value * 100)</p>
+
+<p><strong>Rice:</strong><br>
+Running Speed: 44 (69.84%)<br>
+Maximum Speed: 69 (92.00%)<br>
+Hitting Power: 13 (13.83%)<br>
+Ball Control: 81 (100.00%)<br>
+Receptions: 81 (100.00%)</p>
+
+<p><strong>Jackson:</strong><br>
+Running Speed: 38 (60.32%)<br>
+Maximum Speed: 75 (100.00%)<br>
+Hitting Power: 31 (32.98%)<br>
+Ball Control: 81 (100.00%)<br>
+Receptions: 81 (23.46%)</p>
+
+<p>Here are the scores for each player as a receiver:</p>
+
+<p>Rice: <strong>89.48%</strong> ((10 * (69.84 / 100)) + (40 * (92 / 100)) + (5 * (13.83 / 100)) + (5 * (100 / 100)) + (40 * (100 / 100)))</p>
+
+<p>Jackson: <strong>62.06%</strong> ((10 * (60.32 / 100)) + (40 * (100 / 100)) + (5 * (32.98 / 100)) + (5 * (100 / 100)) + (40 * (23.46 / 100)))</p>
+
+<p>No surprises here, as Jerry Rice is the best receiver in the game. While Bo Jackson's speed counts for a lot, his poor Receptions hurts him as a receiver.</p>
+
+<p>Now here are their rusher scores:</p>
+
+<p>Rice: <strong>83.17%</strong> ((10 * (69.84 / 100)) + (65 * (92 / 100)) + (10 * (13.83 / 100)) + (5 * (100 / 100)) + (10 * (100 / 100)))</p>
+
+<p>Jackson: <strong>81.68%</strong> ((10 * (60.32 / 100)) + (65 * (100 / 100)) + (10 * (32.98 / 100)) + (5 * (100 / 100)) + (10 * (23.46 / 100)))</p>
+
+<p>So there you have it: Rice is also the best rusher in the game, with Jackson a close second. Ultimately, the vastly greater Receptions attribute of Rice makes him a bigger asset as an RB despite the slight speed advantage that Jackson enjoys.</p>
+
+<h2>Step four: Use weighted score to assign a ranking</h2>
+<p>Rather than show the raw score for each player, I've chosen to instead show their ranking. Ultimately, I think it's more meaningful to see that a player is the 10st best rusher, rather than see that they scored a 71.16% (which is the actual score of Ernest Givins, the 10th best rusher). In addition to the ranking, looking at the raw attribute scores for each player gives a meaningful sense of their specific strengths and weaknesses.</p>
+
+<p>The rating system isn't perfect, but it's a useful tool for ranking players against each other and getting a relative sense of their attributes.</p>
+</section>
+
