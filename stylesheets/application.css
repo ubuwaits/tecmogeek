@@ -70,8 +70,9 @@ footer:after {
 
 body {
   background: #1863d6;
-  color: #191919;
-  font-family: proxima-nova, "helvetica neue", helvetica, arial, sans-serif; }
+  color: #dfdfdf;
+  font-family: proxima-nova, "helvetica neue", helvetica, arial, sans-serif;
+  -webkit-text-size-adjust: none; }
 
 @font-face {
   font-family: 'tecmo';
@@ -221,18 +222,16 @@ body {
       width: 32px; }
     .players .player .player-info {
       float: left;
+      font-weight: bold;
       left: 42px;
       position: absolute;
-      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.2);
       width: 170px; }
       .players .player .player-info .player-name {
         font-size: 18px;
-        font-weight: bold;
         margin: 0 0 2px 0; }
       .players .player .player-info .player-position-number {
         font-size: 14px;
-        font-weight: bold;
-        opacity: 0.8; }
+        opacity: 0.7; }
     .players .player .player-ranking {
       float: left;
       left: 212px;
@@ -308,26 +307,31 @@ body {
       margin-left: 356px; }
 
 .skill-toggles {
-  margin: -12px 0 1.25em 0;
+  margin: 0.75em 0 2em 0;
   text-align: center; }
   .skill-toggles li {
     display: inline-block; }
     .skill-toggles li a {
+      border-bottom: 2px solid #373737;
       color: #292929;
       display: block;
       font-weight: bold;
       opacity: 0.5;
-      padding: 0.75em 0.75em;
+      margin: 0 0.75em;
+      padding: 0 0 0.1em 0;
       position: relative;
       text-align: center;
       text-decoration: none; }
       .skill-toggles li a.active, .skill-toggles li a:hover {
+        border-color: #292929;
         opacity: 1; }
+      .skill-toggles li a.active {
+        border: 0; }
       .skill-toggles li a.active:after {
         border-left: 8px solid transparent;
         border-right: 8px solid transparent;
         border-top: 8px solid #292929;
-        bottom: -0.15em;
+        bottom: -0.75em;
         content: " ";
         height: 0;
         left: 50%;
