@@ -1,67 +1,9 @@
 ---
 layout: default
 title: Quarterbacks
-keyword: index
+team: home
 ---
 
-<style>
-  body {
-    margin: 50px;
-  }
-</style>
+<h2>TecmoGeek!</h2>
+<p>The complete resource for the original NES Tecmo Super Bowl.</p>
 
-<script type="text/javascript">
-  //Width and height
-  var w = 500;
-  var h = 1200;
-  var barPadding = 1;
-
-  var data;
-
-  d3.json("quarterbacks.json", function(error, json) {
-    if (error) return console.warn(error);
-    data = json;
-
-  //Create SVG element
-  var svg = d3.select("body")
-        .append("svg")
-        .attr("width", w)
-        .attr("height", h);
-
-  svg.selectAll("rect")
-     .data(data)
-     .enter()
-     .append("rect")
-     .attr("y", function(d, i) {
-       return i * (h / data.length);
-     })
-     .attr("x", function(d) {
-       return 0;
-     })
-     .attr("height", h / data.length - barPadding)
-     .attr("width", function(d) {
-       return d.maximum_speed * 4;
-     })
-     .attr("fill", function(d) {
-       return "rgb(0, 0, " + (d * 10) + ")";
-     });
-
-  svg.selectAll("text")
-     .data(data)
-     .enter()
-     .append("text")
-     .text(function(d) {
-         return d.Player;
-     })
-     .attr("text-anchor", "left")
-     .attr("y", function(d, i) {
-         return i * (h / data.length) + (h / data.length - barPadding) / 2 + 4;
-     })
-     .attr("x", function(d) {
-         return 10;
-     })
-     .attr("font-family", "sans-serif")
-     .attr("font-size", "11px")
-     .attr("fill", "#f00");
-  });
-</script>

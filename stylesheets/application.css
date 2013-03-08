@@ -238,6 +238,20 @@ body.text {
   .main-header .nav-players > ol > li {
     width: 50%; }
 
+body.home #container {
+  padding: 14em 0 16em 0; }
+  body.home #container h2 {
+    color: #fff;
+    font: normal 5em/1.2 tecmo;
+    margin: 0 0 0.25em 0;
+    text-align: center; }
+  body.home #container p {
+    color: #fff;
+    font: normal 1.5em/1.5 tecmo;
+    margin: 0 auto;
+    max-width: 600px;
+    text-align: center; }
+
 #container header {
   margin: 7em 0 3em 0;
   padding: 0 2.5em 0 2.5em; }
@@ -1239,44 +1253,47 @@ body.text {
 
 footer {
   background: #111;
-  padding: 2em; }
+  padding: 2em 1em 1em 1em; }
   footer .team-list {
     float: left;
+    margin: 0 2% 0 0;
     width: 75%; }
     footer .team-list > li {
       float: left;
       margin: 0 0 2em 0;
-      text-align: left;
+      text-align: center;
       width: 16.6666666666667%; }
       footer .team-list > li h6 {
-        display: none;
-        /*color: #aaa;*/
-        /*font-size: 14px;*/
-        /*font-weight: bold;*/
-        /*margin: 0 0 10px 0;*/
-        /*text-transform: uppercase;*/ }
-      footer .team-list > li ol li a {
-        border-radius: 4px;
-        -webkit-box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        box-sizing: border-box;
-        color: #fff;
-        display: block;
+        color: #aaa;
         font-size: 14px;
         font-weight: bold;
-        margin: 0 20px 0 0;
-        padding: 6px;
-        text-decoration: none; }
-        footer .team-list > li ol li a i {
-          margin-right: 8px;
-          vertical-align: middle; }
-        footer .team-list > li ol li a span {
-          display: none; }
-        footer .team-list > li ol li a:hover {
-          background: #272727; }
+        margin: 0 0 10px 0;
+        text-transform: uppercase; }
+      footer .team-list > li ol li {
+        margin: 0 0 0.5em 0;
+        text-align: center; }
+        footer .team-list > li ol li a {
+          border-radius: 4px;
+          -webkit-box-sizing: border-box;
+          -moz-box-sizing: border-box;
+          box-sizing: border-box;
+          color: #fff;
+          display: block;
+          font-size: 14px;
+          font-weight: bold;
+          padding: 6px;
+          text-decoration: none; }
+          footer .team-list > li ol li a i {
+            margin-right: 8px;
+            vertical-align: middle; }
+          footer .team-list > li ol li a span {
+            display: block;
+            margin: 0.5em 0 0 0; }
+          footer .team-list > li ol li a:hover {
+            background: #272727; }
   footer .player-list {
     float: left;
-    width: 25%; }
+    width: 23%; }
     footer .player-list a {
       border-radius: 4px;
       -webkit-box-sizing: border-box;

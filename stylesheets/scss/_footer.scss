@@ -1,30 +1,33 @@
 footer {
   @extend .clearfix;
   background: #111;
-  padding: 2em;
+  padding: 2em 1em 1em 1em;
 
   .team-list {
     @extend .clearfix;
     float: left;
+    margin: 0 2% 0 0;
     width: 75%;
 
     > li {
       float: left;
       margin: 0 0 2em 0;
-      text-align: left;
+      text-align: center;
       width: 16.6666666666667%;
 
       h6 {
-        display: none;
-        /*color: #aaa;*/
-        /*font-size: 14px;*/
-        /*font-weight: bold;*/
-        /*margin: 0 0 10px 0;*/
-        /*text-transform: uppercase;*/
+        color: #aaa;
+        font-size: 14px;
+        font-weight: bold;
+        margin: 0 0 10px 0;
+        text-transform: uppercase;
       }
 
       ol {
         li {
+          margin: 0 0 0.5em 0;
+          text-align: center;
+
           a {
             border-radius: 4px;
             @include box-sizing(border-box);
@@ -32,7 +35,6 @@ footer {
             display: block;
             font-size: 14px;
             font-weight: bold;
-            margin: 0 20px 0 0;
             padding: 6px;
             text-decoration: none;
 
@@ -42,7 +44,8 @@ footer {
             }
 
             span {
-              display: none;
+              display: block;
+              margin: 0.5em 0 0 0;
             }
 
             &:hover {
@@ -57,7 +60,7 @@ footer {
   .player-list {
     @extend .clearfix;
     float: left;
-    width: 25%;
+    width: 23%;
 
     a {
       border-radius: 4px;
