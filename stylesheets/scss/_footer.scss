@@ -1,6 +1,8 @@
 footer {
   @extend .clearfix;
   background: #111;
+  max-width: 1440px;
+  min-width: 930px;
   padding: 2em 1em 1em 1em;
 
   .team-list {
