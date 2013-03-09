@@ -49,7 +49,7 @@ table {
 
 /* Clear Floated Elements
 ------------------------------------------------------------------------------*/
-.clearfix:before, .main-header:before, .main-header nav:before, .main-header nav ul:before, .main-header nav ul > li > ol:before, .players .player:before, .players .player .player-abilities:before, .skill-toggles:before, footer:before, footer .team-list:before, footer .player-list:before,
+.clearfix:before, .main-header:before, .main-header nav:before, .main-header nav ul:before, .main-header nav ul > li > ol:before, .players .player:before, .players .player .player-abilities:before, .skill-toggles:before, footer:before, footer .footer-lists:before, footer .team-list:before, footer .player-list:before, footer .credits:before,
 .clearfix:after,
 .main-header:after,
 .main-header nav:after,
@@ -59,15 +59,17 @@ table {
 .players .player .player-abilities:after,
 .skill-toggles:after,
 footer:after,
+footer .footer-lists:after,
 footer .team-list:after,
-footer .player-list:after {
+footer .player-list:after,
+footer .credits:after {
   content: " ";
   display: table; }
 
-.clearfix:after, .main-header:after, .main-header nav:after, .main-header nav ul:after, .main-header nav ul > li > ol:after, .players .player:after, .players .player .player-abilities:after, .skill-toggles:after, footer:after, footer .team-list:after, footer .player-list:after {
+.clearfix:after, .main-header:after, .main-header nav:after, .main-header nav ul:after, .main-header nav ul > li > ol:after, .players .player:after, .players .player .player-abilities:after, .skill-toggles:after, footer:after, footer .footer-lists:after, footer .team-list:after, footer .player-list:after, footer .credits:after {
   clear: both; }
 
-.clearfix, .main-header, .main-header nav, .main-header nav ul, .main-header nav ul > li > ol, .players .player, .players .player .player-abilities, .skill-toggles, footer, footer .team-list, footer .player-list {
+.clearfix, .main-header, .main-header nav, .main-header nav ul, .main-header nav ul > li > ol, .players .player, .players .player .player-abilities, .skill-toggles, footer, footer .footer-lists, footer .team-list, footer .player-list, footer .credits {
   *zoom: 1; }
 
 body {
@@ -1255,7 +1257,7 @@ footer {
   background: #111;
   max-width: 1440px;
   min-width: 930px;
-  padding: 2em 1em 1em 1em; }
+  padding: 2em 0 0 0; }
   footer .team-list {
     float: left;
     margin: 0 2% 0 0;
@@ -1310,3 +1312,13 @@ footer {
       text-decoration: none; }
       footer .player-list a:hover {
         background: #272727; }
+  footer .credits {
+    background: #000;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 1em;
+    padding: 0.75em 2em; }
+    footer .credits a {
+      color: #1863d6;
+      font-weight: bold;
+      text-decoration: none; }
