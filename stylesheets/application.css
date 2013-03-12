@@ -93,42 +93,6 @@ strong {
 img {
   margin: 0 0 1em 0; }
 
-body.text {
-  background: #e9eaed; }
-  body.text .text-column {
-    color: #292929;
-    margin: 120px auto;
-    max-width: 700px; }
-    body.text .text-column img {
-      border-radius: 4px; }
-    body.text .text-column a {
-      color: #1863d6;
-      font-weight: 700; }
-    body.text .text-column h1 {
-      color: #292929;
-      font-size: 2em;
-      font-weight: 700;
-      margin: 0 0 1em 0; }
-    body.text .text-column h2 {
-      color: #292929;
-      font-size: 1.5em;
-      font-weight: 700;
-      line-height: 1.2;
-      margin: 2em 0 0.5em 0; }
-    body.text .text-column h3 {
-      color: #292929;
-      font-size: 1.2em;
-      font-weight: 700;
-      margin: 0 0 0.25em 0; }
-    body.text .text-column p {
-      font-size: 1.2em;
-      line-height: 1.4;
-      margin: 0 0 1em 0; }
-      body.text .text-column p.caption {
-        color: #626262;
-        font-size: 1em;
-        margin: -0.75em 0 1em 0; }
-
 .main-header {
   background: #165ec9;
   border-bottom: 1px solid rgba(255, 255, 255, 0.15);
@@ -1310,6 +1274,40 @@ body.home #container {
   left: 258px; }
 .body-players .players .player-abilities {
   margin-left: 356px; }
+
+body.text {
+  background: #f7f9fc; }
+  body.text .text-column {
+    color: #3a3a3a;
+    margin: 120px auto;
+    max-width: 700px;
+    text-shadow: 0 1px 0 white; }
+    body.text .text-column img {
+      border-radius: 4px; }
+    body.text .text-column a {
+      color: #1863d6;
+      font-weight: 700; }
+    body.text .text-column h1 {
+      font-size: 2em;
+      font-weight: 700;
+      margin: 0 0 1em 0; }
+    body.text .text-column h2 {
+      font-size: 1.5em;
+      font-weight: 700;
+      line-height: 1.2;
+      margin: 2em 0 0.5em 0; }
+    body.text .text-column h3 {
+      font-size: 1.2em;
+      font-weight: 700;
+      margin: 0 0 0.25em 0; }
+    body.text .text-column p {
+      font-size: 1.2em;
+      line-height: 1.4;
+      margin: 0 0 1em 0; }
+      body.text .text-column p.caption {
+        color: #626262;
+        font-size: 1em;
+        margin: -0.75em 0 1em 0; }
 
 footer {
   background: #111;

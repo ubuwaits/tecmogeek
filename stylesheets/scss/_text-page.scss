@@ -1,0 +1,50 @@
+body.text {
+  background: #f7f9fc;
+
+  .text-column {
+    color: #3a3a3a;
+    margin: 120px auto;
+    max-width: 700px;
+    text-shadow: 0 1px 0 #fff;
+
+    img {
+      border-radius: 4px;
+    }
+
+    a {
+      color: #1863d6;
+      font-weight: 700;
+    }
+
+    h1 {
+      font-size: 2em;
+      font-weight: 700;
+      margin: 0 0 1em 0;
+    }
+
+    h2 {
+      font-size: 1.5em;
+      font-weight: 700;
+      line-height: 1.2;
+      margin: 2em 0 0.5em 0;
+    }
+
+    h3 {
+      font-size: 1.2em;
+      font-weight: 700;
+      margin: 0 0 0.25em 0;
+    }
+
+    p {
+      font-size: 1.2em;
+      line-height: 1.4;
+      margin: 0 0 1em 0;
+
+      &.caption {
+        color: #626262;
+        font-size: 1em;
+        margin: -0.75em 0 1em 0;
+      }
+    }
+  }
+}
