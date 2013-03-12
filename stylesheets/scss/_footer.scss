@@ -73,7 +73,7 @@ footer {
     a {
       border-radius: 4px;
       @include box-sizing(border-box);
-      color: #fff;
+      color: rgba(#fff, 0.75);
       display: block;
       font-size: 14px;
       font-weight: bold;
