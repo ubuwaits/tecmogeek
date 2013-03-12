@@ -5,6 +5,7 @@
   @include box-sizing(border-box);
   @include box-shadow(0 0 5px 0 rgba(#000, 0.2));
   left: 0;
+  min-width: 885px;
   padding: 1em 0.75em 0.75em 0.75em;
   position: fixed;
   top: 0;
