@@ -202,7 +202,7 @@ img {
           content: none; }
 
 .main-header .nav-players > ol {
-  width: 320px; }
+  width: 340px; }
   .main-header .nav-players > ol > li {
     width: 50%; }
 
@@ -1355,6 +1355,7 @@ footer {
             background: #272727; }
   footer .player-list {
     float: left;
+    margin: -0.35em 0 0 0;
     width: 23%; }
     footer .player-list a {
       border-radius: 4px;
@@ -1373,9 +1374,9 @@ footer {
   footer .credits {
     background: #000;
     border-top: 1px solid rgba(255, 255, 255, 0.15);
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.75);
     font-size: 1em;
-    padding: 1em 1em 2em 1em; }
+    padding: 1.5em 1em 1.5em 1em; }
     footer .credits a {
       color: #1863d6;
       font-weight: bold;

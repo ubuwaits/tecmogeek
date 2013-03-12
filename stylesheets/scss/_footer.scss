@@ -67,6 +67,7 @@ footer {
   .player-list {
     @extend .clearfix;
     float: left;
+    margin: -0.35em 0 0 0;
     width: 23%;
 
     a {
@@ -90,9 +91,9 @@ footer {
     @extend .clearfix;
     background: #000;
     border-top: 1px solid rgba(#fff, 0.15);
-    color: rgba(#fff, 0.5);
+    color: rgba(#fff, 0.75);
     font-size: 1em;
-    padding: 1em 1em 2em 1em;
+    padding: 1.5em 1em 1.5em 1em;
 
     a {
       color: #1863d6;
