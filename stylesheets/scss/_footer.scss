@@ -1,6 +1,7 @@
 footer {
   @extend .clearfix;
   background: #111;
+  @include box-shadow(0 -3px 5px 0 rgba(#000, 0.2));
   max-width: 1440px;
   min-width: 930px;
   padding: 2em 0 0 0;
@@ -88,10 +89,10 @@ footer {
   .credits {
     @extend .clearfix;
     background: #000;
-    border-top: 1px solid rgba(#fff, 0.2);
+    border-top: 1px solid rgba(#fff, 0.15);
     color: rgba(#fff, 0.5);
     font-size: 1em;
-    padding: 0.75em 1em;
+    padding: 1em 1em 2em 1em;
 
     a {
       color: #1863d6;

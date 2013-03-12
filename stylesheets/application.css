@@ -49,12 +49,14 @@ table {
 
 /* Clear Floated Elements
 ------------------------------------------------------------------------------*/
-.clearfix:before, .main-header:before, .main-header nav:before, .main-header nav ul:before, .main-header nav ul > li > ol:before, .players .player:before, .players .player .player-abilities:before, .skill-toggles:before, footer:before, footer .footer-lists:before, footer .team-list:before, footer .player-list:before, footer .credits:before,
+.clearfix:before, .main-header:before, .main-header nav:before, .main-header nav ul:before, .main-header nav ul > li > ol:before, body.home #container .top-player-container:before, body.home #container .top-players .player:before, .players .player:before, .players .player .player-abilities:before, .skill-toggles:before, footer:before, footer .footer-lists:before, footer .team-list:before, footer .player-list:before, footer .credits:before,
 .clearfix:after,
 .main-header:after,
 .main-header nav:after,
 .main-header nav ul:after,
 .main-header nav ul > li > ol:after,
+body.home #container .top-player-container:after,
+body.home #container .top-players .player:after,
 .players .player:after,
 .players .player .player-abilities:after,
 .skill-toggles:after,
@@ -66,10 +68,10 @@ footer .credits:after {
   content: " ";
   display: table; }
 
-.clearfix:after, .main-header:after, .main-header nav:after, .main-header nav ul:after, .main-header nav ul > li > ol:after, .players .player:after, .players .player .player-abilities:after, .skill-toggles:after, footer:after, footer .footer-lists:after, footer .team-list:after, footer .player-list:after, footer .credits:after {
+.clearfix:after, .main-header:after, .main-header nav:after, .main-header nav ul:after, .main-header nav ul > li > ol:after, body.home #container .top-player-container:after, body.home #container .top-players .player:after, .players .player:after, .players .player .player-abilities:after, .skill-toggles:after, footer:after, footer .footer-lists:after, footer .team-list:after, footer .player-list:after, footer .credits:after {
   clear: both; }
 
-.clearfix, .main-header, .main-header nav, .main-header nav ul, .main-header nav ul > li > ol, .players .player, .players .player .player-abilities, .skill-toggles, footer, footer .footer-lists, footer .team-list, footer .player-list, footer .credits {
+.clearfix, .main-header, .main-header nav, .main-header nav ul, .main-header nav ul > li > ol, body.home #container .top-player-container, body.home #container .top-players .player, .players .player, .players .player .player-abilities, .skill-toggles, footer, footer .footer-lists, footer .team-list, footer .player-list, footer .credits {
   *zoom: 1; }
 
 body {
@@ -241,18 +243,74 @@ body.text {
     width: 50%; }
 
 body.home #container {
-  padding: 14em 0 16em 0; }
+  padding: 8em 2em 0em 2em; }
   body.home #container h2 {
     color: #fff;
-    font: normal 5em/1.2 tecmo;
-    margin: 0 0 0.25em 0;
-    text-align: center; }
+    font: normal 3em/1.2 tecmo;
+    margin: 0 0 0.25em 0; }
   body.home #container p {
     color: #fff;
-    font: normal 1.5em/1.5 tecmo;
-    margin: 0 auto;
-    max-width: 700px;
-    text-align: center; }
+    font: normal 1.25em/1.5 tecmo;
+    margin: 0 0 4em 0;
+    max-width: 820px; }
+  body.home #container .top-players {
+    float: left;
+    margin: 0 3% 3em 0;
+    width: 22.75%; }
+    body.home #container .top-players:nth-child(4n) {
+      margin-right: 0; }
+    body.home #container .top-players .position {
+      border-top: 1px solid rgba(255, 255, 255, 0.5);
+      color: #fff;
+      font-size: 18px;
+      font-weight: bold;
+      text-align: center; }
+      body.home #container .top-players .position span {
+        background: #1863d6;
+        padding: 0 10px;
+        position: relative;
+        top: -0.5em; }
+        body.home #container .top-players .position span a {
+          background: rgba(0, 0, 0, 0.2) url("/images/ui/next.png") 2px 1px no-repeat;
+          background-size: 20px 20px;
+          border-radius: 22px;
+          display: inline-block;
+          height: 22px;
+          margin: 0 0 0 4px;
+          opacity: 0.6;
+          position: relative;
+          text-indent: -9999px;
+          top: -3px;
+          width: 22px; }
+          body.home #container .top-players .position span a:hover {
+            opacity: 1; }
+    body.home #container .top-players .player {
+      position: relative;
+      margin: 0 0 0.5em 0; }
+      body.home #container .top-players .player .helmet-link {
+        display: block;
+        left: 0;
+        position: absolute;
+        width: 30px; }
+      body.home #container .top-players .player .headshot {
+        border-radius: 2px;
+        left: 42px;
+        margin: 0 12px 0 0;
+        position: absolute;
+        width: 32px; }
+      body.home #container .top-players .player .player-info {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        float: left;
+        font-weight: bold;
+        margin: 0 0 0 86px; }
+        body.home #container .top-players .player .player-info .player-name {
+          font-size: 18px;
+          margin: 0 0 2px 0; }
+        body.home #container .top-players .player .player-info .player-position-number {
+          font-size: 14px;
+          opacity: 0.7; }
 
 #container header {
   margin: 7em 0 3em 0;
@@ -1255,6 +1313,8 @@ body.home #container {
 
 footer {
   background: #111;
+  -webkit-box-shadow: 0 -3px 5px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 -3px 5px 0 rgba(0, 0, 0, 0.2);
   max-width: 1440px;
   min-width: 930px;
   padding: 2em 0 0 0; }
@@ -1314,10 +1374,10 @@ footer {
         background: #272727; }
   footer .credits {
     background: #000;
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
     color: rgba(255, 255, 255, 0.5);
     font-size: 1em;
-    padding: 0.75em 1em; }
+    padding: 1em 1em 2em 1em; }
     footer .credits a {
       color: #1863d6;
       font-weight: bold;
