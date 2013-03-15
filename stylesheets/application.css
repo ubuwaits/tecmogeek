@@ -572,19 +572,15 @@ body.home #container {
   width: 13.4%; }
 
 .players.secondary .player-abilities li.running-speed {
-  width: 3.4%;
-  padding-left: 1px;
-  padding-right: 0; }
+  width: 8.4%; }
 .players.secondary .player-abilities li.rushing-power {
-  width: 3.4%;
-  padding-left: 1px;
-  padding-right: 0; }
-.players.secondary .player-abilities li.maximum-speed {
-  width: 38.4%; }
-.players.secondary .player-abilities li.hitting-power {
-  width: 13.4%; }
-.players.secondary .player-abilities li.pass-interceptions {
   width: 33.4%; }
+.players.secondary .player-abilities li.maximum-speed {
+  width: 8.4%; }
+.players.secondary .player-abilities li.hitting-power {
+  width: 3.4%; }
+.players.secondary .player-abilities li.pass-interceptions {
+  width: 38.4%; }
 
 .players.kicker .player-abilities li.kicking-ability {
   width: 69%; }

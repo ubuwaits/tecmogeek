@@ -26,10 +26,10 @@
     {"team":"Cardinals","position":"RILB","name":"Garth Jax","number":"#53","running_speed":25,"rushing_power":31,"maximum_speed":38,"hitting_power":31,"pass_interceptions":31,"ranking":83},
     {"team":"Cardinals","position":"LILB","name":"Eric Hill","number":"#58","running_speed":25,"rushing_power":31,"maximum_speed":31,"hitting_power":38,"pass_interceptions":19,"ranking":99},
     {"team":"Cardinals","position":"LOLB","name":"Anthony Bell","number":"#55","running_speed":25,"rushing_power":31,"maximum_speed":31,"hitting_power":38,"pass_interceptions":31,"ranking":79},
-    {"team":"Cardinals","position":"RCB","name":"Jay Taylor","number":"#27","running_speed":25,"rushing_power":31,"maximum_speed":38,"hitting_power":19,"pass_interceptions":50,"ranking":92},
-    {"team":"Cardinals","position":"LCB","name":"Cedric Mack","number":"#47","running_speed":25,"rushing_power":31,"maximum_speed":31,"hitting_power":38,"pass_interceptions":44,"ranking":100},
-    {"team":"Cardinals","position":"FS","name":"Lonnie Young","number":"#43","running_speed":69,"rushing_power":31,"maximum_speed":44,"hitting_power":44,"pass_interceptions":56,"ranking":37},
-    {"team":"Cardinals","position":"SS","name":"Tim Mcdonald","number":"#46","running_speed":38,"rushing_power":44,"maximum_speed":56,"hitting_power":56,"pass_interceptions":56,"ranking":18},
+    {"team":"Cardinals","position":"RCB","name":"Jay Taylor","number":"#27","running_speed":25,"rushing_power":31,"maximum_speed":38,"hitting_power":19,"pass_interceptions":50,"ranking":82},
+    {"team":"Cardinals","position":"LCB","name":"Cedric Mack","number":"#47","running_speed":25,"rushing_power":31,"maximum_speed":31,"hitting_power":38,"pass_interceptions":44,"ranking":94},
+    {"team":"Cardinals","position":"FS","name":"Lonnie Young","number":"#43","running_speed":69,"rushing_power":31,"maximum_speed":44,"hitting_power":44,"pass_interceptions":56,"ranking":33},
+    {"team":"Cardinals","position":"SS","name":"Tim Mcdonald","number":"#46","running_speed":38,"rushing_power":44,"maximum_speed":56,"hitting_power":56,"pass_interceptions":56,"ranking":19},
     {"team":"Cardinals","position":"K","name":"Al Del Greco","number":"#17","kicking_ability":19,"avoid_kick_block":56,"ranking":27},
     {"team":"Cardinals","position":"P","name":"Rich Camarillo","number":"#16","kicking_ability":75,"avoid_kick_block":81,"ranking":3}
   ]

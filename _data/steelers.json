@@ -27,9 +27,9 @@
     {"team":"Steelers","position":"LILB","name":"Hardy Nickerson","number":"#54","running_speed":25,"rushing_power":38,"maximum_speed":44,"hitting_power":44,"pass_interceptions":19,"ranking":50},
     {"team":"Steelers","position":"LOLB","name":"Bryan Hinkle","number":"#53","running_speed":25,"rushing_power":38,"maximum_speed":44,"hitting_power":44,"pass_interceptions":19,"ranking":51},
     {"team":"Steelers","position":"RCB","name":"Rod Woodson","number":"#26","running_speed":44,"rushing_power":56,"maximum_speed":75,"hitting_power":69,"pass_interceptions":63,"ranking":3},
-    {"team":"Steelers","position":"LCB","name":"Dwayne Woodruff","number":"#49","running_speed":38,"rushing_power":44,"maximum_speed":56,"hitting_power":56,"pass_interceptions":56,"ranking":22},
-    {"team":"Steelers","position":"FS","name":"Thomas Everett","number":"#27","running_speed":31,"rushing_power":38,"maximum_speed":50,"hitting_power":38,"pass_interceptions":56,"ranking":38},
-    {"team":"Steelers","position":"SS","name":"Carnell Lake","number":"#37","running_speed":38,"rushing_power":44,"maximum_speed":56,"hitting_power":50,"pass_interceptions":50,"ranking":27},
+    {"team":"Steelers","position":"LCB","name":"Dwayne Woodruff","number":"#49","running_speed":38,"rushing_power":44,"maximum_speed":56,"hitting_power":56,"pass_interceptions":56,"ranking":23},
+    {"team":"Steelers","position":"FS","name":"Thomas Everett","number":"#27","running_speed":31,"rushing_power":38,"maximum_speed":50,"hitting_power":38,"pass_interceptions":56,"ranking":39},
+    {"team":"Steelers","position":"SS","name":"Carnell Lake","number":"#37","running_speed":38,"rushing_power":44,"maximum_speed":56,"hitting_power":50,"pass_interceptions":50,"ranking":29},
     {"team":"Steelers","position":"K","name":"Gary Anderson","number":"#1","kicking_ability":63,"avoid_kick_block":50,"ranking":8},
     {"team":"Steelers","position":"P","name":"Dan Stryzinski","number":"#4","kicking_ability":38,"avoid_kick_block":50,"ranking":17}
   ]

@@ -26,10 +26,10 @@
     {"team":"Cowboys","position":"RILB","name":"Eugene Lockhart","number":"#56","running_speed":31,"rushing_power":44,"maximum_speed":50,"hitting_power":56,"pass_interceptions":19,"ranking":32},
     {"team":"Cowboys","position":"LILB","name":"Jimmie Jones","number":"#97","running_speed":31,"rushing_power":31,"maximum_speed":50,"hitting_power":56,"pass_interceptions":19,"ranking":42},
     {"team":"Cowboys","position":"LOLB","name":"Jack Del Rio","number":"#55","running_speed":25,"rushing_power":31,"maximum_speed":38,"hitting_power":38,"pass_interceptions":19,"ranking":87},
-    {"team":"Cowboys","position":"RCB","name":"Manny Hendrix","number":"#45","running_speed":38,"rushing_power":50,"maximum_speed":63,"hitting_power":50,"pass_interceptions":44,"ranking":24},
-    {"team":"Cowboys","position":"LCB","name":"Issiac Holt","number":"#30","running_speed":38,"rushing_power":44,"maximum_speed":56,"hitting_power":56,"pass_interceptions":50,"ranking":25},
-    {"team":"Cowboys","position":"FS","name":"Ray Horton","number":"#20","running_speed":31,"rushing_power":38,"maximum_speed":50,"hitting_power":56,"pass_interceptions":44,"ranking":46},
-    {"team":"Cowboys","position":"SS","name":"James Washington","number":"#37","running_speed":31,"rushing_power":38,"maximum_speed":50,"hitting_power":50,"pass_interceptions":50,"ranking":40},
+    {"team":"Cowboys","position":"RCB","name":"Manny Hendrix","number":"#45","running_speed":38,"rushing_power":50,"maximum_speed":63,"hitting_power":50,"pass_interceptions":44,"ranking":25},
+    {"team":"Cowboys","position":"LCB","name":"Issiac Holt","number":"#30","running_speed":38,"rushing_power":44,"maximum_speed":56,"hitting_power":56,"pass_interceptions":50,"ranking":27},
+    {"team":"Cowboys","position":"FS","name":"Ray Horton","number":"#20","running_speed":31,"rushing_power":38,"maximum_speed":50,"hitting_power":56,"pass_interceptions":44,"ranking":53},
+    {"team":"Cowboys","position":"SS","name":"James Washington","number":"#37","running_speed":31,"rushing_power":38,"maximum_speed":50,"hitting_power":50,"pass_interceptions":50,"ranking":44},
     {"team":"Cowboys","position":"K","name":"Ken Willis","number":"#1","kicking_ability":44,"avoid_kick_block":44,"ranking":18},
     {"team":"Cowboys","position":"P","name":"Mike Saxon","number":"#4","kicking_ability":56,"avoid_kick_block":75,"ranking":10}
   ]

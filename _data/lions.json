@@ -26,10 +26,10 @@
     {"team":"Lions","position":"RILB","name":"Dennis Gibson","number":"#98","running_speed":25,"rushing_power":31,"maximum_speed":31,"hitting_power":31,"pass_interceptions":19,"ranking":108},
     {"team":"Lions","position":"LILB","name":"Chris Spielman","number":"#54","running_speed":31,"rushing_power":44,"maximum_speed":50,"hitting_power":56,"pass_interceptions":19,"ranking":33},
     {"team":"Lions","position":"LOLB","name":"George Jamison","number":"#58","running_speed":25,"rushing_power":31,"maximum_speed":31,"hitting_power":25,"pass_interceptions":19,"ranking":112},
-    {"team":"Lions","position":"RCB","name":"Leroy Irvin","number":"#47","running_speed":25,"rushing_power":31,"maximum_speed":25,"hitting_power":25,"pass_interceptions":38,"ranking":110},
-    {"team":"Lions","position":"LCB","name":"Ray Crockett","number":"#39","running_speed":31,"rushing_power":38,"maximum_speed":50,"hitting_power":50,"pass_interceptions":50,"ranking":41},
-    {"team":"Lions","position":"FS","name":"Bennie Blades","number":"#36","running_speed":25,"rushing_power":31,"maximum_speed":38,"hitting_power":50,"pass_interceptions":44,"ranking":81},
-    {"team":"Lions","position":"SS","name":"William White","number":"#35","running_speed":38,"rushing_power":44,"maximum_speed":56,"hitting_power":56,"pass_interceptions":56,"ranking":21},
+    {"team":"Lions","position":"RCB","name":"Leroy Irvin","number":"#47","running_speed":25,"rushing_power":31,"maximum_speed":25,"hitting_power":25,"pass_interceptions":38,"ranking":105},
+    {"team":"Lions","position":"LCB","name":"Ray Crockett","number":"#39","running_speed":31,"rushing_power":38,"maximum_speed":50,"hitting_power":50,"pass_interceptions":50,"ranking":45},
+    {"team":"Lions","position":"FS","name":"Bennie Blades","number":"#36","running_speed":25,"rushing_power":31,"maximum_speed":38,"hitting_power":50,"pass_interceptions":44,"ranking":86},
+    {"team":"Lions","position":"SS","name":"William White","number":"#35","running_speed":38,"rushing_power":44,"maximum_speed":56,"hitting_power":56,"pass_interceptions":56,"ranking":22},
     {"team":"Lions","position":"K","name":"Eddie Murray","number":"#3","kicking_ability":31,"avoid_kick_block":50,"ranking":23},
     {"team":"Lions","position":"P","name":"Jim Arnold","number":"#6","kicking_ability":50,"avoid_kick_block":56,"ranking":12}
   ]

@@ -26,10 +26,10 @@
     {"team":"Buccaneers","position":"RILB","name":"Winston Moss","number":"#58","running_speed":25,"rushing_power":31,"maximum_speed":31,"hitting_power":31,"pass_interceptions":31,"ranking":97},
     {"team":"Buccaneers","position":"LILB","name":"Eugene Marve","number":"#99","running_speed":25,"rushing_power":31,"maximum_speed":31,"hitting_power":31,"pass_interceptions":19,"ranking":107},
     {"team":"Buccaneers","position":"LOLB","name":"Broderick Thomas","number":"#51","running_speed":25,"rushing_power":31,"maximum_speed":38,"hitting_power":38,"pass_interceptions":19,"ranking":86},
-    {"team":"Buccaneers","position":"RCB","name":"Wayne Haddix","number":"#45","running_speed":44,"rushing_power":56,"maximum_speed":75,"hitting_power":44,"pass_interceptions":75,"ranking":2},
-    {"team":"Buccaneers","position":"LCB","name":"Ricky Reynolds","number":"#29","running_speed":25,"rushing_power":31,"maximum_speed":38,"hitting_power":31,"pass_interceptions":50,"ranking":86},
-    {"team":"Buccaneers","position":"FS","name":"Harry Hamilton","number":"#39","running_speed":25,"rushing_power":31,"maximum_speed":44,"hitting_power":44,"pass_interceptions":56,"ranking":54},
-    {"team":"Buccaneers","position":"SS","name":"Mark Robinson","number":"#30","running_speed":31,"rushing_power":38,"maximum_speed":50,"hitting_power":50,"pass_interceptions":56,"ranking":29},
+    {"team":"Buccaneers","position":"RCB","name":"Wayne Haddix","number":"#45","running_speed":44,"rushing_power":56,"maximum_speed":75,"hitting_power":44,"pass_interceptions":75,"ranking":1},
+    {"team":"Buccaneers","position":"LCB","name":"Ricky Reynolds","number":"#29","running_speed":25,"rushing_power":31,"maximum_speed":38,"hitting_power":31,"pass_interceptions":50,"ranking":78},
+    {"team":"Buccaneers","position":"FS","name":"Harry Hamilton","number":"#39","running_speed":25,"rushing_power":31,"maximum_speed":44,"hitting_power":44,"pass_interceptions":56,"ranking":60},
+    {"team":"Buccaneers","position":"SS","name":"Mark Robinson","number":"#30","running_speed":31,"rushing_power":38,"maximum_speed":50,"hitting_power":50,"pass_interceptions":56,"ranking":32},
     {"team":"Buccaneers","position":"K","name":"Steve Christie","number":"#2","kicking_ability":69,"avoid_kick_block":75,"ranking":3},
     {"team":"Buccaneers","position":"P","name":"Mark Royals","number":"#3","kicking_ability":38,"avoid_kick_block":69,"ranking":15}
   ]

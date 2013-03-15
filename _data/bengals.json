@@ -26,10 +26,10 @@
     {"team":"Bengals","position":"RILB","name":"Kevin Walker","number":"#59","running_speed":25,"rushing_power":31,"maximum_speed":38,"hitting_power":38,"pass_interceptions":19,"ranking":85},
     {"team":"Bengals","position":"LILB","name":"Carl Zander","number":"#91","running_speed":25,"rushing_power":31,"maximum_speed":38,"hitting_power":38,"pass_interceptions":31,"ranking":68},
     {"team":"Bengals","position":"LOLB","name":"Leon White","number":"#51","running_speed":25,"rushing_power":31,"maximum_speed":31,"hitting_power":38,"pass_interceptions":31,"ranking":78},
-    {"team":"Bengals","position":"RCB","name":"Carl Carter","number":"#45","running_speed":25,"rushing_power":31,"maximum_speed":25,"hitting_power":31,"pass_interceptions":38,"ranking":109},
-    {"team":"Bengals","position":"LCB","name":"Lewis Billups","number":"#24","running_speed":25,"rushing_power":31,"maximum_speed":25,"hitting_power":31,"pass_interceptions":44,"ranking":108},
-    {"team":"Bengals","position":"FS","name":"Barney Bussey","number":"#27","running_speed":31,"rushing_power":38,"maximum_speed":50,"hitting_power":50,"pass_interceptions":50,"ranking":39},
-    {"team":"Bengals","position":"SS","name":"David Fulcher","number":"#33","running_speed":44,"rushing_power":56,"maximum_speed":69,"hitting_power":75,"pass_interceptions":69,"ranking":1},
+    {"team":"Bengals","position":"RCB","name":"Carl Carter","number":"#45","running_speed":25,"rushing_power":31,"maximum_speed":25,"hitting_power":31,"pass_interceptions":38,"ranking":103},
+    {"team":"Bengals","position":"LCB","name":"Lewis Billups","number":"#24","running_speed":25,"rushing_power":31,"maximum_speed":25,"hitting_power":31,"pass_interceptions":44,"ranking":99},
+    {"team":"Bengals","position":"FS","name":"Barney Bussey","number":"#27","running_speed":31,"rushing_power":38,"maximum_speed":50,"hitting_power":50,"pass_interceptions":50,"ranking":43},
+    {"team":"Bengals","position":"SS","name":"David Fulcher","number":"#33","running_speed":44,"rushing_power":56,"maximum_speed":69,"hitting_power":75,"pass_interceptions":69,"ranking":2},
     {"team":"Bengals","position":"K","name":"Jim Breech","number":"#3","kicking_ability":63,"avoid_kick_block":31,"ranking":13},
     {"team":"Bengals","position":"P","name":"Lee Johnson","number":"#11","kicking_ability":44,"avoid_kick_block":69,"ranking":13}
   ]

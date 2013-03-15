@@ -26,9 +26,9 @@
     {"team":"49ers","position":"RILB","name":"Keith Delong","number":"#59","running_speed":25,"rushing_power":31,"maximum_speed":38,"hitting_power":44,"pass_interceptions":19,"ranking":74},
     {"team":"49ers","position":"LILB","name":"Matt Millen","number":"#54","running_speed":25,"rushing_power":38,"maximum_speed":50,"hitting_power":63,"pass_interceptions":31,"ranking":29},
     {"team":"49ers","position":"LOLB","name":"Charles Haley","number":"#94","running_speed":38,"rushing_power":50,"maximum_speed":56,"hitting_power":63,"pass_interceptions":19,"ranking":12},
-    {"team":"49ers","position":"RCB","name":"Don Griffin","number":"#29","running_speed":31,"rushing_power":38,"maximum_speed":50,"hitting_power":38,"pass_interceptions":50,"ranking":51},
-    {"team":"49ers","position":"LCB","name":"Darryl Pollard","number":"#26","running_speed":25,"rushing_power":31,"maximum_speed":44,"hitting_power":44,"pass_interceptions":38,"ranking":82},
-    {"team":"49ers","position":"FS","name":"Ronnie Lott","number":"#42","running_speed":44,"rushing_power":56,"maximum_speed":69,"hitting_power":69,"pass_interceptions":50,"ranking":10},
+    {"team":"49ers","position":"RCB","name":"Don Griffin","number":"#29","running_speed":31,"rushing_power":38,"maximum_speed":50,"hitting_power":38,"pass_interceptions":50,"ranking":50},
+    {"team":"49ers","position":"LCB","name":"Darryl Pollard","number":"#26","running_speed":25,"rushing_power":31,"maximum_speed":44,"hitting_power":44,"pass_interceptions":38,"ranking":96},
+    {"team":"49ers","position":"FS","name":"Ronnie Lott","number":"#42","running_speed":44,"rushing_power":56,"maximum_speed":69,"hitting_power":69,"pass_interceptions":50,"ranking":11},
     {"team":"49ers","position":"SS","name":"Dave Waymer","number":"#43","running_speed":38,"rushing_power":50,"maximum_speed":63,"hitting_power":50,"pass_interceptions":69,"ranking":8},
     {"team":"49ers","position":"K","name":"Mike Cofer","number":"#6","kicking_ability":56,"avoid_kick_block":56,"ranking":11},
     {"team":"49ers","position":"P","name":"Barry Helton","number":"#9","kicking_ability":19,"avoid_kick_block":38,"ranking":27}

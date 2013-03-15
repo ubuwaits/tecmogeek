@@ -26,10 +26,10 @@
     {"team":"Raiders","position":"RILB","name":"Scott Davis","number":"#70","running_speed":25,"rushing_power":38,"maximum_speed":44,"hitting_power":63,"pass_interceptions":25,"ranking":37},
     {"team":"Raiders","position":"LILB","name":"Riki Ellison","number":"#50","running_speed":25,"rushing_power":31,"maximum_speed":38,"hitting_power":38,"pass_interceptions":44,"ranking":55},
     {"team":"Raiders","position":"LOLB","name":"Jerry Robinson","number":"#57","running_speed":25,"rushing_power":31,"maximum_speed":38,"hitting_power":38,"pass_interceptions":44,"ranking":56},
-    {"team":"Raiders","position":"RCB","name":"L. Washington","number":"#48","running_speed":38,"rushing_power":44,"maximum_speed":56,"hitting_power":44,"pass_interceptions":38,"ranking":49},
-    {"team":"Raiders","position":"LCB","name":"Terry Mcdaniel","number":"#36","running_speed":38,"rushing_power":44,"maximum_speed":56,"hitting_power":44,"pass_interceptions":38,"ranking":50},
-    {"team":"Raiders","position":"FS","name":"Eddie Anderson","number":"#33","running_speed":38,"rushing_power":50,"maximum_speed":63,"hitting_power":69,"pass_interceptions":50,"ranking":13},
-    {"team":"Raiders","position":"SS","name":"Mike Harden","number":"#45","running_speed":25,"rushing_power":31,"maximum_speed":44,"hitting_power":50,"pass_interceptions":50,"ranking":61},
+    {"team":"Raiders","position":"RCB","name":"L. Washington","number":"#48","running_speed":38,"rushing_power":44,"maximum_speed":56,"hitting_power":44,"pass_interceptions":38,"ranking":48},
+    {"team":"Raiders","position":"LCB","name":"Terry Mcdaniel","number":"#36","running_speed":38,"rushing_power":44,"maximum_speed":56,"hitting_power":44,"pass_interceptions":38,"ranking":49},
+    {"team":"Raiders","position":"FS","name":"Eddie Anderson","number":"#33","running_speed":38,"rushing_power":50,"maximum_speed":63,"hitting_power":69,"pass_interceptions":50,"ranking":16},
+    {"team":"Raiders","position":"SS","name":"Mike Harden","number":"#45","running_speed":25,"rushing_power":31,"maximum_speed":44,"hitting_power":50,"pass_interceptions":50,"ranking":65},
     {"team":"Raiders","position":"K","name":"Jeff Jaeger","number":"#18","kicking_ability":56,"avoid_kick_block":56,"ranking":12},
     {"team":"Raiders","position":"P","name":"Jeff Gossett","number":"#6","kicking_ability":31,"avoid_kick_block":38,"ranking":19}
   ]

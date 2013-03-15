@@ -26,10 +26,10 @@
     {"team":"Redskins","position":"RILB","name":"Greg Manusky","number":"#91","running_speed":25,"rushing_power":31,"maximum_speed":38,"hitting_power":44,"pass_interceptions":19,"ranking":77},
     {"team":"Redskins","position":"LILB","name":"Tracy Rocker","number":"#99","running_speed":25,"rushing_power":31,"maximum_speed":38,"hitting_power":50,"pass_interceptions":19,"ranking":65},
     {"team":"Redskins","position":"LOLB","name":"Andre Collins","number":"#55","running_speed":25,"rushing_power":38,"maximum_speed":44,"hitting_power":38,"pass_interceptions":19,"ranking":64},
-    {"team":"Redskins","position":"RCB","name":"Darrell Green","number":"#28","running_speed":44,"rushing_power":56,"maximum_speed":75,"hitting_power":44,"pass_interceptions":44,"ranking":14},
-    {"team":"Redskins","position":"LCB","name":"Martin Mayhew","number":"#35","running_speed":38,"rushing_power":50,"maximum_speed":63,"hitting_power":31,"pass_interceptions":69,"ranking":11},
-    {"team":"Redskins","position":"FS","name":"Todd Bowles","number":"#23","running_speed":25,"rushing_power":31,"maximum_speed":44,"hitting_power":44,"pass_interceptions":50,"ranking":68},
-    {"team":"Redskins","position":"SS","name":"Alvin Walton","number":"#40","running_speed":25,"rushing_power":31,"maximum_speed":44,"hitting_power":31,"pass_interceptions":44,"ranking":83},
+    {"team":"Redskins","position":"RCB","name":"Darrell Green","number":"#28","running_speed":44,"rushing_power":56,"maximum_speed":75,"hitting_power":44,"pass_interceptions":44,"ranking":13},
+    {"team":"Redskins","position":"LCB","name":"Martin Mayhew","number":"#35","running_speed":38,"rushing_power":50,"maximum_speed":63,"hitting_power":31,"pass_interceptions":69,"ranking":10},
+    {"team":"Redskins","position":"FS","name":"Todd Bowles","number":"#23","running_speed":25,"rushing_power":31,"maximum_speed":44,"hitting_power":44,"pass_interceptions":50,"ranking":71},
+    {"team":"Redskins","position":"SS","name":"Alvin Walton","number":"#40","running_speed":25,"rushing_power":31,"maximum_speed":44,"hitting_power":31,"pass_interceptions":44,"ranking":89},
     {"team":"Redskins","position":"K","name":"Chip Lohmiller","number":"#8","kicking_ability":50,"avoid_kick_block":81,"ranking":7},
     {"team":"Redskins","position":"P","name":"Kelly Goodburn","number":"#2","kicking_ability":25,"avoid_kick_block":50,"ranking":21}
   ]

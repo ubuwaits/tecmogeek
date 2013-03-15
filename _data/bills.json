@@ -26,9 +26,9 @@
     {"team":"Bills","position":"RILB","name":"Ray Bentley","number":"#50","running_speed":25,"rushing_power":31,"maximum_speed":38,"hitting_power":38,"pass_interceptions":31,"ranking":69},
     {"team":"Bills","position":"LILB","name":"Shane Conlan","number":"#58","running_speed":31,"rushing_power":44,"maximum_speed":50,"hitting_power":56,"pass_interceptions":19,"ranking":30},
     {"team":"Bills","position":"LOLB","name":"C. Bennett","number":"#97","running_speed":38,"rushing_power":50,"maximum_speed":63,"hitting_power":63,"pass_interceptions":19,"ranking":10},
-    {"team":"Bills","position":"RCB","name":"Nate Odomes","number":"#37","running_speed":38,"rushing_power":44,"maximum_speed":56,"hitting_power":38,"pass_interceptions":38,"ranking":55},
+    {"team":"Bills","position":"RCB","name":"Nate Odomes","number":"#37","running_speed":38,"rushing_power":44,"maximum_speed":56,"hitting_power":38,"pass_interceptions":38,"ranking":51},
     {"team":"Bills","position":"LCB","name":"Kirby Jackson","number":"#47","running_speed":25,"rushing_power":31,"maximum_speed":44,"hitting_power":38,"pass_interceptions":50,"ranking":72},
-    {"team":"Bills","position":"FS","name":"Mark Kelso","number":"#38","running_speed":31,"rushing_power":38,"maximum_speed":50,"hitting_power":38,"pass_interceptions":44,"ranking":63},
+    {"team":"Bills","position":"FS","name":"Mark Kelso","number":"#38","running_speed":31,"rushing_power":38,"maximum_speed":50,"hitting_power":38,"pass_interceptions":44,"ranking":61},
     {"team":"Bills","position":"SS","name":"Leonard Smith","number":"#46","running_speed":31,"rushing_power":38,"maximum_speed":50,"hitting_power":44,"pass_interceptions":44,"ranking":56},
     {"team":"Bills","position":"K","name":"Scott Norwood","number":"#11","kicking_ability":44,"avoid_kick_block":44,"ranking":17},
     {"team":"Bills","position":"P","name":"Rick Tuten","number":"#10","kicking_ability":19,"avoid_kick_block":63,"ranking":22}

@@ -26,10 +26,10 @@
     {"team":"Oilers","position":"RILB","name":"Al Smith","number":"#54","running_speed":25,"rushing_power":38,"maximum_speed":44,"hitting_power":38,"pass_interceptions":19,"ranking":62},
     {"team":"Oilers","position":"LILB","name":"John Grimsley","number":"#59","running_speed":25,"rushing_power":31,"maximum_speed":38,"hitting_power":31,"pass_interceptions":19,"ranking":105},
     {"team":"Oilers","position":"LOLB","name":"Ray Childress","number":"#79","running_speed":38,"rushing_power":50,"maximum_speed":56,"hitting_power":63,"pass_interceptions":19,"ranking":14},
-    {"team":"Oilers","position":"RCB","name":"Richard Johnson","number":"#23","running_speed":38,"rushing_power":50,"maximum_speed":63,"hitting_power":44,"pass_interceptions":75,"ranking":5},
-    {"team":"Oilers","position":"LCB","name":"Cris Dishman","number":"#28","running_speed":25,"rushing_power":31,"maximum_speed":44,"hitting_power":31,"pass_interceptions":56,"ranking":69},
-    {"team":"Oilers","position":"FS","name":"Terry Kinard","number":"#27","running_speed":31,"rushing_power":38,"maximum_speed":50,"hitting_power":44,"pass_interceptions":56,"ranking":34},
-    {"team":"Oilers","position":"SS","name":"Bubba Mcdowell","number":"#25","running_speed":25,"rushing_power":31,"maximum_speed":44,"hitting_power":44,"pass_interceptions":50,"ranking":66},
+    {"team":"Oilers","position":"RCB","name":"Richard Johnson","number":"#23","running_speed":38,"rushing_power":50,"maximum_speed":63,"hitting_power":44,"pass_interceptions":75,"ranking":4},
+    {"team":"Oilers","position":"LCB","name":"Cris Dishman","number":"#28","running_speed":25,"rushing_power":31,"maximum_speed":44,"hitting_power":31,"pass_interceptions":56,"ranking":63},
+    {"team":"Oilers","position":"FS","name":"Terry Kinard","number":"#27","running_speed":31,"rushing_power":38,"maximum_speed":50,"hitting_power":44,"pass_interceptions":56,"ranking":37},
+    {"team":"Oilers","position":"SS","name":"Bubba Mcdowell","number":"#25","running_speed":25,"rushing_power":31,"maximum_speed":44,"hitting_power":44,"pass_interceptions":50,"ranking":69},
     {"team":"Oilers","position":"K","name":"Tony Zendejas","number":"#7","kicking_ability":38,"avoid_kick_block":31,"ranking":25},
     {"team":"Oilers","position":"P","name":"Greg Montgomery","number":"#9","kicking_ability":69,"avoid_kick_block":56,"ranking":7}
   ]

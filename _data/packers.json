@@ -27,9 +27,9 @@
     {"team":"Packers","position":"LILB","name":"Brian Noble","number":"#91","running_speed":25,"rushing_power":31,"maximum_speed":31,"hitting_power":31,"pass_interceptions":19,"ranking":109},
     {"team":"Packers","position":"LOLB","name":"Scott Stephen","number":"#54","running_speed":25,"rushing_power":31,"maximum_speed":31,"hitting_power":31,"pass_interceptions":38,"ranking":82},
     {"team":"Packers","position":"RCB","name":"Jerry Holmes","number":"#44","running_speed":25,"rushing_power":31,"maximum_speed":44,"hitting_power":38,"pass_interceptions":50,"ranking":75},
-    {"team":"Packers","position":"LCB","name":"Mark Lee","number":"#22","running_speed":25,"rushing_power":31,"maximum_speed":38,"hitting_power":38,"pass_interceptions":31,"ranking":106},
-    {"team":"Packers","position":"FS","name":"Chuck Cecil","number":"#26","running_speed":25,"rushing_power":31,"maximum_speed":38,"hitting_power":44,"pass_interceptions":38,"ranking":93},
-    {"team":"Packers","position":"SS","name":"Mark Murphy","number":"#37","running_speed":25,"rushing_power":31,"maximum_speed":44,"hitting_power":44,"pass_interceptions":50,"ranking":67},
+    {"team":"Packers","position":"LCB","name":"Mark Lee","number":"#22","running_speed":25,"rushing_power":31,"maximum_speed":38,"hitting_power":38,"pass_interceptions":31,"ranking":111},
+    {"team":"Packers","position":"FS","name":"Chuck Cecil","number":"#26","running_speed":25,"rushing_power":31,"maximum_speed":38,"hitting_power":44,"pass_interceptions":38,"ranking":100},
+    {"team":"Packers","position":"SS","name":"Mark Murphy","number":"#37","running_speed":25,"rushing_power":31,"maximum_speed":44,"hitting_power":44,"pass_interceptions":50,"ranking":70},
     {"team":"Packers","position":"K","name":"Chris Jacke","number":"#13","kicking_ability":56,"avoid_kick_block":38,"ranking":14},
     {"team":"Packers","position":"P","name":"Don Bracken","number":"#17","kicking_ability":25,"avoid_kick_block":50,"ranking":20}
   ]

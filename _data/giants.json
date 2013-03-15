@@ -26,10 +26,10 @@
     {"team":"Giants","position":"RILB","name":"Pepper Johnson","number":"#52","running_speed":38,"rushing_power":44,"maximum_speed":56,"hitting_power":69,"pass_interceptions":31,"ranking":9},
     {"team":"Giants","position":"LILB","name":"Gary Reasons","number":"#55","running_speed":25,"rushing_power":38,"maximum_speed":44,"hitting_power":38,"pass_interceptions":63,"ranking":39},
     {"team":"Giants","position":"LOLB","name":"Carl Banks","number":"#58","running_speed":38,"rushing_power":44,"maximum_speed":50,"hitting_power":63,"pass_interceptions":19,"ranking":21},
-    {"team":"Giants","position":"RCB","name":"Everson Walls","number":"#28","running_speed":38,"rushing_power":44,"maximum_speed":56,"hitting_power":31,"pass_interceptions":63,"ranking":23},
-    {"team":"Giants","position":"LCB","name":"Mark Collins","number":"#25","running_speed":38,"rushing_power":44,"maximum_speed":56,"hitting_power":50,"pass_interceptions":44,"ranking":32},
-    {"team":"Giants","position":"FS","name":"Myron Guyton","number":"#29","running_speed":31,"rushing_power":38,"maximum_speed":50,"hitting_power":56,"pass_interceptions":44,"ranking":47},
-    {"team":"Giants","position":"SS","name":"Greg Jackson","number":"#47","running_speed":31,"rushing_power":38,"maximum_speed":50,"hitting_power":56,"pass_interceptions":56,"ranking":28},
+    {"team":"Giants","position":"RCB","name":"Everson Walls","number":"#28","running_speed":38,"rushing_power":44,"maximum_speed":56,"hitting_power":31,"pass_interceptions":63,"ranking":17},
+    {"team":"Giants","position":"LCB","name":"Mark Collins","number":"#25","running_speed":38,"rushing_power":44,"maximum_speed":56,"hitting_power":50,"pass_interceptions":44,"ranking":35},
+    {"team":"Giants","position":"FS","name":"Myron Guyton","number":"#29","running_speed":31,"rushing_power":38,"maximum_speed":50,"hitting_power":56,"pass_interceptions":44,"ranking":54},
+    {"team":"Giants","position":"SS","name":"Greg Jackson","number":"#47","running_speed":31,"rushing_power":38,"maximum_speed":50,"hitting_power":56,"pass_interceptions":56,"ranking":31},
     {"team":"Giants","position":"K","name":"Matt Bahr","number":"#9","kicking_ability":44,"avoid_kick_block":63,"ranking":15},
     {"team":"Giants","position":"P","name":"Sean Landeta","number":"#5","kicking_ability":81,"avoid_kick_block":81,"ranking":1}
   ]

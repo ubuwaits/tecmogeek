@@ -26,10 +26,10 @@
     {"team":"Chiefs","position":"RILB","name":"Dino Hackett","number":"#56","running_speed":31,"rushing_power":44,"maximum_speed":50,"hitting_power":63,"pass_interceptions":19,"ranking":26},
     {"team":"Chiefs","position":"LILB","name":"Percy Snow","number":"#59","running_speed":38,"rushing_power":50,"maximum_speed":56,"hitting_power":56,"pass_interceptions":31,"ranking":11},
     {"team":"Chiefs","position":"LOLB","name":"Chris Martin","number":"#57","running_speed":25,"rushing_power":38,"maximum_speed":44,"hitting_power":50,"pass_interceptions":19,"ranking":43},
-    {"team":"Chiefs","position":"RCB","name":"Kevin Ross","number":"#31","running_speed":31,"rushing_power":38,"maximum_speed":50,"hitting_power":44,"pass_interceptions":56,"ranking":33},
-    {"team":"Chiefs","position":"LCB","name":"Albert Lewis","number":"#29","running_speed":31,"rushing_power":38,"maximum_speed":50,"hitting_power":56,"pass_interceptions":50,"ranking":36},
+    {"team":"Chiefs","position":"RCB","name":"Kevin Ross","number":"#31","running_speed":31,"rushing_power":38,"maximum_speed":50,"hitting_power":44,"pass_interceptions":56,"ranking":36},
+    {"team":"Chiefs","position":"LCB","name":"Albert Lewis","number":"#29","running_speed":31,"rushing_power":38,"maximum_speed":50,"hitting_power":56,"pass_interceptions":50,"ranking":42},
     {"team":"Chiefs","position":"FS","name":"Deron Cherry","number":"#20","running_speed":25,"rushing_power":31,"maximum_speed":44,"hitting_power":38,"pass_interceptions":50,"ranking":73},
-    {"team":"Chiefs","position":"SS","name":"Kevin Porter","number":"#27","running_speed":25,"rushing_power":31,"maximum_speed":44,"hitting_power":38,"pass_interceptions":38,"ranking":88},
+    {"team":"Chiefs","position":"SS","name":"Kevin Porter","number":"#27","running_speed":25,"rushing_power":31,"maximum_speed":44,"hitting_power":38,"pass_interceptions":38,"ranking":97},
     {"team":"Chiefs","position":"K","name":"Nick Lowery","number":"#8","kicking_ability":81,"avoid_kick_block":81,"ranking":1},
     {"team":"Chiefs","position":"P","name":"Bryan Barker","number":"#4","kicking_ability":31,"avoid_kick_block":63,"ranking":18}
   ]

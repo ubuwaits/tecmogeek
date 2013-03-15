@@ -26,10 +26,10 @@
     {"team":"Seahawks","position":"RILB","name":"Cortez Kennedy","number":"#96","running_speed":25,"rushing_power":31,"maximum_speed":38,"hitting_power":56,"pass_interceptions":19,"ranking":53},
     {"team":"Seahawks","position":"LILB","name":"David Wyman","number":"#92","running_speed":25,"rushing_power":31,"maximum_speed":38,"hitting_power":38,"pass_interceptions":19,"ranking":95},
     {"team":"Seahawks","position":"LOLB","name":"Terry Wooden","number":"#51","running_speed":25,"rushing_power":31,"maximum_speed":38,"hitting_power":38,"pass_interceptions":19,"ranking":96},
-    {"team":"Seahawks","position":"RCB","name":"Patrick Hunter","number":"#27","running_speed":25,"rushing_power":31,"maximum_speed":38,"hitting_power":38,"pass_interceptions":38,"ranking":98},
-    {"team":"Seahawks","position":"LCB","name":"Dwayne Harper","number":"#29","running_speed":31,"rushing_power":38,"maximum_speed":50,"hitting_power":31,"pass_interceptions":50,"ranking":59},
-    {"team":"Seahawks","position":"FS","name":"Eugene Robinson","number":"#41","running_speed":25,"rushing_power":31,"maximum_speed":38,"hitting_power":38,"pass_interceptions":50,"ranking":80},
-    {"team":"Seahawks","position":"SS","name":"Nesby Glasgow","number":"#22","running_speed":31,"rushing_power":38,"maximum_speed":50,"hitting_power":56,"pass_interceptions":25,"ranking":78},
+    {"team":"Seahawks","position":"RCB","name":"Patrick Hunter","number":"#27","running_speed":25,"rushing_power":31,"maximum_speed":38,"hitting_power":38,"pass_interceptions":38,"ranking":101},
+    {"team":"Seahawks","position":"LCB","name":"Dwayne Harper","number":"#29","running_speed":31,"rushing_power":38,"maximum_speed":50,"hitting_power":31,"pass_interceptions":50,"ranking":52},
+    {"team":"Seahawks","position":"FS","name":"Eugene Robinson","number":"#41","running_speed":25,"rushing_power":31,"maximum_speed":38,"hitting_power":38,"pass_interceptions":50,"ranking":77},
+    {"team":"Seahawks","position":"SS","name":"Nesby Glasgow","number":"#22","running_speed":31,"rushing_power":38,"maximum_speed":50,"hitting_power":56,"pass_interceptions":25,"ranking":95},
     {"team":"Seahawks","position":"K","name":"Norm Johnson","number":"#9","kicking_ability":44,"avoid_kick_block":38,"ranking":20},
     {"team":"Seahawks","position":"P","name":"Rick Donnelly","number":"#3","kicking_ability":44,"avoid_kick_block":63,"ranking":14}
   ]

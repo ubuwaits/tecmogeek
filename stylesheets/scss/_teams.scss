@@ -517,27 +517,23 @@
 .players.secondary {
   .player-abilities li {
     &.running-speed {
-      width: 3.4%;
-      padding-left: 1px;
-      padding-right: 0;
+      width: 8.4%;
     }
 
     &.rushing-power {
-      width: 3.4%;
-      padding-left: 1px;
-      padding-right: 0;
+      width: 33.4%;
     }
 
     &.maximum-speed {
-      width: 38.4%;
+      width: 8.4%;
     }
 
     &.hitting-power {
-      width: 13.4%;
+      width: 3.4%;
     }
 
     &.pass-interceptions {
-      width: 33.4%;
+      width: 38.4%;
     }
   }
 }

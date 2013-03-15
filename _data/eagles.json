@@ -26,9 +26,9 @@
     {"team":"Eagles","position":"RILB","name":"Jerome Brown","number":"#99","running_speed":38,"rushing_power":50,"maximum_speed":56,"hitting_power":69,"pass_interceptions":19,"ranking":6},
     {"team":"Eagles","position":"LILB","name":"Byron Evans","number":"#56","running_speed":25,"rushing_power":31,"maximum_speed":38,"hitting_power":44,"pass_interceptions":31,"ranking":59},
     {"team":"Eagles","position":"LOLB","name":"Seth Joyner","number":"#59","running_speed":31,"rushing_power":44,"maximum_speed":50,"hitting_power":63,"pass_interceptions":31,"ranking":17},
-    {"team":"Eagles","position":"RCB","name":"Eric Allen","number":"#21","running_speed":38,"rushing_power":50,"maximum_speed":44,"hitting_power":50,"pass_interceptions":50,"ranking":48},
-    {"team":"Eagles","position":"LCB","name":"Ben Smith","number":"#26","running_speed":38,"rushing_power":50,"maximum_speed":38,"hitting_power":31,"pass_interceptions":50,"ranking":77},
-    {"team":"Eagles","position":"FS","name":"Wes Hopkins","number":"#48","running_speed":25,"rushing_power":31,"maximum_speed":19,"hitting_power":50,"pass_interceptions":56,"ranking":97},
+    {"team":"Eagles","position":"RCB","name":"Eric Allen","number":"#21","running_speed":38,"rushing_power":50,"maximum_speed":44,"hitting_power":50,"pass_interceptions":50,"ranking":24},
+    {"team":"Eagles","position":"LCB","name":"Ben Smith","number":"#26","running_speed":38,"rushing_power":50,"maximum_speed":38,"hitting_power":31,"pass_interceptions":50,"ranking":28},
+    {"team":"Eagles","position":"FS","name":"Wes Hopkins","number":"#48","running_speed":25,"rushing_power":31,"maximum_speed":19,"hitting_power":50,"pass_interceptions":56,"ranking":67},
     {"team":"Eagles","position":"SS","name":"Andre Waters","number":"#20","running_speed":25,"rushing_power":31,"maximum_speed":19,"hitting_power":31,"pass_interceptions":25,"ranking":112},
     {"team":"Eagles","position":"K","name":"Roger Ruzek","number":"#7","kicking_ability":50,"avoid_kick_block":25,"ranking":19},
     {"team":"Eagles","position":"P","name":"Jeff Feagles","number":"#5","kicking_ability":50,"avoid_kick_block":31,"ranking":16}

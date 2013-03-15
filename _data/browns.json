@@ -26,10 +26,10 @@
     {"team":"Browns","position":"RILB","name":"David Grayson","number":"#56","running_speed":25,"rushing_power":31,"maximum_speed":38,"hitting_power":38,"pass_interceptions":31,"ranking":70},
     {"team":"Browns","position":"LILB","name":"Mike Johnson","number":"#59","running_speed":31,"rushing_power":44,"maximum_speed":50,"hitting_power":69,"pass_interceptions":19,"ranking":19},
     {"team":"Browns","position":"LOLB","name":"Clay Matthews","number":"#57","running_speed":25,"rushing_power":38,"maximum_speed":44,"hitting_power":38,"pass_interceptions":19,"ranking":60},
-    {"team":"Browns","position":"RCB","name":"Raymond Clayborn","number":"#26","running_speed":25,"rushing_power":31,"maximum_speed":38,"hitting_power":38,"pass_interceptions":31,"ranking":103},
-    {"team":"Browns","position":"LCB","name":"Frank Minnifield","number":"#31","running_speed":31,"rushing_power":38,"maximum_speed":50,"hitting_power":50,"pass_interceptions":44,"ranking":52},
-    {"team":"Browns","position":"FS","name":"Thane Gash","number":"#30","running_speed":25,"rushing_power":31,"maximum_speed":38,"hitting_power":44,"pass_interceptions":31,"ranking":102},
-    {"team":"Browns","position":"SS","name":"Felix Wright","number":"#22","running_speed":25,"rushing_power":31,"maximum_speed":38,"hitting_power":38,"pass_interceptions":50,"ranking":79},
+    {"team":"Browns","position":"RCB","name":"Raymond Clayborn","number":"#26","running_speed":25,"rushing_power":31,"maximum_speed":38,"hitting_power":38,"pass_interceptions":31,"ranking":108},
+    {"team":"Browns","position":"LCB","name":"Frank Minnifield","number":"#31","running_speed":31,"rushing_power":38,"maximum_speed":50,"hitting_power":50,"pass_interceptions":44,"ranking":55},
+    {"team":"Browns","position":"FS","name":"Thane Gash","number":"#30","running_speed":25,"rushing_power":31,"maximum_speed":38,"hitting_power":44,"pass_interceptions":31,"ranking":106},
+    {"team":"Browns","position":"SS","name":"Felix Wright","number":"#22","running_speed":25,"rushing_power":31,"maximum_speed":38,"hitting_power":38,"pass_interceptions":50,"ranking":76},
     {"team":"Browns","position":"K","name":"Jerry Kauric","number":"#2","kicking_ability":38,"avoid_kick_block":31,"ranking":24},
     {"team":"Browns","position":"P","name":"Bryan Wagner","number":"#15","kicking_ability":25,"avoid_kick_block":19,"ranking":28}
   ]

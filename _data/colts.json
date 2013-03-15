@@ -26,10 +26,10 @@
     {"team":"Colts","position":"RILB","name":"Fredd Young","number":"#56","running_speed":25,"rushing_power":31,"maximum_speed":31,"hitting_power":31,"pass_interceptions":25,"ranking":102},
     {"team":"Colts","position":"LILB","name":"Jeff Herrod","number":"#54","running_speed":25,"rushing_power":31,"maximum_speed":31,"hitting_power":44,"pass_interceptions":25,"ranking":72},
     {"team":"Colts","position":"LOLB","name":"Chip Banks","number":"#51","running_speed":25,"rushing_power":31,"maximum_speed":31,"hitting_power":44,"pass_interceptions":25,"ranking":73},
-    {"team":"Colts","position":"RCB","name":"Eugene Daniel","number":"#38","running_speed":25,"rushing_power":31,"maximum_speed":38,"hitting_power":38,"pass_interceptions":31,"ranking":104},
-    {"team":"Colts","position":"LCB","name":"Chris Goode","number":"#37","running_speed":25,"rushing_power":31,"maximum_speed":38,"hitting_power":38,"pass_interceptions":31,"ranking":105},
-    {"team":"Colts","position":"FS","name":"Mike Prior","number":"#39","running_speed":25,"rushing_power":31,"maximum_speed":38,"hitting_power":44,"pass_interceptions":44,"ranking":84},
-    {"team":"Colts","position":"SS","name":"Keith Taylor","number":"#27","running_speed":25,"rushing_power":31,"maximum_speed":44,"hitting_power":38,"pass_interceptions":38,"ranking":89},
+    {"team":"Colts","position":"RCB","name":"Eugene Daniel","number":"#38","running_speed":25,"rushing_power":31,"maximum_speed":38,"hitting_power":38,"pass_interceptions":31,"ranking":109},
+    {"team":"Colts","position":"LCB","name":"Chris Goode","number":"#37","running_speed":25,"rushing_power":31,"maximum_speed":38,"hitting_power":38,"pass_interceptions":31,"ranking":110},
+    {"team":"Colts","position":"FS","name":"Mike Prior","number":"#39","running_speed":25,"rushing_power":31,"maximum_speed":38,"hitting_power":44,"pass_interceptions":44,"ranking":87},
+    {"team":"Colts","position":"SS","name":"Keith Taylor","number":"#27","running_speed":25,"rushing_power":31,"maximum_speed":44,"hitting_power":38,"pass_interceptions":38,"ranking":98},
     {"team":"Colts","position":"K","name":"Dean Biasucci","number":"#4","kicking_ability":38,"avoid_kick_block":38,"ranking":22},
     {"team":"Colts","position":"P","name":"Rohn Stark","number":"#3","kicking_ability":75,"avoid_kick_block":56,"ranking":5}
   ]

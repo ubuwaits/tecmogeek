@@ -27,8 +27,8 @@
     {"team":"Jets","position":"LILB","name":"Kyle Clifton","number":"#59","running_speed":31,"rushing_power":44,"maximum_speed":50,"hitting_power":50,"pass_interceptions":50,"ranking":20},
     {"team":"Jets","position":"LOLB","name":"Joe Mott","number":"#51","running_speed":25,"rushing_power":31,"maximum_speed":31,"hitting_power":44,"pass_interceptions":19,"ranking":80},
     {"team":"Jets","position":"RCB","name":"James Hasty","number":"#40","running_speed":25,"rushing_power":31,"maximum_speed":38,"hitting_power":38,"pass_interceptions":44,"ranking":90},
-    {"team":"Jets","position":"LCB","name":"Tony Stargell","number":"#45","running_speed":25,"rushing_power":31,"maximum_speed":38,"hitting_power":31,"pass_interceptions":44,"ranking":94},
-    {"team":"Jets","position":"FS","name":"Erik Mcmillan","number":"#22","running_speed":38,"rushing_power":44,"maximum_speed":56,"hitting_power":56,"pass_interceptions":63,"ranking":15},
+    {"team":"Jets","position":"LCB","name":"Tony Stargell","number":"#45","running_speed":25,"rushing_power":31,"maximum_speed":38,"hitting_power":31,"pass_interceptions":44,"ranking":92},
+    {"team":"Jets","position":"FS","name":"Erik Mcmillan","number":"#22","running_speed":38,"rushing_power":44,"maximum_speed":56,"hitting_power":56,"pass_interceptions":63,"ranking":14},
     {"team":"Jets","position":"SS","name":"Brian Washington","number":"#21","running_speed":25,"rushing_power":31,"maximum_speed":44,"hitting_power":38,"pass_interceptions":50,"ranking":74},
     {"team":"Jets","position":"K","name":"Pat Leahy","number":"#5","kicking_ability":75,"avoid_kick_block":69,"ranking":2},
     {"team":"Jets","position":"P","name":"Joe Prokop","number":"#6","kicking_ability":69,"avoid_kick_block":75,"ranking":4}

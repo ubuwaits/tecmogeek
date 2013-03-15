@@ -26,10 +26,10 @@
     {"team":"Falcons","position":"RILB","name":"John Rade","number":"#59","running_speed":25,"rushing_power":31,"maximum_speed":38,"hitting_power":38,"pass_interceptions":19,"ranking":89},
     {"team":"Falcons","position":"LILB","name":"Jessie Tuggle","number":"#58","running_speed":25,"rushing_power":38,"maximum_speed":44,"hitting_power":38,"pass_interceptions":19,"ranking":61},
     {"team":"Falcons","position":"LOLB","name":"Michael Reid","number":"#95","running_speed":25,"rushing_power":31,"maximum_speed":38,"hitting_power":38,"pass_interceptions":19,"ranking":88},
-    {"team":"Falcons","position":"RCB","name":"Deion Sanders","number":"#21","running_speed":44,"rushing_power":56,"maximum_speed":75,"hitting_power":56,"pass_interceptions":56,"ranking":4},
-    {"team":"Falcons","position":"LCB","name":"Charles Dimry","number":"#22","running_speed":25,"rushing_power":31,"maximum_speed":31,"hitting_power":31,"pass_interceptions":50,"ranking":96},
-    {"team":"Falcons","position":"FS","name":"Scott Case","number":"#25","running_speed":25,"rushing_power":31,"maximum_speed":38,"hitting_power":31,"pass_interceptions":50,"ranking":87},
-    {"team":"Falcons","position":"SS","name":"Brian Jordan","number":"#40","running_speed":25,"rushing_power":31,"maximum_speed":25,"hitting_power":44,"pass_interceptions":50,"ranking":99},
+    {"team":"Falcons","position":"RCB","name":"Deion Sanders","number":"#21","running_speed":44,"rushing_power":56,"maximum_speed":75,"hitting_power":56,"pass_interceptions":56,"ranking":7},
+    {"team":"Falcons","position":"LCB","name":"Charles Dimry","number":"#22","running_speed":25,"rushing_power":31,"maximum_speed":31,"hitting_power":31,"pass_interceptions":50,"ranking":85},
+    {"team":"Falcons","position":"FS","name":"Scott Case","number":"#25","running_speed":25,"rushing_power":31,"maximum_speed":38,"hitting_power":31,"pass_interceptions":50,"ranking":79},
+    {"team":"Falcons","position":"SS","name":"Brian Jordan","number":"#40","running_speed":25,"rushing_power":31,"maximum_speed":25,"hitting_power":44,"pass_interceptions":50,"ranking":83},
     {"team":"Falcons","position":"K","name":"Greg Davis","number":"#5","kicking_ability":25,"avoid_kick_block":50,"ranking":26},
     {"team":"Falcons","position":"P","name":"Scott Fulhage","number":"#17","kicking_ability":63,"avoid_kick_block":69,"ranking":8}
   ]

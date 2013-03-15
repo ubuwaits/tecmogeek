@@ -26,9 +26,9 @@
     {"team":"Vikings","position":"RILB","name":"Keith Millard","number":"#75","running_speed":38,"rushing_power":50,"maximum_speed":56,"hitting_power":69,"pass_interceptions":19,"ranking":8},
     {"team":"Vikings","position":"LILB","name":"Scott Studwell","number":"#55","running_speed":25,"rushing_power":31,"maximum_speed":31,"hitting_power":31,"pass_interceptions":19,"ranking":110},
     {"team":"Vikings","position":"LOLB","name":"Ray Berry","number":"#50","running_speed":25,"rushing_power":31,"maximum_speed":31,"hitting_power":31,"pass_interceptions":19,"ranking":111},
-    {"team":"Vikings","position":"RCB","name":"Reggie Rutland","number":"#48","running_speed":31,"rushing_power":38,"maximum_speed":50,"hitting_power":38,"pass_interceptions":44,"ranking":64},
-    {"team":"Vikings","position":"LCB","name":"Carl Lee","number":"#39","running_speed":38,"rushing_power":50,"maximum_speed":63,"hitting_power":56,"pass_interceptions":50,"ranking":17},
-    {"team":"Vikings","position":"FS","name":"D. Fullington","number":"#29","running_speed":31,"rushing_power":38,"maximum_speed":50,"hitting_power":44,"pass_interceptions":38,"ranking":71},
+    {"team":"Vikings","position":"RCB","name":"Reggie Rutland","number":"#48","running_speed":31,"rushing_power":38,"maximum_speed":50,"hitting_power":38,"pass_interceptions":44,"ranking":62},
+    {"team":"Vikings","position":"LCB","name":"Carl Lee","number":"#39","running_speed":38,"rushing_power":50,"maximum_speed":63,"hitting_power":56,"pass_interceptions":50,"ranking":18},
+    {"team":"Vikings","position":"FS","name":"D. Fullington","number":"#29","running_speed":31,"rushing_power":38,"maximum_speed":50,"hitting_power":44,"pass_interceptions":38,"ranking":66},
     {"team":"Vikings","position":"SS","name":"Joey Browner","number":"#47","running_speed":38,"rushing_power":50,"maximum_speed":63,"hitting_power":56,"pass_interceptions":69,"ranking":6},
     {"team":"Vikings","position":"K","name":"Fuad Reveiz","number":"#7","kicking_ability":44,"avoid_kick_block":63,"ranking":16},
     {"team":"Vikings","position":"P","name":"Harry Newsome","number":"#18","kicking_ability":25,"avoid_kick_block":44,"ranking":24}
