@@ -19,7 +19,7 @@
     {"team":"49ers","position":"RG","name":"Harris Barton","number":"#79","maximum_speed":25,"hitting_power":56,"ranking":84},
     {"team":"49ers","position":"LT","name":"Bubba Paris","number":"#77","maximum_speed":19,"hitting_power":69,"ranking":79},
     {"team":"49ers","position":"RT","name":"Steve Wallace","number":"#74","maximum_speed":31,"hitting_power":63,"ranking":36},
-    {"team":"49ers","position":"RE","name":"Kevin Fagan","number":"#75","running_speed":25,"rushing_power":31,"maximum_speed":38,"hitting_power":50,"pass_interceptions":19,"ranking":43},
+    {"team":"49ers","position":"RE","name":"Kevin Fagan","number":"#75","running_speed":25,"rushing_power":31,"maximum_speed":38,"hitting_power":50,"pass_interceptions":19,"ranking":48},
     {"team":"49ers","position":"NT","name":"Michael Carter","number":"#95","running_speed":25,"rushing_power":31,"maximum_speed":38,"hitting_power":69,"pass_interceptions":19,"ranking":23},
     {"team":"49ers","position":"LE","name":"Pierce Holt","number":"#78","running_speed":31,"rushing_power":44,"maximum_speed":50,"hitting_power":69,"pass_interceptions":19,"ranking":7},
     {"team":"49ers","position":"ROLB","name":"Bill Romanowski","number":"#53","running_speed":31,"rushing_power":44,"maximum_speed":50,"hitting_power":50,"pass_interceptions":19,"ranking":38},

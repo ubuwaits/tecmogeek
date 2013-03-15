@@ -548,13 +548,13 @@ body.home #container {
   width: 49%; }
 
 .players.dl .player-abilities li.running-speed {
-  width: 3.4%;
+  width: 8.4%;
   padding-left: 1px;
   padding-right: 0; }
 .players.dl .player-abilities li.rushing-power {
-  width: 8.4%; }
+  width: 33.4%; }
 .players.dl .player-abilities li.maximum-speed {
-  width: 38.4%; }
+  width: 8.4%; }
 .players.dl .player-abilities li.hitting-power {
   width: 38.4%; }
 .players.dl .player-abilities li.pass-interceptions {

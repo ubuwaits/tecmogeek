@@ -20,7 +20,7 @@
     {"team":"Raiders","position":"LT","name":"Bruce Wilkerson","number":"#68","maximum_speed":50,"hitting_power":50,"ranking":11},
     {"team":"Raiders","position":"RT","name":"Rory Graves","number":"#60","maximum_speed":25,"hitting_power":50,"ranking":120},
     {"team":"Raiders","position":"RE","name":"Greg Townsend","number":"#93","running_speed":38,"rushing_power":50,"maximum_speed":56,"hitting_power":63,"pass_interceptions":31,"ranking":4},
-    {"team":"Raiders","position":"NT","name":"Bob Golic","number":"#79","running_speed":25,"rushing_power":31,"maximum_speed":31,"hitting_power":69,"pass_interceptions":25,"ranking":29},
+    {"team":"Raiders","position":"NT","name":"Bob Golic","number":"#79","running_speed":25,"rushing_power":31,"maximum_speed":31,"hitting_power":69,"pass_interceptions":25,"ranking":25},
     {"team":"Raiders","position":"LE","name":"Howie Long","number":"#75","running_speed":38,"rushing_power":50,"maximum_speed":56,"hitting_power":69,"pass_interceptions":31,"ranking":3},
     {"team":"Raiders","position":"ROLB","name":"Aaron Wallace","number":"#51","running_speed":25,"rushing_power":38,"maximum_speed":44,"hitting_power":38,"pass_interceptions":19,"ranking":64},
     {"team":"Raiders","position":"RILB","name":"Scott Davis","number":"#70","running_speed":25,"rushing_power":38,"maximum_speed":44,"hitting_power":63,"pass_interceptions":25,"ranking":35},
