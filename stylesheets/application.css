@@ -548,9 +548,7 @@ body.home #container {
   width: 49%; }
 
 .players.dl .player-abilities li.running-speed {
-  width: 8.4%;
-  padding-left: 1px;
-  padding-right: 0; }
+  width: 8.4%; }
 .players.dl .player-abilities li.rushing-power {
   width: 33.4%; }
 .players.dl .player-abilities li.maximum-speed {
@@ -563,19 +561,15 @@ body.home #container {
   padding-right: 0; }
 
 .players.lb .player-abilities li.running-speed {
-  width: 3.4%;
-  padding-left: 1px;
-  padding-right: 0; }
-.players.lb .player-abilities li.rushing-power {
-  width: 3.4%;
-  padding-left: 1px;
-  padding-right: 0; }
-.players.lb .player-abilities li.maximum-speed {
-  width: 38.4%; }
-.players.lb .player-abilities li.hitting-power {
-  width: 38.4%; }
-.players.lb .player-abilities li.pass-interceptions {
   width: 8.4%; }
+.players.lb .player-abilities li.rushing-power {
+  width: 33.4%; }
+.players.lb .player-abilities li.maximum-speed {
+  width: 8.4%; }
+.players.lb .player-abilities li.hitting-power {
+  width: 28.4%; }
+.players.lb .player-abilities li.pass-interceptions {
+  width: 13.4%; }
 
 .players.secondary .player-abilities li.running-speed {
   width: 3.4%;
