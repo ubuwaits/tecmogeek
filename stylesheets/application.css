@@ -217,12 +217,12 @@ body.home #container {
     text-transform: uppercase;
     width: 800px; }
   body.home #container .top-player-container {
-    min-width: 1020px; }
+    min-width: 930px; }
   body.home #container .top-players {
     float: left;
     margin: 0 3% 3em 0;
-    width: 22.75%; }
-    body.home #container .top-players:nth-child(4n) {
+    width: 31.3333333333333333333%; }
+    body.home #container .top-players:nth-child(3n) {
       margin-right: 0; }
     body.home #container .top-players .position {
       border-top: 1px solid rgba(255, 255, 255, 0.5);
