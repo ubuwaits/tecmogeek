@@ -1,7 +1,8 @@
-# HTML/CSS Project Template
+# tecmogeek.com
 
-A starting point for small HTML/CSS projects. I'm using [Jekyll](https://github.com/mojombo/jekyll/) to generate the site and [Bourbon](https://github.com/thoughtbot/bourbon)
- to make writing CSS more pleasurable.
+Source code for tecmogeek.com, my little fan site for the classic NES game, Tecmo Super Bowl.
+
+Site is built using Jekyll, with help from Sass and Bourbon. I using the jsonball plugin by Alex Heneveld to parse player and team data and present it on the pages.
 
 Start the Jekyll server and watch the Sass/Bourbon files with:
 
