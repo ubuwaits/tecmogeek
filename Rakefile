@@ -1,5 +1,5 @@
 desc 'Start Jekyll server and watch Sass/Bourbon files'
-task :server do
+task :serve do
   puts "Starting the Jekyll server and watching Sass files."
   jekyllPid = Process.spawn('jekyll serve --watch')
   sassPid = Process.spawn('sass --watch stylesheets/scss:stylesheets --style compressed')

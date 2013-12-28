@@ -160,7 +160,7 @@
   }
 
   .ability-notes {
-    color: rgba(#000, 0.85);
+    color: rgba(#fff, 0.9);
     font-size: 14px;
     line-height: 1.2;
     margin: 0.5em 0 1em 310px;
@@ -181,8 +181,8 @@
     display: inline-block;
 
     a {
-      border-bottom: 2px solid #292929;
-      color: #292929;
+      border-bottom: 2px solid rgba(#fff, 0.9);
+      color: #fff;
       display: block;
       font-weight: bold;
       opacity: 0.5;
@@ -194,7 +194,7 @@
 
       &.active,
       &:hover {
-        border-color: #292929;
+        border-color: #fff;
         opacity: 1;
       }
 
@@ -205,7 +205,7 @@
       &.active:after {
         border-left: 8px solid transparent;
         border-right: 8px solid transparent;
-        border-top: 8px solid #292929;
+        border-top: 8px solid #fff;
         bottom: -0.75em;
         content: " ";
         height: 0;

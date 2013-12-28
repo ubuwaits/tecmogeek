@@ -1,5 +1,16 @@
 $(document).ready(function() {
+  $('.player-listing').tsort('.rushing-ranking a');
+    
+  $(".toggle-default").click(function() {
+    $('.player-listing').tsort({data: 'number'});
+    $(".players.rb-wr-te").removeClass().addClass("players rb-wr-te rushing");
+    $(".skill-toggles li a").removeClass("active");
+    $(this).addClass("active");
+    return false;
+  });
+
   $(".toggle-rushing").click(function() {
+    $('.player-listing').tsort('.rushing-ranking a');
     $(".players.rb-wr-te").removeClass().addClass("players rb-wr-te rushing");
     $(".skill-toggles li a").removeClass("active");
     $(this).addClass("active");
@@ -7,6 +18,7 @@ $(document).ready(function() {
   });
 
   $(".toggle-receiving").click(function() {
+    $('.player-listing').tsort('.receiving-ranking a');
     $(".players.rb-wr-te").removeClass().addClass("players rb-wr-te receiving");
     $(".skill-toggles li a").removeClass("active");
     $(this).addClass("active");
@@ -14,6 +26,7 @@ $(document).ready(function() {
   });
 
   $(".toggle-kick-return").click(function() {
+    $('.player-listing').tsort('.kick-return-ranking a');
     $(".players.rb-wr-te").removeClass().addClass("players rb-wr-te kick-return");
     $(".skill-toggles li a").removeClass("active");
     $(this).addClass("active");
@@ -21,6 +34,7 @@ $(document).ready(function() {
   });
 
   $(".toggle-punt-return").click(function() {
+    $('.player-listing').tsort('.punt-return-ranking a');
     $(".players.rb-wr-te").removeClass().addClass("players rb-wr-te punt-return");
     $(".skill-toggles li a").removeClass("active");
     $(this).addClass("active");

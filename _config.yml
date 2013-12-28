@@ -1,4 +1,3 @@
-auto: true
 destination: ../tecmogeek-production
 
 markdown: rdiscount

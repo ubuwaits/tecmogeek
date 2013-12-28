@@ -76,6 +76,7 @@
 
     <li>
       <ul class="skill-toggles">
+        <!--<li><a href="#" class="toggle-default active">Default</a></li>-->
         <li><a href="#" class="toggle-rushing active">Rushing</a></li>
         <li><a href="#" class="toggle-receiving"><span>Receiving</span></a></li>
         <li><a href="#" class="toggle-kick-return">Kick Returning</a></li>
@@ -84,7 +85,7 @@
     </li>
 
     {% for x in (2..11) %}
-      <li class="player">
+      <li class="player player-listing" data-number="{{ x }}">
         <i class="headshot headshot-{{ team.short_name }} headshot-{{x}}"></i>
 
         <section class="player-info">
