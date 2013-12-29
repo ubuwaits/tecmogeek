@@ -1,5 +1,9 @@
 <header>
   <h1>{{ page.title }}</h1>
+  <section class="rusher-toggle">
+    <li><a href="#" class="show-all active">All positions</a></li>
+    <li><a href="#" class="only-rb">Only RBs</a></li>
+  </section>
 </header>
 
 <!-- RB/WR/TE -->
@@ -25,7 +29,7 @@
     </li>
 
     {% for x in (0..279) %}
-      <li class="player">
+      <li class="player player-{{ players[x].position }}">
         <a href="/teams/{{ players[x].team | downcase }}/"><i class="helmet helmet-{{ players[x].team | downcase }}"></i></a>
         <i class="headshot headshot-{{ players[x].team | downcase }} headshot-{{ players[x].position }}"></i>
 

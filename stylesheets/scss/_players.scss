@@ -1,4 +1,55 @@
 .body-players {
+  #container header h1 {
+    display: inline-block;
+  }
+
+  .rusher-toggle {
+    display: inline-block;
+    margin-left: 1em;
+
+    li {
+      display: inline-block;
+      list-style: none;
+      margin-right: 0.5em;
+
+      a {
+        border-bottom: 2px solid rgba(#fff, 0.9);
+        color: #fff;
+        display: block;
+        font-weight: bold;
+        opacity: 0.5;
+        margin: 0 0.75em;
+        padding: 0 0 0.1em 0;
+        position: relative;
+        text-align: center;
+        text-decoration: none;
+
+        &.active,
+        &:hover {
+          border-color: #fff;
+          opacity: 1;
+        }
+
+        &.active {
+          border: 0;
+        }
+
+        &.active:after {
+          border-left: 8px solid transparent;
+          border-right: 8px solid transparent;
+          border-top: 8px solid #fff;
+          bottom: -0.75em;
+          content: " ";
+          height: 0;
+          left: 50%;
+          margin-left: -8px;
+          position: absolute;
+          width: 0;
+        }
+      }
+    }
+  }
+
   .players {
     .section-label {
       width: 256px;

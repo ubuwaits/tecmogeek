@@ -1,6 +1,20 @@
 $(document).ready(function() {
   $('.player-listing').tsort('.rushing-ranking a');
-    
+
+  $(".show-all").click(function() {
+    $(".player-WR1, .player-WR2, .player-WR3, .player-WR4, .player-WR5, .player-WR6, .player-TE1, .player-TE2").show();
+    $(".only-rb").removeClass("active");
+    $(this).addClass("active");
+    return false;
+  });
+
+  $(".only-rb").click(function() {
+    $(".player-WR1, .player-WR2, .player-WR3, .player-WR4, .player-WR5, .player-WR6, .player-TE1, .player-TE2").hide();
+    $(".show-all").removeClass("active");
+    $(this).addClass("active");
+    return false;
+  });
+
   $(".toggle-default").click(function() {
     $('.player-listing').tsort({data: 'number'});
     $(".players.rb-wr-te").removeClass().addClass("players rb-wr-te rushing");
