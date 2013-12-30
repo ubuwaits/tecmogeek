@@ -55,7 +55,7 @@
 
     // Player rankings
     // *************************************************************************
-    .player-ranking {
+    .player-rating {
       float: left;
       left: 212px;
       position: absolute;
@@ -63,9 +63,9 @@
       width: 80px;
 
       h5 {
-        font-size: 22px;
+        font-size: 18px;
         font-weight: bold;
-        margin: 4px 0 0 0;
+        margin: 8px 0 0 0;
         text-shadow: 0 1px 0 rgba(#fff, 0.2);
 
         a {
@@ -126,7 +126,7 @@
       }
     }
 
-    .player-ranking {
+    .player-rating {
       margin-bottom: 4px;
       position: static;
 
@@ -249,7 +249,7 @@
     }
 
     &.passing-speed {
-      width: 13.5%;
+      width: 18.5%;
     }
 
     &.pass-control {
@@ -257,7 +257,9 @@
     }
 
     &.avoid-pass-block {
-      width: 8.5%;
+      padding-left: 1px;
+      padding-right: 0;
+      width: 3.5%;
     }
   }
 }
@@ -279,7 +281,7 @@
     }
 
     &.maximum-speed {
-      width: 63.4%;
+      width: 68.4%;
 
       &.kick-return,
       &.punt-return {
@@ -292,13 +294,15 @@
     }
 
     &.ball-control {
-      width: 3.4%;
       padding-left: 1px;
       padding-right: 0;
+      width: 3.4%;
     }
 
     &.receptions {
-      width: 8.4%;
+      padding-left: 1px;
+      padding-right: 0;
+      width: 3.4%;
     }
   }
 }
@@ -320,7 +324,7 @@
     }
 
     &.maximum-speed {
-      width: 38.4%;
+      width: 28.4%;
 
       &.kick-return,
       &.punt-return {
@@ -341,7 +345,7 @@
     }
 
     &.receptions {
-      width: 38.4%;
+      width: 48.4%;
     }
   }
 }

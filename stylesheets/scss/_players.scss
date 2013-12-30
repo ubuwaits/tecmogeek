@@ -3,7 +3,8 @@
     display: inline-block;
   }
 
-  .rusher-toggle {
+  .rusher-toggle,
+  .receiver-toggle {
     display: inline-block;
     margin-left: 1em;
 
@@ -57,20 +58,31 @@
 
     .helmet {
       position: absolute;
-      left: 0px;
+      left: 0;
       top: 2px;
     }
 
     .headshot {
       position: absolute;
       left: 44px;
+
+      .ranking {
+        background: rgba(#1863d6, 0.9);
+        border-radius: 4px;
+        color: #fff;
+        font-size: 13px;
+        padding: 2px 4px;
+        position: absolute;
+        right: -2px;
+        bottom: -2px;
+      }
     }
 
     .player-info {
       left: 86px;
     }
 
-    .player-ranking {
+    .player-rating {
       left: 258px;
     }
 

@@ -10,9 +10,9 @@
         <h3>LB</h3>
       </section>
 
-      <section class="player-ranking">
-        <h5>Ranking</h5>
-        <h6>out of 112</h6>
+      <section class="player-rating">
+        <h5>Rating</h5>
+        <h6>out of 100%</h6>
       </section>
 
       <ul class="player-abilities">
@@ -30,11 +30,11 @@
 
       <section class="player-info">
         <h3 class="player-name">{{ players[x].name }}</h3>
-        <h4 class="player-position-number">{{ players[x].position }} {{ players[x].number }}</h4>
+        <h4 class="player-position-number">{{ players[x].position }} {{ players[x].number }} / <span class="ranking">RANK: {{ players[x].ranking }}</span></h4>
       </section>
 
-      <section class="player-ranking">
-        <h5>{{ players[x].ranking }}</h5>
+      <section class="player-rating">
+        <h5>{{ players[x].rating }}</h5>
       </section>
 
       <ul class="player-abilities">
