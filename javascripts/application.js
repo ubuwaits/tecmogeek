@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  $('.player-listing').tsort('.rushing-ranking a');
+  //$('.player-listing').tsort('.rushing-rating a', {order: 'desc'});
 
   // Show/hide WR & TE on rushers page
   // ***************************************************************************
@@ -44,7 +44,7 @@ $(document).ready(function() {
   });
 
   $(".toggle-rushing").click(function() {
-    $('.player-listing').tsort('.rushing-ranking a');
+    $('.player-listing').tsort('.rushing-rating a', {order: 'desc'});
     $(".players.rb-wr-te").removeClass().addClass("players rb-wr-te rushing");
     $(".skill-toggles li a").removeClass("active");
     $(this).addClass("active");
@@ -52,7 +52,7 @@ $(document).ready(function() {
   });
 
   $(".toggle-receiving").click(function() {
-    $('.player-listing').tsort('.receiving-ranking a');
+    $('.player-listing').tsort('.receiving-rating a', {order: 'desc'});
     $(".players.rb-wr-te").removeClass().addClass("players rb-wr-te receiving");
     $(".skill-toggles li a").removeClass("active");
     $(this).addClass("active");
@@ -60,7 +60,7 @@ $(document).ready(function() {
   });
 
   $(".toggle-kick-return").click(function() {
-    $('.player-listing').tsort('.kick-return-ranking a');
+    $('.player-listing').tsort('.kick-return-rating a', {order: 'desc'});
     $(".players.rb-wr-te").removeClass().addClass("players rb-wr-te kick-return");
     $(".skill-toggles li a").removeClass("active");
     $(this).addClass("active");
@@ -68,7 +68,7 @@ $(document).ready(function() {
   });
 
   $(".toggle-punt-return").click(function() {
-    $('.player-listing').tsort('.punt-return-ranking a');
+    $('.player-listing').tsort('.punt-return-rating a', {order: 'desc'});
     $(".players.rb-wr-te").removeClass().addClass("players rb-wr-te punt-return");
     $(".skill-toggles li a").removeClass("active");
     $(this).addClass("active");
