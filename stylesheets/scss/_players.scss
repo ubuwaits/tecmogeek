@@ -53,12 +53,12 @@
 
   .players {
     .section-label {
-      width: 296px;
+      width: 290px;
     }
 
     .ranking {
       background: rgba(#fff, 0);
-      border: 1px solid rgba(#fff, 0.3);
+      /*border: 1px solid rgba(#fff, 0.3);*/
       border-radius: 2px;
       font-size: 18px;
       font-weight: bold;
@@ -66,18 +66,18 @@
       padding: 7px 0 5px;
       position: absolute;
       text-align: center;
-      width: 42px;
+      width: 36px;
     }
 
     .helmet {
       position: absolute;
-      left: 54px;
+      left: 46px;
       top: 2px;
     }
 
     .headshot {
       position: absolute;
-      left: 94px;
+      left: 88px;
 
       .ranking {
         background: rgba(#1863d6, 0.9);
@@ -93,16 +93,16 @@
 
     .player-info {
       /*background: green;*/
-      left: 136px;
+      left: 130px;
     }
 
     .player-rating {
       /*background: red;*/
-      left: 296px;
+      left: 290px;
     }
 
     .player-abilities {
-      margin-left: 366px;
+      margin-left: 360px;
     }
   }
 }
