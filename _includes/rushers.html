@@ -28,7 +28,7 @@
     </li>
 
     {% for x in (0..279) %}
-      <li class="player player-{{ players[x].position }}">
+      <li class="player player-listing player-{{ players[x].position }}">
         <section class="ranking">{{ players[x].rushing_ranking }}</section>
         <a href="/teams/{{ players[x].team | downcase }}/"><i class="helmet helmet-{{ players[x].team | downcase }}"></i></a>
         <i class="headshot headshot-{{ players[x].team | downcase }} headshot-{{ players[x].position }}"></i>

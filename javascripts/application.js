@@ -1,6 +1,60 @@
 $(document).ready(function() {
   $('.player-listing').tsort('.rushing-ranking', {order: 'asc'});
 
+  // Sort by player abilities
+  // ***************************************************************************
+  $(".player-rating a").click(function() {
+    $('.player-listing').tsort('.ranking', {order: 'asc'});
+  });
+
+  $(".running-speed a").click(function() {
+    $('.player-listing').tsort('.running-speed', {order: 'desc'});
+  });
+
+  $(".maximum-speed a").click(function() {
+    $('.player-listing').tsort('.maximum-speed', {order: 'desc'});
+  });
+
+  $(".passing-speed a").click(function() {
+    $('.player-listing').tsort('.passing-speed', {order: 'desc'});
+  });
+
+  $(".pass-control a").click(function() {
+    $('.player-listing').tsort('.pass-control', {order: 'desc'});
+  });
+
+  $(".avoid-pass-block a").click(function() {
+    $('.player-listing').tsort('.avoid-pass-block', {order: 'desc'});
+  });
+
+  $(".hitting-power a").click(function() {
+    $('.player-listing').tsort('.hitting-power', {order: 'desc'});
+  });
+
+  $(".ball-control a").click(function() {
+    $('.player-listing').tsort('.ball-control', {order: 'desc'});
+  });
+
+  $(".receptions a").click(function() {
+    $('.player-listing').tsort('.receptions', {order: 'desc'});
+  });
+
+  $(".rushing-power a").click(function() {
+    $('.player-listing').tsort('.rushing-power', {order: 'desc'});
+  });
+
+  $(".pass-interceptions a").click(function() {
+    $('.player-listing').tsort('.pass-interceptions', {order: 'desc'});
+  });
+
+  $(".kicking-ability a").click(function() {
+    $('.player-listing').tsort('.kicking-ability', {order: 'desc'});
+  });
+
+  $(".avoid-kick-block a").click(function() {
+    $('.player-listing').tsort('.avoid-kick-block', {order: 'desc'});
+  });
+
   // Show/hide WR & TE on rushers page
   // ***************************************************************************
   $(".rusher-toggle .show-all").click(function() {
