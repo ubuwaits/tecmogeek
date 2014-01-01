@@ -29,7 +29,7 @@
     // *************************************************************************
     .ranking {
       background: rgba(#fff, 0);
-      border: 1px solid rgba(#fff, 0.3);
+      /*border: 1px solid rgba(#fff, 0.3);*/
       border-radius: 2px;
       font-size: 18px;
       font-weight: bold;
@@ -37,12 +37,12 @@
       padding: 7px 0 5px;
       position: absolute;
       text-align: center;
-      width: 42px;
+      width: 36px;
     }
 
     .headshot {
       border-radius: 2px;
-      left: 52px;
+      left: 46px;
       margin: 0 10px 0 0;
       position: absolute;
       width: 32px;
@@ -52,9 +52,9 @@
       /*background: red;*/
       float: left;
       font-weight: bold;
-      left: 92px;
+      left: 86px;
       position: absolute;
-      width: 150px;
+      width: 160px;
 
       .player-name {
         font-size: 18px;
@@ -73,7 +73,7 @@
     .player-rating {
       /*background: green;*/
       float: left;
-      left: 242px;
+      left: 246px;
       position: absolute;
       text-align: center;
       width: 60px;
@@ -105,7 +105,7 @@
     // *************************************************************************
     .player-abilities {
       @extend .clearfix;
-      margin-left: 312px;
+      margin-left: 320px;
       width: auto;
 
       > li {
@@ -138,7 +138,7 @@
 
     .section-label {
       float: left;
-      width: 242px;
+      width: 246px;
 
       h3 {
         font-size: 20px;
@@ -151,8 +151,22 @@
       position: static;
 
       h5 {
-        font-size: 12px;
+        color: rgba(#fff, 0.6);
+        font-size: 14px;
         margin: 0 0 2px 0;
+
+        a {
+          border-bottom: 1px dotted rgba(#fff, 0.3);
+          border-radius: 0;
+          color: inherit;
+          cursor: default;
+          padding: 0;
+          text-decoration: none;
+
+          &:hover {
+            background: transparent;
+          }
+        }
       }
 
       h6 {
@@ -280,6 +294,115 @@
       padding-left: 1px;
       padding-right: 0;
       width: 3.5%;
+    }
+  }
+}
+
+// Default rating values
+// *****************************************************************************
+.players.default {
+  .kick-return-notes,
+  .punt-return-notes {
+    display: none;
+  }
+
+  .player.RB1,
+  .player.RB2,
+  .player.RB3,
+  .player.RB4 {
+    .receiving-ranking,
+    .kick-return-ranking,
+    .punt-return-ranking,
+    .receiving-rating,
+    .kick-return-rating,
+    .punt-return-rating {
+      display: none;
+    }
+  }
+
+  .player.WR1,
+  .player.WR2,
+  .player.WR3,
+  .player.WR4,
+  .player.TE1,
+  .player.TE2 {
+    .rushing-ranking,
+    .kick-return-ranking,
+    .punt-return-ranking,
+    .receiving-rating,
+    .kick-return-rating,
+    .punt-return-rating {
+      display: none;
+    }
+  }
+
+  .player.RB1 .player-abilities li,
+  .player.RB2 .player-abilities li,
+  .player.RB3 .player-abilities li,
+  .player.RB4 .player-abilities li {
+    &.running-speed {
+      width: 8.4%;
+    }
+
+    &.maximum-speed {
+      width: 68.4%;
+
+      &.kick-return,
+      &.punt-return {
+        display: none;
+      }
+    }
+
+    &.hitting-power {
+      width: 8.4%;
+    }
+
+    &.ball-control {
+      padding-left: 1px;
+      padding-right: 0;
+      width: 3.4%;
+    }
+
+    &.receptions {
+      padding-left: 1px;
+      padding-right: 0;
+      width: 3.4%;
+    }
+  }
+
+  .player.WR1 .player-abilities li,
+  .player.WR2 .player-abilities li,
+  .player.WR3 .player-abilities li,
+  .player.WR4 .player-abilities li,
+  .player.TE1 .player-abilities li,
+  .player.TE2 .player-abilities li {
+    &.running-speed {
+      width: 8.4%;
+    }
+
+    &.maximum-speed {
+      width: 28.4%;
+
+      &.kick-return,
+      &.punt-return {
+        display: none;
+      }
+    }
+
+    &.hitting-power {
+      width: 3.4%;
+      padding-left: 1px;
+      padding-right: 0;
+    }
+
+    &.ball-control {
+      width: 3.4%;
+      padding-left: 1px;
+      padding-right: 0;
+    }
+
+    &.receptions {
+      width: 48.4%;
     }
   }
 }

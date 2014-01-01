@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  //$('.player-listing').tsort('.rushing-rating a', {order: 'desc'});
+  $('.player-listing').tsort('.rushing-ranking', {order: 'asc'});
 
   // Show/hide WR & TE on rushers page
   // ***************************************************************************
@@ -37,14 +37,14 @@ $(document).ready(function() {
   // ***************************************************************************
   $(".toggle-default").click(function() {
     $('.player-listing').tsort({data: 'number'});
-    $(".players.rb-wr-te").removeClass().addClass("players rb-wr-te rushing");
+    $(".players.rb-wr-te").removeClass().addClass("players rb-wr-te default");
     $(".skill-toggles li a").removeClass("active");
     $(this).addClass("active");
     return false;
   });
 
   $(".toggle-rushing").click(function() {
-    $('.player-listing').tsort('.rushing-rating a', {order: 'desc'});
+    $('.player-listing').tsort('.rushing-ranking', {order: 'asc'});
     $(".players.rb-wr-te").removeClass().addClass("players rb-wr-te rushing");
     $(".skill-toggles li a").removeClass("active");
     $(this).addClass("active");
@@ -52,7 +52,7 @@ $(document).ready(function() {
   });
 
   $(".toggle-receiving").click(function() {
-    $('.player-listing').tsort('.receiving-rating a', {order: 'desc'});
+    $('.player-listing').tsort('.receiving-ranking', {order: 'asc'});
     $(".players.rb-wr-te").removeClass().addClass("players rb-wr-te receiving");
     $(".skill-toggles li a").removeClass("active");
     $(this).addClass("active");
@@ -60,7 +60,7 @@ $(document).ready(function() {
   });
 
   $(".toggle-kick-return").click(function() {
-    $('.player-listing').tsort('.kick-return-rating a', {order: 'desc'});
+    $('.player-listing').tsort('.kick-return-ranking', {order: 'asc'});
     $(".players.rb-wr-te").removeClass().addClass("players rb-wr-te kick-return");
     $(".skill-toggles li a").removeClass("active");
     $(this).addClass("active");
@@ -68,7 +68,7 @@ $(document).ready(function() {
   });
 
   $(".toggle-punt-return").click(function() {
-    $('.player-listing').tsort('.punt-return-rating a', {order: 'desc'});
+    $('.player-listing').tsort('.punt-return-ranking', {order: 'asc'});
     $(".players.rb-wr-te").removeClass().addClass("players rb-wr-te punt-return");
     $(".skill-toggles li a").removeClass("active");
     $(this).addClass("active");

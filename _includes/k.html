@@ -11,8 +11,7 @@
       </section>
 
       <section class="player-rating">
-        <h5>Rating</h5>
-        <h6>out of 100%</h6>
+        <h5><a href="#" data-toggle="tooltip" title="Out of 100%">Rating</a></h5>
       </section>
 
       <ul class="player-abilities">
@@ -23,12 +22,13 @@
 
     {% for x in (0..27) %}
     <li class="player">
+      <section class="ranking">{{ players[x].ranking }}</section>
       <a href="/teams/{{ players[x].team | downcase }}/"><i class="helmet helmet-{{ players[x].team | downcase }}"></i></a>
       <i class="headshot headshot-{{ players[x].team | downcase }} headshot-{{ players[x].position }}"></i>
 
       <section class="player-info">
         <h3 class="player-name">{{ players[x].name }}</h3>
-        <h4 class="player-position-number">{{ players[x].position }} {{ players[x].number }} / <span class="ranking">RANK: {{ players[x].ranking }}</span></h4>
+        <h4 class="player-position-number">{{ players[x].position }} {{ players[x].number }}</h4>
       </section>
 
       <section class="player-rating">

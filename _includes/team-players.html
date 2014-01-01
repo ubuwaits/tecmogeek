@@ -11,8 +11,7 @@
       </section>
 
       <section class="player-rating">
-        <h5>Rating</h5>
-        <h6>out of 100%</h6>
+        <h5><a href="#" data-toggle="tooltip" title="Out of 100%">Rating</a></h5>
       </section>
 
       <ul class="player-abilities">
@@ -60,8 +59,7 @@
       </section>
 
       <section class="player-rating">
-        <h5>Rating</h5>
-        <h6>out of 100%</h6>
+        <h5><a href="#" data-toggle="tooltip" title="Out of 100%">Rating</a></h5>
       </section>
 
       <ul class="player-abilities">
@@ -77,8 +75,8 @@
 
     <li>
       <ul class="skill-toggles">
-        <li><a href="#" class="toggle-default active">Default</a></li>
-        <li><a href="#" class="toggle-rushing">Rushing</a></li>
+        <!--<li><a href="#" class="toggle-default active">Default</a></li>-->
+        <li><a href="#" class="toggle-rushing active">Rushing</a></li>
         <li><a href="#" class="toggle-receiving"><span>Receiving</span></a></li>
         <li><a href="#" class="toggle-kick-return">Kick Returning</a></li>
         <li><a href="#" class="toggle-punt-return">Punt Returning</a></li>
@@ -86,7 +84,7 @@
     </li>
 
     {% for x in (2..11) %}
-      <li class="player player-listing" data-number="{{ x }}">
+      <li class="player player-listing {{ team.players[x].position }}" data-number="{{ x }}">
         <section class="ranking rushing-ranking">{{ team.players[x].rushing_ranking }}</section>
         <section class="ranking receiving-ranking">{{ team.players[x].receiving_ranking }}</section>
         <section class="ranking kick-return-ranking">{{ team.players[x].kick_return_ranking }}</section>
@@ -132,8 +130,7 @@
       </section>
 
       <section class="player-rating">
-        <h5>Rating</h5>
-        <h6>out of 100%</h6>
+        <h5><a href="#" data-toggle="tooltip" title="Out of 100%">Rating</a></h5>
       </section>
 
       <ul class="player-abilities">
@@ -175,8 +172,7 @@
       </section>
 
       <section class="player-rating">
-        <h5>Rating</h5>
-        <h6>out of 100%</h6>
+        <h5><a href="#" data-toggle="tooltip" title="Out of 100%">Rating</a></h5>
       </section>
 
       <ul class="player-abilities">
@@ -223,8 +219,7 @@
       </section>
 
       <section class="player-rating">
-        <h5>Rating</h5>
-        <h6>out of 100%</h6>
+        <h5><a href="#" data-toggle="tooltip" title="Out of 100%">Rating</a></h5>
       </section>
 
       <ul class="player-abilities">
@@ -270,8 +265,7 @@
       </section>
 
       <section class="player-rating">
-        <h5>Rating</h5>
-        <h6>out of 100%</h6>
+        <h5><a href="#" data-toggle="tooltip" title="Out of 100%">Rating</a></h5>
       </section>
 
       <ul class="player-abilities">
@@ -319,8 +313,7 @@
       </section>
 
       <section class="player-rating">
-        <h5>Rating</h5>
-        <h6>out of 100%</h6>
+        <h5><a href="#" data-toggle="tooltip" title="Out of 100%">Rating</a></h5>
       </section>
 
       <ul class="player-abilities">
@@ -359,8 +352,7 @@
       </section>
 
       <section class="player-rating">
-        <h5>Rating</h5>
-        <h6>out of 100%</h6>
+        <h5><a href="#" data-toggle="tooltip" title="Out of 100%">Rating</a></h5>
       </section>
 
       <ul class="player-abilities">
