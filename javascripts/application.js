@@ -5,54 +5,67 @@ $(document).ready(function() {
   // ***************************************************************************
   $(".player-rating a").click(function() {
     $('.player-listing').tsort('.ranking', {order: 'asc'});
+    return false;
   });
 
   $(".running-speed a").click(function() {
     $('.player-listing').tsort('.running-speed', {order: 'desc'});
+    return false;
   });
 
   $(".maximum-speed a").click(function() {
     $('.player-listing').tsort('.maximum-speed', {order: 'desc'});
+    return false;
   });
 
   $(".passing-speed a").click(function() {
     $('.player-listing').tsort('.passing-speed', {order: 'desc'});
+    return false;
   });
 
   $(".pass-control a").click(function() {
     $('.player-listing').tsort('.pass-control', {order: 'desc'});
+    return false;
   });
 
   $(".avoid-pass-block a").click(function() {
     $('.player-listing').tsort('.avoid-pass-block', {order: 'desc'});
+    return false;
   });
 
   $(".hitting-power a").click(function() {
     $('.player-listing').tsort('.hitting-power', {order: 'desc'});
+    return false;
   });
 
   $(".ball-control a").click(function() {
     $('.player-listing').tsort('.ball-control', {order: 'desc'});
+    return false;
   });
 
   $(".receptions a").click(function() {
     $('.player-listing').tsort('.receptions', {order: 'desc'});
+    return false;
   });
 
   $(".rushing-power a").click(function() {
     $('.player-listing').tsort('.rushing-power', {order: 'desc'});
+    return false;
   });
 
   $(".pass-interceptions a").click(function() {
     $('.player-listing').tsort('.pass-interceptions', {order: 'desc'});
+    return false;
   });
 
   $(".kicking-ability a").click(function() {
     $('.player-listing').tsort('.kicking-ability', {order: 'desc'});
+    return false;
   });
 
   $(".avoid-kick-block a").click(function() {
     $('.player-listing').tsort('.avoid-kick-block', {order: 'desc'});
+    return false;
   });
 
   // Show/hide WR & TE on rushers page
@@ -147,4 +160,5 @@ $(document).ready(function() {
 
   $("a").tooltip();
 });
+
 
