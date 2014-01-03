@@ -93,12 +93,23 @@ footer {
     border-top: 1px solid rgba(#fff, 0.15);
     color: rgba(#fff, 0.75);
     font-size: 1em;
-    padding: 1.5em 1em 1.5em 1em;
+    padding: 1.5em;
 
     a {
       color: #1863d6;
       font-weight: bold;
       text-decoration: none;
+    }
+
+    .left {
+      float: left;
+      width: 50%;
+    }
+
+    .right {
+      float: left;
+      text-align: right;
+      width: 50%;
     }
   }
 }
