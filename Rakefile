@@ -17,7 +17,7 @@ task :deploy do
   sh 'git init'
   sh 'git add .'
   sh 'git commit -am "Deploy site"'
-  sh 'git remote add origin git@github.com:ubuwaits/tecmogeek-production.git'
+  #sh 'git remote add origin git@github.com:ubuwaits/tecmogeek-production.git'
   sh 'git checkout -b gh-pages'
   sh 'git push -u origin gh-pages --force'
   puts 'Site deployed to production'
