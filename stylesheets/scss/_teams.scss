@@ -17,7 +17,6 @@
 .players {
   margin: 0 2.5em 3em 2.5em;
   min-width: 900px;
-  max-width: 1440px;
 
   .player {
     @extend .clearfix;
@@ -891,4 +890,3 @@ $z: 0;
   border-bottom-color: #000000;
   border-width: 0 5px 5px;
 }
-

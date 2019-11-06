@@ -2,8 +2,6 @@ footer {
   @extend .clearfix;
   background: #111;
   @include box-shadow(0 -3px 5px 0 rgba(#000, 0.2));
-  max-width: 1440px;
-  min-width: 930px;
   padding: 2em 0 0 0;
 
   .footer-lists {
@@ -96,7 +94,7 @@ footer {
     padding: 1.5em;
 
     a {
-      color: #1863d6;
+      color: #ff6bce;
       font-weight: bold;
       text-decoration: none;
     }
@@ -113,4 +111,3 @@ footer {
     }
   }
 }
-
