@@ -1,13 +1,7 @@
-@import url('https://rsms.me/inter/inter.css');
-
-@supports (font-variation-settings: normal) {
-  html { font-family: 'Inter var', sans-serif; }
-}
-
 body {
   background: #1863d6;
   color: #dfdfdf;
-  font-family: 'Inter', "helvetica neue", helvetica, arial, sans-serif;
+  font-family: 'Inter var', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
   -webkit-text-size-adjust: none;
 }
 
@@ -20,6 +14,24 @@ body {
        url('/fonts/gf-tecmoset1-webfont.svg#gf_tecmo_set_1regular') format('svg');
   font-weight: normal;
   font-style: normal;
+}
+
+:root { --inter: 'Inter var', sans-serif; }
+.inter { font-family: 'Inter var', sans-serif !important; }
+
+@font-face {
+  font-family: 'Inter var';
+  font-weight: 100 900;
+  font-style: normal;
+  font-named-instance: 'Regular';
+  src: url('/fonts/inter/Inter-roman.var.woff2?v=3.15') format('woff2-variations');
+}
+@font-face {
+  font-family: 'Inter var';
+  font-weight: 100 900;
+  font-style: italic;
+  font-named-instance: 'Italic';
+  src: url('/fonts/inter/Inter-italic.var.woff2?v=3.15') format('woff2-variations');
 }
 
 strong {
