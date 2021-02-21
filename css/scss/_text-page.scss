@@ -2,7 +2,7 @@ body.text {
   background: #FFF;
 
   .text-column {
-    color: #4a4a4a;
+    color: #3a3a3a;
     margin: 120px auto;
     max-width: 700px;
     text-shadow: 0 1px 0 #fff;
@@ -17,11 +17,9 @@ body.text {
     }
 
     h1 {
-      font-size: 36px;
-      font-weight: 680;
-      line-height: 1.2;
-      letter-spacing: -0.02em;
+      font: normal 36px/40px var(--tecmo);
       margin: 0 0 0.5rem 0;
+      text-transform: uppercase;
     }
 
     h2 {
