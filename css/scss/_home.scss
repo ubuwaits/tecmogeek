@@ -1,0 +1,77 @@
+body.home {
+  #container {
+    padding: 8em 0 0 0;
+
+    h2 {
+      color: var(--default-text);
+      font: normal 1.75em/1.5 var(--tecmo);
+      margin: 0.75em auto 3.25em auto;
+      text-align: center;
+      text-transform: uppercase;
+      max-width: 800px;
+    }
+
+    .top-player-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .top-players {
+      flex-basis: 380px;
+      margin: 2rem;
+
+      & > h3 {
+        font: normal 16px/1 var(--tecmo);
+        padding: 0 0 0.75rem 0;
+
+        a {
+          color: var(--default-text);
+          text-decoration: none;
+
+          &:hover {
+            color: var(--pink);
+          }
+        }
+      }
+
+      ol {
+        background: var(--dark-bg);
+        box-shadow: 8px 8px 0 var(--pink);
+        padding: 0.75rem 0;
+      }
+
+      .player {
+        position: relative;
+        display: flex;
+        padding: 0.5rem 1.25rem;
+
+        .helmet-link {
+          display: block;
+          width: 32px;
+        }
+
+        .headshot {
+          border-radius: 2px;
+          margin: 0 12px;
+          width: 32px;
+        }
+
+        .player-info {
+          .player-name {
+            font-family: var(--tecmo);
+            font-size: 14px;
+            margin: 2px 0;
+            text-transform: uppercase;
+          }
+
+          .player-position-number {
+            color: var(--subdued-text);
+            font-family: var(--tecmo);
+            font-size: 12px;
+          }
+        }
+      }
+    }
+  }
+}

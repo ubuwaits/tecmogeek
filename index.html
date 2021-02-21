@@ -4,12 +4,12 @@ title: Welcome
 team: home
 ---
 
-<h2>Comprehensive guide to<br> player attributes in<br> Tecmo Super Bowl for NES.</h2>
+<h2>Comprehensive guide to player attributes in Tecmo Super Bowl for NES.</h2>
 
 <div class="top-player-container">
   {% jsonball players from file _data/qb.json %}
   <div class="top-players">
-    <h3 class="position"><a href="/players/qb/"><span class="position-name">Quarterbacks</span><span class="more">More</span></a></h3>
+    <h3 class="position"><a href="/players/qb/">Top Quarterbacks &gt;</a></h3>
     <ol>
       {% for x in (0..4) %}
       <li class="player">
@@ -27,25 +27,29 @@ team: home
 
   {% jsonball players from file _data/rushers.json %}
   <div class="top-players">
-    <h3 class="position"><a href="/players/rushers/"><span class="position-name">Rushers</span><span class="more">More</span></a></h3>
+    <h3 class="position"><a href="/players/rushers/">Top Rushers &gt;</a></h3>
     <ol>
-      {% for x in (0..4) %}
-      <li class="player">
-        <a href="/teams/{{ players[x].team | downcase }}/" class="helmet-link"><i class="helmet helmet-{{ players[x].team | downcase }}"></i></a>
-        <i class="headshot headshot-{{ players[x].team | downcase }} headshot-{{ players[x].position }}"></i>
+      {% for x in (0..8) %}
+        {% if players[x].position == 'WR2' or players[x].position == 'WR3' %}
+          {% continue %}
+        {% else %}
+          <li class="player">
+            <a href="/teams/{{ players[x].team | downcase }}/" class="helmet-link"><i class="helmet helmet-{{ players[x].team | downcase }}"></i></a>
+            <i class="headshot headshot-{{ players[x].team | downcase }} headshot-{{ players[x].position }}"></i>
 
-        <section class="player-info">
-          <h3 class="player-name">{{ players[x].name }}</h3>
-          <h4 class="player-position-number">{{ players[x].position }} {{ players[x].number }}</h4>
-        </section>
-      </li>
+            <section class="player-info">
+              <h3 class="player-name">{{ players[x].name }}</h3>
+              <h4 class="player-position-number">{{ players[x].position }} {{ players[x].number }}</h4>
+            </section>
+          </li>
+        {% endif %}
       {% endfor %}
     </ol>
   </div>
 
   {% jsonball players from file _data/receivers.json %}
   <div class="top-players">
-    <h3 class="position"><a href="/players/receivers/"><span class="position-name">Receivers</span><span class="more">More</span></a></h3>
+    <h3 class="position"><a href="/players/receivers/">Top Receivers &gt</a></h3>
     <ol>
       {% for x in (0..4) %}
       <li class="player">
@@ -63,7 +67,7 @@ team: home
 
   {% jsonball players from file _data/kick-returners.json %}
   <div class="top-players">
-    <h3 class="position"><a href="/players/kick-returners/"><span class="position-name">Kick Returners</span><span class="more">More</span></a></h3>
+    <h3 class="position"><a href="/players/kick-returners/">Top Kick Returners &gt</a></h3>
     <ol>
       {% for x in (0..4) %}
       <li class="player">
@@ -81,7 +85,7 @@ team: home
 
   {% jsonball players from file _data/punt-returners.json %}
   <div class="top-players">
-    <h3 class="position"><a href="/players/punt-returners/"><span class="position-name">Punt Returners</span><span class="more">More</span></a></h3>
+    <h3 class="position"><a href="/players/punt-returners/">Top Punt Returners &gt</a></h3>
     <ol>
       {% for x in (0..4) %}
       <li class="player">
@@ -99,7 +103,7 @@ team: home
 
   {% jsonball players from file _data/ol.json %}
   <div class="top-players">
-    <h3 class="position"><a href="/players/ol/"><span class="position-name">Offensive Linemen</span><span class="more">More</span></a></h3>
+    <h3 class="position"><a href="/players/ol/">Top O-Linemen &gt</a></h3>
     <ol>
       {% for x in (0..4) %}
       <li class="player">
@@ -117,7 +121,7 @@ team: home
 
   {% jsonball players from file _data/dl.json %}
   <div class="top-players">
-    <h3 class="position"><a href="/players/dl/"><span class="position-name">Defensive Linemen</span><span class="more">More</span></a></h3>
+    <h3 class="position"><a href="/players/dl/">Top D-Linemen &gt</a></h3>
     <ol>
       {% for x in (0..4) %}
       <li class="player">
@@ -135,7 +139,7 @@ team: home
 
   {% jsonball players from file _data/lb.json %}
   <div class="top-players">
-    <h3 class="position"><a href="/players/lb/"><span class="position-name">Linebackers</span><span class="more">More</span></a></h3>
+    <h3 class="position"><a href="/players/lb/">Top Linebackers &gt</a></h3>
     <ol>
       {% for x in (0..4) %}
       <li class="player">
@@ -153,7 +157,7 @@ team: home
 
   {% jsonball players from file _data/cb-s.json %}
   <div class="top-players">
-    <h3 class="position"><a href="/players/cb-s/"><span class="position-name">Secondary</span><span class="more">More</span></a></h3>
+    <h3 class="position"><a href="/players/cb-s/">Top CB & S &gt</a></h3>
     <ol>
       {% for x in (0..4) %}
       <li class="player">
@@ -171,7 +175,7 @@ team: home
 
   {% jsonball players from file _data/k.json %}
   <div class="top-players">
-    <h3 class="position"><a href="/players/k/"><span class="position-name">Kickers</span><span class="more">More</span></a></h3>
+    <h3 class="position"><a href="/players/k/">Top Kickers &gt</a></h3>
     <ol>
       {% for x in (0..4) %}
       <li class="player">
@@ -189,7 +193,7 @@ team: home
 
   {% jsonball players from file _data/p.json %}
   <div class="top-players">
-    <h3 class="position"><a href="/players/p/"><span class="position-name">Punters</span><span class="more">More</span></a></h3>
+    <h3 class="position"><a href="/players/p/">Top Punters &gt</a></h3>
     <ol>
       {% for x in (0..4) %}
       <li class="player">
@@ -205,4 +209,3 @@ team: home
     </ol>
   </div>
 </div>
-

@@ -3,16 +3,16 @@
 </header>
 
 <!-- Quarterbacks -->
-<section class="players qb">
+<div class="players qb">
   <ol>
     <li class="player labels">
-      <section class="section-label">
-        <h3>QB</h3>
-      </section>
+      <div class="player-ranking">
+        <h5><a href="#" data-toggle="tooltip" title="Out of 56 QBs">QB&nbsp;Ranking</a></h5>
+      </div>
 
-      <section class="player-rating">
+      <div class="player-rating-label">
         <h5><a href="#" data-toggle="tooltip" title="Out of 100%">Rating</a></h5>
-      </section>
+      </div>
 
       <ul class="player-abilities">
         <li class="maximum-speed"><a href="#" data-toggle="tooltip" title="Maximum Speed">MS</a></li>
@@ -24,17 +24,20 @@
 
     {% for x in (0..1) %}
       <li class="player">
-        <section class="ranking">{{ team.players[x].ranking }}</section>
+        <div class="player-ranking">
+          <h5>{{ team.players[x].ranking }}</h5>
+        </div>
+
         <i class="headshot headshot-{{ team.short_name }} headshot-{{x}}"></i>
 
-        <section class="player-info">
+        <div class="player-info">
           <h3 class="player-name">{{ team.players[x].name }}</h3>
           <h4 class="player-position-number">{{ team.players[x].position }} {{ team.players[x].number }}</h4>
-        </section>
+        </div>
 
-        <section class="player-rating">
+        <div class="player-rating">
           <h5><a href="/players/qb/">{{ team.players[x].rating }}</a></h5>
-        </section>
+        </div>
 
         <ul class="player-abilities">
           <li class="maximum-speed power-{{ team.players[x].maximum_speed }}">{{ team.players[x].maximum_speed }}</li>
@@ -47,20 +50,20 @@
   </ol>
 
   <p class="ability-notes">{{ site.qb-text }}</p>
-</section>
+</div>
 
 
 <!-- RB/WR/TE -->
-<section class="players rb-wr-te rushing">
+<div class="players rb-wr-te rushing">
   <ol>
     <li class="player labels">
-      <section class="section-label">
-        <h3>RB/WR/TE</h3>
-      </section>
+      <div class="player-ranking">
+        <h5><a href="#" data-toggle="tooltip" title="Out of 280 RB, WR & TE">RB/WR/TE&nbsp;Ranking</a></h5>
+      </div>
 
-      <section class="player-rating">
+      <div class="player-rating-label">
         <h5><a href="#" data-toggle="tooltip" title="Out of 100%">Rating</a></h5>
-      </section>
+      </div>
 
       <ul class="player-abilities">
         <li class="running-speed"><a href="#" data-toggle="tooltip" title="Running Speed">RS</a></li>
@@ -75,7 +78,6 @@
 
     <li>
       <ul class="skill-toggles">
-        <!--<li><a href="#" class="toggle-default active">Default</a></li>-->
         <li><a href="#" class="toggle-rushing active">Rushing</a></li>
         <li><a href="#" class="toggle-receiving"><span>Receiving</span></a></li>
         <li><a href="#" class="toggle-kick-return">Kick Returning</a></li>
@@ -85,23 +87,35 @@
 
     {% for x in (2..11) %}
       <li class="player player-listing {{ team.players[x].position }}" data-number="{{ x }}">
-        <section class="ranking rushing-ranking">{{ team.players[x].rushing_ranking }}</section>
-        <section class="ranking receiving-ranking">{{ team.players[x].receiving_ranking }}</section>
-        <section class="ranking kick-return-ranking">{{ team.players[x].kick_return_ranking }}</section>
-        <section class="ranking punt-return-ranking">{{ team.players[x].punt_return_ranking }}</section>
+        <div class="player-ranking rushing-ranking">
+          <h5>{{ team.players[x].rushing_ranking }}</h5>
+        </div>
+
+        <div class="player-ranking receiving-ranking">
+          <h5>{{ team.players[x].receiving_ranking }}</h5>
+        </div>
+
+        <div class="player-ranking kick-return-ranking">
+          <h5>{{ team.players[x].kick_return_ranking }}</h5>
+        </div>
+
+        <div class="player-ranking punt-return-ranking">
+          <h5>{{ team.players[x].punt_return_ranking }}</h5>
+        </div>
+
         <i class="headshot headshot-{{ team.short_name }} headshot-{{x}}"></i>
 
-        <section class="player-info">
+        <div class="player-info">
           <h3 class="player-name">{{ team.players[x].name }}</h3>
           <h4 class="player-position-number">{{ team.players[x].position }} {{ team.players[x].number }}</h4>
-        </section>
+        </div>
 
-        <section class="player-rating">
+        <div class="player-rating">
           <h5 class="rushing-rating"><a href="/players/rushers/">{{ team.players[x].rushing_rating }}</a></h5>
           <h5 class="receiving-rating"><a href="/players/receivers/">{{ team.players[x].receiving_rating }}</a></h5>
           <h5 class="kick-return-rating"><a href="/players/kick-returners/">{{ team.players[x].kick_return_rating }}</a></h5>
           <h5 class="punt-return-rating"><a href="/players/punt-returners/">{{ team.players[x].punt_return_rating }}</a></h5>
-        </section>
+        </div>
 
         <ul class="player-abilities">
           <li class="running-speed power-{{ team.players[x].running_speed }}">{{ team.players[x].running_speed }}</li>
@@ -119,19 +133,19 @@
   <p class="ability-notes rb-wr-te-notes">{{ site.rb-wr-te-text }}</p>
   <p class="ability-notes kick-return-notes">{{ site.kr-text }}</p>
   <p class="ability-notes punt-return-notes">{{ site.pr-text }}</p>
-</section>
+</div>
 
 <!-- Offensive Line -->
-<section class="players ol">
+<div class="players ol">
   <ol>
     <li class="player labels">
-      <section class="section-label">
-        <h3>OL</h3>
-      </section>
+      <div class="player-ranking">
+        <h5><a href="#" data-toggle="tooltip" title="Out of 140 OL">OL&nbsp;Ranking</a></h5>
+      </div>
 
-      <section class="player-rating">
+      <div class="player-rating-label">
         <h5><a href="#" data-toggle="tooltip" title="Out of 100%">Rating</a></h5>
-      </section>
+      </div>
 
       <ul class="player-abilities">
         <li class="maximum-speed"><a href="#" data-toggle="tooltip" title="Maximum Speed">MS</a></li>
@@ -141,17 +155,20 @@
 
     {% for x in (12..16) %}
     <li class="player">
-        <section class="ranking">{{ team.players[x].ranking }}</section>
+      <div class="player-ranking">
+        <h5>{{ team.players[x].ranking }}</h5>
+      </div>
+
         <i class="headshot headshot-{{ team.short_name }} headshot-{{x}}"></i>
 
-        <section class="player-info">
+        <div class="player-info">
           <h3 class="player-name">{{ team.players[x].name }}</h3>
           <h4 class="player-position-number">{{ team.players[x].position }} {{ team.players[x].number }}</h4>
-        </section>
+        </div>
 
-        <section class="player-rating">
+        <div class="player-rating">
           <h5><a href="/players/ol/"><span class="rating">{{ team.players[x].rating }}</span></a></h5>
-        </section>
+        </div>
 
         <ul class="player-abilities">
           <li class="maximum-speed power-{{ team.players[x].maximum_speed }}">{{ team.players[x].maximum_speed }}</li>
@@ -161,19 +178,19 @@
     {% endfor %}
   </ol>
   <p class="ability-notes">{{ site.ol-text }}</p>
-</section>
+</div>
 
 <!-- Defensive Line -->
-<section class="players dl">
+<div class="players dl">
   <ol>
     <li class="player labels">
-      <section class="section-label">
-        <h3>DL</h3>
-      </section>
+      <div class="player-ranking">
+        <h5><a href="#" data-toggle="tooltip" title="Out of 84 DL">DL&nbsp;Ranking</a></h5>
+      </div>
 
-      <section class="player-rating">
+      <div class="player-rating-label">
         <h5><a href="#" data-toggle="tooltip" title="Out of 100%">Rating</a></h5>
-      </section>
+      </div>
 
       <ul class="player-abilities">
         <li class="running-speed"><a href="#" data-toggle="tooltip" title="Running Speed">RS</a></li>
@@ -186,17 +203,20 @@
 
     {% for x in (17..19) %}
     <li class="player">
-      <section class="ranking">{{ team.players[x].ranking }}</section>
+      <div class="player-ranking">
+        <h5>{{ team.players[x].ranking }}</h5>
+      </div>
+
       <i class="headshot headshot-{{ team.short_name }} headshot-{{x}}"></i>
 
-      <section class="player-info">
+      <div class="player-info">
         <h3 class="player-name">{{ team.players[x].name }}</h3>
         <h4 class="player-position-number">{{ team.players[x].position }} {{ team.players[x].number }}</h4>
-      </section>
+      </div>
 
-      <section class="player-rating">
+      <div class="player-rating">
         <h5><a href="/players/dl/">{{ team.players[x].rating }}</a></h5>
-      </section>
+      </div>
 
       <ul class="player-abilities">
         <li class="running-speed power-{{ team.players[x].running_speed }}">{{ team.players[x].running_speed }}</li>
@@ -208,19 +228,19 @@
     </li>
     {% endfor %}
   </ol>
-</section>
+</div>
 
 <!-- Linebackers -->
-<section class="players lb">
+<div class="players lb">
   <ol>
     <li class="player labels">
-      <section class="section-label">
-        <h3>LB</h3>
-      </section>
+      <div class="player-ranking">
+        <h5><a href="#" data-toggle="tooltip" title="Out of 112 LBs">LB&nbsp;Ranking</a></h5>
+      </div>
 
-      <section class="player-rating">
+      <div class="player-rating-label">
         <h5><a href="#" data-toggle="tooltip" title="Out of 100%">Rating</a></h5>
-      </section>
+      </div>
 
       <ul class="player-abilities">
         <li class="running-speed"><a href="#" data-toggle="tooltip" title="Running Speed">RS</a></li>
@@ -232,17 +252,20 @@
     </li>
     {% for x in (20..23) %}
     <li class="player">
-      <section class="ranking">{{ team.players[x].ranking }}</section>
+      <div class="player-ranking">
+        <h5>{{ team.players[x].ranking }}</h5>
+      </div>
+
       <i class="headshot headshot-{{ team.short_name }} headshot-{{x}}"></i>
 
-      <section class="player-info">
+      <div class="player-info">
         <h3 class="player-name">{{ team.players[x].name }}</h3>
         <h4 class="player-position-number">{{ team.players[x].position }} {{ team.players[x].number }}</h4>
-      </section>
+      </div>
 
-      <section class="player-rating">
+      <div class="player-rating">
         <h5><a href="/players/lb/">{{ team.players[x].rating }}</a></h5>
-      </section>
+      </div>
 
       <ul class="player-abilities">
         <li class="running-speed power-{{ team.players[x].running_speed }}">{{ team.players[x].running_speed }}</li>
@@ -254,19 +277,19 @@
     </li>
     {% endfor %}
   </ol>
-</section>
+</div>
 
 <!-- Secondary -->
-<section class="players secondary">
+<div class="players secondary">
   <ol>
     <li class="player labels">
-      <section class="section-label">
-        <h3>CB/S</h3>
-      </section>
+      <div class="player-ranking">
+        <h5><a href="#" data-toggle="tooltip" title="Out of 112 CB & S">CB/S&nbsp;Ranking</a></h5>
+      </div>
 
-      <section class="player-rating">
+      <div class="player-rating-label">
         <h5><a href="#" data-toggle="tooltip" title="Out of 100%">Rating</a></h5>
-      </section>
+      </div>
 
       <ul class="player-abilities">
         <li class="running-speed"><a href="#" data-toggle="tooltip" title="Running Speed">RS</a></li>
@@ -279,17 +302,20 @@
 
     {% for x in (24..27) %}
     <li class="player">
-      <section class="ranking">{{ team.players[x].ranking }}</section>
+      <div class="player-ranking">
+        <h5>{{ team.players[x].ranking }}</h5>
+      </div>
+
       <i class="headshot headshot-{{ team.short_name }} headshot-{{x}}"></i>
 
-      <section class="player-info">
+      <div class="player-info">
         <h3 class="player-name">{{ team.players[x].name }}</h3>
         <h4 class="player-position-number">{{ team.players[x].position }} {{ team.players[x].number }}</h4>
-      </section>
+      </div>
 
-      <section class="player-rating">
+      <div class="player-rating">
         <h5><a href="/players/cb-s/">{{ team.players[x].rating }}</a></h5>
-      </section>
+      </div>
 
       <ul class="player-abilities">
         <li class="running-speed power-{{ team.players[x].running_speed }}">{{ team.players[x].running_speed }}</li>
@@ -302,19 +328,19 @@
     {% endfor %}
   </ol>
   <p class="ability-notes">{{ site.defense-text }}</p>
-</section>
+</div>
 
 <!-- Kicker -->
-<section class="players kicker">
+<div class="players kicker">
   <ol>
     <li class="player labels">
-      <section class="section-label">
-        <h3>K</h3>
-      </section>
+      <div class="player-ranking">
+        <h5><a href="#" data-toggle="tooltip" title="Out of 28 kickers">K&nbsp;Ranking</a></h5>
+      </div>
 
-      <section class="player-rating">
+      <div class="player-rating-label">
         <h5><a href="#" data-toggle="tooltip" title="Out of 100%">Rating</a></h5>
-      </section>
+      </div>
 
       <ul class="player-abilities">
         <li class="kicking-ability"><a href="#" data-toggle="tooltip" title="Kicking Ability">KA</a></li>
@@ -322,17 +348,20 @@
       </ul>
     </li>
     <li class="player">
-      <section class="ranking">{{ team.players[28].ranking }}</section>
+      <div class="player-ranking">
+        <h5>{{ team.players[28].ranking }}</h5>
+      </div>
+
       <i class="headshot headshot-{{ team.short_name }} headshot-{{28}}"></i>
 
-      <section class="player-info">
+      <div class="player-info">
         <h3 class="player-name">{{ team.players[28].name }}</h3>
         <h4 class="player-position-number">{{ team.players[28].position }} {{ team.players[28].number }}</h4>
-      </section>
+      </div>
 
-      <section class="player-rating">
+      <div class="player-rating">
         <h5><a href="/players/k/">{{ team.players[28].rating }}</a></h5>
-      </section>
+      </div>
 
       <ul class="player-abilities">
         <li class="kicking-ability power-{{ team.players[28].kicking_ability }}">{{ team.players[28].kicking_ability }}</li>
@@ -341,19 +370,19 @@
     </li>
   </ol>
   <p class="ability-notes">{{ site.k-text }}</p>
-</section>
+</div>
 
 <!-- Punter -->
-<section class="players punter">
+<div class="players punter">
   <ol>
     <li class="player labels">
-      <section class="section-label">
-        <h3>P</h3>
-      </section>
+      <div class="player-ranking">
+        <h5><a href="#" data-toggle="tooltip" title="Out of 28 punters">P&nbsp;Ranking</a></h5>
+      </div>
 
-      <section class="player-rating">
+      <div class="player-rating-label">
         <h5><a href="#" data-toggle="tooltip" title="Out of 100%">Rating</a></h5>
-      </section>
+      </div>
 
       <ul class="player-abilities">
         <li class="kicking-ability"><a href="#" data-toggle="tooltip" title="Kicking Ability">KA</a></li>
@@ -361,17 +390,20 @@
       </ul>
     </li>
     <li class="player">
-      <section class="ranking">{{ team.players[29].ranking }}</section>
+      <div class="player-ranking">
+        <h5>{{ team.players[29].ranking }}</h5>
+      </div>
+
       <i class="headshot headshot-{{ team.short_name }} headshot-{{29}}"></i>
 
-      <section class="player-info">
+      <div class="player-info">
         <h3 class="player-name">{{ team.players[29].name }}</h3>
         <h4 class="player-position-number">{{ team.players[29].position }} {{ team.players[29].number }}</h4>
-      </section>
+      </div>
 
-      <section class="player-rating">
+      <div class="player-rating">
         <h5><a href="/players/p/">{{ team.players[29].rating }}</a></h5>
-      </section>
+      </div>
 
       <ul class="player-abilities">
         <li class="kicking-ability power-{{ team.players[29].kicking_ability }}">{{ team.players[29].kicking_ability }}</li>
@@ -380,5 +412,4 @@
     </li>
   </ol>
   <p class="ability-notes">{{ site.p-text }}</p>
-</section>
-
+</div>

@@ -8,12 +8,11 @@ permalink: "pretty"
 exclude:
  - README.md
 
-qb-text: All QB have Running Speed 25, Rushing Power 69, and Hitting Power 13. Accuracy of Passing has no effect on performance.
-rb-wr-te-text: All RB, WR and TE have Rushing Power 69.
-kr-text: Due to a programming glitch, all KR have the same Maximum Speed as their team&rsquo;s RT.
-pr-text: Due to a programming glitch, all PR have the same Maximum Speed as their team&rsquo;s SS and Ball Control 44.
+qb-text: All QBs have Running Speed 25, Rushing Power 69, and Hitting Power 13. Accuracy of Passing has no affect on performance.
+rb-wr-te-text: All RBs, WRs and TEs have Rushing Power 69.
+kr-text: Due to a programming glitch, all KRs have the same Maximum Speed as their team&rsquo;s RT.
+pr-text: Due to a programming glitch, all PRs have the same Maximum Speed as their team&rsquo;s SS and Ball Control 44.
 ol-text: All OL have Running Speed 25 and Rushing Power 69.
-defense-text: Quickness has no effect on performance for any defensive player.
-k-text: All K have Running Speed 56, Rushing Power 81, Maximum Speed 81, and Hitting Power 31.
-p-text: All P have Running Speed 25, Rushing Power 56, Maximum Speed 44, and Hitting Power 31.
-
+defense-text: Quickness has no affect on performance for any defensive player.
+k-text: All kickers have Running Speed 56, Rushing Power 81, Maximum Speed 81, and Hitting Power 31.
+p-text: All punters have Running Speed 25, Rushing Power 56, Maximum Speed 44, and Hitting Power 31.

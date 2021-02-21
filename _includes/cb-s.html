@@ -1,18 +1,18 @@
 <header>
   <h1>{{ page.title }}</h1>
+  <p class="ability-notes">{{ site.defense-text }}</p>
 </header>
 
-<!-- Secondary -->
-<section class="players secondary">
+<div class="players secondary">
   <ol>
     <li class="player labels">
-      <section class="section-label">
-        <h3>CB/S</h3>
-      </section>
+      <div class="player-ranking">
+        <h5><a href="#" data-toggle="tooltip" title="Out of 112 CB & S">Ranking</a></h5>
+      </div>
 
-      <section class="player-rating">
+      <div class="player-rating-label">
         <h5><a href="#" data-toggle="tooltip" title="Out of 100%">Rating</a></h5>
-      </section>
+      </div>
 
       <ul class="player-abilities">
         <li class="running-speed"><a href="#" data-toggle="tooltip" title="Running Speed">RS</a></li>
@@ -22,20 +22,24 @@
         <li class="pass-interceptions"><a href="#" data-toggle="tooltip" title="Pass Interceptions">PI</a></li>
       </ul>
     </li>
+
     {% for x in (0..111) %}
     <li class="player player-listing">
-      <section class="ranking">{{ players[x].ranking }}</section>
+      <div class="player-ranking">
+        <h5>{{ players[x].ranking }}</h5>
+      </div>
+
       <a href="/teams/{{ players[x].team | downcase }}/"><i class="helmet helmet-{{ players[x].team | downcase }}"></i></a>
       <i class="headshot headshot-{{ players[x].team | downcase }} headshot-{{ players[x].position }}"></i>
 
-      <section class="player-info">
+      <div class="player-info">
         <h3 class="player-name">{{ players[x].name }}</h3>
         <h4 class="player-position-number">{{ players[x].position }} {{ players[x].number }}</h4>
-      </section>
+      </div>
 
-      <section class="player-rating">
+      <div class="player-rating">
         <h5>{{ players[x].rating }}</h5>
-      </section>
+      </div>
 
       <ul class="player-abilities">
         <li class="running-speed power-{{ players[x].running_speed }}">{{ players[x].running_speed }}</li>
@@ -46,7 +50,6 @@
       </ul>
     </li>
     {% endfor %}
-  </ol>
-  <p class="ability-notes">{{ site.defense-text }}</p>
-</section>
 
+  </ol>
+</div>

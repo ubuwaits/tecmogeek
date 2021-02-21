@@ -1,22 +1,25 @@
 <header>
   <h1>{{ page.title }}</h1>
-  <section class="receiver-toggle">
-    <li><a href="#" class="show-all active">All positions</a></li>
-    <li><a href="#" class="only-wr">Only WRs/TEs</a></li>
-  </section>
+  <p class="ability-notes rb-wr-te-notes">{{ site.rb-wr-te-text }}</p>
 </header>
 
-<!-- RB/WR/TE -->
-<section class="players rb-wr-te receiving">
+<div class="players rb-wr-te receiving">
   <ol>
-    <li class="player labels">
-      <section class="section-label">
-        <h3>RB/WR/TE</h3>
-      </section>
+    <li class="receiver-toggle">
+      <ul class="skill-toggles" style='text-align: left;'>
+        <li><a href="#" class="show-all active">RBs, WRs & TEs</a></li>
+        <li><a href="#" class="only-wr">Only WRs & TEs</a></li>
+      </ul>
+    </li>
 
-      <section class="player-rating">
+    <li class="player labels">
+      <div class="player-ranking">
+        <h5><a href="#" data-toggle="tooltip" title="Out of all receivers">Ranking</a></h5>
+      </div>
+
+      <div class="player-rating-label">
         <h5><a href="#" data-toggle="tooltip" title="Out of 100%">Rating</a></h5>
-      </section>
+      </div>
 
       <ul class="player-abilities">
         <li class="running-speed"><a href="#" data-toggle="tooltip" title="Running Speed">RS</a></li>
@@ -29,18 +32,21 @@
 
     {% for x in (0..279) %}
       <li class="player player-listing player-{{ players[x].position }}">
-        <section class="ranking">{{ players[x].receiving_ranking }}</section>
+        <div class="player-ranking">
+          <h5>{{ players[x].receiving_ranking }}</h5>
+        </div>
+
         <a href="/teams/{{ players[x].team | downcase }}/"><i class="helmet helmet-{{ players[x].team | downcase }}"></i></a>
         <i class="headshot headshot-{{ players[x].team | downcase }} headshot-{{ players[x].position }}"></i>
 
-        <section class="player-info">
+        <div class="player-info">
           <h3 class="player-name">{{ players[x].name }}</h3>
           <h4 class="player-position-number">{{ players[x].position }} {{ players[x].number }}</h4>
-        </section>
+        </div>
 
-        <section class="player-rating">
+        <div class="player-rating">
           <h5>{{ players[x].receiving_rating }}</h5>
-        </section>
+        </div>
 
         <ul class="player-abilities">
           <li class="running-speed power-{{ players[x].running_speed }}">{{ players[x].running_speed }}</li>
@@ -52,7 +58,4 @@
       </li>
     {% endfor %}
   </ol>
-
-  <p class="ability-notes rb-wr-te-notes">{{ site.rb-wr-te-text }}</p>
-</section>
-
+</div>

@@ -1,0 +1,88 @@
+footer {
+  background: var(--dark-bg);
+  margin: 4rem -2rem -2rem -2rem;
+  padding: 2rem 2rem 1rem 2rem;
+
+  .footer-lists {
+    display: flex;
+  }
+
+  h6 {
+    color: var(--default-text);
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.025em;
+    margin: 0 0 1em 0;
+    text-transform: uppercase;
+  }
+
+  .team-list {
+    display: flex;
+    flex-basis: 80%;
+    justify-content: space-around;
+
+    > li {
+      margin: 0 0 1em 0;
+      text-align: center;
+
+      ol {
+        li {
+          text-align: center;
+
+          a {
+            border-radius: 4px;
+            color: var(--default-text);
+            display: inline-block;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 1rem;
+            text-decoration: none;
+
+            span {
+              display: block;
+              margin: 0.5em 0 0 0;
+            }
+
+            &:hover {
+              background: var(--pink);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .player-list {
+    flex-basis: 20%;
+
+    a {
+      color: var(--default-text);
+      display: inline-block;
+      font-size: 14px;
+      font-weight: 600;
+      margin: 0 2em 0 0;
+      padding: 1em 0;
+      text-decoration: none;
+
+      &:hover {
+        color: var(--pink);
+      }
+    }
+  }
+
+  .credits {
+    background: #000;
+    border-top: 1px solid rgba(255, 255, 255, 0.25);
+    color: var(--subdued-text);
+    font-size: 16px;
+    margin: 1rem -2rem -2rem -2rem;
+    padding: 0.5rem 2rem;
+    text-align: right;
+
+    a {
+      color: var(--pink);
+      font-weight: bold;
+      text-decoration: none;
+    }
+  }
+}

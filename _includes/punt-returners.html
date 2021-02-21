@@ -1,18 +1,18 @@
 <header>
   <h1>{{ page.title }}</h1>
+  <p class="ability-notes pr-notes">{{ site.pr-text }}</p>
 </header>
 
-<!-- RB/WR/TE -->
-<section class="players rb-wr-te punt-return">
+<div class="players rb-wr-te punt-return">
   <ol>
     <li class="player labels">
-      <section class="section-label">
-        <h3>RB/WR/TE</h3>
-      </section>
+      <div class="player-ranking">
+        <h5><a href="#" data-toggle="tooltip" title="Out of 280 punt returners">Ranking</a></h5>
+      </div>
 
-      <section class="player-rating">
+      <div class="player-rating-label">
         <h5><a href="#" data-toggle="tooltip" title="Out of 100%">Rating</a></h5>
-      </section>
+      </div>
 
       <ul class="player-abilities">
         <li class="running-speed"><a href="#" data-toggle="tooltip" title="Running Speed">RS</a></li>
@@ -25,18 +25,21 @@
 
     {% for x in (0..279) %}
       <li class="player player-listing">
-        <section class="ranking">{{ players[x].punt_return_ranking }}</section>
+        <div class="player-ranking">
+          <h5>{{ players[x].punt_return_ranking }}</h5>
+        </div>
+
         <a href="/teams/{{ players[x].team | downcase }}/"><i class="helmet helmet-{{ players[x].team | downcase }}"></i></a>
         <i class="headshot headshot-{{ players[x].team | downcase }} headshot-{{ players[x].position }}"></i>
 
-        <section class="player-info">
+        <div class="player-info">
           <h3 class="player-name">{{ players[x].name }}</h3>
           <h4 class="player-position-number">{{ players[x].position }} {{ players[x].number }}</h4>
-        </section>
+        </div>
 
-        <section class="player-rating">
+        <div class="player-rating">
           <h5>{{ players[x].punt_return_rating }}</h5>
-        </section>
+        </div>
 
         <ul class="player-abilities">
           <li class="running-speed power-{{ players[x].running_speed }}">{{ players[x].running_speed }}</li>
@@ -49,6 +52,5 @@
     {% endfor %}
   </ol>
 
-  <p class="ability-notes pr-notes">{{ site.pr-text }}</p>
-</section>
 
+</div>
