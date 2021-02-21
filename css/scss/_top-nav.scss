@@ -67,7 +67,7 @@
           display: none;
           padding: 12px 0;
           position: absolute;
-          width: 500px;
+          width: 600px;
           z-index: 1000;
 
           > li {
@@ -84,10 +84,10 @@
                   border-radius: 4px;
                   color: #fff;
                   display: block;
-                  font-size: 14px;
+                  font-size: 16px;
                   font-weight: bold;
                   margin: 0 12px;
-                  padding: 6px;
+                  padding: 0.5rem;
                   text-decoration: none;
 
                   i {
@@ -116,7 +116,7 @@
 
 .main-header .nav-players {
   > ol {
-    width: 340px;
+    width: 400px;
 
     > li {
       width: 50%;

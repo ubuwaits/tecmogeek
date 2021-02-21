@@ -154,6 +154,23 @@
   }
 }
 
+// Tweaks to labels
+:not(body.body-players) .labels a {
+  cursor: default;
+}
+
+body.body-players .labels a {
+  cursor: pointer;
+}
+
+.labels .player-rating-label {
+  margin-left: 240px;
+}
+
+body.body-players .labels .player-rating-label {
+  margin-left: 270px;
+}
+
 .skill-toggles {
   margin: 0.75em 0 2em 0;
   text-align: center;
@@ -669,14 +686,6 @@
       width: 29%;
     }
   }
-}
-
-.labels .player-rating-label {
-  margin-left: 240px;
-}
-
-body.body-players .labels .player-rating-label {
-  margin-left: 272px;
 }
 
 // Player attribute values

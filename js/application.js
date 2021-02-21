@@ -3,12 +3,12 @@ $(document).ready(function() {
 
   // Sort by player abilities
   // ***************************************************************************
-  $(".player-ranking a").click(function() {
+  $(".body-players .player-ranking a").click(function() {
     $('.player-listing').tsort('.player-ranking', {order: 'asc'});
     return false;
   });
 
-  $(".player-rating-label a").click(function() {
+  $(".body-players .player-rating-label a").click(function() {
     $('.player-listing').tsort('.player-rating', {order: 'desc'});
     return false;
   });
