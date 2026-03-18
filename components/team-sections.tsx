@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 
-import { MetricLegend, MetricStrip } from "@/components/metric-strip";
+import { MetricLegend, MetricStrip, MobileMetricList } from "@/components/metric-strip";
 import { HeadshotSprite } from "@/components/sprites";
 import { TooltipLabel } from "@/components/tooltip-label";
 import {
@@ -35,20 +35,6 @@ function TeamHeaderRow({
 }) {
   return (
     <>
-      <li className="mb-4 space-y-2 sm:hidden">
-        <div className="grid grid-cols-[56px_1fr_72px] items-end gap-3 border-b border-white/25 pb-2 text-white/72">
-          <div className="px-1 text-center text-[11px] font-bold uppercase tracking-[0.08em] text-balance">
-            <span title={rankingTooltip}>{rankingLabel}</span>
-          </div>
-          <div className="px-1 text-[11px] font-bold uppercase tracking-[0.08em]">Player</div>
-          <div className="px-1 text-right text-[11px] font-bold uppercase tracking-[0.08em]">
-            <span title="Out of 100%">Rating</span>
-          </div>
-        </div>
-
-        <MetricLegend columns={columns} mobile />
-      </li>
-
       <li className="hidden sm:grid sm:grid-cols-[52px_32px_minmax(0,180px)_52px_minmax(0,1fr)] sm:items-center sm:border-b-4 sm:border-white/35 sm:pb-3 sm:text-white/65">
         <div className="text-center text-[14px] font-bold">
           <TooltipLabel label={rankingLabel} tooltip={rankingTooltip} />
@@ -87,39 +73,36 @@ function TeamPlayerCard({
   return (
     <article className="rounded-[20px] bg-white/[0.07] p-3 shadow-[0_0_0_1px_rgba(255,255,255,0.08)] sm:hidden">
       <div className="flex items-start gap-3">
-        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-white/10 text-[20px] font-bold tabular-nums">
-          {rankingValue}
-        </div>
-
         <div className="flex min-w-0 flex-1 items-start gap-3">
           <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-white/8">
             <HeadshotSprite team={teamSlug} index={spriteIndex} />
           </div>
 
           <div className="min-w-0 flex-1">
-            <h3 className="text-[20px] leading-[0.95] text-balance">{player.name}</h3>
+            <h3 className="text-[18px] leading-[1.05] text-balance">{player.name}</h3>
             <h4 className="mt-1 text-[14px] font-medium text-white/65">
               {player.position} {player.number}
             </h4>
-          </div>
-        </div>
-
-        <div className="shrink-0 text-right">
-          <Link
-            href={playerRoute(playerPage)}
-            className="inline-flex min-h-11 min-w-[58px] items-center justify-center rounded-xl bg-white/10 px-3 text-[22px] font-bold tabular-nums hover:bg-white/15"
-          >
-            {ratingValue}
-          </Link>
-          <div className="mt-1 text-[11px] font-bold uppercase tracking-[0.08em] text-white/55">
-            Rating
+            <div className="mt-2 flex flex-wrap items-baseline gap-x-4 gap-y-1">
+              <Link href={playerRoute(playerPage)} className="flex items-baseline gap-2 rounded px-1 py-0.5 hover:bg-white/10">
+                <span className="text-[11px] font-bold uppercase tracking-[0.08em] text-white/55">
+                  Rating
+                </span>
+                <span className="text-[18px] font-bold tabular-nums text-white">{ratingValue}</span>
+              </Link>
+              <div className="flex items-baseline gap-2">
+                <span className="text-[11px] font-bold uppercase tracking-[0.08em] text-white/55">
+                  Rank
+                </span>
+                <span className="text-[18px] font-bold tabular-nums text-white">{rankingValue}</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      <div className="mt-3 space-y-2">
-        <MetricLegend columns={columns} mobile />
-        <MetricStrip columns={columns} getValue={getMetricValue} />
+      <div className="mt-4">
+        <MobileMetricList columns={columns} getValue={getMetricValue} />
       </div>
     </article>
   );

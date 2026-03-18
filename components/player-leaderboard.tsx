@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 
-import { MetricLegend, MetricStrip } from "@/components/metric-strip";
+import { MetricLegend, MetricStrip, MobileMetricList } from "@/components/metric-strip";
 import { HeadshotSprite, HelmetSprite } from "@/components/sprites";
 import { POSITION_PAGE_CONFIG_MAP } from "@/lib/site-config";
 import { getTeamSlugFromCode, matchesPrefixes, sortEntriesByKey } from "@/lib/player-utils";
@@ -92,37 +92,6 @@ export function PlayerLeaderboard({ slug, entries }: PlayerLeaderboardProps) {
           </ul>
         ) : null}
 
-        <div className="mb-4 space-y-2 sm:hidden">
-          <div className="grid grid-cols-[56px_1fr_72px] items-end gap-3 border-b border-white/25 pb-2 text-white/72">
-            <div className="text-center">
-              <button
-                type="button"
-                onClick={() => changeSort(config.rankingKey, "asc")}
-                className={getSortButtonClass(sortKey === config.rankingKey, "center")}
-              >
-                Ranking
-              </button>
-            </div>
-            <div className="px-1 text-[11px] font-bold uppercase tracking-[0.08em]">Player</div>
-            <div className="text-right">
-              <button
-                type="button"
-                onClick={() => changeSort(config.ratingKey, "desc")}
-                className={getSortButtonClass(sortKey === config.ratingKey, "right")}
-              >
-                Rating
-              </button>
-            </div>
-          </div>
-
-          <MetricLegend
-            columns={config.columns}
-            mobile
-            activeKey={activeMetricKey}
-            onColumnClick={(key) => changeSort(key, "desc")}
-          />
-        </div>
-
         <ol className="space-y-4 sm:space-y-3">
           <li className="hidden sm:grid sm:grid-cols-[52px_32px_32px_minmax(0,180px)_52px_minmax(0,1fr)] sm:items-center sm:border-b-4 sm:border-white/35 sm:pb-3 sm:text-white/65">
             <div className="text-center text-[14px] font-bold">
@@ -165,10 +134,6 @@ export function PlayerLeaderboard({ slug, entries }: PlayerLeaderboardProps) {
               >
                 <article className="rounded-[20px] bg-white/[0.07] p-3 shadow-[0_0_0_1px_rgba(255,255,255,0.08)] sm:hidden">
                   <div className="flex items-start gap-3">
-                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-white/10 text-[20px] font-bold tabular-nums">
-                      {String(entry[config.rankingKey] ?? "")}
-                    </div>
-
                     <div className="flex min-w-0 flex-1 items-start gap-3">
                       <div className="flex shrink-0 items-center gap-2">
                         <Link
@@ -181,26 +146,37 @@ export function PlayerLeaderboard({ slug, entries }: PlayerLeaderboardProps) {
                       </div>
 
                       <div className="min-w-0 flex-1">
-                        <h3 className="text-[20px] leading-[0.95] text-balance">{entry.name}</h3>
+                        <h3 className="text-[18px] leading-[1.05] text-balance">{entry.name}</h3>
                         <h4 className="mt-1 text-[14px] font-medium text-white/65">
                           {entry.position} {entry.number}
                         </h4>
-                      </div>
-                    </div>
-
-                    <div className="shrink-0 text-right">
-                      <div className="text-[22px] font-bold tabular-nums">
-                        {String(entry[config.ratingKey] ?? "")}
-                      </div>
-                      <div className="text-[11px] font-bold uppercase tracking-[0.08em] text-white/55">
-                        Rating
+                        <div className="mt-2 flex flex-wrap items-baseline gap-x-4 gap-y-1">
+                          <div className="flex items-baseline gap-2">
+                            <span className="text-[11px] font-bold uppercase tracking-[0.08em] text-white/55">
+                              Rating
+                            </span>
+                            <span className="text-[18px] font-bold tabular-nums text-white">
+                              {String(entry[config.ratingKey] ?? "")}
+                            </span>
+                          </div>
+                          <div className="flex items-baseline gap-2">
+                            <span className="text-[11px] font-bold uppercase tracking-[0.08em] text-white/55">
+                              Rank
+                            </span>
+                            <span className="text-[18px] font-bold tabular-nums text-white">
+                              {String(entry[config.rankingKey] ?? "")}
+                            </span>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
 
-                  <div className="mt-3 space-y-2">
-                    <MetricLegend columns={config.columns} mobile />
-                    <MetricStrip columns={config.columns} getValue={(key) => renderMetricValue(entry, key)} />
+                  <div className="mt-4">
+                    <MobileMetricList
+                      columns={config.columns}
+                      getValue={(key) => renderMetricValue(entry, key)}
+                    />
                   </div>
                 </article>
 
