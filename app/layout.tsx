@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Script from "next/script";
 import localFont from "next/font/local";
 
 import { SiteFooter } from "@/components/site-footer";
@@ -66,7 +65,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${tecmo.variable} bg-(--blue) text-white antialiased`}>
+      <body className={`${inter.variable} ${tecmo.variable} bg-(--blue) p-8 font-sans text-white antialiased`}>
         <TopNav />
         <main id="container" className="pt-[96px]">
           {children}

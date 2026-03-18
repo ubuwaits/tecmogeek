@@ -12,53 +12,6 @@
   --subdued-text: rgba(255, 255, 255, 0.65);
 }
 
-* {
-  box-sizing: border-box;
-}
-
-html {
-  line-height: 1.15;
-  -webkit-text-size-adjust: 100%;
-}
-
-body {
-  margin: 0;
-  padding: 2rem;
-  background: var(--blue);
-  color: var(--default-text);
-  font-family: var(--font-inter), sans-serif;
-  -webkit-text-size-adjust: none;
-}
-
 body:has([data-page-theme="text"]) {
   background: #ffffff;
-}
-
-a {
-  background-color: transparent;
-}
-
-img {
-  margin: 0 0 1em 0;
-}
-
-strong {
-  font-weight: 700;
-}
-
-ol,
-ul,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p {
-  margin: 0;
-  padding: 0;
-}
-
-li {
-  list-style: none;
 }

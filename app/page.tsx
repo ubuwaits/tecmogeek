@@ -8,7 +8,7 @@ import { homeRoute, playerRoute, teamRoute } from "@/lib/routes";
 import { POSITION_PAGES } from "@/lib/site-config";
 
 export const metadata: Metadata = {
-  title: "Welcome",
+  title: "Comprehensive guide to Tecmo Super Bowl",
   alternates: {
     canonical: homeRoute,
   },
@@ -27,14 +27,14 @@ export default async function HomePage() {
 
   return (
     <section data-page-theme="home">
-      <h2 className="mx-auto mb-13 mt-3 max-w-[800px] text-center font-(family-name:--font-tecmo) text-[1.75em] leading-[1.5] uppercase">
+      <h2 className="mx-auto mb-13 mt-3 max-w-[800px] text-center font-(family-name:--font-tecmo) text-[1.75em] leading-normal uppercase">
         Comprehensive guide to player attributes in Tecmo Super Bowl for NES.
       </h2>
 
       <div className="flex flex-wrap justify-center">
         {sectionData.map(({ page, entries }) => (
           <div key={page.slug} className="m-8 basis-[380px]">
-            <h3 className="pb-3 font-(family-name:--font-tecmo) text-[16px] leading-none">
+            <h3 className="pb-1 font-(family-name:--font-tecmo) text-[16px] leading-normal">
               <Link href={playerRoute(page.slug)} className="text-inherit no-underline hover:text-(--pink)">
                 {page.homeLabel} &gt;
               </Link>
