@@ -1,6 +1,12 @@
+node_modules
+.next
+out
+coverage
+playwright-report
+test-results
+*.tsbuildinfo
+/CNAME
 _site
+.sass-cache/*
 *.swp
 *.DS_Store
-.sass-cache/*
-CNAME
-
