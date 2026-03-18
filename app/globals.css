@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-inter);
+}
+
+:root {
+  --blue: #1863d6;
+  --pink: #ff6bce;
+  --dark-bg: #111111;
+  --default-text: #ffffff;
+  --subdued-text: rgba(255, 255, 255, 0.65);
+}
+
+body:has([data-page-theme="text"]) {
+  background: #ffffff;
+}
