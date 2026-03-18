@@ -39,7 +39,7 @@ export function PlayerLeaderboard({ slug, entries }: PlayerLeaderboardProps) {
   return (
     <>
       <header className="mb-12">
-        <h1 className="font-[family-name:var(--font-tecmo)] text-[32px] leading-none uppercase">
+        <h1 className="font-(family-name:--font-tecmo) text-[32px] leading-none uppercase">
           {config.title}
         </h1>
         <p className="mt-2 text-[16px] font-medium text-white/65">{config.note}</p>

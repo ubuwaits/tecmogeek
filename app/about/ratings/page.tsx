@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 };
 
 const headingClassName =
-  "font-[family-name:var(--font-tecmo)] text-[36px] leading-[40px] uppercase text-[#3a3a3a]";
+  "font-(family-name:--font-tecmo) text-[36px] leading-[40px] uppercase text-[#3a3a3a]";
 const subHeadingClassName = "mb-2 mt-8 text-[24px] font-semibold leading-[1.2] text-[#3a3a3a]";
 const sectionHeadingClassName = "mb-1 text-[1.2em] font-bold text-[#3a3a3a]";
 const paragraphClassName = "mb-4 text-[18px] leading-[1.5] text-[#3a3a3a]";

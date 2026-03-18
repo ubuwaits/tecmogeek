@@ -27,20 +27,20 @@ export default async function HomePage() {
 
   return (
     <section data-page-theme="home">
-      <h2 className="mx-auto mb-13 mt-3 max-w-[800px] text-center font-[family-name:var(--font-tecmo)] text-[1.75em] leading-[1.5] uppercase">
+      <h2 className="mx-auto mb-13 mt-3 max-w-[800px] text-center font-(family-name:--font-tecmo) text-[1.75em] leading-[1.5] uppercase">
         Comprehensive guide to player attributes in Tecmo Super Bowl for NES.
       </h2>
 
       <div className="flex flex-wrap justify-center">
         {sectionData.map(({ page, entries }) => (
           <div key={page.slug} className="m-8 basis-[380px]">
-            <h3 className="pb-3 font-[family-name:var(--font-tecmo)] text-[16px] leading-none">
-              <Link href={playerRoute(page.slug)} className="text-inherit no-underline hover:text-[var(--pink)]">
+            <h3 className="pb-3 font-(family-name:--font-tecmo) text-[16px] leading-none">
+              <Link href={playerRoute(page.slug)} className="text-inherit no-underline hover:text-(--pink)">
                 {page.homeLabel} &gt;
               </Link>
             </h3>
 
-            <ol className="bg-[var(--dark-bg)] px-0 py-3 shadow-[8px_8px_0_var(--pink)]">
+            <ol className="bg-(--dark-bg) px-0 py-3 shadow-[8px_8px_0_var(--pink)]">
               {entries.map((entry) => {
                 const teamSlug = getTeamSlugFromCode(entry.team);
 
@@ -56,10 +56,10 @@ export default async function HomePage() {
                     <HeadshotSprite team={teamSlug} position={entry.position as never} className="mx-3" />
 
                     <section>
-                      <h3 className="font-[family-name:var(--font-tecmo)] text-[14px] uppercase">
+                      <h3 className="font-(family-name:--font-tecmo) text-[14px] uppercase">
                         {entry.name}
                       </h3>
-                      <h4 className="font-[family-name:var(--font-tecmo)] text-[12px] text-white/65">
+                      <h4 className="font-(family-name:--font-tecmo) text-[12px] text-white/65">
                         {entry.position} {entry.number}
                       </h4>
                     </section>

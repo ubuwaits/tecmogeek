@@ -26,7 +26,7 @@ export function TopNav() {
 
   return (
     <header className="fixed left-0 top-0 z-[999] flex w-full items-center border-b border-white/15 bg-[#165ec9] p-4 shadow-[0_0_5px_0_rgba(0,0,0,0.15)]">
-      <h1 className="w-[140px] text-center font-[family-name:var(--font-tecmo)] text-[22px] leading-none">
+      <h1 className="w-[140px] text-center font-(family-name:--font-tecmo) text-[22px] leading-none">
         <Link href={homeRoute} className="text-inherit no-underline">
           Tecmo
           <br />
@@ -41,8 +41,8 @@ export function TopNav() {
               type="button"
               data-testid="nav-teams"
               onClick={() => setOpenMenu((current) => (current === "teams" ? null : "teams"))}
-              className={`relative block px-3 py-2 pr-[30px] font-[family-name:var(--font-tecmo)] text-[13px] uppercase leading-none text-inherit no-underline ${
-                openMenu === "teams" ? "rounded-t bg-[var(--dark-bg)]" : ""
+              className={`relative block px-3 py-2 pr-[30px] font-(family-name:--font-tecmo) text-[13px] uppercase leading-none text-inherit no-underline ${
+                openMenu === "teams" ? "rounded-t bg-(--dark-bg)" : ""
               }`}
             >
               Teams
@@ -50,7 +50,7 @@ export function TopNav() {
             </button>
 
             {openMenu === "teams" ? (
-              <div className="absolute left-0 top-full z-[1000] w-[600px] rounded-br rounded-bl rounded-tr bg-[var(--dark-bg)] px-0 py-3">
+              <div className="absolute left-0 top-full z-1000 w-[600px] rounded-br rounded-bl rounded-tr bg-(--dark-bg) px-0 py-3">
                 <ol className="flex flex-wrap">
                   {TEAM_GROUPS.map((group) => (
                     <li key={group.title} className="w-1/3">
@@ -60,7 +60,7 @@ export function TopNav() {
                           <li key={team}>
                             <Link
                               href={teamRoute(team)}
-                              className="mx-3 flex items-center rounded px-2 py-2 text-[16px] font-bold text-white no-underline hover:bg-[var(--pink)]"
+                              className="mx-3 flex items-center rounded px-2 py-2 text-[16px] font-bold text-white no-underline hover:bg-(--pink)"
                             >
                               <HelmetSprite team={team} />
                               <span className="ml-2">{getTeamLabel(team)}</span>
@@ -80,8 +80,8 @@ export function TopNav() {
               type="button"
               data-testid="nav-players"
               onClick={() => setOpenMenu((current) => (current === "players" ? null : "players"))}
-              className={`relative block px-3 py-2 pr-[30px] font-[family-name:var(--font-tecmo)] text-[13px] uppercase leading-none text-inherit no-underline ${
-                openMenu === "players" ? "rounded-t bg-[var(--dark-bg)]" : ""
+              className={`relative block px-3 py-2 pr-[30px] font-(family-name:--font-tecmo) text-[13px] uppercase leading-none text-inherit no-underline ${
+                openMenu === "players" ? "rounded-t bg-(--dark-bg)" : ""
               }`}
             >
               Players
@@ -89,7 +89,7 @@ export function TopNav() {
             </button>
 
             {openMenu === "players" ? (
-              <div className="absolute left-0 top-full z-[1000] w-[400px] rounded-br rounded-bl rounded-tr bg-[var(--dark-bg)] px-0 py-3">
+              <div className="absolute left-0 top-full z-1000 w-[400px] rounded-br rounded-bl rounded-tr bg-(--dark-bg) px-0 py-3">
                 <ol className="flex flex-wrap">
                   {PLAYER_NAV_GROUPS.map((group, groupIndex) => (
                     <li key={groupIndex} className="w-1/2">
@@ -98,7 +98,7 @@ export function TopNav() {
                           <li key={page.slug}>
                             <Link
                               href={playerRoute(page.slug)}
-                              className="mx-3 block rounded px-2 py-2 text-[16px] font-bold text-white no-underline hover:bg-[var(--pink)]"
+                              className="mx-3 block rounded px-2 py-2 text-[16px] font-bold text-white no-underline hover:bg-(--pink)"
                             >
                               {page.navLabel}
                             </Link>
@@ -115,7 +115,7 @@ export function TopNav() {
           <li className="relative text-white">
             <Link
               href={aboutRatingsRoute}
-              className="block px-3 py-2 font-[family-name:var(--font-tecmo)] text-[13px] uppercase leading-none text-inherit no-underline"
+              className="block px-3 py-2 font-(family-name:--font-tecmo) text-[13px] uppercase leading-none text-inherit no-underline"
             >
               About Ratings
             </Link>

@@ -26,12 +26,12 @@ export default function RankingsRedirectPage() {
         data-page-theme="text"
         className="mx-auto mt-6 max-w-[700px] text-[#3a3a3a] [text-shadow:0_1px_0_#fff]"
       >
-        <h1 className="mb-4 font-[family-name:var(--font-tecmo)] text-[36px] leading-[40px] uppercase text-[#3a3a3a]">
+        <h1 className="mb-4 font-(family-name:--font-tecmo) text-[36px] leading-[40px] uppercase text-[#3a3a3a]">
           Redirecting
         </h1>
-        <p className="text-[18px] leading-[1.5] text-[#3a3a3a]">
+        <p className="text-[18px] leading-normal text-[#3a3a3a]">
           This page has moved to{" "}
-          <Link href={aboutRatingsRoute} className="font-bold text-[var(--blue)]">
+          <Link href={aboutRatingsRoute} className="font-bold text-(--blue)">
             /about/ratings/
           </Link>
           .

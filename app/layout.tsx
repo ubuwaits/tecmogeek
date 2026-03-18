@@ -66,7 +66,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${tecmo.variable} bg-[var(--blue)] text-white antialiased`}>
+      <body className={`${inter.variable} ${tecmo.variable} bg-(--blue) text-white antialiased`}>
         <TopNav />
         <main id="container" className="pt-[96px]">
           {children}
