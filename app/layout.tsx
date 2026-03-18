@@ -72,11 +72,6 @@ export default function RootLayout({
           {children}
         </main>
         <SiteFooter />
-        <Script
-          src="https://static.cloudflareinsights.com/beacon.min.js"
-          strategy="afterInteractive"
-          data-cf-beacon='{"token": "095c2ad9809848348d9f40bc135848b6"}'
-        />
       </body>
     </html>
   );
