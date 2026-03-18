@@ -26,28 +26,28 @@ export default async function HomePage() {
   );
 
   return (
-    <section data-page-theme="home">
-      <h2 className="mx-auto mb-13 mt-3 max-w-[800px] text-center font-(family-name:--font-tecmo) text-[1.75em] leading-normal uppercase">
+    <section data-page-theme="home" className="mx-auto w-full max-w-[1240px]">
+      <h2 className="mx-auto mb-8 mt-2 max-w-[800px] text-center font-(family-name:--font-tecmo) text-[1.25rem] leading-[1.15] text-balance uppercase sm:mb-13 sm:mt-3 sm:text-[1.75em] sm:leading-normal">
         Comprehensive guide to player attributes in Tecmo Super Bowl for NES.
       </h2>
 
-      <div className="flex flex-wrap justify-center">
+      <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
         {sectionData.map(({ page, entries }) => (
-          <div key={page.slug} className="m-8 basis-[380px]">
+          <div key={page.slug} className="min-w-0">
             <h3 className="pb-1 font-(family-name:--font-tecmo) text-[16px] leading-normal">
               <Link href={playerRoute(page.slug)} className="text-inherit no-underline hover:text-(--pink)">
                 {page.homeLabel} &gt;
               </Link>
             </h3>
 
-            <ol className="bg-(--dark-bg) px-0 py-3 shadow-[8px_8px_0_var(--pink)]">
+            <ol className="rounded-[18px] bg-(--dark-bg) px-0 py-3 shadow-[8px_8px_0_var(--pink)]">
               {entries.map((entry) => {
                 const teamSlug = getTeamSlugFromCode(entry.team);
 
                 return (
                   <li
                     key={`${page.slug}-${entry.name}`}
-                    className="flex items-center px-5 py-2"
+                    className="flex items-center px-4 py-2 sm:px-5"
                   >
                     <Link href={teamRoute(teamSlug)} className="block w-8">
                       <HelmetSprite team={teamSlug} />
@@ -56,7 +56,7 @@ export default async function HomePage() {
                     <HeadshotSprite team={teamSlug} position={entry.position as never} className="mx-3" />
 
                     <section>
-                      <h3 className="font-(family-name:--font-tecmo) text-[14px] uppercase">
+                      <h3 className="font-(family-name:--font-tecmo) text-[14px] uppercase text-balance">
                         {entry.name}
                       </h3>
                       <h4 className="font-(family-name:--font-tecmo) text-[12px] text-white/65">

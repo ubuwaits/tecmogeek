@@ -24,19 +24,19 @@ export default function RankingsRedirectPage() {
 
       <section
         data-page-theme="text"
-        className="mx-auto mt-6 max-w-[700px] text-[#3a3a3a] [text-shadow:0_1px_0_#fff]"
+        className="mx-auto mt-4 max-w-[700px] text-[#3a3a3a] [text-shadow:0_1px_0_#fff] sm:mt-6"
       >
-        <h1 className="mb-4 font-(family-name:--font-tecmo) text-[36px] leading-[40px] uppercase text-[#3a3a3a]">
+        <h1 className="mb-4 font-(family-name:--font-tecmo) text-[23px] leading-[0.95] uppercase text-balance text-[#3a3a3a] sm:text-[36px] sm:leading-[40px]">
           Redirecting
         </h1>
-        <p className="text-[18px] leading-normal text-[#3a3a3a]">
+        <p className="text-[17px] leading-[1.6] text-pretty text-[#3a3a3a] sm:text-[18px] sm:leading-normal">
           This page has moved to{" "}
           <Link href={aboutRatingsRoute} className="font-bold text-(--blue)">
             /about/ratings/
           </Link>
           .
         </p>
-        <p className="mt-4 text-[14px] text-[#626262]">Legacy URL: {aboutRankingsRoute}</p>
+        <p className="mt-4 text-[13px] text-[#626262] sm:text-[14px]">Legacy URL: {aboutRankingsRoute}</p>
       </section>
     </>
   );

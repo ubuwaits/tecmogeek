@@ -15,16 +15,18 @@ export const metadata: Metadata = {
 };
 
 const headingClassName =
-  "font-(family-name:--font-tecmo) text-[36px] leading-[40px] uppercase text-[#3a3a3a]";
-const subHeadingClassName = "mb-2 mt-8 text-[24px] font-semibold leading-[1.2] text-[#3a3a3a]";
-const sectionHeadingClassName = "mb-1 text-[1.2em] font-bold text-[#3a3a3a]";
-const paragraphClassName = "mb-4 text-[18px] leading-[1.5] text-[#3a3a3a]";
+  "font-(family-name:--font-tecmo) text-[23px] leading-[0.95] uppercase text-balance text-[#3a3a3a] sm:text-[36px] sm:leading-[40px]";
+const subHeadingClassName =
+  "mb-2 mt-8 text-[19px] font-semibold leading-[1.2] text-balance text-[#3a3a3a] sm:text-[24px]";
+const sectionHeadingClassName = "mb-1 text-[1.05em] font-bold text-[#3a3a3a] sm:text-[1.2em]";
+const paragraphClassName =
+  "mb-4 text-[17px] leading-[1.6] text-pretty text-[#3a3a3a] sm:text-[18px] sm:leading-[1.5]";
 
 export default function RatingsPage() {
   return (
     <section
       data-page-theme="text"
-      className="mx-auto mt-6 max-w-[700px] text-[#3a3a3a] [text-shadow:0_1px_0_#fff]"
+      className="mx-auto mt-4 max-w-[700px] text-[#3a3a3a] [text-shadow:0_1px_0_#fff] sm:mt-6"
     >
       <h1 className={headingClassName}>How player ratings and rankings are calculated</h1>
       <h2 className={`${subHeadingClassName} mt-6`}>
@@ -148,10 +150,11 @@ export default function RatingsPage() {
         alt="Example of attribute score weights for a rusher."
         width={603}
         height={281}
+        sizes="(max-width: 640px) calc(100vw - 2rem), 603px"
         unoptimized
-        className="rounded-[4px]"
+        className="h-auto w-full max-w-[603px] rounded-[4px]"
       />
-      <p className="mb-6 mt-[-0.75em] text-[14px] text-[#626262]">
+      <p className="mb-6 mt-[-0.75em] text-[13px] text-[#626262] sm:text-[14px]">
         When player attributes are shown, the width of the bars corresponds to the weight that
         attribute has in determining the total player score. Above are the attribute scores and
         weightings for a rusher.

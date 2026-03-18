@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 
+import { MetricLegend, MetricStrip } from "@/components/metric-strip";
 import { HeadshotSprite } from "@/components/sprites";
 import { TooltipLabel } from "@/components/tooltip-label";
 import {
@@ -23,30 +24,6 @@ import type {
   TeamSlug,
 } from "@/lib/types";
 
-function TeamMetricCell({
-  value,
-  weight,
-  metricKey,
-}: {
-  value: number;
-  weight: number;
-  metricKey: PlayerMetricKey;
-}) {
-  return (
-    <div
-      data-metric-key={metricKey}
-      className="min-w-0 border-[3px] border-white bg-white/25 px-1 py-2 text-center text-[12px] font-bold text-[#222]"
-      style={{
-        flexBasis: 0,
-        flexGrow: weight,
-        backgroundImage: `linear-gradient(to right, var(--pink) 0%, var(--pink) ${value}%, transparent ${value}%)`,
-      }}
-    >
-      {value}
-    </div>
-  );
-}
-
 function TeamHeaderRow({
   rankingLabel,
   rankingTooltip,
@@ -57,27 +34,135 @@ function TeamHeaderRow({
   columns: readonly MetricColumn[];
 }) {
   return (
-    <li className="grid grid-cols-[52px_32px_180px_52px_1fr] items-center border-b-4 border-white/35 pb-3 text-white/65">
-      <div className="text-center text-[14px] font-bold">
-        <TooltipLabel label={rankingLabel} tooltip={rankingTooltip} />
-      </div>
-      <div />
-      <div />
-      <div className="text-center text-[14px] font-bold">
-        <TooltipLabel label="Rating" tooltip="Out of 100%" />
-      </div>
-      <div className="ml-4 flex gap-2">
-        {columns.map((column) => (
-          <div
-            key={column.key}
-            className="text-[14px]"
-            style={{ flexBasis: 0, flexGrow: column.weight }}
-          >
-            <TooltipLabel label={column.label} tooltip={column.tooltip} />
+    <>
+      <li className="mb-4 space-y-2 sm:hidden">
+        <div className="grid grid-cols-[56px_1fr_72px] items-end gap-3 border-b border-white/25 pb-2 text-white/72">
+          <div className="px-1 text-center text-[11px] font-bold uppercase tracking-[0.08em] text-balance">
+            <span title={rankingTooltip}>{rankingLabel}</span>
           </div>
-        ))}
+          <div className="px-1 text-[11px] font-bold uppercase tracking-[0.08em]">Player</div>
+          <div className="px-1 text-right text-[11px] font-bold uppercase tracking-[0.08em]">
+            <span title="Out of 100%">Rating</span>
+          </div>
+        </div>
+
+        <MetricLegend columns={columns} mobile />
+      </li>
+
+      <li className="hidden sm:grid sm:grid-cols-[52px_32px_minmax(0,180px)_52px_minmax(0,1fr)] sm:items-center sm:border-b-4 sm:border-white/35 sm:pb-3 sm:text-white/65">
+        <div className="text-center text-[14px] font-bold">
+          <TooltipLabel label={rankingLabel} tooltip={rankingTooltip} />
+        </div>
+        <div />
+        <div />
+        <div className="text-center text-[14px] font-bold">
+          <TooltipLabel label="Rating" tooltip="Out of 100%" />
+        </div>
+
+        <MetricLegend columns={columns} />
+      </li>
+    </>
+  );
+}
+
+function TeamPlayerCard({
+  player,
+  spriteIndex,
+  teamSlug,
+  playerPage,
+  columns,
+  getMetricValue,
+  rankingValue,
+  ratingValue,
+}: {
+  player: PlayerRecord;
+  spriteIndex: number;
+  teamSlug: TeamSlug;
+  playerPage: TeamSectionConfig["playerPage"];
+  columns: readonly MetricColumn[];
+  getMetricValue: (key: PlayerMetricKey) => number;
+  rankingValue: string;
+  ratingValue: string;
+}) {
+  return (
+    <article className="rounded-[20px] bg-white/[0.07] p-3 shadow-[0_0_0_1px_rgba(255,255,255,0.08)] sm:hidden">
+      <div className="flex items-start gap-3">
+        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-white/10 text-[20px] font-bold tabular-nums">
+          {rankingValue}
+        </div>
+
+        <div className="flex min-w-0 flex-1 items-start gap-3">
+          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-white/8">
+            <HeadshotSprite team={teamSlug} index={spriteIndex} />
+          </div>
+
+          <div className="min-w-0 flex-1">
+            <h3 className="text-[20px] leading-[0.95] text-balance">{player.name}</h3>
+            <h4 className="mt-1 text-[14px] font-medium text-white/65">
+              {player.position} {player.number}
+            </h4>
+          </div>
+        </div>
+
+        <div className="shrink-0 text-right">
+          <Link
+            href={playerRoute(playerPage)}
+            className="inline-flex min-h-11 min-w-[58px] items-center justify-center rounded-xl bg-white/10 px-3 text-[22px] font-bold tabular-nums hover:bg-white/15"
+          >
+            {ratingValue}
+          </Link>
+          <div className="mt-1 text-[11px] font-bold uppercase tracking-[0.08em] text-white/55">
+            Rating
+          </div>
+        </div>
       </div>
-    </li>
+
+      <div className="mt-3 space-y-2">
+        <MetricLegend columns={columns} mobile />
+        <MetricStrip columns={columns} getValue={getMetricValue} />
+      </div>
+    </article>
+  );
+}
+
+function TeamDesktopRow({
+  player,
+  spriteIndex,
+  teamSlug,
+  playerPage,
+  columns,
+  getMetricValue,
+  rankingValue,
+  ratingValue,
+}: {
+  player: PlayerRecord;
+  spriteIndex: number;
+  teamSlug: TeamSlug;
+  playerPage: TeamSectionConfig["playerPage"];
+  columns: readonly MetricColumn[];
+  getMetricValue: (key: PlayerMetricKey) => number;
+  rankingValue: string;
+  ratingValue: string;
+}) {
+  return (
+    <div className="hidden sm:grid sm:grid-cols-[52px_32px_minmax(0,180px)_52px_minmax(0,1fr)] sm:items-center">
+      <div className="text-center text-[18px] font-bold tabular-nums">{rankingValue}</div>
+      <div className="flex items-center justify-center">
+        <HeadshotSprite team={teamSlug} index={spriteIndex} />
+      </div>
+      <div className="pl-3">
+        <h3 className="text-[18px]">{player.name}</h3>
+        <h4 className="text-[14px] font-medium text-white/65">
+          {player.position} {player.number}
+        </h4>
+      </div>
+      <div className="text-center text-[18px] font-bold tabular-nums">
+        <Link href={playerRoute(playerPage)} className="rounded px-2 py-0.5 hover:bg-white/20">
+          {ratingValue}
+        </Link>
+      </div>
+      <MetricStrip columns={columns} getValue={getMetricValue} className="ml-3 md:ml-4" />
+    </div>
   );
 }
 
@@ -89,10 +174,11 @@ function TeamStaticSection({
   section: TeamSectionConfig;
 }) {
   const players = team.players.slice(section.range[0], section.range[1] + 1);
+  const teamSlug = team.short_name as TeamSlug;
 
   return (
-    <div className="mb-16">
-      <ol className="space-y-3">
+    <div className="mb-12 sm:mb-16">
+      <ol className="space-y-4 sm:space-y-3">
         <TeamHeaderRow
           rankingLabel={section.rankingLabel}
           rankingTooltip={section.rankingTooltip}
@@ -101,43 +187,39 @@ function TeamStaticSection({
 
         {players.map((player, index) => {
           const spriteIndex = section.range[0] + index;
+          const rankingValue = String(player.ranking ?? "");
+          const ratingValue = String(player.rating ?? "");
 
           return (
-            <li
-              key={`${section.id}-${player.name}`}
-              className="grid grid-cols-[52px_32px_180px_52px_1fr] items-center"
-            >
-              <div className="text-center text-[18px] font-bold">{player.ranking}</div>
-              <div className="flex items-center justify-center">
-                <HeadshotSprite team={team.short_name as TeamSlug} index={spriteIndex} />
-              </div>
-              <div className="pl-3">
-                <h3 className="text-[18px]">{player.name}</h3>
-                <h4 className="text-[14px] font-medium text-white/65">
-                  {player.position} {player.number}
-                </h4>
-              </div>
-              <div className="text-center text-[18px] font-bold">
-                <Link href={playerRoute(section.playerPage)} className="rounded px-2 py-0.5 hover:bg-white/20">
-                  {player.rating}
-                </Link>
-              </div>
-              <div className="ml-4 flex gap-2">
-                {section.columns.map((column) => (
-                  <TeamMetricCell
-                    key={column.key}
-                    metricKey={column.key}
-                    value={Number(player[column.key] ?? 0)}
-                    weight={column.weight}
-                  />
-                ))}
-              </div>
+            <li key={`${section.id}-${player.name}`}>
+              <TeamPlayerCard
+                player={player}
+                spriteIndex={spriteIndex}
+                teamSlug={teamSlug}
+                playerPage={section.playerPage}
+                columns={section.columns}
+                getMetricValue={(key) => Number(player[key] ?? 0)}
+                rankingValue={rankingValue}
+                ratingValue={ratingValue}
+              />
+              <TeamDesktopRow
+                player={player}
+                spriteIndex={spriteIndex}
+                teamSlug={teamSlug}
+                playerPage={section.playerPage}
+                columns={section.columns}
+                getMetricValue={(key) => Number(player[key] ?? 0)}
+                rankingValue={rankingValue}
+                ratingValue={ratingValue}
+              />
             </li>
           );
         })}
       </ol>
 
-      <p className="ml-[264px] mt-2 text-[16px] leading-[1.2] text-white/65">{section.note}</p>
+      <p className="mt-3 max-w-[42rem] text-[14px] leading-[1.4] text-pretty text-white/65 sm:ml-[264px] sm:mt-2 sm:text-[16px] sm:leading-[1.2]">
+        {section.note}
+      </p>
     </div>
   );
 }
@@ -162,6 +244,7 @@ export function TeamSkillSection({ team }: { team: TeamData }) {
         ?.spriteIndex ?? TEAM_SKILL_RANGE[0],
   }));
   const returnSpeeds = getTeamReturnSpeedValues(team);
+  const teamSlug = team.short_name as TeamSlug;
 
   function getModeMetricValue(player: PlayerRecord, key: PlayerMetricKey): number {
     if (key === "kick_return_maximum_speed") {
@@ -176,8 +259,8 @@ export function TeamSkillSection({ team }: { team: TeamData }) {
   }
 
   return (
-    <div className="mb-16" data-testid="team-skill-section" data-mode={mode}>
-      <ol className="space-y-3">
+    <div className="mb-12 sm:mb-16" data-testid="team-skill-section" data-mode={mode}>
+      <ol className="space-y-4 sm:space-y-3">
         <TeamHeaderRow
           rankingLabel="RB/WR/TE Ranking"
           rankingTooltip="Out of 280 RB, WR & TE"
@@ -185,21 +268,21 @@ export function TeamSkillSection({ team }: { team: TeamData }) {
         />
 
         <li>
-          <ul className="mb-8 text-center">
+          <ul className="mb-4 flex flex-wrap gap-x-3 gap-y-2 text-left sm:mb-8 sm:justify-center">
             {Object.values(TEAM_SKILL_MODE_CONFIG).map((config) => {
               const active = config.id === mode;
 
               return (
-                <li key={config.id} className="mr-3 inline-block">
+                <li key={config.id}>
                   <button
                     type="button"
                     data-testid={`team-mode-${config.id}`}
                     onClick={() => setMode(config.id)}
-                    className={`relative border-b-2 pb-0.5 font-bold ${
+                    className={`relative min-h-10 rounded px-1 pb-0.5 font-bold transition ${
                       active
                         ? "border-transparent text-white"
                         : "border-white/65 text-white/65 hover:border-white hover:text-white"
-                    }`}
+                    } border-b-2`}
                   >
                     {config.label}
                     {active ? (
@@ -212,44 +295,40 @@ export function TeamSkillSection({ team }: { team: TeamData }) {
           </ul>
         </li>
 
-        {sortedPlayers.map(({ player, spriteIndex }) => (
-          <li
-            key={`${mode}-${player.name}`}
-            data-testid="team-skill-row"
-            className="grid grid-cols-[52px_32px_180px_52px_1fr] items-center"
-          >
-            <div className="text-center text-[18px] font-bold">
-              {String(player[modeConfig.rankingKey] ?? "")}
-            </div>
-            <div className="flex items-center justify-center">
-              <HeadshotSprite team={team.short_name as TeamSlug} index={spriteIndex} />
-            </div>
-            <div className="pl-3">
-              <h3 className="text-[18px]">{player.name}</h3>
-              <h4 className="text-[14px] font-medium text-white/65">
-                {player.position} {player.number}
-              </h4>
-            </div>
-            <div className="text-center text-[18px] font-bold">
-              <Link href={playerRoute(modeConfig.playerPage)} className="rounded px-2 py-0.5 hover:bg-white/20">
-                {String(player[modeConfig.ratingKey] ?? "")}
-              </Link>
-            </div>
-            <div className="ml-4 flex gap-2">
-              {modeConfig.columns.map((column) => (
-                <TeamMetricCell
-                  key={column.key}
-                  metricKey={column.key}
-                  value={getModeMetricValue(player, column.key)}
-                  weight={column.weight}
-                />
-              ))}
-            </div>
-          </li>
-        ))}
+        {sortedPlayers.map(({ player, spriteIndex }) => {
+          const rankingValue = String(player[modeConfig.rankingKey] ?? "");
+          const ratingValue = String(player[modeConfig.ratingKey] ?? "");
+
+          return (
+            <li key={`${mode}-${player.name}`} data-testid="team-skill-row">
+              <TeamPlayerCard
+                player={player}
+                spriteIndex={spriteIndex}
+                teamSlug={teamSlug}
+                playerPage={modeConfig.playerPage}
+                columns={modeConfig.columns}
+                getMetricValue={(key) => getModeMetricValue(player, key)}
+                rankingValue={rankingValue}
+                ratingValue={ratingValue}
+              />
+              <TeamDesktopRow
+                player={player}
+                spriteIndex={spriteIndex}
+                teamSlug={teamSlug}
+                playerPage={modeConfig.playerPage}
+                columns={modeConfig.columns}
+                getMetricValue={(key) => getModeMetricValue(player, key)}
+                rankingValue={rankingValue}
+                ratingValue={ratingValue}
+              />
+            </li>
+          );
+        })}
       </ol>
 
-      <p className="ml-[264px] mt-2 text-[16px] leading-[1.2] text-white/65">{modeConfig.note}</p>
+      <p className="mt-3 max-w-[42rem] text-[14px] leading-[1.4] text-pretty text-white/65 sm:ml-[264px] sm:mt-2 sm:text-[16px] sm:leading-[1.2]">
+        {modeConfig.note}
+      </p>
     </div>
   );
 }

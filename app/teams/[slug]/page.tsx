@@ -52,9 +52,9 @@ export default async function TeamPage({ params }: TeamPageProps) {
 
   return (
     <>
-      <header className="mb-12">
-        <h1 className="flex items-center font-(family-name:--font-tecmo) text-[32px] leading-none uppercase">
-          <HelmetSprite team={team.short_name as TeamSlug} size="large" className="mr-2" />
+      <header className="mb-8 sm:mb-12">
+        <h1 className="flex items-start gap-2 font-(family-name:--font-tecmo) text-[26px] leading-[0.9] text-balance uppercase sm:items-center sm:text-[32px] sm:leading-none">
+          <HelmetSprite team={team.short_name as TeamSlug} size="large" className="mr-1 shrink-0 sm:mr-2" />
           {team.full_name}
         </h1>
       </header>
