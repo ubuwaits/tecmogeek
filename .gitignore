@@ -5,8 +5,5 @@ coverage
 playwright-report
 test-results
 *.tsbuildinfo
-/CNAME
-_site
-.sass-cache/*
 *.swp
 *.DS_Store
