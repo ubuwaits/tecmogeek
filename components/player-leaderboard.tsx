@@ -131,37 +131,37 @@ export function PlayerLeaderboard({ slug, entries }: PlayerLeaderboardProps) {
                 data-position={entry.position}
               >
                 <PlayerTableRow>
-                    <div className="text-center text-[18px] font-bold tabular-nums">
-                      {String(entry[config.rankingKey] ?? "")}
+                  <div className="text-center text-[18px] font-bold tabular-nums">
+                    {String(entry[config.rankingKey] ?? "")}
+                  </div>
+
+                  <div className="flex min-w-0 items-center gap-3">
+                    <div className="flex shrink-0 items-center gap-3">
+                      <Link href={teamRoute(teamSlug)} className="flex items-center justify-center">
+                        <HelmetSprite team={teamSlug} />
+                      </Link>
+                      <HeadshotSprite team={teamSlug} position={entry.position as never} />
                     </div>
 
-                    <div className="flex min-w-0 items-center gap-3">
-                      <div className="flex shrink-0 items-center gap-3">
-                        <Link href={teamRoute(teamSlug)} className="flex items-center justify-center">
-                          <HelmetSprite team={teamSlug} />
-                        </Link>
-                        <HeadshotSprite team={teamSlug} position={entry.position as never} />
-                      </div>
-
-                      <div className="min-w-0">
-                        <h3 className="text-[18px] leading-[1.05] text-balance sm:leading-normal">
-                          {entry.name}
-                        </h3>
-                        <h4 className="text-[14px] font-medium text-white/65">
-                          {entry.position} {entry.number}
-                        </h4>
-                      </div>
+                    <div className="min-w-0">
+                      <h3 className="text-[14px] font-medium leading-none text-balance mt-1">
+                        {entry.name}
+                      </h3>
+                      <h4 className="text-[14px] font-medium text-white/65">
+                        {entry.position} {entry.number}
+                      </h4>
                     </div>
+                  </div>
 
-                    <div className="text-center text-[18px] font-bold tabular-nums">
-                      {String(entry[config.ratingKey] ?? "")}
-                    </div>
+                  <div className="text-center text-[18px] font-bold tabular-nums">
+                    {String(entry[config.ratingKey] ?? "")}
+                  </div>
 
-                    <MetricStrip
-                      columns={config.columns}
-                      getValue={(key) => renderMetricValue(entry, key)}
-                      className="ml-3 md:ml-4"
-                    />
+                  <MetricStrip
+                    columns={config.columns}
+                    getValue={(key) => renderMetricValue(entry, key)}
+                    className="ml-3 md:ml-4"
+                  />
                 </PlayerTableRow>
               </li>
             );

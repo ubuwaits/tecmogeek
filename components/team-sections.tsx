@@ -94,7 +94,7 @@ function TeamPlayerRow({
         <HeadshotSprite team={teamSlug} index={spriteIndex} />
       </div>
       <div className="pl-3">
-        <h3 className="text-[18px] leading-[1.05] text-balance sm:leading-normal">{player.name}</h3>
+        <h3 className="text-[14px] font-medium leading-none text-balance mt-1">{player.name}</h3>
         <h4 className="text-[14px] font-medium text-white/65">
           {player.position} {player.number}
         </h4>
