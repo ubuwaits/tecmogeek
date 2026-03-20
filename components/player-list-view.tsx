@@ -2,14 +2,7 @@
 
 import { useState } from "react";
 
-import {
-  PlayerIdentityCell,
-  PlayerListHeaderRow,
-  PlayerListRow,
-  PlayerListTable,
-} from "@/components/player-list-table";
-import { MetricLegend, MetricStrip } from "@/components/metric-strip";
-import { PlayerListHeaderLabel } from "@/components/player-list-header-label";
+import { PlayerListSection } from "@/components/player-list-table";
 import { SelectionTabs } from "@/components/selection-tabs";
 import { POSITION_PAGE_CONFIG_MAP } from "@/lib/players/config";
 import { getTeamSlugFromCode, matchesPrefixes, sortEntriesByKey } from "@/lib/player-utils";
@@ -43,6 +36,29 @@ export function PlayerListView({ slug, entries }: PlayerListViewProps) {
     : entries;
   const sortedEntries = sortEntriesByKey(filteredEntries, sortKey, sortDirection);
   const activeMetricKey = config.columns.find((column) => column.key === sortKey)?.key ?? null;
+  const rows = sortedEntries.map((entry) => {
+    const teamSlug = getTeamSlugFromCode(entry.team);
+
+    return {
+      key: `${entry.team}-${entry.position}-${entry.name}`,
+      rankingValue: String(entry[config.rankingKey] ?? ""),
+      identityProps: {
+        layout: "player" as const,
+        team: teamSlug,
+        helmetHref: teamRoute(teamSlug),
+        headshotPosition: entry.position,
+        name: entry.name,
+        position: entry.position,
+        number: entry.number,
+      },
+      ratingValue: String(entry[config.ratingKey] ?? ""),
+      getMetricValue: (key: PlayerMetricKey) => renderMetricValue(entry, key),
+      itemData: {
+        "data-testid": "leaderboard-row",
+        "data-position": entry.position,
+      },
+    };
+  });
 
   function changeSort(key: PlayerSortKey, direction: SortDirection) {
     setSortKey(key);
@@ -72,71 +88,20 @@ export function PlayerListView({ slug, entries }: PlayerListViewProps) {
           />
         ) : null}
 
-        <PlayerListTable testId="player-table-scroll">
-          <PlayerListHeaderRow layout="player">
-            <div className="text-[14px] font-bold">
-              <PlayerListHeaderLabel
-                label="Ranking"
-                tooltip={config.rankingTooltip}
-                onClick={() => changeSort(config.rankingKey, "asc")}
-                active={sortKey === config.rankingKey}
-              />
-            </div>
-            <div />
-            <div className="text-[14px] font-bold">
-              <PlayerListHeaderLabel
-                label="Rating"
-                tooltip="Out of 100%"
-                onClick={() => changeSort(config.ratingKey, "desc")}
-                active={sortKey === config.ratingKey}
-              />
-            </div>
-
-            <MetricLegend
-              columns={config.columns}
-              activeKey={activeMetricKey}
-              onColumnClick={(key) => changeSort(key, "desc")}
-            />
-          </PlayerListHeaderRow>
-
-          {sortedEntries.map((entry) => {
-            const teamSlug = getTeamSlugFromCode(entry.team);
-
-            return (
-              <li
-                key={`${entry.team}-${entry.position}-${entry.name}`}
-                data-testid="leaderboard-row"
-                data-position={entry.position}
-              >
-                <PlayerListRow layout="player">
-                  <div className="text-[14px] font-bold tabular-nums">
-                    {String(entry[config.rankingKey] ?? "")}
-                  </div>
-
-                  <PlayerIdentityCell
-                    layout="player"
-                    team={teamSlug}
-                    helmetHref={teamRoute(teamSlug)}
-                    headshotPosition={entry.position}
-                    name={entry.name}
-                    position={entry.position}
-                    number={entry.number}
-                  />
-
-                  <div className="text-[14px] font-bold tabular-nums">
-                    {String(entry[config.ratingKey] ?? "")}
-                  </div>
-
-                  <MetricStrip
-                    columns={config.columns}
-                    getValue={(key) => renderMetricValue(entry, key)}
-                    className="ml-3 md:ml-4"
-                  />
-                </PlayerListRow>
-              </li>
-            );
-          })}
-        </PlayerListTable>
+        <PlayerListSection
+          testId="player-table-scroll"
+          layout="player"
+          rankingLabel="Ranking"
+          rankingTooltip={config.rankingTooltip}
+          rankingActive={sortKey === config.rankingKey}
+          onRankingClick={() => changeSort(config.rankingKey, "asc")}
+          ratingActive={sortKey === config.ratingKey}
+          onRatingClick={() => changeSort(config.ratingKey, "desc")}
+          columns={config.columns}
+          activeMetricKey={activeMetricKey}
+          onMetricClick={(key) => changeSort(key, "desc")}
+          rows={rows}
+        />
       </div>
     </>
   );

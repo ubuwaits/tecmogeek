@@ -1,8 +1,15 @@
 import Link from "next/link";
 import type { Route } from "next";
 
+import { MetricLegend, MetricStrip } from "@/components/metric-strip";
+import { PlayerListHeaderLabel } from "@/components/player-list-header-label";
 import { HeadshotSprite, HelmetSprite } from "@/components/sprites";
-import type { HeadshotPosition, TeamSlug } from "@/lib/types";
+import type {
+  HeadshotPosition,
+  MetricColumn,
+  PlayerMetricKey,
+  TeamSlug,
+} from "@/lib/types";
 
 const PLAYER_LIST_GRID_CLASS = {
   player:
@@ -21,6 +28,45 @@ type PlayerListTableProps = {
 type PlayerListRowProps = {
   children: React.ReactNode;
   layout: PlayerListLayout;
+};
+
+type PlayerListTableHeaderProps = {
+  layout: PlayerListLayout;
+  rankingLabel: string;
+  rankingTooltip?: string;
+  rankingActive?: boolean;
+  onRankingClick?: () => void;
+  ratingLabel?: string;
+  ratingTooltip?: string;
+  ratingActive?: boolean;
+  onRatingClick?: () => void;
+  columns: readonly MetricColumn[];
+  activeMetricKey?: PlayerMetricKey | null;
+  onMetricClick?: (key: PlayerMetricKey) => void;
+};
+
+type PlayerListMetricsRowProps = {
+  layout: PlayerListLayout;
+  rankingValue: React.ReactNode;
+  identity: React.ReactNode;
+  ratingValue: React.ReactNode;
+  columns: readonly MetricColumn[];
+  getMetricValue: (key: PlayerMetricKey) => number;
+};
+
+export type PlayerListSectionRow = {
+  key: string;
+  rankingValue: React.ReactNode;
+  identityProps: PlayerIdentityCellProps;
+  ratingValue: React.ReactNode;
+  ratingHref?: Route;
+  getMetricValue: (key: PlayerMetricKey) => number;
+  itemData?: Partial<Record<`data-${string}`, string>>;
+};
+
+type PlayerListSectionProps = PlayerListTableHeaderProps & {
+  testId?: string;
+  rows: readonly PlayerListSectionRow[];
 };
 
 type PlayerIdentityCellProps =
@@ -66,6 +112,132 @@ export function PlayerListHeaderRow({ children, layout }: PlayerListRowProps) {
 
 export function PlayerListRow({ children, layout }: PlayerListRowProps) {
   return <div className={getGridClass(layout)}>{children}</div>;
+}
+
+function PlayerListHeaderCell({
+  label,
+  tooltip,
+  active = false,
+  onClick,
+}: {
+  label: string;
+  tooltip?: string;
+  active?: boolean;
+  onClick?: () => void;
+}) {
+  return (
+    <div className="text-[14px] font-bold">
+      <PlayerListHeaderLabel
+        label={label}
+        tooltip={tooltip}
+        active={active}
+        onClick={onClick}
+      />
+    </div>
+  );
+}
+
+function PlayerListValueCell({ children }: { children: React.ReactNode }) {
+  return <div className="text-[14px] font-bold tabular-nums">{children}</div>;
+}
+
+function PlayerListRatingLink({ children, href }: { children: React.ReactNode; href: Route }) {
+  return (
+    <Link href={href} className="text-inherit no-underline transition-colors hover:text-(--pink)">
+      {children}
+    </Link>
+  );
+}
+
+export function PlayerListTableHeader({
+  layout,
+  rankingLabel,
+  rankingTooltip,
+  rankingActive = false,
+  onRankingClick,
+  ratingLabel = "Rating",
+  ratingTooltip = "Out of 100%",
+  ratingActive = false,
+  onRatingClick,
+  columns,
+  activeMetricKey,
+  onMetricClick,
+}: PlayerListTableHeaderProps) {
+  const spacerCount = layout === "team" ? 2 : 1;
+
+  return (
+    <PlayerListHeaderRow layout={layout}>
+      <PlayerListHeaderCell
+        label={rankingLabel}
+        tooltip={rankingTooltip}
+        active={rankingActive}
+        onClick={onRankingClick}
+      />
+      {Array.from({ length: spacerCount }, (_, index) => (
+        <div key={index} />
+      ))}
+      <PlayerListHeaderCell
+        label={ratingLabel}
+        tooltip={ratingTooltip}
+        active={ratingActive}
+        onClick={onRatingClick}
+      />
+      <MetricLegend
+        columns={columns}
+        activeKey={activeMetricKey}
+        onColumnClick={onMetricClick}
+      />
+    </PlayerListHeaderRow>
+  );
+}
+
+export function PlayerListMetricsRow({
+  layout,
+  rankingValue,
+  identity,
+  ratingValue,
+  columns,
+  getMetricValue,
+}: PlayerListMetricsRowProps) {
+  return (
+    <PlayerListRow layout={layout}>
+      <PlayerListValueCell>{rankingValue}</PlayerListValueCell>
+      {identity}
+      <PlayerListValueCell>{ratingValue}</PlayerListValueCell>
+      <MetricStrip columns={columns} getValue={getMetricValue} className="ml-3 md:ml-4" />
+    </PlayerListRow>
+  );
+}
+
+export function PlayerListSection({
+  testId,
+  rows,
+  ...headerProps
+}: PlayerListSectionProps) {
+  return (
+    <PlayerListTable testId={testId}>
+      <PlayerListTableHeader {...headerProps} />
+
+      {rows.map(({ key, identityProps, ratingHref, ratingValue, itemData, ...row }) => (
+        <li key={key} {...itemData}>
+          <PlayerListMetricsRow
+            layout={headerProps.layout}
+            rankingValue={row.rankingValue}
+            identity={<PlayerIdentityCell {...identityProps} />}
+            ratingValue={
+              ratingHref ? (
+                <PlayerListRatingLink href={ratingHref}>{ratingValue}</PlayerListRatingLink>
+              ) : (
+                ratingValue
+              )
+            }
+            columns={headerProps.columns}
+            getMetricValue={row.getMetricValue}
+          />
+        </li>
+      ))}
+    </PlayerListTable>
+  );
 }
 
 export function PlayerIdentityCell(props: PlayerIdentityCellProps) {

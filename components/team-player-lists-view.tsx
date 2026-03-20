@@ -1,16 +1,8 @@
 "use client";
 
-import Link from "next/link";
 import { useState } from "react";
 
-import { PlayerListHeaderLabel } from "@/components/player-list-header-label";
-import {
-  PlayerIdentityCell,
-  PlayerListHeaderRow,
-  PlayerListRow,
-  PlayerListTable,
-} from "@/components/player-list-table";
-import { MetricLegend, MetricStrip } from "@/components/metric-strip";
+import { PlayerListSection, type PlayerListSectionRow } from "@/components/player-list-table";
 import { SelectionTabs } from "@/components/selection-tabs";
 import {
   DEFAULT_TEAM_SKILL_MODE,
@@ -22,7 +14,6 @@ import {
 import { getTeamReturnSpeedValues, sortEntriesByKey } from "@/lib/player-utils";
 import { playerRoute } from "@/lib/routes";
 import type {
-  MetricColumn,
   PlayerMetricKey,
   PlayerRecord,
   TeamData,
@@ -31,85 +22,47 @@ import type {
   TeamSlug,
 } from "@/lib/types";
 
-function TeamPlayerListHeader({
-  rankingLabel,
-  rankingTooltip,
-  columns,
-}: {
-  rankingLabel: string;
-  rankingTooltip: string;
-  columns: readonly MetricColumn[];
-}) {
-  return (
-    <PlayerListHeaderRow layout="team">
-      <div className="text-[14px] font-bold">
-        <PlayerListHeaderLabel
-          label={rankingLabel}
-          tooltip={rankingTooltip}
-        />
-      </div>
-      <div />
-      <div />
-      <div className="text-[14px] font-bold">
-        <PlayerListHeaderLabel
-          label="Rating"
-          tooltip="Out of 100%"
-        />
-      </div>
-      <MetricLegend columns={columns} />
-    </PlayerListHeaderRow>
-  );
-}
-
-function TeamPlayerListEntry({
-  player,
-  spriteIndex,
-  teamSlug,
-  playerPage,
-  columns,
-  getMetricValue,
-  rankingValue,
-  ratingValue,
-}: {
-  player: PlayerRecord;
-  spriteIndex: number;
-  teamSlug: TeamSlug;
-  playerPage: TeamSectionConfig["playerPage"];
-  columns: readonly MetricColumn[];
-  getMetricValue: (key: PlayerMetricKey) => number;
-  rankingValue: string;
-  ratingValue: string;
-}) {
-  return (
-    <PlayerListRow layout="team">
-      <div className="text-[14px] font-bold tabular-nums">{rankingValue}</div>
-      <PlayerIdentityCell
-        layout="team"
-        team={teamSlug}
-        spriteIndex={spriteIndex}
-        name={player.name}
-        position={player.position}
-        number={player.number}
-      />
-      <div className="text-[14px] font-bold tabular-nums">
-        <Link
-          href={playerRoute(playerPage)}
-          className="text-inherit no-underline transition-colors hover:text-(--pink)"
-        >
-          {ratingValue}
-        </Link>
-      </div>
-      <MetricStrip columns={columns} getValue={getMetricValue} className="ml-3 md:ml-4" />
-    </PlayerListRow>
-  );
-}
-
 function PlayerListNote({ children }: { children: React.ReactNode }) {
   return (
     <p className="mt-3 text-[14px] leading-[1.4] text-pretty text-white/65 sm:ml-[264px] sm:mt-2 sm:text-[16px] sm:leading-[1.2]">
       {children}
     </p>
   );
+}
+
+function buildTeamRows({
+  players,
+  teamSlug,
+  playerPage,
+  getRankingValue,
+  getRatingValue,
+  getMetricValue,
+  rowTestId,
+}: {
+  players: readonly { player: PlayerRecord; spriteIndex: number }[];
+  teamSlug: TeamSlug;
+  playerPage: TeamSectionConfig["playerPage"];
+  getRankingValue: (player: PlayerRecord) => React.ReactNode;
+  getRatingValue: (player: PlayerRecord) => React.ReactNode;
+  getMetricValue: (player: PlayerRecord, key: PlayerMetricKey) => number;
+  rowTestId?: string;
+}): PlayerListSectionRow[] {
+  return players.map(({ player, spriteIndex }) => ({
+    key: `${playerPage}-${player.position}-${player.name}`,
+    rankingValue: getRankingValue(player),
+    identityProps: {
+      layout: "team",
+      team: teamSlug,
+      spriteIndex,
+      name: player.name,
+      position: player.position,
+      number: player.number,
+    },
+    ratingValue: getRatingValue(player),
+    ratingHref: playerRoute(playerPage),
+    getMetricValue: (key) => getMetricValue(player, key),
+    itemData: rowTestId ? { "data-testid": rowTestId } : undefined,
+  }));
 }
 
 function TeamPositionPlayerList({
@@ -121,37 +74,28 @@ function TeamPositionPlayerList({
 }) {
   const players = team.players.slice(section.range[0], section.range[1] + 1);
   const teamSlug = team.short_name as TeamSlug;
+  const rows = buildTeamRows({
+    players: players.map((player, index) => ({
+      player,
+      spriteIndex: section.range[0] + index,
+    })),
+    teamSlug,
+    playerPage: section.playerPage,
+    getRankingValue: (player) => String(player.ranking ?? ""),
+    getRatingValue: (player) => String(player.rating ?? ""),
+    getMetricValue: (player, key) => Number(player[key] ?? 0),
+  });
 
   return (
     <div className="mb-12 sm:mb-16">
-      <PlayerListTable testId={`team-table-scroll-${section.id}`}>
-        <TeamPlayerListHeader
-          rankingLabel={section.rankingLabel}
-          rankingTooltip={section.rankingTooltip}
-          columns={section.columns}
-        />
-
-        {players.map((player, index) => {
-          const spriteIndex = section.range[0] + index;
-          const rankingValue = String(player.ranking ?? "");
-          const ratingValue = String(player.rating ?? "");
-
-          return (
-            <li key={`${section.id}-${player.name}`}>
-              <TeamPlayerListEntry
-                player={player}
-                spriteIndex={spriteIndex}
-                teamSlug={teamSlug}
-                playerPage={section.playerPage}
-                columns={section.columns}
-                getMetricValue={(key) => Number(player[key] ?? 0)}
-                rankingValue={rankingValue}
-                ratingValue={ratingValue}
-              />
-            </li>
-          );
-        })}
-      </PlayerListTable>
+      <PlayerListSection
+        testId={`team-table-scroll-${section.id}`}
+        layout="team"
+        rankingLabel={section.rankingLabel}
+        rankingTooltip={section.rankingTooltip}
+        columns={section.columns}
+        rows={rows}
+      />
 
       <PlayerListNote>{section.note}</PlayerListNote>
     </div>
@@ -192,6 +136,16 @@ function TeamSkillPlayerList({ team }: { team: TeamData }) {
     return Number(player[key] ?? 0);
   }
 
+  const rows = buildTeamRows({
+    players: sortedPlayers,
+    teamSlug,
+    playerPage: modeConfig.playerPage,
+    getRankingValue: (player) => String(player[modeConfig.rankingKey] ?? ""),
+    getRatingValue: (player) => String(player[modeConfig.ratingKey] ?? ""),
+    getMetricValue: getModeMetricValue,
+    rowTestId: "team-skill-row",
+  });
+
   return (
     <div className="mb-12 sm:mb-16" data-testid="team-skill-section" data-mode={mode}>
       <SelectionTabs
@@ -203,33 +157,14 @@ function TeamSkillPlayerList({ team }: { team: TeamData }) {
         mobileSelectTestId="team-mode-select"
       />
 
-      <PlayerListTable testId="team-skill-table-scroll">
-        <TeamPlayerListHeader
-          rankingLabel="RB/WR/TE Ranking"
-          rankingTooltip="Out of 280 RB, WR & TE"
-          columns={modeConfig.columns}
-        />
-
-        {sortedPlayers.map(({ player, spriteIndex }) => {
-          const rankingValue = String(player[modeConfig.rankingKey] ?? "");
-          const ratingValue = String(player[modeConfig.ratingKey] ?? "");
-
-          return (
-            <li key={`${mode}-${player.name}`} data-testid="team-skill-row">
-              <TeamPlayerListEntry
-                player={player}
-                spriteIndex={spriteIndex}
-                teamSlug={teamSlug}
-                playerPage={modeConfig.playerPage}
-                columns={modeConfig.columns}
-                getMetricValue={(key) => getModeMetricValue(player, key)}
-                rankingValue={rankingValue}
-                ratingValue={ratingValue}
-              />
-            </li>
-          );
-        })}
-      </PlayerListTable>
+      <PlayerListSection
+        testId="team-skill-table-scroll"
+        layout="team"
+        rankingLabel="RB/WR/TE Ranking"
+        rankingTooltip="Out of 280 RB, WR & TE"
+        columns={modeConfig.columns}
+        rows={rows}
+      />
 
       <PlayerListNote>{modeConfig.note}</PlayerListNote>
     </div>
