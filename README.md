@@ -67,7 +67,7 @@ Build Command: pnpm build
 Output Directory: out
 ```
 
-Custom domains should be configured in Vercel project settings. The [`public/CNAME`](/Users/chad/source/tecmogeek/public/CNAME) file is useful for other static hosts, but Vercel does not rely on it.
+Custom domains should be configured in Vercel project settings.
 
 ### Other Static Hosting
 
