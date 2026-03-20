@@ -31,7 +31,7 @@ function MetricBar({
       data-metric-key={metricKey}
       aria-label={`${tooltip}: ${value}`}
       title={tooltip}
-      className="min-w-0 border-[3px] border-white bg-white/25 px-1 py-2 text-center text-[12px] font-bold tabular-nums text-[#222]"
+      className="min-w-0 border-[3px] border-white bg-white/25 px-1 py-2 text-[12px] font-bold tabular-nums text-[#222]"
       style={{
         flexBasis: 0,
         flexGrow: grow,

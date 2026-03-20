@@ -74,7 +74,7 @@ export function PlayerListView({ slug, entries }: PlayerListViewProps) {
 
         <PlayerListTable testId="player-table-scroll">
           <PlayerListHeaderRow layout="player">
-            <div className="text-center text-[14px] font-bold">
+            <div className="text-[14px] font-bold">
               <PlayerListHeaderLabel
                 label="Ranking"
                 tooltip={config.rankingTooltip}
@@ -83,7 +83,7 @@ export function PlayerListView({ slug, entries }: PlayerListViewProps) {
               />
             </div>
             <div />
-            <div className="text-center text-[14px] font-bold">
+            <div className="text-[14px] font-bold">
               <PlayerListHeaderLabel
                 label="Rating"
                 tooltip="Out of 100%"
@@ -109,7 +109,7 @@ export function PlayerListView({ slug, entries }: PlayerListViewProps) {
                 data-position={entry.position}
               >
                 <PlayerListRow layout="player">
-                  <div className="text-center text-[18px] font-bold tabular-nums">
+                  <div className="text-[18px] font-bold tabular-nums">
                     {String(entry[config.rankingKey] ?? "")}
                   </div>
 
@@ -123,7 +123,7 @@ export function PlayerListView({ slug, entries }: PlayerListViewProps) {
                     number={entry.number}
                   />
 
-                  <div className="text-center text-[18px] font-bold tabular-nums">
+                  <div className="text-[18px] font-bold tabular-nums">
                     {String(entry[config.ratingKey] ?? "")}
                   </div>
 

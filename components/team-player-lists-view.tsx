@@ -42,7 +42,7 @@ function TeamPlayerListHeader({
 }) {
   return (
     <PlayerListHeaderRow layout="team">
-      <div className="text-center text-[14px] font-bold">
+      <div className="text-[14px] font-bold">
         <PlayerListHeaderLabel
           label={rankingLabel}
           tooltip={rankingTooltip}
@@ -50,7 +50,7 @@ function TeamPlayerListHeader({
       </div>
       <div />
       <div />
-      <div className="text-center text-[14px] font-bold">
+      <div className="text-[14px] font-bold">
         <PlayerListHeaderLabel
           label="Rating"
           tooltip="Out of 100%"
@@ -82,7 +82,7 @@ function TeamPlayerListEntry({
 }) {
   return (
     <PlayerListRow layout="team">
-      <div className="text-center text-[18px] font-bold tabular-nums">{rankingValue}</div>
+      <div className="text-[18px] font-bold tabular-nums">{rankingValue}</div>
       <PlayerIdentityCell
         layout="team"
         team={teamSlug}
@@ -91,8 +91,11 @@ function TeamPlayerListEntry({
         position={player.position}
         number={player.number}
       />
-      <div className="text-center text-[18px] font-bold tabular-nums">
-        <Link href={playerRoute(playerPage)} className="rounded px-2 py-0.5 hover:bg-white/20">
+      <div className="text-[18px] font-bold tabular-nums">
+        <Link
+          href={playerRoute(playerPage)}
+          className="text-inherit no-underline transition-colors hover:text-(--pink)"
+        >
           {ratingValue}
         </Link>
       </div>

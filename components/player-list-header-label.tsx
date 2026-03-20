@@ -6,35 +6,19 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
-type HeaderLabelAlign = "left" | "center" | "right";
-
 type PlayerListHeaderLabelProps = {
   label: string;
   tooltip?: string;
   onClick?: () => void;
   active?: boolean;
-  align?: HeaderLabelAlign;
   className?: string;
 };
-
-function getAlignmentClass(align: HeaderLabelAlign): string {
-  if (align === "left") {
-    return "justify-start text-left";
-  }
-
-  if (align === "right") {
-    return "justify-end text-right";
-  }
-
-  return "justify-center text-center";
-}
 
 export function PlayerListHeaderLabel({
   label,
   tooltip,
   onClick,
   active = false,
-  align = "left",
   className = "",
 }: PlayerListHeaderLabelProps) {
   const labelContent = (
@@ -58,7 +42,7 @@ export function PlayerListHeaderLabel({
   );
 
   return (
-    <div className={`flex min-h-8 w-full items-end ${getAlignmentClass(align)}`}>
+    <div className="flex min-h-8 w-full items-end justify-start">
       {tooltip ? (
         <Tooltip delayDuration={100}>
           <TooltipTrigger asChild>{trigger}</TooltipTrigger>
