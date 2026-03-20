@@ -1,4 +1,22 @@
-import { expect, test } from "@playwright/test";
+import { expect, test, type Locator, type Page } from "@playwright/test";
+
+async function expectNoHorizontalOverflow(page: Page) {
+  const dimensions = await page.evaluate(() => ({
+    scrollWidth: document.documentElement.scrollWidth,
+    innerWidth: window.innerWidth,
+  }));
+
+  expect(dimensions.scrollWidth).toBeLessThanOrEqual(dimensions.innerWidth);
+}
+
+async function expectLocalHorizontalOverflow(locator: Locator) {
+  const dimensions = await locator.evaluate((element) => ({
+    scrollWidth: element.scrollWidth,
+    clientWidth: element.clientWidth,
+  }));
+
+  expect(dimensions.scrollWidth).toBeGreaterThan(dimensions.clientWidth);
+}
 
 test("home page renders leaderboards", async ({ page }) => {
   await page.goto("/");
@@ -47,4 +65,69 @@ test("verification and favicon files are exported", async ({ request }) => {
 
   const favicon = await request.get("/favicon.png");
   expect(favicon.ok()).toBeTruthy();
+});
+
+test.describe("mobile responsive layout", () => {
+  test.use({ viewport: { width: 390, height: 844 } });
+
+  test("mobile nav opens and routes without overflow", async ({ page }) => {
+    await page.goto("/");
+    await expectNoHorizontalOverflow(page);
+
+    await page.getByTestId("mobile-nav-toggle").click();
+    await expect(page.getByTestId("mobile-nav-panel")).toHaveAttribute("aria-hidden", "false");
+    await expect(page.getByTestId("mobile-nav-section-teams")).toHaveAttribute("aria-expanded", "true");
+    await expect(page.getByRole("link", { name: /Bills/i })).toBeVisible();
+    await page.getByRole("link", { name: "About Ratings" }).last().click();
+
+    await expect(page).toHaveURL(/\/about\/ratings\/$/);
+    await expect(
+      page.getByRole("heading", { name: "How player ratings and rankings are calculated" }),
+    ).toBeVisible();
+    await expectNoHorizontalOverflow(page);
+  });
+
+  test("player and team tables scroll locally on mobile", async ({ page }) => {
+    await page.goto("/players/rushers/");
+    await expectNoHorizontalOverflow(page);
+    const playerScroller = page.getByTestId("player-table-scroll");
+    await expectLocalHorizontalOverflow(playerScroller);
+
+    await page.getByTestId("filter-only-rb").click();
+
+    const positions = await page
+      .locator("[data-testid='leaderboard-row']")
+      .evaluateAll((rows) => rows.map((row) => row.getAttribute("data-position")));
+
+    expect(positions.every((position) => position?.startsWith("RB"))).toBeTruthy();
+    await playerScroller.evaluate((element) => {
+      element.scrollLeft = element.scrollWidth;
+    });
+    await playerScroller.getByRole("button", { name: "REC" }).click();
+
+    const receptionValues = await page
+      .locator("[data-testid='leaderboard-row'] [data-metric-key='receptions']")
+      .evaluateAll((bars) => bars.map((bar) => Number(bar.textContent?.trim() ?? "0")));
+
+    expect(
+      receptionValues.every((value, index, values) => index === 0 || values[index - 1] >= value),
+    ).toBeTruthy();
+    await expectLocalHorizontalOverflow(playerScroller);
+    await expectNoHorizontalOverflow(page);
+
+    await page.goto("/teams/49ers/");
+    await expectNoHorizontalOverflow(page);
+    const teamScroller = page.getByTestId("team-skill-table-scroll");
+    await expectLocalHorizontalOverflow(teamScroller);
+    await page.getByTestId("team-mode-select").selectOption("receiving");
+
+    const firstRow = page.locator("[data-testid='team-skill-row']").first();
+    await expect(firstRow).toContainText("Jerry Rice");
+    await expect(page.locator("[data-testid='team-skill-section']")).toHaveAttribute(
+      "data-mode",
+      "receiving",
+    );
+    await expectLocalHorizontalOverflow(teamScroller);
+    await expectNoHorizontalOverflow(page);
+  });
 });

@@ -48,14 +48,14 @@ export default async function TeamPage({ params }: TeamPageProps) {
     notFound();
   }
 
-  const team = await getTeam(slug as TeamSlug);
+      const team = await getTeam(slug as TeamSlug);
 
   return (
     <>
-      <header className="mb-12">
-        <h1 className="flex items-center font-(family-name:--font-tecmo) text-[32px] leading-none uppercase">
-          <HelmetSprite team={team.short_name as TeamSlug} size="large" className="mr-2" />
-          {team.full_name}
+      <header className="mb-8 sm:mb-12">
+        <h1 className="grid grid-cols-[auto_minmax(0,1fr)] items-center gap-3 font-(family-name:--font-tecmo) text-[26px] uppercase sm:flex sm:items-center sm:gap-4 sm:text-[32px]">
+          <HelmetSprite team={team.short_name as TeamSlug} size="large" className="shrink-0 self-center" />
+          <span className="block min-w-0 text-balance leading-[1.02] sm:leading-none">{team.full_name}</span>
         </h1>
       </header>
 

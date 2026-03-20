@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Script from "next/script";
 
+import { ArticleCaption, ArticlePage, ArticleParagraph, ArticleTitle } from "@/components/article-page";
 import { aboutRatingsRoute, aboutRankingsRoute } from "@/lib/routes";
 
 export const metadata: Metadata = {
@@ -22,22 +23,17 @@ export default function RankingsRedirectPage() {
         {`window.location.replace("/about/ratings/");`}
       </Script>
 
-      <section
-        data-page-theme="text"
-        className="mx-auto mt-6 max-w-[700px] text-[#3a3a3a] [text-shadow:0_1px_0_#fff]"
-      >
-        <h1 className="mb-4 font-(family-name:--font-tecmo) text-[36px] leading-[40px] uppercase text-[#3a3a3a]">
-          Redirecting
-        </h1>
-        <p className="text-[18px] leading-normal text-[#3a3a3a]">
+      <ArticlePage>
+        <ArticleTitle className="mb-4">Redirecting</ArticleTitle>
+        <ArticleParagraph className="mb-0 sm:leading-normal">
           This page has moved to{" "}
           <Link href={aboutRatingsRoute} className="font-bold text-(--blue)">
             /about/ratings/
           </Link>
           .
-        </p>
-        <p className="mt-4 text-[14px] text-[#626262]">Legacy URL: {aboutRankingsRoute}</p>
-      </section>
+        </ArticleParagraph>
+        <ArticleCaption className="mt-4">Legacy URL: {aboutRankingsRoute}</ArticleCaption>
+      </ArticlePage>
     </>
   );
 }

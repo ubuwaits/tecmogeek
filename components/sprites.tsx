@@ -55,7 +55,7 @@ export function HeadshotSprite({
   return (
     <span
       aria-hidden="true"
-      className={`inline-block h-8 w-8 rounded-[2px] bg-no-repeat ${className}`}
+      className={`inline-block h-8 w-8 rounded-xs bg-no-repeat ${className}`}
       style={{
         backgroundImage: `url(/images/players/${team}.png)`,
         backgroundPosition: `${spriteIndex * -32}px 0`,

@@ -3,20 +3,51 @@
 import Link from "next/link";
 import { useState } from "react";
 
+import { HorizontalScrollTable } from "@/components/horizontal-scroll-table";
+import { MetricLegend, MetricStrip } from "@/components/metric-strip";
 import { HeadshotSprite, HelmetSprite } from "@/components/sprites";
-import { TooltipLabel } from "@/components/tooltip-label";
 import { POSITION_PAGE_CONFIG_MAP } from "@/lib/site-config";
-import { sortEntriesByKey, getTeamSlugFromCode, matchesPrefixes } from "@/lib/player-utils";
+import { getTeamSlugFromCode, matchesPrefixes, sortEntriesByKey } from "@/lib/player-utils";
 import { teamRoute } from "@/lib/routes";
-import type { PlayerMetricKey, PlayerRecord, PlayerSortKey, PositionSlug, SortDirection } from "@/lib/types";
+import type {
+  PlayerMetricKey,
+  PlayerRecord,
+  PlayerSortKey,
+  PositionSlug,
+  SortDirection,
+} from "@/lib/types";
 
 type PlayerLeaderboardProps = {
   slug: PositionSlug;
   entries: PlayerRecord[];
 };
 
+function PlayerTableHeaderRow({ children }: { children: React.ReactNode }) {
+  return (
+    <li className="grid w-full grid-cols-[52px_32px_32px_180px_52px_minmax(520px,1fr)] items-center border-b-4 border-white/35 pb-3 text-white/65 sm:grid-cols-[52px_32px_32px_minmax(0,180px)_52px_minmax(0,1fr)]">
+      {children}
+    </li>
+  );
+}
+
+function PlayerTableRow({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="grid w-full grid-cols-[52px_32px_32px_180px_52px_minmax(520px,1fr)] items-center sm:grid-cols-[52px_32px_32px_minmax(0,180px)_52px_minmax(0,1fr)]">
+      {children}
+    </div>
+  );
+}
+
 function renderMetricValue(entry: PlayerRecord, key: PlayerMetricKey): number {
   return Number(entry[key] ?? 0);
+}
+
+function getSortButtonClass(active: boolean, align: "left" | "center" | "right") {
+  return `inline-flex min-h-8 items-center ${
+    align === "left" ? "justify-start text-left" : align === "right" ? "justify-end text-right" : "justify-center"
+  } rounded px-1 text-[11px] font-bold uppercase tracking-[0.08em] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 ${
+    active ? "text-white" : "text-white/72 hover:text-white"
+  }`;
 }
 
 export function PlayerLeaderboard({ slug, entries }: PlayerLeaderboardProps) {
@@ -30,6 +61,7 @@ export function PlayerLeaderboard({ slug, entries }: PlayerLeaderboardProps) {
     ? entries.filter((entry) => matchesPrefixes(entry.position, activeFilter.allowedPrefixes))
     : entries;
   const sortedEntries = sortEntriesByKey(filteredEntries, sortKey, sortDirection);
+  const activeMetricKey = config.columns.find((column) => column.key === sortKey)?.key ?? null;
 
   function changeSort(key: PlayerSortKey, direction: SortDirection) {
     setSortKey(key);
@@ -38,34 +70,36 @@ export function PlayerLeaderboard({ slug, entries }: PlayerLeaderboardProps) {
 
   return (
     <>
-      <header className="mb-12">
-        <h1 className="font-(family-name:--font-tecmo) text-[32px] leading-none uppercase">
+      <header className="mb-8 sm:mb-12">
+        <h1 className="font-(family-name:--font-tecmo) text-[26px] leading-[0.92] uppercase text-balance sm:text-[32px]">
           {config.title}
         </h1>
-        <p className="mt-2 text-[16px] font-medium text-white/65">{config.note}</p>
+        <p className="mt-3 max-w-[48rem] text-[15px] font-medium text-pretty text-white/65 sm:mt-2 sm:text-[16px]">
+          {config.note}
+        </p>
       </header>
 
-      <div className="mb-16">
+      <div className="mb-14 sm:mb-16">
         {config.filters?.length ? (
-          <ul className="mb-8 text-left">
+          <ul className="mb-6 flex flex-wrap gap-x-3 gap-y-2 text-left sm:mb-8">
             {config.filters.map((filter) => {
               const active = filter.id === filterId;
 
               return (
-                <li key={filter.id} className="mr-3 inline-block">
+                <li key={filter.id}>
                   <button
                     type="button"
                     data-testid={`filter-${filter.id}`}
                     onClick={() => setFilterId(filter.id)}
-                    className={`relative border-b-2 pb-0.5 font-bold ${
+                    className={`relative min-h-10 rounded px-1 pb-0.5 font-bold transition ${
                       active
                         ? "border-transparent text-white"
                         : "border-white/65 text-white/65 hover:border-white hover:text-white"
-                    }`}
+                    } border-b-2`}
                   >
                     {filter.label}
                     {active ? (
-                      <span className="absolute left-1/2 top-full mt-1 h-0 w-0 -translate-x-1/2 border-x-[8px] border-t-[8px] border-x-transparent border-t-white" />
+                      <span className="absolute left-1/2 top-full mt-1 h-0 w-0 -translate-x-1/2 border-x-8 border-t-8 border-x-transparent border-t-white" />
                     ) : null}
                   </button>
                 </li>
@@ -74,45 +108,36 @@ export function PlayerLeaderboard({ slug, entries }: PlayerLeaderboardProps) {
           </ul>
         ) : null}
 
-        <ol className="space-y-3">
-          <li className="grid grid-cols-[52px_32px_32px_180px_52px_1fr] items-center border-b-4 border-white/35 pb-3 text-white/65">
-            <div className="text-center text-[14px] font-bold">
-              <TooltipLabel
-                label="Ranking"
-                tooltip={config.rankingTooltip}
-                onClick={() => changeSort(config.rankingKey, "asc")}
-                active={sortKey === config.rankingKey}
-              />
-            </div>
-            <div />
-            <div />
-            <div />
-            <div className="text-center text-[14px] font-bold">
-              <TooltipLabel
-                label="Rating"
-                tooltip="Out of 100%"
-                onClick={() => changeSort(config.ratingKey, "desc")}
-                active={sortKey === config.ratingKey}
-              />
-            </div>
-
-            <div className="ml-4 flex gap-2">
-              {config.columns.map((column) => (
-                <div
-                  key={column.key}
-                  className="text-[14px]"
-                  style={{ flexBasis: 0, flexGrow: column.weight }}
+        <HorizontalScrollTable testId="player-table-scroll">
+          <PlayerTableHeaderRow>
+              <div className="text-center text-[14px] font-bold">
+                <button
+                  type="button"
+                  onClick={() => changeSort(config.rankingKey, "asc")}
+                  className={getSortButtonClass(sortKey === config.rankingKey, "center")}
                 >
-                  <TooltipLabel
-                    label={column.label}
-                    tooltip={column.tooltip}
-                    onClick={() => changeSort(column.key, "desc")}
-                    active={sortKey === column.key}
-                  />
-                </div>
-              ))}
-            </div>
-          </li>
+                  Ranking
+                </button>
+              </div>
+              <div />
+              <div />
+              <div />
+              <div className="text-center text-[14px] font-bold">
+                <button
+                  type="button"
+                  onClick={() => changeSort(config.ratingKey, "desc")}
+                  className={getSortButtonClass(sortKey === config.ratingKey, "center")}
+                >
+                  Rating
+                </button>
+              </div>
+
+              <MetricLegend
+                columns={config.columns}
+                activeKey={activeMetricKey}
+                onColumnClick={(key) => changeSort(key, "desc")}
+              />
+          </PlayerTableHeaderRow>
 
           {sortedEntries.map((entry) => {
             const teamSlug = getTeamSlugFromCode(entry.team);
@@ -122,55 +147,43 @@ export function PlayerLeaderboard({ slug, entries }: PlayerLeaderboardProps) {
                 key={`${entry.team}-${entry.position}-${entry.name}`}
                 data-testid="leaderboard-row"
                 data-position={entry.position}
-                className="grid grid-cols-[52px_32px_32px_180px_52px_1fr] items-center"
               >
-                <div className="text-center text-[18px] font-bold">
-                  {String(entry[config.rankingKey] ?? "")}
-                </div>
+                <PlayerTableRow>
+                    <div className="text-center text-[18px] font-bold tabular-nums">
+                      {String(entry[config.rankingKey] ?? "")}
+                    </div>
 
-                <Link href={teamRoute(teamSlug)} className="flex items-center justify-center">
-                  <HelmetSprite team={teamSlug} />
-                </Link>
+                    <Link href={teamRoute(teamSlug)} className="flex items-center justify-center">
+                      <HelmetSprite team={teamSlug} />
+                    </Link>
 
-                <div className="flex items-center justify-center">
-                  <HeadshotSprite team={teamSlug} position={entry.position as never} />
-                </div>
+                    <div className="flex items-center justify-center">
+                      <HeadshotSprite team={teamSlug} position={entry.position as never} />
+                    </div>
 
-                <div className="pl-3">
-                  <h3 className="text-[18px]">{entry.name}</h3>
-                  <h4 className="text-[14px] font-medium text-white/65">
-                    {entry.position} {entry.number}
-                  </h4>
-                </div>
+                    <div className="pl-3">
+                      <h3 className="text-[18px] leading-[1.05] text-balance sm:leading-normal">
+                        {entry.name}
+                      </h3>
+                      <h4 className="text-[14px] font-medium text-white/65">
+                        {entry.position} {entry.number}
+                      </h4>
+                    </div>
 
-                <div className="text-center text-[18px] font-bold">
-                  {String(entry[config.ratingKey] ?? "")}
-                </div>
+                    <div className="text-center text-[18px] font-bold tabular-nums">
+                      {String(entry[config.ratingKey] ?? "")}
+                    </div>
 
-                <div className="ml-4 flex gap-2">
-                  {config.columns.map((column) => {
-                    const value = renderMetricValue(entry, column.key);
-
-                    return (
-                      <div
-                        key={column.key}
-                        data-metric-key={column.key}
-                        className="min-w-0 border-[3px] border-white bg-white/25 px-1 py-2 text-center text-[12px] font-bold text-[#222]"
-                        style={{
-                          flexBasis: 0,
-                          flexGrow: column.weight,
-                          backgroundImage: `linear-gradient(to right, var(--pink) 0%, var(--pink) ${value}%, transparent ${value}%)`,
-                        }}
-                      >
-                        {value}
-                      </div>
-                    );
-                  })}
-                </div>
+                    <MetricStrip
+                      columns={config.columns}
+                      getValue={(key) => renderMetricValue(entry, key)}
+                      className="ml-3 md:ml-4"
+                    />
+                </PlayerTableRow>
               </li>
             );
           })}
-        </ol>
+        </HorizontalScrollTable>
       </div>
     </>
   );

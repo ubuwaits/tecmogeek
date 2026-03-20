@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { useState } from "react";
 
+import { HorizontalScrollTable } from "@/components/horizontal-scroll-table";
+import { MetricLegend, MetricStrip } from "@/components/metric-strip";
 import { HeadshotSprite } from "@/components/sprites";
 import { TooltipLabel } from "@/components/tooltip-label";
 import {
@@ -23,26 +25,18 @@ import type {
   TeamSlug,
 } from "@/lib/types";
 
-function TeamMetricCell({
-  value,
-  weight,
-  metricKey,
-}: {
-  value: number;
-  weight: number;
-  metricKey: PlayerMetricKey;
-}) {
+function TeamTableHeaderRow({ children }: { children: React.ReactNode }) {
   return (
-    <div
-      data-metric-key={metricKey}
-      className="min-w-0 border-[3px] border-white bg-white/25 px-1 py-2 text-center text-[12px] font-bold text-[#222]"
-      style={{
-        flexBasis: 0,
-        flexGrow: weight,
-        backgroundImage: `linear-gradient(to right, var(--pink) 0%, var(--pink) ${value}%, transparent ${value}%)`,
-      }}
-    >
-      {value}
+    <li className="grid w-full grid-cols-[52px_32px_180px_52px_minmax(520px,1fr)] items-center border-b-4 border-white/35 pb-3 text-white/65 sm:grid-cols-[52px_32px_minmax(0,180px)_52px_minmax(0,1fr)]">
+      {children}
+    </li>
+  );
+}
+
+function TeamTableRow({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="grid w-full grid-cols-[52px_32px_180px_52px_minmax(520px,1fr)] items-center sm:grid-cols-[52px_32px_minmax(0,180px)_52px_minmax(0,1fr)]">
+      {children}
     </div>
   );
 }
@@ -57,7 +51,7 @@ function TeamHeaderRow({
   columns: readonly MetricColumn[];
 }) {
   return (
-    <li className="grid grid-cols-[52px_32px_180px_52px_1fr] items-center border-b-4 border-white/35 pb-3 text-white/65">
+    <TeamTableHeaderRow>
       <div className="text-center text-[14px] font-bold">
         <TooltipLabel label={rankingLabel} tooltip={rankingTooltip} />
       </div>
@@ -66,18 +60,50 @@ function TeamHeaderRow({
       <div className="text-center text-[14px] font-bold">
         <TooltipLabel label="Rating" tooltip="Out of 100%" />
       </div>
-      <div className="ml-4 flex gap-2">
-        {columns.map((column) => (
-          <div
-            key={column.key}
-            className="text-[14px]"
-            style={{ flexBasis: 0, flexGrow: column.weight }}
-          >
-            <TooltipLabel label={column.label} tooltip={column.tooltip} />
-          </div>
-        ))}
+
+      <MetricLegend columns={columns} />
+    </TeamTableHeaderRow>
+  );
+}
+
+function TeamPlayerRow({
+  player,
+  spriteIndex,
+  teamSlug,
+  playerPage,
+  columns,
+  getMetricValue,
+  rankingValue,
+  ratingValue,
+}: {
+  player: PlayerRecord;
+  spriteIndex: number;
+  teamSlug: TeamSlug;
+  playerPage: TeamSectionConfig["playerPage"];
+  columns: readonly MetricColumn[];
+  getMetricValue: (key: PlayerMetricKey) => number;
+  rankingValue: string;
+  ratingValue: string;
+}) {
+  return (
+    <TeamTableRow>
+      <div className="text-center text-[18px] font-bold tabular-nums">{rankingValue}</div>
+      <div className="flex items-center justify-center">
+        <HeadshotSprite team={teamSlug} index={spriteIndex} />
       </div>
-    </li>
+      <div className="pl-3">
+        <h3 className="text-[18px] leading-[1.05] text-balance sm:leading-normal">{player.name}</h3>
+        <h4 className="text-[14px] font-medium text-white/65">
+          {player.position} {player.number}
+        </h4>
+      </div>
+      <div className="text-center text-[18px] font-bold tabular-nums">
+        <Link href={playerRoute(playerPage)} className="rounded px-2 py-0.5 hover:bg-white/20">
+          {ratingValue}
+        </Link>
+      </div>
+      <MetricStrip columns={columns} getValue={getMetricValue} className="ml-3 md:ml-4" />
+    </TeamTableRow>
   );
 }
 
@@ -89,10 +115,11 @@ function TeamStaticSection({
   section: TeamSectionConfig;
 }) {
   const players = team.players.slice(section.range[0], section.range[1] + 1);
+  const teamSlug = team.short_name as TeamSlug;
 
   return (
-    <div className="mb-16">
-      <ol className="space-y-3">
+    <div className="mb-12 sm:mb-16">
+      <HorizontalScrollTable testId={`team-table-scroll-${section.id}`}>
         <TeamHeaderRow
           rankingLabel={section.rankingLabel}
           rankingTooltip={section.rankingTooltip}
@@ -101,43 +128,29 @@ function TeamStaticSection({
 
         {players.map((player, index) => {
           const spriteIndex = section.range[0] + index;
+          const rankingValue = String(player.ranking ?? "");
+          const ratingValue = String(player.rating ?? "");
 
           return (
-            <li
-              key={`${section.id}-${player.name}`}
-              className="grid grid-cols-[52px_32px_180px_52px_1fr] items-center"
-            >
-              <div className="text-center text-[18px] font-bold">{player.ranking}</div>
-              <div className="flex items-center justify-center">
-                <HeadshotSprite team={team.short_name as TeamSlug} index={spriteIndex} />
-              </div>
-              <div className="pl-3">
-                <h3 className="text-[18px]">{player.name}</h3>
-                <h4 className="text-[14px] font-medium text-white/65">
-                  {player.position} {player.number}
-                </h4>
-              </div>
-              <div className="text-center text-[18px] font-bold">
-                <Link href={playerRoute(section.playerPage)} className="rounded px-2 py-0.5 hover:bg-white/20">
-                  {player.rating}
-                </Link>
-              </div>
-              <div className="ml-4 flex gap-2">
-                {section.columns.map((column) => (
-                  <TeamMetricCell
-                    key={column.key}
-                    metricKey={column.key}
-                    value={Number(player[column.key] ?? 0)}
-                    weight={column.weight}
-                  />
-                ))}
-              </div>
+            <li key={`${section.id}-${player.name}`}>
+              <TeamPlayerRow
+                player={player}
+                spriteIndex={spriteIndex}
+                teamSlug={teamSlug}
+                playerPage={section.playerPage}
+                columns={section.columns}
+                getMetricValue={(key) => Number(player[key] ?? 0)}
+                rankingValue={rankingValue}
+                ratingValue={ratingValue}
+              />
             </li>
           );
         })}
-      </ol>
+      </HorizontalScrollTable>
 
-      <p className="ml-[264px] mt-2 text-[16px] leading-[1.2] text-white/65">{section.note}</p>
+      <p className="mt-3 text-[14px] leading-[1.4] text-pretty text-white/65 sm:ml-[264px] sm:mt-2 sm:text-[16px] sm:leading-[1.2]">
+        {section.note}
+      </p>
     </div>
   );
 }
@@ -162,6 +175,7 @@ export function TeamSkillSection({ team }: { team: TeamData }) {
         ?.spriteIndex ?? TEAM_SKILL_RANGE[0],
   }));
   const returnSpeeds = getTeamReturnSpeedValues(team);
+  const teamSlug = team.short_name as TeamSlug;
 
   function getModeMetricValue(player: PlayerRecord, key: PlayerMetricKey): number {
     if (key === "kick_return_maximum_speed") {
@@ -176,80 +190,83 @@ export function TeamSkillSection({ team }: { team: TeamData }) {
   }
 
   return (
-    <div className="mb-16" data-testid="team-skill-section" data-mode={mode}>
-      <ol className="space-y-3">
+    <div className="mb-12 sm:mb-16" data-testid="team-skill-section" data-mode={mode}>
+      <div className="mb-4 sm:mb-8">
+        <label className="block sm:hidden">
+          <span className="sr-only">Skill mode</span>
+          <div className="relative">
+            <select
+              data-testid="team-mode-select"
+              aria-label="Skill mode"
+              value={mode}
+              onChange={(event) => setMode(event.target.value as TeamSkillMode)}
+              className="min-h-11 w-full appearance-none rounded-xl border border-white/15 bg-[#0f4faa]/60 px-4 py-3 pr-11 font-(family-name:--font-tecmo) text-[14px] uppercase leading-none text-white shadow-[0_0_0_1px_rgba(255,255,255,0.06)] transition-[background-color,box-shadow] duration-150 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
+            >
+              {Object.values(TEAM_SKILL_MODE_CONFIG).map((config) => (
+                <option key={config.id} value={config.id} className="text-black">
+                  {config.label}
+                </option>
+              ))}
+            </select>
+            <span className="pointer-events-none absolute right-4 top-1/2 h-0 w-0 -translate-y-1/2 border-x-[6px] border-t-[6px] border-x-transparent border-t-white" />
+          </div>
+        </label>
+
+        <ul className="hidden flex-wrap justify-center gap-2 text-left sm:flex">
+          {Object.values(TEAM_SKILL_MODE_CONFIG).map((config) => {
+            const active = config.id === mode;
+
+            return (
+              <li key={config.id}>
+                <button
+                  type="button"
+                  data-testid={`team-mode-${config.id}`}
+                  onClick={() => setMode(config.id)}
+                  className={`min-h-11 rounded-xl px-4 py-3 font-bold transition-[background-color,color,box-shadow] duration-150 ease-out ${
+                    active
+                      ? "bg-white/14 text-white shadow-[0_0_0_1px_rgba(255,255,255,0.16)]"
+                      : "bg-white/6 text-white/72 shadow-[0_0_0_1px_rgba(255,255,255,0.08)] hover:bg-white/10 hover:text-white"
+                  }`}
+                >
+                  {config.label}
+                </button>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+
+      <HorizontalScrollTable testId="team-skill-table-scroll">
         <TeamHeaderRow
           rankingLabel="RB/WR/TE Ranking"
           rankingTooltip="Out of 280 RB, WR & TE"
           columns={modeConfig.columns}
         />
 
-        <li>
-          <ul className="mb-8 text-center">
-            {Object.values(TEAM_SKILL_MODE_CONFIG).map((config) => {
-              const active = config.id === mode;
+        {sortedPlayers.map(({ player, spriteIndex }) => {
+          const rankingValue = String(player[modeConfig.rankingKey] ?? "");
+          const ratingValue = String(player[modeConfig.ratingKey] ?? "");
 
-              return (
-                <li key={config.id} className="mr-3 inline-block">
-                  <button
-                    type="button"
-                    data-testid={`team-mode-${config.id}`}
-                    onClick={() => setMode(config.id)}
-                    className={`relative border-b-2 pb-0.5 font-bold ${
-                      active
-                        ? "border-transparent text-white"
-                        : "border-white/65 text-white/65 hover:border-white hover:text-white"
-                    }`}
-                  >
-                    {config.label}
-                    {active ? (
-                      <span className="absolute left-1/2 top-full mt-1 h-0 w-0 -translate-x-1/2 border-x-[8px] border-t-[8px] border-x-transparent border-t-white" />
-                    ) : null}
-                  </button>
-                </li>
-              );
-            })}
-          </ul>
-        </li>
+          return (
+            <li key={`${mode}-${player.name}`} data-testid="team-skill-row">
+              <TeamPlayerRow
+                player={player}
+                spriteIndex={spriteIndex}
+                teamSlug={teamSlug}
+                playerPage={modeConfig.playerPage}
+                columns={modeConfig.columns}
+                getMetricValue={(key) => getModeMetricValue(player, key)}
+                rankingValue={rankingValue}
+                ratingValue={ratingValue}
+              />
+            </li>
+          );
+        })}
+      </HorizontalScrollTable>
 
-        {sortedPlayers.map(({ player, spriteIndex }) => (
-          <li
-            key={`${mode}-${player.name}`}
-            data-testid="team-skill-row"
-            className="grid grid-cols-[52px_32px_180px_52px_1fr] items-center"
-          >
-            <div className="text-center text-[18px] font-bold">
-              {String(player[modeConfig.rankingKey] ?? "")}
-            </div>
-            <div className="flex items-center justify-center">
-              <HeadshotSprite team={team.short_name as TeamSlug} index={spriteIndex} />
-            </div>
-            <div className="pl-3">
-              <h3 className="text-[18px]">{player.name}</h3>
-              <h4 className="text-[14px] font-medium text-white/65">
-                {player.position} {player.number}
-              </h4>
-            </div>
-            <div className="text-center text-[18px] font-bold">
-              <Link href={playerRoute(modeConfig.playerPage)} className="rounded px-2 py-0.5 hover:bg-white/20">
-                {String(player[modeConfig.ratingKey] ?? "")}
-              </Link>
-            </div>
-            <div className="ml-4 flex gap-2">
-              {modeConfig.columns.map((column) => (
-                <TeamMetricCell
-                  key={column.key}
-                  metricKey={column.key}
-                  value={getModeMetricValue(player, column.key)}
-                  weight={column.weight}
-                />
-              ))}
-            </div>
-          </li>
-        ))}
-      </ol>
-
-      <p className="ml-[264px] mt-2 text-[16px] leading-[1.2] text-white/65">{modeConfig.note}</p>
+      <p className="mt-3 text-[14px] leading-[1.4] text-pretty text-white/65 sm:ml-[264px] sm:mt-2 sm:text-[16px] sm:leading-[1.2]">
+        {modeConfig.note}
+      </p>
     </div>
   );
 }
