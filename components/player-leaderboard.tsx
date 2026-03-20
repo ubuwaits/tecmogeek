@@ -24,7 +24,7 @@ type PlayerLeaderboardProps = {
 
 function PlayerTableHeaderRow({ children }: { children: React.ReactNode }) {
   return (
-    <li className="grid w-full grid-cols-[52px_32px_32px_180px_52px_minmax(520px,1fr)] items-center border-b-4 border-white/35 pb-3 text-white/65 sm:grid-cols-[52px_32px_32px_minmax(0,180px)_52px_minmax(0,1fr)]">
+    <li className="grid w-full grid-cols-[52px_252px_52px_minmax(520px,1fr)] items-center border-b-4 border-white/35 pb-3 text-white/65 sm:grid-cols-[52px_minmax(0,252px)_52px_minmax(0,1fr)]">
       {children}
     </li>
   );
@@ -32,7 +32,7 @@ function PlayerTableHeaderRow({ children }: { children: React.ReactNode }) {
 
 function PlayerTableRow({ children }: { children: React.ReactNode }) {
   return (
-    <div className="grid w-full grid-cols-[52px_32px_32px_180px_52px_minmax(520px,1fr)] items-center sm:grid-cols-[52px_32px_32px_minmax(0,180px)_52px_minmax(0,1fr)]">
+    <div className="grid w-full grid-cols-[52px_252px_52px_minmax(520px,1fr)] items-center sm:grid-cols-[52px_minmax(0,252px)_52px_minmax(0,1fr)]">
       {children}
     </div>
   );
@@ -120,8 +120,6 @@ export function PlayerLeaderboard({ slug, entries }: PlayerLeaderboardProps) {
                 </button>
               </div>
               <div />
-              <div />
-              <div />
               <div className="text-center text-[14px] font-bold">
                 <button
                   type="button"
@@ -153,21 +151,22 @@ export function PlayerLeaderboard({ slug, entries }: PlayerLeaderboardProps) {
                       {String(entry[config.rankingKey] ?? "")}
                     </div>
 
-                    <Link href={teamRoute(teamSlug)} className="flex items-center justify-center">
-                      <HelmetSprite team={teamSlug} />
-                    </Link>
+                    <div className="flex min-w-0 items-center gap-3">
+                      <div className="flex shrink-0 items-center gap-3">
+                        <Link href={teamRoute(teamSlug)} className="flex items-center justify-center">
+                          <HelmetSprite team={teamSlug} />
+                        </Link>
+                        <HeadshotSprite team={teamSlug} position={entry.position as never} />
+                      </div>
 
-                    <div className="flex items-center justify-center">
-                      <HeadshotSprite team={teamSlug} position={entry.position as never} />
-                    </div>
-
-                    <div className="pl-3">
-                      <h3 className="text-[18px] leading-[1.05] text-balance sm:leading-normal">
-                        {entry.name}
-                      </h3>
-                      <h4 className="text-[14px] font-medium text-white/65">
-                        {entry.position} {entry.number}
-                      </h4>
+                      <div className="min-w-0">
+                        <h3 className="text-[18px] leading-[1.05] text-balance sm:leading-normal">
+                          {entry.name}
+                        </h3>
+                        <h4 className="text-[14px] font-medium text-white/65">
+                          {entry.position} {entry.number}
+                        </h4>
+                      </div>
                     </div>
 
                     <div className="text-center text-[18px] font-bold tabular-nums">
