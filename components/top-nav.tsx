@@ -88,17 +88,17 @@ export function TopNav() {
         >
           <span className="relative block h-4 w-5">
             <span
-              className={`absolute left-0 top-0 block h-[2px] w-5 rounded-full bg-current transition ${
+              className={`absolute left-0 top-0 block h-0.5 w-5 rounded-full bg-current transition ${
                 mobileNavOpen ? "translate-y-[7px] rotate-45" : ""
               }`}
             />
             <span
-              className={`absolute left-0 top-[7px] block h-[2px] w-5 rounded-full bg-current transition ${
+              className={`absolute left-0 top-[7px] block h-0.5 w-5 rounded-full bg-current transition ${
                 mobileNavOpen ? "opacity-0" : ""
               }`}
             />
             <span
-              className={`absolute left-0 top-[14px] block h-[2px] w-5 rounded-full bg-current transition ${
+              className={`absolute left-0 top-3.5 block h-0.5 w-5 rounded-full bg-current transition ${
                 mobileNavOpen ? "-translate-y-[7px] -rotate-45" : ""
               }`}
             />

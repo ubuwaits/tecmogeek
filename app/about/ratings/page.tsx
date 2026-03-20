@@ -152,7 +152,7 @@ export default function RatingsPage() {
         height={281}
         sizes="(max-width: 640px) calc(100vw - 2rem), 603px"
         unoptimized
-        className="h-auto w-full max-w-[603px] rounded-[4px]"
+        className="h-auto w-full max-w-[603px] rounded-sm"
       />
       <p className="mb-6 mt-[-0.75em] text-[13px] text-[#626262] sm:text-[14px]">
         When player attributes are shown, the width of the bars corresponds to the weight that

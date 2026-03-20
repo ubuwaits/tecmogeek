@@ -100,7 +100,7 @@ export function PlayerLeaderboard({ slug, entries }: PlayerLeaderboardProps) {
                   >
                     {filter.label}
                     {active ? (
-                      <span className="absolute left-1/2 top-full mt-1 h-0 w-0 -translate-x-1/2 border-x-[8px] border-t-[8px] border-x-transparent border-t-white" />
+                      <span className="absolute left-1/2 top-full mt-1 h-0 w-0 -translate-x-1/2 border-x-8 border-t-8 border-x-transparent border-t-white" />
                     ) : null}
                   </button>
                 </li>

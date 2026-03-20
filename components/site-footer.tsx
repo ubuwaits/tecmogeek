@@ -1,6 +1,6 @@
 export function SiteFooter() {
   return (
-    <footer className="mx-[-1rem] mb-[-1rem] mt-12 border-t border-white/25 bg-black sm:mx-[-2rem] sm:mb-[-2rem] sm:mt-16">
+    <footer className="-mx-4 -mb-4 mt-12 border-t border-white/25 bg-black sm:-mx-8 sm:-mb-8 sm:mt-16">
       <section className="px-4 py-3 text-center text-[15px] text-white/65 sm:px-8 sm:py-2 sm:text-[16px]">
         <p>
           A labor of love by{" "}
