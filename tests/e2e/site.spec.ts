@@ -76,6 +76,13 @@ test.describe("mobile responsive layout", () => {
 
     await page.getByTestId("mobile-nav-toggle").click();
     await expect(page.getByTestId("mobile-nav-panel")).toHaveAttribute("aria-hidden", "false");
+    await expect(page.getByTestId("mobile-nav-section-teams")).toHaveAttribute("aria-expanded", "false");
+    await expect(page.getByTestId("mobile-nav-section-players")).toHaveAttribute(
+      "aria-expanded",
+      "false",
+    );
+    await expect(page.getByRole("link", { name: /Bills/i })).toHaveCount(0);
+    await page.getByTestId("mobile-nav-section-teams").click();
     await expect(page.getByTestId("mobile-nav-section-teams")).toHaveAttribute("aria-expanded", "true");
     await expect(page.getByRole("link", { name: /Bills/i })).toBeVisible();
     await page.getByRole("link", { name: "About Ratings" }).last().click();

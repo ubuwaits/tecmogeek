@@ -53,11 +53,7 @@ export function TopNav() {
     setMobileNavOpen((current) => {
       const next = !current;
 
-      if (next) {
-        setMobileSection((openSection) => openSection ?? "teams");
-      } else {
-        setMobileSection(null);
-      }
+      setMobileSection(null);
 
       return next;
     });
@@ -70,7 +66,7 @@ export function TopNav() {
     >
       <div className="flex items-center gap-3 px-4 py-3 sm:px-4 sm:py-4">
         <h1 className="w-[106px] text-center font-(family-name:--font-tecmo) text-[18px] leading-none sm:w-[140px] sm:text-[22px]">
-          <Link href={homeRoute} className="text-inherit no-underline">
+          <Link href={homeRoute} className="cursor-pointer text-inherit no-underline">
             Tecmo
             <br />
             Geek
@@ -84,7 +80,7 @@ export function TopNav() {
           aria-label={mobileNavOpen ? "Close menu" : "Open menu"}
           aria-expanded={mobileNavOpen}
           aria-controls="mobile-nav-panel"
-          className="ml-auto inline-flex h-11 w-11 items-center justify-center rounded-xl border border-white/15 bg-[#0f4faa]/60 text-white transition hover:bg-[#0f4faa] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 sm:hidden"
+          className="ml-auto inline-flex h-11 w-11 cursor-pointer items-center justify-center rounded-xl border border-white/15 bg-[#0f4faa]/60 text-white transition hover:bg-[#0f4faa] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 sm:hidden"
         >
           <span className="relative block h-4 w-5">
             <span
@@ -112,7 +108,7 @@ export function TopNav() {
                 type="button"
                 data-testid="nav-teams"
                 onClick={() => setOpenMenu((current) => (current === "teams" ? null : "teams"))}
-                className={`relative block px-3 py-2 pr-[30px] font-(family-name:--font-tecmo) text-[13px] uppercase leading-none text-inherit no-underline ${
+                className={`relative block cursor-pointer px-3 py-2 pr-[30px] font-(family-name:--font-tecmo) text-[13px] uppercase leading-none text-inherit no-underline ${
                   openMenu === "teams" ? "rounded-t bg-(--dark-bg)" : ""
                 }`}
               >
@@ -131,7 +127,7 @@ export function TopNav() {
                             <li key={team}>
                               <Link
                                 href={teamRoute(team)}
-                                className="mx-3 flex items-center rounded px-2 py-2 text-[16px] font-bold text-white no-underline hover:bg-(--pink)"
+                                className="mx-3 flex cursor-pointer items-center rounded px-2 py-2 text-[16px] font-bold text-white no-underline hover:bg-(--pink)"
                               >
                                 <HelmetSprite team={team} />
                                 <span className="ml-2">{getTeamLabel(team)}</span>
@@ -151,7 +147,7 @@ export function TopNav() {
                 type="button"
                 data-testid="nav-players"
                 onClick={() => setOpenMenu((current) => (current === "players" ? null : "players"))}
-                className={`relative block px-3 py-2 pr-[30px] font-(family-name:--font-tecmo) text-[13px] uppercase leading-none text-inherit no-underline ${
+                className={`relative block cursor-pointer px-3 py-2 pr-[30px] font-(family-name:--font-tecmo) text-[13px] uppercase leading-none text-inherit no-underline ${
                   openMenu === "players" ? "rounded-t bg-(--dark-bg)" : ""
                 }`}
               >
@@ -169,7 +165,7 @@ export function TopNav() {
                             <li key={page.slug}>
                               <Link
                                 href={playerRoute(page.slug)}
-                                className="mx-3 block rounded px-2 py-2 text-[16px] font-bold text-white no-underline hover:bg-(--pink)"
+                                className="mx-3 block cursor-pointer rounded px-2 py-2 text-[16px] font-bold text-white no-underline hover:bg-(--pink)"
                               >
                                 {page.navLabel}
                               </Link>
@@ -186,7 +182,7 @@ export function TopNav() {
             <li className="relative text-white">
               <Link
                 href={aboutRatingsRoute}
-                className="block px-3 py-2 font-(family-name:--font-tecmo) text-[13px] uppercase leading-none text-inherit no-underline"
+                className="block cursor-pointer px-3 py-2 font-(family-name:--font-tecmo) text-[13px] uppercase leading-none text-inherit no-underline"
               >
                 About Ratings
               </Link>
@@ -213,7 +209,7 @@ export function TopNav() {
                 onClick={() =>
                   setMobileSection((current) => (current === "teams" ? null : "teams"))
                 }
-                className="flex min-h-11 w-full items-center justify-between rounded-xl border border-white/15 bg-[#0f4faa]/60 px-4 py-3 font-(family-name:--font-tecmo) text-[14px] uppercase leading-none text-white transition hover:bg-[#0f4faa]"
+                className="flex min-h-11 w-full cursor-pointer items-center justify-between rounded-xl border border-white/15 bg-[#0f4faa]/60 px-4 py-3 font-(family-name:--font-tecmo) text-[14px] uppercase leading-none text-white transition hover:bg-[#0f4faa]"
               >
                 <span>Teams</span>
                 <span
@@ -235,7 +231,7 @@ export function TopNav() {
                           <li key={team}>
                             <Link
                               href={teamRoute(team)}
-                              className="flex min-h-11 items-center gap-2 rounded-xl bg-white/8 px-3 py-2.5 text-[13px] font-semibold text-white no-underline transition hover:bg-white/14"
+                              className="flex min-h-11 cursor-pointer items-center gap-2 rounded-xl bg-white/8 px-3 py-2.5 text-[13px] font-semibold text-white no-underline transition hover:bg-white/14"
                             >
                               <HelmetSprite team={team} />
                               <span className="min-w-0 text-pretty">{getTeamLabel(team)}</span>
@@ -257,7 +253,7 @@ export function TopNav() {
                 onClick={() =>
                   setMobileSection((current) => (current === "players" ? null : "players"))
                 }
-                className="flex min-h-11 w-full items-center justify-between rounded-xl border border-white/15 bg-[#0f4faa]/60 px-4 py-3 font-(family-name:--font-tecmo) text-[14px] uppercase leading-none text-white transition hover:bg-[#0f4faa]"
+                className="flex min-h-11 w-full cursor-pointer items-center justify-between rounded-xl border border-white/15 bg-[#0f4faa]/60 px-4 py-3 font-(family-name:--font-tecmo) text-[14px] uppercase leading-none text-white transition hover:bg-[#0f4faa]"
               >
                 <span>Players</span>
                 <span
@@ -273,7 +269,7 @@ export function TopNav() {
                     <Link
                       key={page.slug}
                       href={playerRoute(page.slug)}
-                      className="flex min-h-11 items-center rounded-xl bg-white/8 px-3 py-2.5 text-[13px] font-semibold text-white no-underline transition hover:bg-white/14"
+                      className="flex min-h-11 cursor-pointer items-center rounded-xl bg-white/8 px-3 py-2.5 text-[13px] font-semibold text-white no-underline transition hover:bg-white/14"
                     >
                       {page.navLabel}
                     </Link>
@@ -285,7 +281,7 @@ export function TopNav() {
             <li>
               <Link
                 href={aboutRatingsRoute}
-                className="flex min-h-11 items-center rounded-xl border border-white/15 bg-[#0f4faa]/60 px-4 py-3 font-(family-name:--font-tecmo) text-[14px] uppercase leading-none text-white no-underline transition hover:bg-[#0f4faa]"
+                className="flex min-h-11 cursor-pointer items-center rounded-xl border border-white/15 bg-[#0f4faa]/60 px-4 py-3 font-(family-name:--font-tecmo) text-[14px] uppercase leading-none text-white no-underline transition hover:bg-[#0f4faa]"
               >
                 About Ratings
               </Link>
