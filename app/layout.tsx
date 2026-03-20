@@ -4,6 +4,7 @@ import localFont from "next/font/local";
 
 import { SiteFooter } from "@/components/site-footer";
 import { TopNav } from "@/components/top-nav";
+import { TooltipProvider } from "@/components/ui/tooltip";
 import { SOCIAL_IMAGE_PATH } from "@/lib/metadata";
 
 import "./globals.css";
@@ -67,12 +68,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} ${tecmo.variable} bg-(--blue) p-4 font-sans text-white antialiased sm:p-8`}>
-        <TopNav />
-        <main id="container" className="pt-[82px] sm:pt-24">
-          {children}
-        </main>
-        <SiteFooter />
-        <Analytics />
+        <TooltipProvider>
+          <TopNav />
+          <main id="container" className="pt-[82px] sm:pt-24">
+            {children}
+          </main>
+          <SiteFooter />
+          <Analytics />
+        </TooltipProvider>
       </body>
     </html>
   );

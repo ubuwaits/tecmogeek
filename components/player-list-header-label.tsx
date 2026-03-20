@@ -1,8 +1,10 @@
-import { TooltipLabel } from "@/components/tooltip-label";
+"use client";
 
-const PLAYER_LIST_HEADER_LABEL_CLASS =
-  "items-end pb-0 whitespace-nowrap text-[11px] font-bold uppercase leading-none tracking-[0.08em] text-white/72";
-const PLAYER_LIST_HEADER_CELL_CLASS = "flex min-h-8 w-full items-end";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 type HeaderLabelAlign = "left" | "center" | "right";
 
@@ -35,17 +37,36 @@ export function PlayerListHeaderLabel({
   align = "left",
   className = "",
 }: PlayerListHeaderLabelProps) {
+  const labelContent = (
+    <span
+      className={`inline-flex border-b border-dotted border-white/30 text-inherit transition hover:text-white focus-visible:outline-none ${
+        active ? "text-white" : ""
+      } items-end pb-0 whitespace-nowrap text-[11px] font-bold uppercase leading-none tracking-[0.08em] text-white/72 ${className}`}
+    >
+      <span>{label}</span>
+    </span>
+  );
+
+  const trigger = onClick ? (
+    <button type="button" onClick={onClick} className="inline-flex">
+      {labelContent}
+    </button>
+  ) : (
+    <span tabIndex={tooltip ? 0 : undefined} className="inline-flex">
+      {labelContent}
+    </span>
+  );
+
   return (
-    <div className={`${PLAYER_LIST_HEADER_CELL_CLASS} ${getAlignmentClass(align)}`}>
-      <TooltipLabel
-        label={label}
-        tooltip={tooltip}
-        onClick={onClick}
-        active={active}
-        className={`${PLAYER_LIST_HEADER_LABEL_CLASS} ${className}`}
-      />
+    <div className={`flex min-h-8 w-full items-end ${getAlignmentClass(align)}`}>
+      {tooltip ? (
+        <Tooltip delayDuration={100}>
+          <TooltipTrigger asChild>{trigger}</TooltipTrigger>
+          <TooltipContent>{tooltip}</TooltipContent>
+        </Tooltip>
+      ) : (
+        trigger
+      )}
     </div>
   );
 }
-
-export { PLAYER_LIST_HEADER_LABEL_CLASS };
