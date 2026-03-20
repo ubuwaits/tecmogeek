@@ -7,7 +7,7 @@ import { HorizontalScrollTable } from "@/components/horizontal-scroll-table";
 import { MetricLegend, MetricStrip } from "@/components/metric-strip";
 import { SkillTabs } from "@/components/skill-tabs";
 import { HeadshotSprite, HelmetSprite } from "@/components/sprites";
-import { POSITION_PAGE_CONFIG_MAP } from "@/lib/site-config";
+import { POSITION_PAGE_CONFIG_MAP } from "@/lib/players/config";
 import { getTeamSlugFromCode, matchesPrefixes, sortEntriesByKey } from "@/lib/player-utils";
 import { teamRoute } from "@/lib/routes";
 import type {

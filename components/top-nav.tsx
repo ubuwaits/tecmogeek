@@ -4,8 +4,9 @@ import { useEffect, useEffectEvent, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import { PLAYER_NAV_GROUPS, TEAM_GROUPS, getTeamLabel } from "@/lib/site-config";
+import { PLAYER_NAV_GROUPS } from "@/lib/players/config";
 import { aboutRatingsRoute, homeRoute, playerRoute, teamRoute } from "@/lib/routes";
+import { TEAM_GROUPS, getTeamLabel } from "@/lib/teams/config";
 import { HelmetSprite } from "@/components/sprites";
 
 type OpenMenu = "teams" | "players" | null;

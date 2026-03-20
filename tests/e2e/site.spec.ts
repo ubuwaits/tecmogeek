@@ -60,13 +60,25 @@ test("about rankings redirects to about ratings", async ({ page }) => {
   await expect(page.getByRole("heading", { name: "How player ratings and rankings are calculated" })).toBeVisible();
 });
 
-test("verification and favicon files are exported", async ({ request }) => {
+test("verification, metadata, and favicon files are exported", async ({ request }) => {
   const verification = await request.get("/google146824b99fdbed48.html");
   expect(verification.ok()).toBeTruthy();
   expect(await verification.text()).toContain("google-site-verification");
 
   const favicon = await request.get("/favicon.png");
   expect(favicon.ok()).toBeTruthy();
+
+  const robots = await request.get("/robots.txt");
+  expect(robots.ok()).toBeTruthy();
+  expect(await robots.text()).toContain("Sitemap: https://tecmogeek.com/sitemap.xml");
+
+  const sitemap = await request.get("/sitemap.xml");
+  expect(sitemap.ok()).toBeTruthy();
+  const sitemapText = await sitemap.text();
+  expect(sitemapText).toContain("<loc>https://tecmogeek.com/</loc>");
+  expect(sitemapText).toContain("<loc>https://tecmogeek.com/about/ratings/</loc>");
+  expect(sitemapText).toContain("<loc>https://tecmogeek.com/players/qb/</loc>");
+  expect(sitemapText).toContain("<loc>https://tecmogeek.com/teams/49ers/</loc>");
 });
 
 test.describe("mobile responsive layout", () => {

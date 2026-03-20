@@ -10,7 +10,7 @@ import {
   parsePercent,
   sortEntriesByKey,
 } from "@/lib/player-utils";
-import { POSITION_PAGE_CONFIG_MAP } from "@/lib/site-config";
+import { POSITION_PAGE_CONFIG_MAP } from "@/lib/players/config";
 
 describe("player utilities", () => {
   it("parses percentage strings into numeric sort values", () => {

@@ -3,15 +3,10 @@ import { notFound } from "next/navigation";
 
 import { PlayerLeaderboard } from "@/components/player-leaderboard";
 import { getPositionEntries } from "@/lib/data";
+import { getPositionPageConfig, POSITION_PAGES } from "@/lib/players/config";
 import { playerRoute } from "@/lib/routes";
-import { POSITION_PAGES, POSITION_PAGE_CONFIG_MAP } from "@/lib/site-config";
-import type { PositionSlug } from "@/lib/types";
 
-type PlayerPageProps = {
-  params: Promise<{
-    slug: string;
-  }>;
-};
+type PlayerPageProps = PageProps<"/players/[slug]">;
 
 export function generateStaticParams() {
   return POSITION_PAGES.map((page) => ({ slug: page.slug }));
@@ -19,7 +14,7 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: PlayerPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const config = POSITION_PAGE_CONFIG_MAP[slug as PositionSlug];
+  const config = getPositionPageConfig(slug);
 
   if (!config) {
     return {};
@@ -39,7 +34,7 @@ export async function generateMetadata({ params }: PlayerPageProps): Promise<Met
 
 export default async function PlayerPage({ params }: PlayerPageProps) {
   const { slug } = await params;
-  const config = POSITION_PAGE_CONFIG_MAP[slug as PositionSlug];
+  const config = getPositionPageConfig(slug);
 
   if (!config) {
     notFound();

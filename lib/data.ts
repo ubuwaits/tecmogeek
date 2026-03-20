@@ -4,7 +4,7 @@ import { cache } from "react";
 import fs from "node:fs/promises";
 import path from "node:path";
 
-import { POSITION_PAGE_CONFIG_MAP } from "@/lib/site-config";
+import { POSITION_PAGE_CONFIG_MAP } from "@/lib/players/config";
 import type { PlayerRecord, PositionSlug, TeamData, TeamSlug } from "@/lib/types";
 
 const DATA_DIR = path.join(process.cwd(), "data");
