@@ -13,8 +13,33 @@ type MetricStripProps = {
   className?: string;
 };
 
-const METRIC_BAR_CLASS =
-  "min-w-0 border-[3px] border-white bg-white/25 px-1 py-2 text-center text-[12px] font-bold tabular-nums text-[#222]";
+function MetricBar({
+  metricKey,
+  tooltip,
+  value,
+  grow,
+}: {
+  metricKey: PlayerMetricKey;
+  tooltip: string;
+  value: number;
+  grow: number;
+}) {
+  return (
+    <div
+      data-metric-key={metricKey}
+      aria-label={`${tooltip}: ${value}`}
+      title={tooltip}
+      className="min-w-0 border-[3px] border-white bg-white/25 px-1 py-2 text-center text-[12px] font-bold tabular-nums text-[#222]"
+      style={{
+        flexBasis: 0,
+        flexGrow: grow,
+        backgroundImage: `linear-gradient(to right, var(--pink) 0%, var(--pink) ${value}%, transparent ${value}%)`,
+      }}
+    >
+      {value}
+    </div>
+  );
+}
 
 export function MetricLegend({ columns, activeKey = null, onColumnClick }: MetricLegendProps) {
   return (
@@ -44,20 +69,13 @@ export function MetricStrip({ columns, getValue, className = "" }: MetricStripPr
         const value = getValue(column.key);
 
         return (
-          <div
+          <MetricBar
             key={column.key}
-            data-metric-key={column.key}
-            aria-label={`${column.tooltip}: ${value}`}
-            title={column.tooltip}
-            className={METRIC_BAR_CLASS}
-            style={{
-              flexBasis: 0,
-              flexGrow: column.weight,
-              backgroundImage: `linear-gradient(to right, var(--pink) 0%, var(--pink) ${value}%, transparent ${value}%)`,
-            }}
-          >
-            {value}
-          </div>
+            metricKey={column.key}
+              tooltip={column.tooltip}
+              value={value}
+              grow={column.weight}
+          />
         );
       })}
     </div>

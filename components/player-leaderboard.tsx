@@ -43,10 +43,9 @@ function renderMetricValue(entry: PlayerRecord, key: PlayerMetricKey): number {
 }
 
 function getSortButtonClass(active: boolean, align: "left" | "center" | "right") {
-  const alignClassName =
-    align === "left" ? "justify-start text-left" : align === "right" ? "justify-end text-right" : "justify-center";
-
-  return `inline-flex min-h-8 items-center ${alignClassName} rounded px-1 text-[11px] font-bold uppercase tracking-[0.08em] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 ${
+  return `inline-flex min-h-8 items-center ${
+    align === "left" ? "justify-start text-left" : align === "right" ? "justify-end text-right" : "justify-center"
+  } rounded px-1 text-[11px] font-bold uppercase tracking-[0.08em] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 ${
     active ? "text-white" : "text-white/72 hover:text-white"
   }`;
 }
