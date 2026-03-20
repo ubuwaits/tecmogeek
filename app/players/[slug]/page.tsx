@@ -1,8 +1,9 @@
-import type { Metadata } from "next";
+import type { Metadata, ResolvingMetadata } from "next";
 import { notFound } from "next/navigation";
 
 import { PlayerLeaderboard } from "@/components/player-leaderboard";
 import { getPositionEntries } from "@/lib/data";
+import { mergeOpenGraph } from "@/lib/metadata";
 import { getPositionPageConfig, POSITION_PAGES } from "@/lib/players/config";
 import { playerRoute } from "@/lib/routes";
 
@@ -12,7 +13,10 @@ export function generateStaticParams() {
   return POSITION_PAGES.map((page) => ({ slug: page.slug }));
 }
 
-export async function generateMetadata({ params }: PlayerPageProps): Promise<Metadata> {
+export async function generateMetadata(
+  { params }: PlayerPageProps,
+  parent: ResolvingMetadata,
+): Promise<Metadata> {
   const { slug } = await params;
   const config = getPositionPageConfig(slug);
 
@@ -25,10 +29,10 @@ export async function generateMetadata({ params }: PlayerPageProps): Promise<Met
     alternates: {
       canonical: playerRoute(config.slug),
     },
-    openGraph: {
+    openGraph: await mergeOpenGraph(parent, {
       url: playerRoute(config.slug),
       title: config.title,
-    },
+    }),
   };
 }
 

@@ -1,19 +1,25 @@
-import type { Metadata } from "next";
+import type { Metadata, ResolvingMetadata } from "next";
 import Image from "next/image";
 
 import { ArticlePage } from "@/components/article-page";
+import { mergeOpenGraph } from "@/lib/metadata";
 import { aboutRatingsRoute } from "@/lib/routes";
 
-export const metadata: Metadata = {
-  title: "About player ratings",
-  alternates: {
-    canonical: aboutRatingsRoute,
-  },
-  openGraph: {
-    url: aboutRatingsRoute,
+export async function generateMetadata(
+  _: PageProps<"/about/ratings">,
+  parent: ResolvingMetadata,
+): Promise<Metadata> {
+  return {
     title: "About player ratings",
-  },
-};
+    alternates: {
+      canonical: aboutRatingsRoute,
+    },
+    openGraph: await mergeOpenGraph(parent, {
+      url: aboutRatingsRoute,
+      title: "About player ratings",
+    }),
+  };
+}
 
 export default function RatingsPage() {
   return (

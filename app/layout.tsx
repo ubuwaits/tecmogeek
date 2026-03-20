@@ -4,6 +4,7 @@ import localFont from "next/font/local";
 
 import { SiteFooter } from "@/components/site-footer";
 import { TopNav } from "@/components/top-nav";
+import { SOCIAL_IMAGE_PATH } from "@/lib/metadata";
 
 import "./globals.css";
 
@@ -48,11 +49,13 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     creator: TWITTER_CREATOR,
+    images: [SOCIAL_IMAGE_PATH],
   },
   openGraph: {
     type: "website",
     title: SITE_DESCRIPTION,
     url: "https://tecmogeek.com",
+    images: [SOCIAL_IMAGE_PATH],
   },
 };
 

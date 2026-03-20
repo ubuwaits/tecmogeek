@@ -1,9 +1,10 @@
-import type { Metadata } from "next";
+import type { Metadata, ResolvingMetadata } from "next";
 import { notFound } from "next/navigation";
 
 import { HelmetSprite } from "@/components/sprites";
 import { TeamSections } from "@/components/team-sections";
 import { getTeam } from "@/lib/data";
+import { mergeOpenGraph } from "@/lib/metadata";
 import { teamRoute } from "@/lib/routes";
 import { isTeamSlug, TEAM_SLUG_SET } from "@/lib/teams/config";
 
@@ -13,7 +14,10 @@ export function generateStaticParams() {
   return [...TEAM_SLUG_SET].map((slug) => ({ slug }));
 }
 
-export async function generateMetadata({ params }: TeamPageProps): Promise<Metadata> {
+export async function generateMetadata(
+  { params }: TeamPageProps,
+  parent: ResolvingMetadata,
+): Promise<Metadata> {
   const { slug } = await params;
 
   if (!isTeamSlug(slug)) {
@@ -28,10 +32,10 @@ export async function generateMetadata({ params }: TeamPageProps): Promise<Metad
     alternates: {
       canonical: teamRoute(canonicalSlug),
     },
-    openGraph: {
+    openGraph: await mergeOpenGraph(parent, {
       url: teamRoute(canonicalSlug),
       title: team.full_name,
-    },
+    }),
   };
 }
 

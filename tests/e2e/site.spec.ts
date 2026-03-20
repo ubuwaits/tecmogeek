@@ -62,6 +62,9 @@ test("verification, metadata, and favicon files are exported", async ({ request 
   const favicon = await request.get("/favicon.png");
   expect(favicon.ok()).toBeTruthy();
 
+  const socialImage = await request.get("/social-image.png");
+  expect(socialImage.ok()).toBeTruthy();
+
   const robots = await request.get("/robots.txt");
   expect(robots.ok()).toBeTruthy();
   expect(await robots.text()).toContain("Sitemap: https://tecmogeek.com/sitemap.xml");
@@ -73,6 +76,12 @@ test("verification, metadata, and favicon files are exported", async ({ request 
   expect(sitemapText).toContain("<loc>https://tecmogeek.com/about/ratings/</loc>");
   expect(sitemapText).toContain("<loc>https://tecmogeek.com/players/qb/</loc>");
   expect(sitemapText).toContain("<loc>https://tecmogeek.com/teams/49ers/</loc>");
+
+  const aboutRatings = await request.get("/about/ratings/");
+  expect(aboutRatings.ok()).toBeTruthy();
+  const aboutRatingsHtml = await aboutRatings.text();
+  expect(aboutRatingsHtml).toContain('property="og:image" content="https://tecmogeek.com/social-image.png"');
+  expect(aboutRatingsHtml).toContain('name="twitter:image" content="https://tecmogeek.com/social-image.png"');
 });
 
 test.describe("mobile responsive layout", () => {

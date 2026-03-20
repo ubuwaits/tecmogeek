@@ -12,9 +12,6 @@ export const metadata: Metadata = {
   alternates: {
     canonical: homeRoute,
   },
-  openGraph: {
-    url: homeRoute,
-  },
 };
 
 export default async function HomePage() {
