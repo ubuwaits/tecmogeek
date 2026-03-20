@@ -4,14 +4,14 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import type { Route } from "next";
 
-export type SkillTabItem = {
+export type SelectionTabItem = {
   id: string;
   label: string;
   href?: Route;
 };
 
-type SkillTabsProps = {
-  items: readonly SkillTabItem[];
+type SelectionTabsProps = {
+  items: readonly SelectionTabItem[];
   activeId: string;
   onChange?: (id: string) => void;
   tabTestIdPrefix: string;
@@ -28,7 +28,7 @@ function getTabClass(active: boolean) {
   }`;
 }
 
-export function SkillTabs({
+export function SelectionTabs({
   items,
   activeId,
   onChange,
@@ -36,7 +36,7 @@ export function SkillTabs({
   mobileSelectLabel,
   mobileSelectTestId,
   collapseToSelectOnMobile = true,
-}: SkillTabsProps) {
+}: SelectionTabsProps) {
   const router = useRouter();
 
   function handleSelect(nextId: string) {

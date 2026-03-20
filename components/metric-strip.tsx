@@ -1,4 +1,6 @@
-import { TooltipLabel } from "@/components/tooltip-label";
+import {
+  PlayerListHeaderLabel,
+} from "@/components/player-list-header-label";
 import type { MetricColumn, PlayerMetricKey } from "@/lib/types";
 
 type MetricLegendProps = {
@@ -29,7 +31,7 @@ function MetricBar({
       data-metric-key={metricKey}
       aria-label={`${tooltip}: ${value}`}
       title={tooltip}
-      className="min-w-0 border-[3px] border-white bg-white/25 px-1 py-2 text-center text-[12px] font-bold tabular-nums text-[#222]"
+      className="flex h-8 min-w-0 items-center border-[3px] border-white bg-white/25 px-1 text-[12px] font-bold tabular-nums text-[#222]"
       style={{
         flexBasis: 0,
         flexGrow: grow,
@@ -41,20 +43,25 @@ function MetricBar({
   );
 }
 
-export function MetricLegend({ columns, activeKey = null, onColumnClick }: MetricLegendProps) {
+export function MetricLegend({
+  columns,
+  activeKey = null,
+  onColumnClick,
+}: MetricLegendProps) {
   return (
     <div className="ml-3 flex min-w-0 gap-1.5 md:ml-4 md:gap-2">
       {columns.map((column) => (
         <div
           key={column.key}
-          className="min-w-0 text-[12px] md:text-[14px]"
+          className="min-w-0 border-x-[3px] border-x-transparent px-1 text-[12px] md:text-[14px]"
           style={{ flexBasis: 0, flexGrow: column.weight }}
         >
-          <TooltipLabel
+          <PlayerListHeaderLabel
             label={column.label}
             tooltip={column.tooltip}
             onClick={onColumnClick ? () => onColumnClick(column.key) : undefined}
             active={activeKey === column.key}
+            className="-ml-1"
           />
         </div>
       ))}

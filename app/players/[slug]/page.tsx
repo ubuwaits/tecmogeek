@@ -1,7 +1,7 @@
 import type { Metadata, ResolvingMetadata } from "next";
 import { notFound } from "next/navigation";
 
-import { PlayerLeaderboard } from "@/components/player-leaderboard";
+import { PlayerListView } from "@/components/player-list-view";
 import { getPositionEntries } from "@/lib/data";
 import { mergeOpenGraph } from "@/lib/metadata";
 import { getPositionPageConfig, POSITION_PAGES } from "@/lib/players/config";
@@ -46,5 +46,5 @@ export default async function PlayerPage({ params }: PlayerPageProps) {
 
   const entries = await getPositionEntries(config.slug);
 
-  return <PlayerLeaderboard slug={config.slug} entries={entries} />;
+  return <PlayerListView slug={config.slug} entries={entries} />;
 }

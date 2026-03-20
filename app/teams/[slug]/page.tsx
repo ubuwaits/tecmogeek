@@ -2,7 +2,7 @@ import type { Metadata, ResolvingMetadata } from "next";
 import { notFound } from "next/navigation";
 
 import { HelmetSprite } from "@/components/sprites";
-import { TeamSections } from "@/components/team-sections";
+import { TeamPlayerListsView } from "@/components/team-player-lists-view";
 import { getTeam } from "@/lib/data";
 import { mergeOpenGraph } from "@/lib/metadata";
 import { teamRoute } from "@/lib/routes";
@@ -58,7 +58,7 @@ export default async function TeamPage({ params }: TeamPageProps) {
         </h1>
       </header>
 
-      <TeamSections team={team} />
+      <TeamPlayerListsView team={team} />
     </>
   );
 }
