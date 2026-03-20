@@ -40,7 +40,7 @@ export default async function HomePage() {
               </Link>
             </h3>
 
-            <ol className="rounded-[18px] bg-(--dark-bg) px-0 py-3 shadow-[8px_8px_0_var(--pink)]">
+            <ol className="bg-(--dark-bg) px-0 py-3 shadow-[8px_8px_0_var(--pink)]">
               {entries.map((entry) => {
                 const teamSlug = getTeamSlugFromCode(entry.team);
 
