@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 
+import { HorizontalScrollTable } from "@/components/horizontal-scroll-table";
 import { MetricLegend, MetricStrip } from "@/components/metric-strip";
 import { HeadshotSprite, HelmetSprite } from "@/components/sprites";
 import { POSITION_PAGE_CONFIG_MAP } from "@/lib/site-config";
@@ -25,8 +26,6 @@ function renderMetricValue(entry: PlayerRecord, key: PlayerMetricKey): number {
   return Number(entry[key] ?? 0);
 }
 
-const PLAYER_TABLE_SCROLL_CLASS = "overflow-x-auto overscroll-x-contain pb-2";
-const PLAYER_TABLE_TRACK_CLASS = "w-max min-w-full space-y-4 sm:w-full sm:min-w-0 sm:space-y-3";
 const PLAYER_ROW_CLASS =
   "grid w-full grid-cols-[52px_32px_32px_180px_52px_minmax(520px,1fr)] items-center sm:grid-cols-[52px_32px_32px_minmax(0,180px)_52px_minmax(0,1fr)]";
 
@@ -97,8 +96,7 @@ export function PlayerLeaderboard({ slug, entries }: PlayerLeaderboardProps) {
           </ul>
         ) : null}
 
-        <div className={PLAYER_TABLE_SCROLL_CLASS} data-testid="player-table-scroll">
-          <ol className={PLAYER_TABLE_TRACK_CLASS}>
+        <HorizontalScrollTable testId="player-table-scroll">
             <li className={`${PLAYER_ROW_CLASS} border-b-4 border-white/35 pb-3 text-white/65`}>
               <div className="text-center text-[14px] font-bold">
                 <button
@@ -173,8 +171,7 @@ export function PlayerLeaderboard({ slug, entries }: PlayerLeaderboardProps) {
                 </li>
               );
             })}
-          </ol>
-        </div>
+        </HorizontalScrollTable>
       </div>
     </>
   );

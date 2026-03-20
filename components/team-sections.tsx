@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 
+import { HorizontalScrollTable } from "@/components/horizontal-scroll-table";
 import { MetricLegend, MetricStrip } from "@/components/metric-strip";
 import { HeadshotSprite } from "@/components/sprites";
 import { TooltipLabel } from "@/components/tooltip-label";
@@ -24,8 +25,6 @@ import type {
   TeamSlug,
 } from "@/lib/types";
 
-const TEAM_TABLE_SCROLL_CLASS = "overflow-x-auto overscroll-x-contain pb-2";
-const TEAM_TABLE_TRACK_CLASS = "w-max min-w-full space-y-4 sm:w-full sm:min-w-0 sm:space-y-3";
 const TEAM_ROW_CLASS =
   "grid w-full grid-cols-[52px_32px_180px_52px_minmax(520px,1fr)] items-center sm:grid-cols-[52px_32px_minmax(0,180px)_52px_minmax(0,1fr)]";
 
@@ -107,8 +106,7 @@ function TeamStaticSection({
 
   return (
     <div className="mb-12 sm:mb-16">
-      <div className={TEAM_TABLE_SCROLL_CLASS} data-testid={`team-table-scroll-${section.id}`}>
-        <ol className={TEAM_TABLE_TRACK_CLASS}>
+      <HorizontalScrollTable testId={`team-table-scroll-${section.id}`}>
           <TeamHeaderRow
             rankingLabel={section.rankingLabel}
             rankingTooltip={section.rankingTooltip}
@@ -135,8 +133,7 @@ function TeamStaticSection({
               </li>
             );
           })}
-        </ol>
-      </div>
+      </HorizontalScrollTable>
 
       <p className="mt-3 max-w-[42rem] text-[14px] leading-[1.4] text-pretty text-white/65 sm:ml-[264px] sm:mt-2 sm:text-[16px] sm:leading-[1.2]">
         {section.note}
@@ -207,8 +204,7 @@ export function TeamSkillSection({ team }: { team: TeamData }) {
         })}
       </ul>
 
-      <div className={TEAM_TABLE_SCROLL_CLASS} data-testid="team-skill-table-scroll">
-        <ol className={TEAM_TABLE_TRACK_CLASS}>
+      <HorizontalScrollTable testId="team-skill-table-scroll">
           <TeamHeaderRow
             rankingLabel="RB/WR/TE Ranking"
             rankingTooltip="Out of 280 RB, WR & TE"
@@ -234,8 +230,7 @@ export function TeamSkillSection({ team }: { team: TeamData }) {
               </li>
             );
           })}
-        </ol>
-      </div>
+      </HorizontalScrollTable>
 
       <p className="mt-3 max-w-[42rem] text-[14px] leading-[1.4] text-pretty text-white/65 sm:ml-[264px] sm:mt-2 sm:text-[16px] sm:leading-[1.2]">
         {modeConfig.note}
