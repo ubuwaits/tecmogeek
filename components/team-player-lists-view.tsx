@@ -24,9 +24,11 @@ import type {
 
 function PlayerListNote({ children }: { children: React.ReactNode }) {
   return (
-    <p className="mt-3 text-[14px] leading-[1.4] text-pretty text-white/65 sm:ml-[264px] sm:mt-2 sm:text-[16px] sm:leading-[1.2]">
-      {children}
-    </p>
+    <div className="sm:grid sm:grid-cols-[52px_32px_minmax(0,180px)_52px_minmax(0,1fr)]">
+      <p className="text-[12px] sm:text-[14px] leading-normal text-pretty text-white/65 sm:col-start-5 sm:ml-3 md:ml-4">
+        {children}
+      </p>
+    </div>
   );
 }
 
