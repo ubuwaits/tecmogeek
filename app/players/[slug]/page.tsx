@@ -46,5 +46,18 @@ export default async function PlayerPage({ params }: PlayerPageProps) {
 
   const entries = await getPositionEntries(config.slug);
 
-  return <PlayerListView slug={config.slug} entries={entries} />;
+  return (
+    <>
+      <header className="mb-8">
+        <h1 className="font-(family-name:--font-tecmo) text-[20px] md:text-[28px] uppercase text-balance leading-snug">
+          {config.title}
+        </h1>
+        <p className="mt-1 max-w-3xl text-[14px] md:text-[16px] text-pretty text-white/65">
+          {config.note}
+        </p>
+      </header>
+
+      <PlayerListView slug={config.slug} entries={entries} />
+    </>
+  );
 }

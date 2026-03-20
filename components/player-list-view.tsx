@@ -66,43 +66,32 @@ export function PlayerListView({ slug, entries }: PlayerListViewProps) {
   }
 
   return (
-    <>
-      <header className="mb-8 sm:mb-12">
-        <h1 className="font-(family-name:--font-tecmo) text-[20px] md:text-[28px] uppercase text-balance leading-snug mt-2">
-          {config.title}
-        </h1>
-        <p className="mt-3 max-w-3xl text-[15px] font-medium text-pretty text-white/65 sm:mt-2 sm:text-[16px]">
-          {config.note}
-        </p>
-      </header>
-
-      <div className="mb-14 sm:mb-16">
-        {config.filters?.length ? (
-          <SelectionTabs
-            items={config.filters}
-            activeId={filterId}
-            onChange={setFilterId}
-            tabTestIdPrefix="filter"
-            mobileSelectLabel="Player filter"
-            mobileSelectTestId="player-filter-select"
-          />
-        ) : null}
-
-        <PlayerListSection
-          testId="player-table-scroll"
-          layout="player"
-          rankingLabel="Ranking"
-          rankingTooltip={config.rankingTooltip}
-          rankingActive={sortKey === config.rankingKey}
-          onRankingClick={() => changeSort(config.rankingKey, "asc")}
-          ratingActive={sortKey === config.ratingKey}
-          onRatingClick={() => changeSort(config.ratingKey, "desc")}
-          columns={config.columns}
-          activeMetricKey={activeMetricKey}
-          onMetricClick={(key) => changeSort(key, "desc")}
-          rows={rows}
+    <div className="mb-14 sm:mb-16">
+      {config.filters?.length ? (
+        <SelectionTabs
+          items={config.filters}
+          activeId={filterId}
+          onChange={setFilterId}
+          tabTestIdPrefix="filter"
+          mobileSelectLabel="Player filter"
+          mobileSelectTestId="player-filter-select"
         />
-      </div>
-    </>
+      ) : null}
+
+      <PlayerListSection
+        testId="player-table-scroll"
+        layout="player"
+        rankingLabel="Ranking"
+        rankingTooltip={config.rankingTooltip}
+        rankingActive={sortKey === config.rankingKey}
+        onRankingClick={() => changeSort(config.rankingKey, "asc")}
+        ratingActive={sortKey === config.ratingKey}
+        onRatingClick={() => changeSort(config.ratingKey, "desc")}
+        columns={config.columns}
+        activeMetricKey={activeMetricKey}
+        onMetricClick={(key) => changeSort(key, "desc")}
+        rows={rows}
+      />
+    </div>
   );
 }
