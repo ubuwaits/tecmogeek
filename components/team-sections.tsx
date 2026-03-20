@@ -148,7 +148,7 @@ function TeamStaticSection({
         })}
       </HorizontalScrollTable>
 
-      <p className="mt-3 max-w-[42rem] text-[14px] leading-[1.4] text-pretty text-white/65 sm:ml-[264px] sm:mt-2 sm:text-[16px] sm:leading-[1.2]">
+      <p className="mt-3 text-[14px] leading-[1.4] text-pretty text-white/65 sm:ml-[264px] sm:mt-2 sm:text-[16px] sm:leading-[1.2]">
         {section.note}
       </p>
     </div>
@@ -264,7 +264,7 @@ export function TeamSkillSection({ team }: { team: TeamData }) {
         })}
       </HorizontalScrollTable>
 
-      <p className="mt-3 max-w-[42rem] text-[14px] leading-[1.4] text-pretty text-white/65 sm:ml-[264px] sm:mt-2 sm:text-[16px] sm:leading-[1.2]">
+      <p className="mt-3 text-[14px] leading-[1.4] text-pretty text-white/65 sm:ml-[264px] sm:mt-2 sm:text-[16px] sm:leading-[1.2]">
         {modeConfig.note}
       </p>
     </div>
