@@ -8,7 +8,7 @@ export function SiteFooter() {
             href="https://chad.is"
             target="_blank"
             rel="noopener noreferrer"
-            className="font-bold text-[var(--pink)] no-underline"
+            className="font-bold text-(--pink) no-underline"
           >
             Chad Mazzola
           </a>{" "}
@@ -17,7 +17,7 @@ export function SiteFooter() {
             href="https://www.chadwin.co"
             target="_blank"
             rel="noopener noreferrer"
-            className="font-bold text-[var(--pink)] no-underline"
+            className="font-bold text-(--pink) no-underline"
           >
             Chadwin
           </a>

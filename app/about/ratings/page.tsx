@@ -50,7 +50,7 @@ export default function RatingsPage() {
         recommend{" "}
         <a
           href="http://www.gamefaqs.com/nes/587686-tecmo-super-bowl/faqs/44195"
-          className="font-bold text-[var(--blue)]"
+          className="font-bold text-(--blue)"
         >
           this guide
         </a>
