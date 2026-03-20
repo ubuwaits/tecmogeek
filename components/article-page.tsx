@@ -20,37 +20,3 @@ export function ArticlePage({ children, className }: ArticleChildrenProps) {
     </section>
   );
 }
-
-export function ArticleTitle({ children, className }: ArticleChildrenProps) {
-  return (
-    <h1
-      className={withOptionalClassName(
-        "font-(family-name:--font-tecmo) text-[23px] leading-[0.95] uppercase text-balance text-[#3a3a3a] sm:text-[36px] sm:leading-[40px]",
-        className,
-      )}
-    >
-      {children}
-    </h1>
-  );
-}
-
-export function ArticleParagraph({ children, className }: ArticleChildrenProps) {
-  return (
-    <p
-      className={withOptionalClassName(
-        "mb-4 text-[17px] leading-[1.6] text-pretty text-[#3a3a3a] sm:text-[18px] sm:leading-[1.5]",
-        className,
-      )}
-    >
-      {children}
-    </p>
-  );
-}
-
-export function ArticleCaption({ children, className }: ArticleChildrenProps) {
-  return (
-    <p className={withOptionalClassName("text-[13px] text-[#626262] sm:text-[14px]", className)}>
-      {children}
-    </p>
-  );
-}

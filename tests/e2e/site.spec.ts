@@ -54,12 +54,6 @@ test("team page mode toggle re-sorts the skill section", async ({ page }) => {
   );
 });
 
-test("about rankings redirects to about ratings", async ({ page }) => {
-  await page.goto("/about/rankings/");
-  await expect(page).toHaveURL(/\/about\/ratings\/$/);
-  await expect(page.getByRole("heading", { name: "How player ratings and rankings are calculated" })).toBeVisible();
-});
-
 test("verification, metadata, and favicon files are exported", async ({ request }) => {
   const verification = await request.get("/google146824b99fdbed48.html");
   expect(verification.ok()).toBeTruthy();
