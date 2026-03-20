@@ -25,8 +25,21 @@ import type {
   TeamSlug,
 } from "@/lib/types";
 
-const TEAM_ROW_CLASS =
-  "grid w-full grid-cols-[52px_32px_180px_52px_minmax(520px,1fr)] items-center sm:grid-cols-[52px_32px_minmax(0,180px)_52px_minmax(0,1fr)]";
+function TeamTableHeaderRow({ children }: { children: React.ReactNode }) {
+  return (
+    <li className="grid w-full grid-cols-[52px_32px_180px_52px_minmax(520px,1fr)] items-center border-b-4 border-white/35 pb-3 text-white/65 sm:grid-cols-[52px_32px_minmax(0,180px)_52px_minmax(0,1fr)]">
+      {children}
+    </li>
+  );
+}
+
+function TeamTableRow({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="grid w-full grid-cols-[52px_32px_180px_52px_minmax(520px,1fr)] items-center sm:grid-cols-[52px_32px_minmax(0,180px)_52px_minmax(0,1fr)]">
+      {children}
+    </div>
+  );
+}
 
 function TeamHeaderRow({
   rankingLabel,
@@ -38,7 +51,7 @@ function TeamHeaderRow({
   columns: readonly MetricColumn[];
 }) {
   return (
-    <li className={`${TEAM_ROW_CLASS} border-b-4 border-white/35 pb-3 text-white/65`}>
+    <TeamTableHeaderRow>
       <div className="text-center text-[14px] font-bold">
         <TooltipLabel label={rankingLabel} tooltip={rankingTooltip} />
       </div>
@@ -49,7 +62,7 @@ function TeamHeaderRow({
       </div>
 
       <MetricLegend columns={columns} />
-    </li>
+    </TeamTableHeaderRow>
   );
 }
 
@@ -73,7 +86,7 @@ function TeamPlayerRow({
   ratingValue: string;
 }) {
   return (
-    <div className={TEAM_ROW_CLASS}>
+    <TeamTableRow>
       <div className="text-center text-[18px] font-bold tabular-nums">{rankingValue}</div>
       <div className="flex items-center justify-center">
         <HeadshotSprite team={teamSlug} index={spriteIndex} />
@@ -90,7 +103,7 @@ function TeamPlayerRow({
         </Link>
       </div>
       <MetricStrip columns={columns} getValue={getMetricValue} className="ml-3 md:ml-4" />
-    </div>
+    </TeamTableRow>
   );
 }
 
@@ -107,32 +120,32 @@ function TeamStaticSection({
   return (
     <div className="mb-12 sm:mb-16">
       <HorizontalScrollTable testId={`team-table-scroll-${section.id}`}>
-          <TeamHeaderRow
-            rankingLabel={section.rankingLabel}
-            rankingTooltip={section.rankingTooltip}
-            columns={section.columns}
-          />
+        <TeamHeaderRow
+          rankingLabel={section.rankingLabel}
+          rankingTooltip={section.rankingTooltip}
+          columns={section.columns}
+        />
 
-          {players.map((player, index) => {
-            const spriteIndex = section.range[0] + index;
-            const rankingValue = String(player.ranking ?? "");
-            const ratingValue = String(player.rating ?? "");
+        {players.map((player, index) => {
+          const spriteIndex = section.range[0] + index;
+          const rankingValue = String(player.ranking ?? "");
+          const ratingValue = String(player.rating ?? "");
 
-            return (
-              <li key={`${section.id}-${player.name}`}>
-                <TeamPlayerRow
-                  player={player}
-                  spriteIndex={spriteIndex}
-                  teamSlug={teamSlug}
-                  playerPage={section.playerPage}
-                  columns={section.columns}
-                  getMetricValue={(key) => Number(player[key] ?? 0)}
-                  rankingValue={rankingValue}
-                  ratingValue={ratingValue}
-                />
-              </li>
-            );
-          })}
+          return (
+            <li key={`${section.id}-${player.name}`}>
+              <TeamPlayerRow
+                player={player}
+                spriteIndex={spriteIndex}
+                teamSlug={teamSlug}
+                playerPage={section.playerPage}
+                columns={section.columns}
+                getMetricValue={(key) => Number(player[key] ?? 0)}
+                rankingValue={rankingValue}
+                ratingValue={ratingValue}
+              />
+            </li>
+          );
+        })}
       </HorizontalScrollTable>
 
       <p className="mt-3 max-w-[42rem] text-[14px] leading-[1.4] text-pretty text-white/65 sm:ml-[264px] sm:mt-2 sm:text-[16px] sm:leading-[1.2]">
@@ -205,31 +218,31 @@ export function TeamSkillSection({ team }: { team: TeamData }) {
       </ul>
 
       <HorizontalScrollTable testId="team-skill-table-scroll">
-          <TeamHeaderRow
-            rankingLabel="RB/WR/TE Ranking"
-            rankingTooltip="Out of 280 RB, WR & TE"
-            columns={modeConfig.columns}
-          />
+        <TeamHeaderRow
+          rankingLabel="RB/WR/TE Ranking"
+          rankingTooltip="Out of 280 RB, WR & TE"
+          columns={modeConfig.columns}
+        />
 
-          {sortedPlayers.map(({ player, spriteIndex }) => {
-            const rankingValue = String(player[modeConfig.rankingKey] ?? "");
-            const ratingValue = String(player[modeConfig.ratingKey] ?? "");
+        {sortedPlayers.map(({ player, spriteIndex }) => {
+          const rankingValue = String(player[modeConfig.rankingKey] ?? "");
+          const ratingValue = String(player[modeConfig.ratingKey] ?? "");
 
-            return (
-              <li key={`${mode}-${player.name}`} data-testid="team-skill-row">
-                <TeamPlayerRow
-                  player={player}
-                  spriteIndex={spriteIndex}
-                  teamSlug={teamSlug}
-                  playerPage={modeConfig.playerPage}
-                  columns={modeConfig.columns}
-                  getMetricValue={(key) => getModeMetricValue(player, key)}
-                  rankingValue={rankingValue}
-                  ratingValue={ratingValue}
-                />
-              </li>
-            );
-          })}
+          return (
+            <li key={`${mode}-${player.name}`} data-testid="team-skill-row">
+              <TeamPlayerRow
+                player={player}
+                spriteIndex={spriteIndex}
+                teamSlug={teamSlug}
+                playerPage={modeConfig.playerPage}
+                columns={modeConfig.columns}
+                getMetricValue={(key) => getModeMetricValue(player, key)}
+                rankingValue={rankingValue}
+                ratingValue={ratingValue}
+              />
+            </li>
+          );
+        })}
       </HorizontalScrollTable>
 
       <p className="mt-3 max-w-[42rem] text-[14px] leading-[1.4] text-pretty text-white/65 sm:ml-[264px] sm:mt-2 sm:text-[16px] sm:leading-[1.2]">

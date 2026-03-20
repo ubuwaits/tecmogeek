@@ -22,12 +22,25 @@ type PlayerLeaderboardProps = {
   entries: PlayerRecord[];
 };
 
+function PlayerTableHeaderRow({ children }: { children: React.ReactNode }) {
+  return (
+    <li className="grid w-full grid-cols-[52px_32px_32px_180px_52px_minmax(520px,1fr)] items-center border-b-4 border-white/35 pb-3 text-white/65 sm:grid-cols-[52px_32px_32px_minmax(0,180px)_52px_minmax(0,1fr)]">
+      {children}
+    </li>
+  );
+}
+
+function PlayerTableRow({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="grid w-full grid-cols-[52px_32px_32px_180px_52px_minmax(520px,1fr)] items-center sm:grid-cols-[52px_32px_32px_minmax(0,180px)_52px_minmax(0,1fr)]">
+      {children}
+    </div>
+  );
+}
+
 function renderMetricValue(entry: PlayerRecord, key: PlayerMetricKey): number {
   return Number(entry[key] ?? 0);
 }
-
-const PLAYER_ROW_CLASS =
-  "grid w-full grid-cols-[52px_32px_32px_180px_52px_minmax(520px,1fr)] items-center sm:grid-cols-[52px_32px_32px_minmax(0,180px)_52px_minmax(0,1fr)]";
 
 function getSortButtonClass(active: boolean, align: "left" | "center" | "right") {
   const alignClassName =
@@ -97,7 +110,7 @@ export function PlayerLeaderboard({ slug, entries }: PlayerLeaderboardProps) {
         ) : null}
 
         <HorizontalScrollTable testId="player-table-scroll">
-            <li className={`${PLAYER_ROW_CLASS} border-b-4 border-white/35 pb-3 text-white/65`}>
+          <PlayerTableHeaderRow>
               <div className="text-center text-[14px] font-bold">
                 <button
                   type="button"
@@ -125,18 +138,18 @@ export function PlayerLeaderboard({ slug, entries }: PlayerLeaderboardProps) {
                 activeKey={activeMetricKey}
                 onColumnClick={(key) => changeSort(key, "desc")}
               />
-            </li>
+          </PlayerTableHeaderRow>
 
-            {sortedEntries.map((entry) => {
-              const teamSlug = getTeamSlugFromCode(entry.team);
+          {sortedEntries.map((entry) => {
+            const teamSlug = getTeamSlugFromCode(entry.team);
 
-              return (
-                <li
-                  key={`${entry.team}-${entry.position}-${entry.name}`}
-                  data-testid="leaderboard-row"
-                  data-position={entry.position}
-                >
-                  <div className={PLAYER_ROW_CLASS}>
+            return (
+              <li
+                key={`${entry.team}-${entry.position}-${entry.name}`}
+                data-testid="leaderboard-row"
+                data-position={entry.position}
+              >
+                <PlayerTableRow>
                     <div className="text-center text-[18px] font-bold tabular-nums">
                       {String(entry[config.rankingKey] ?? "")}
                     </div>
@@ -167,10 +180,10 @@ export function PlayerLeaderboard({ slug, entries }: PlayerLeaderboardProps) {
                       getValue={(key) => renderMetricValue(entry, key)}
                       className="ml-3 md:ml-4"
                     />
-                  </div>
-                </li>
-              );
-            })}
+                </PlayerTableRow>
+              </li>
+            );
+          })}
         </HorizontalScrollTable>
       </div>
     </>
