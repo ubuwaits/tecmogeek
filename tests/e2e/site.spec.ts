@@ -42,6 +42,19 @@ test("rushers page filters down to RB entries", async ({ page }) => {
   expect(positions.every((position) => position?.startsWith("RB"))).toBeTruthy();
 });
 
+test("rushers page metric header re-sorts the player list", async ({ page }) => {
+  await page.goto("/players/rushers/");
+  await page.getByRole("button", { name: "REC" }).click();
+
+  const receptionValues = await page
+    .locator("[data-testid='leaderboard-row'] [data-metric-key='receptions']")
+    .evaluateAll((bars) => bars.map((bar) => Number(bar.textContent?.trim() ?? "0")));
+
+  expect(
+    receptionValues.every((value, index, values) => index === 0 || values[index - 1] >= value),
+  ).toBeTruthy();
+});
+
 test("team page mode toggle re-sorts the skill section", async ({ page }) => {
   await page.goto("/teams/49ers/");
   await page.getByTestId("team-mode-receiving").click();

@@ -1,8 +1,9 @@
 type TooltipLabelProps = {
   label: string;
-  tooltip: string;
+  tooltip?: string;
   onClick?: () => void;
   active?: boolean;
+  className?: string;
 };
 
 function TooltipBubble({ tooltip }: { tooltip: string }) {
@@ -13,26 +14,34 @@ function TooltipBubble({ tooltip }: { tooltip: string }) {
   );
 }
 
-export function TooltipLabel({ label, tooltip, onClick, active = false }: TooltipLabelProps) {
+export function TooltipLabel({
+  label,
+  tooltip,
+  onClick,
+  active = false,
+  className = "",
+}: TooltipLabelProps) {
   if (onClick) {
     return (
       <button
         type="button"
         onClick={onClick}
-        className={`group relative inline-flex items-center justify-center border-b border-dotted border-white/30 pb-px text-inherit transition hover:text-white focus-visible:outline-none ${
+        className={`group relative inline-flex border-b border-dotted border-white/30 text-inherit transition hover:text-white focus-visible:outline-none ${
           active ? "text-white" : ""
-        }`}
+        } ${className}`}
       >
         <span>{label}</span>
-        <TooltipBubble tooltip={tooltip} />
+        {tooltip ? <TooltipBubble tooltip={tooltip} /> : null}
       </button>
     );
   }
 
   return (
-    <span className="group relative inline-flex items-center justify-center border-b border-dotted border-white/30 pb-px text-inherit transition hover:text-white focus-visible:outline-none">
+    <span
+      className={`group relative inline-flex border-b border-dotted border-white/30 text-inherit transition hover:text-white focus-visible:outline-none ${className}`}
+    >
       <span>{label}</span>
-      <TooltipBubble tooltip={tooltip} />
+      {tooltip ? <TooltipBubble tooltip={tooltip} /> : null}
     </span>
   );
 }
