@@ -13,11 +13,6 @@ type MetricStripProps = {
   className?: string;
 };
 
-type MobileMetricListProps = {
-  columns: readonly MetricColumn[];
-  getValue: (key: PlayerMetricKey) => number;
-};
-
 const METRIC_BAR_CLASS =
   "min-w-0 border-[3px] border-white bg-white/25 px-1 py-2 text-center text-[12px] font-bold tabular-nums text-[#222]";
 
@@ -39,42 +34,6 @@ export function MetricLegend({ columns, activeKey = null, onColumnClick }: Metri
         </div>
       ))}
     </div>
-  );
-}
-
-export function MobileMetricList({ columns, getValue }: MobileMetricListProps) {
-  return (
-    <ol className="space-y-3">
-      {columns.map((column) => {
-        const value = getValue(column.key);
-
-        return (
-          <li key={column.key} className="space-y-1.5">
-            <div className="flex items-baseline gap-2 px-0.5">
-              <span className="text-[12px] font-bold uppercase tracking-[0.08em] text-white/55">
-                {column.label}
-              </span>
-              <span className="text-[14px] font-medium leading-[1.2] text-white/88 text-pretty">
-                {column.tooltip}
-              </span>
-            </div>
-
-            <div
-              key={column.key}
-              data-metric-key={column.key}
-              aria-label={`${column.tooltip}: ${value}`}
-              title={column.tooltip}
-              className={METRIC_BAR_CLASS}
-              style={{
-                backgroundImage: `linear-gradient(to right, var(--pink) 0%, var(--pink) ${value}%, transparent ${value}%)`,
-              }}
-            >
-              {value}
-            </div>
-          </li>
-        );
-      })}
-    </ol>
   );
 }
 

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 
-import { MetricLegend, MetricStrip, MobileMetricList } from "@/components/metric-strip";
+import { MetricLegend, MetricStrip } from "@/components/metric-strip";
 import { HeadshotSprite, HelmetSprite } from "@/components/sprites";
 import { POSITION_PAGE_CONFIG_MAP } from "@/lib/site-config";
 import { getTeamSlugFromCode, matchesPrefixes, sortEntriesByKey } from "@/lib/player-utils";
@@ -24,6 +24,11 @@ type PlayerLeaderboardProps = {
 function renderMetricValue(entry: PlayerRecord, key: PlayerMetricKey): number {
   return Number(entry[key] ?? 0);
 }
+
+const PLAYER_TABLE_SCROLL_CLASS = "overflow-x-auto overscroll-x-contain pb-2";
+const PLAYER_TABLE_TRACK_CLASS = "w-max min-w-full space-y-4 sm:w-full sm:min-w-0 sm:space-y-3";
+const PLAYER_ROW_CLASS =
+  "grid w-full grid-cols-[52px_32px_32px_180px_52px_minmax(520px,1fr)] items-center sm:grid-cols-[52px_32px_32px_minmax(0,180px)_52px_minmax(0,1fr)]";
 
 function getSortButtonClass(active: boolean, align: "left" | "center" | "right") {
   const alignClassName =
@@ -92,124 +97,84 @@ export function PlayerLeaderboard({ slug, entries }: PlayerLeaderboardProps) {
           </ul>
         ) : null}
 
-        <ol className="space-y-4 sm:space-y-3">
-          <li className="hidden sm:grid sm:grid-cols-[52px_32px_32px_minmax(0,180px)_52px_minmax(0,1fr)] sm:items-center sm:border-b-4 sm:border-white/35 sm:pb-3 sm:text-white/65">
-            <div className="text-center text-[14px] font-bold">
-              <button
-                type="button"
-                onClick={() => changeSort(config.rankingKey, "asc")}
-                className={getSortButtonClass(sortKey === config.rankingKey, "center")}
-              >
-                Ranking
-              </button>
-            </div>
-            <div />
-            <div />
-            <div />
-            <div className="text-center text-[14px] font-bold">
-              <button
-                type="button"
-                onClick={() => changeSort(config.ratingKey, "desc")}
-                className={getSortButtonClass(sortKey === config.ratingKey, "center")}
-              >
-                Rating
-              </button>
-            </div>
+        <div className={PLAYER_TABLE_SCROLL_CLASS} data-testid="player-table-scroll">
+          <ol className={PLAYER_TABLE_TRACK_CLASS}>
+            <li className={`${PLAYER_ROW_CLASS} border-b-4 border-white/35 pb-3 text-white/65`}>
+              <div className="text-center text-[14px] font-bold">
+                <button
+                  type="button"
+                  onClick={() => changeSort(config.rankingKey, "asc")}
+                  className={getSortButtonClass(sortKey === config.rankingKey, "center")}
+                >
+                  Ranking
+                </button>
+              </div>
+              <div />
+              <div />
+              <div />
+              <div className="text-center text-[14px] font-bold">
+                <button
+                  type="button"
+                  onClick={() => changeSort(config.ratingKey, "desc")}
+                  className={getSortButtonClass(sortKey === config.ratingKey, "center")}
+                >
+                  Rating
+                </button>
+              </div>
 
-            <MetricLegend
-              columns={config.columns}
-              activeKey={activeMetricKey}
-              onColumnClick={(key) => changeSort(key, "desc")}
-            />
-          </li>
+              <MetricLegend
+                columns={config.columns}
+                activeKey={activeMetricKey}
+                onColumnClick={(key) => changeSort(key, "desc")}
+              />
+            </li>
 
-          {sortedEntries.map((entry) => {
-            const teamSlug = getTeamSlugFromCode(entry.team);
+            {sortedEntries.map((entry) => {
+              const teamSlug = getTeamSlugFromCode(entry.team);
 
-            return (
-              <li
-                key={`${entry.team}-${entry.position}-${entry.name}`}
-                data-testid="leaderboard-row"
-                data-position={entry.position}
-              >
-                <article className="rounded-[20px] bg-white/[0.07] p-3 shadow-[0_0_0_1px_rgba(255,255,255,0.08)] sm:hidden">
-                  <div className="flex items-start gap-3">
-                    <div className="flex min-w-0 flex-1 items-start gap-3">
-                      <div className="flex shrink-0 items-center gap-2">
-                        <Link
-                          href={teamRoute(teamSlug)}
-                          className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/8"
-                        >
-                          <HelmetSprite team={teamSlug} />
-                        </Link>
-                        <HeadshotSprite team={teamSlug} position={entry.position as never} />
-                      </div>
-
-                      <div className="min-w-0 flex-1">
-                        <h3 className="text-[18px] leading-[1.05] text-balance">{entry.name}</h3>
-                        <h4 className="mt-1 text-[14px] font-medium text-white/65">
-                          {entry.position} {entry.number}
-                        </h4>
-                        <div className="mt-2 flex flex-wrap items-baseline gap-x-4 gap-y-1">
-                          <div className="flex items-baseline gap-2">
-                            <span className="text-[11px] font-bold uppercase tracking-[0.08em] text-white/55">
-                              Rating
-                            </span>
-                            <span className="text-[18px] font-bold tabular-nums text-white">
-                              {String(entry[config.ratingKey] ?? "")}
-                            </span>
-                          </div>
-                          <div className="flex items-baseline gap-2">
-                            <span className="text-[11px] font-bold uppercase tracking-[0.08em] text-white/55">
-                              Rank
-                            </span>
-                            <span className="text-[18px] font-bold tabular-nums text-white">
-                              {String(entry[config.rankingKey] ?? "")}
-                            </span>
-                          </div>
-                        </div>
-                      </div>
+              return (
+                <li
+                  key={`${entry.team}-${entry.position}-${entry.name}`}
+                  data-testid="leaderboard-row"
+                  data-position={entry.position}
+                >
+                  <div className={PLAYER_ROW_CLASS}>
+                    <div className="text-center text-[18px] font-bold tabular-nums">
+                      {String(entry[config.rankingKey] ?? "")}
                     </div>
-                  </div>
 
-                  <div className="mt-4">
-                    <MobileMetricList
+                    <Link href={teamRoute(teamSlug)} className="flex items-center justify-center">
+                      <HelmetSprite team={teamSlug} />
+                    </Link>
+
+                    <div className="flex items-center justify-center">
+                      <HeadshotSprite team={teamSlug} position={entry.position as never} />
+                    </div>
+
+                    <div className="pl-3">
+                      <h3 className="text-[18px] leading-[1.05] text-balance sm:leading-normal">
+                        {entry.name}
+                      </h3>
+                      <h4 className="text-[14px] font-medium text-white/65">
+                        {entry.position} {entry.number}
+                      </h4>
+                    </div>
+
+                    <div className="text-center text-[18px] font-bold tabular-nums">
+                      {String(entry[config.ratingKey] ?? "")}
+                    </div>
+
+                    <MetricStrip
                       columns={config.columns}
                       getValue={(key) => renderMetricValue(entry, key)}
+                      className="ml-3 md:ml-4"
                     />
                   </div>
-                </article>
-
-                <div className="hidden sm:grid sm:grid-cols-[52px_32px_32px_minmax(0,180px)_52px_minmax(0,1fr)] sm:items-center">
-                  <div className="text-center text-[18px] font-bold tabular-nums">
-                    {String(entry[config.rankingKey] ?? "")}
-                  </div>
-
-                  <Link href={teamRoute(teamSlug)} className="flex items-center justify-center">
-                    <HelmetSprite team={teamSlug} />
-                  </Link>
-
-                  <div className="flex items-center justify-center">
-                    <HeadshotSprite team={teamSlug} position={entry.position as never} />
-                  </div>
-
-                  <div className="pl-3">
-                    <h3 className="text-[18px]">{entry.name}</h3>
-                    <h4 className="text-[14px] font-medium text-white/65">
-                      {entry.position} {entry.number}
-                    </h4>
-                  </div>
-
-                  <div className="text-center text-[18px] font-bold tabular-nums">
-                    {String(entry[config.ratingKey] ?? "")}
-                  </div>
-
-                  <MetricStrip columns={config.columns} getValue={(key) => renderMetricValue(entry, key)} className="ml-3 md:ml-4" />
-                </div>
-              </li>
-            );
-          })}
-        </ol>
+                </li>
+              );
+            })}
+          </ol>
+        </div>
       </div>
     </>
   );
