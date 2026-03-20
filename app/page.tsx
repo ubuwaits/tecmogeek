@@ -3,9 +3,9 @@ import Link from "next/link";
 
 import { HeadshotSprite, HelmetSprite } from "@/components/sprites";
 import { getPositionEntries } from "@/lib/data";
+import { POSITION_PAGES } from "@/lib/players/config";
 import { getHomeEntries, getTeamSlugFromCode } from "@/lib/player-utils";
 import { homeRoute, playerRoute, teamRoute } from "@/lib/routes";
-import { POSITION_PAGES } from "@/lib/site-config";
 
 export const metadata: Metadata = {
   title: "Comprehensive guide to Tecmo Super Bowl",

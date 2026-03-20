@@ -14,7 +14,7 @@ import {
   TEAM_SKILL_MODE_CONFIG,
   TEAM_SKILL_MODES,
   TEAM_SKILL_RANGE,
-} from "@/lib/site-config";
+} from "@/lib/teams/config";
 import { getTeamReturnSpeedValues, sortEntriesByKey } from "@/lib/player-utils";
 import { playerRoute } from "@/lib/routes";
 import type {

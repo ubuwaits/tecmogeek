@@ -4,9 +4,14 @@ import localFont from "next/font/local";
 
 import { SiteFooter } from "@/components/site-footer";
 import { TopNav } from "@/components/top-nav";
-import { SITE_DESCRIPTION, SITE_TITLE_SUFFIX, SITE_URL } from "@/lib/site-config";
 
 import "./globals.css";
+
+const SITE_NAME = "Tecmo Geek";
+const SITE_DESCRIPTION =
+  "Comprehensive guide to player attributes and rankings in Tecmo Super Bowl for NES.";
+const SITE_TITLE_SUFFIX = "Tecmo Geek. The ultimate guide to Tecmo Super Bowl for NES.";
+const TWITTER_CREATOR = "@ubuwaits";
 
 const inter = localFont({
   src: [
@@ -34,28 +39,20 @@ const tecmo = localFont({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(SITE_URL),
+  metadataBase: new URL("https://tecmogeek.com"),
   title: {
-    default: "Tecmo Geek",
+    default: SITE_NAME,
     template: `%s — ${SITE_TITLE_SUFFIX}`,
   },
   description: SITE_DESCRIPTION,
   twitter: {
     card: "summary_large_image",
-    creator: "@ubuwaits",
+    creator: TWITTER_CREATOR,
   },
   openGraph: {
     type: "website",
     title: SITE_DESCRIPTION,
-    url: SITE_URL,
-    images: [
-      {
-        url: "/images/tecmogeek.png",
-      },
-    ],
-  },
-  icons: {
-    icon: "/favicon.png",
+    url: "https://tecmogeek.com",
   },
 };
 

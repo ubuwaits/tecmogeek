@@ -1,11 +1,12 @@
-import { POSITION_PAGE_CONFIG_MAP } from "@/lib/site-config";
+import { POSITION_PAGE_CONFIG_MAP } from "@/lib/players/config";
 import type {
   PlayerRecord,
   PlayerSortKey,
   PositionPageConfig,
   TeamData,
-  TeamSlug,
   SortDirection,
+  PositionSlug,
+  TeamSlug,
 } from "@/lib/types";
 
 export function parsePercent(value: string | number | undefined): number {
@@ -75,7 +76,7 @@ export function getHomeEntries(
   return limited.filter((entry) => !config.homeExcludePositions?.includes(entry.position));
 }
 
-export function getHomeEntriesForSlug(slug: keyof typeof POSITION_PAGE_CONFIG_MAP, entries: readonly PlayerRecord[]) {
+export function getHomeEntriesForSlug(slug: PositionSlug, entries: readonly PlayerRecord[]) {
   return getHomeEntries(POSITION_PAGE_CONFIG_MAP[slug], entries);
 }
 
