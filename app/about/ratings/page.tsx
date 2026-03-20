@@ -18,12 +18,12 @@ export const metadata: Metadata = {
 export default function RatingsPage() {
   return (
     <ArticlePage>
-      <article className="prose prose-neutral max-w-none text-pretty text-[17px] leading-[1.6] prose-a:no-underline prose-a:text-(--blue) prose-headings:text-[#3a3a3a] prose-strong:text-[#3a3a3a] sm:text-[18px] sm:leading-[1.5]">
-        <h1 className="mb-0 font-(family-name:--font-tecmo) text-[23px] leading-[0.95] uppercase text-balance sm:text-[36px] sm:leading-[40px]">
+      <article className="prose prose-neutral max-w-none prose-a:no-underline prose-a:text-(--blue) prose-headings:text-[#3a3a3a] prose-strong:text-[#3a3a3a]">
+        <h1 className="mb-0 font-(family-name:--font-tecmo) text-[23px] leading-snug uppercase text-balance sm:text-[36px] sm:leading-[40px]">
           How player ratings and rankings are calculated
         </h1>
 
-        <h2 className="mb-2 mt-6 text-[19px] font-semibold leading-[1.2] text-balance sm:text-[24px]">
+        <h2>
           Step one: Forget about attributes that don&apos;t matter
         </h2>
 
@@ -110,7 +110,7 @@ export default function RatingsPage() {
           Hitting Power: <strong>31</strong>
         </p>
 
-        <h2 className="mb-2 mt-8 text-[19px] font-semibold leading-[1.2] text-balance sm:text-[24px]">
+        <h2>
           Step two: Calculate a score for attributes that do matter
         </h2>
         <p>
@@ -124,7 +124,7 @@ export default function RatingsPage() {
           receives an 85% (69/81 * 100) for that attribute.
         </p>
 
-        <h2 className="mb-2 mt-8 text-[19px] font-semibold leading-[1.2] text-balance sm:text-[24px]">
+        <h2>
           Step three: Weight each attribute to determine a total score
         </h2>
         <p>
@@ -281,7 +281,7 @@ export default function RatingsPage() {
           condition.
         </p>
 
-        <h2 className="mb-2 mt-8 text-[19px] font-semibold leading-[1.2] text-balance sm:text-[24px]">
+        <h2>
           Example: ratings for Jerry Rice and Bo Jackson
         </h2>
         <p>
@@ -353,7 +353,7 @@ export default function RatingsPage() {
 
         <p>Jackson is the best rusher in the game, with Rice a close second.</p>
 
-        <h2 className="mb-2 mt-8 text-[19px] font-semibold leading-[1.2] text-balance sm:text-[24px]">
+        <h2>
           Step four: Use rating to assign a ranking
         </h2>
         <p>
@@ -361,7 +361,7 @@ export default function RatingsPage() {
           performance at that position compared to every other player, and ranking shows how many
           players are above or below them using the same rating system.
         </p>
-        <p className="mb-0">
+        <p>
           The rating system isn&apos;t perfect, but it&apos;s a useful tool for ranking players
           against each other and getting a relative sense of their ability.
         </p>
