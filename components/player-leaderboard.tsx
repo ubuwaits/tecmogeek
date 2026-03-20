@@ -72,7 +72,7 @@ export function PlayerLeaderboard({ slug, entries }: PlayerLeaderboardProps) {
   return (
     <>
       <header className="mb-8 sm:mb-12">
-        <h1 className="font-(family-name:--font-tecmo) text-[26px] leading-[0.92] uppercase text-balance sm:text-[32px]">
+        <h1 className="font-(family-name:--font-tecmo) text-[24px] leading-snug uppercase text-balance sm:text-[32px]">
           {config.title}
         </h1>
         <p className="mt-3 max-w-[48rem] text-[15px] font-medium text-pretty text-white/65 sm:mt-2 sm:text-[16px]">
