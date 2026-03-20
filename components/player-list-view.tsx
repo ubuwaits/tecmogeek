@@ -109,7 +109,7 @@ export function PlayerListView({ slug, entries }: PlayerListViewProps) {
                 data-position={entry.position}
               >
                 <PlayerListRow layout="player">
-                  <div className="text-[18px] font-bold tabular-nums">
+                  <div className="text-[14px] font-bold tabular-nums">
                     {String(entry[config.rankingKey] ?? "")}
                   </div>
 
@@ -123,7 +123,7 @@ export function PlayerListView({ slug, entries }: PlayerListViewProps) {
                     number={entry.number}
                   />
 
-                  <div className="text-[18px] font-bold tabular-nums">
+                  <div className="text-[14px] font-bold tabular-nums">
                     {String(entry[config.ratingKey] ?? "")}
                   </div>
 

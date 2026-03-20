@@ -82,7 +82,7 @@ function TeamPlayerListEntry({
 }) {
   return (
     <PlayerListRow layout="team">
-      <div className="text-[18px] font-bold tabular-nums">{rankingValue}</div>
+      <div className="text-[14px] font-bold tabular-nums">{rankingValue}</div>
       <PlayerIdentityCell
         layout="team"
         team={teamSlug}
@@ -91,7 +91,7 @@ function TeamPlayerListEntry({
         position={player.position}
         number={player.number}
       />
-      <div className="text-[18px] font-bold tabular-nums">
+      <div className="text-[14px] font-bold tabular-nums">
         <Link
           href={playerRoute(playerPage)}
           className="text-inherit no-underline transition-colors hover:text-(--pink)"
