@@ -119,7 +119,7 @@ test.describe("mobile responsive layout", () => {
     await expectNoHorizontalOverflow(page);
     const teamScroller = page.getByTestId("team-skill-table-scroll");
     await expectLocalHorizontalOverflow(teamScroller);
-    await page.getByTestId("team-mode-receiving").click();
+    await page.getByTestId("team-mode-select").selectOption("receiving");
 
     const firstRow = page.locator("[data-testid='team-skill-row']").first();
     await expect(firstRow).toContainText("Jerry Rice");

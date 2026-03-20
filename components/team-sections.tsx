@@ -191,31 +191,50 @@ export function TeamSkillSection({ team }: { team: TeamData }) {
 
   return (
     <div className="mb-12 sm:mb-16" data-testid="team-skill-section" data-mode={mode}>
-      <ul className="mb-4 flex flex-wrap gap-x-3 gap-y-2 text-left sm:mb-8 sm:justify-center">
-        {Object.values(TEAM_SKILL_MODE_CONFIG).map((config) => {
-          const active = config.id === mode;
+      <div className="mb-4 sm:mb-8">
+        <label className="block sm:hidden">
+          <span className="sr-only">Skill mode</span>
+          <div className="relative">
+            <select
+              data-testid="team-mode-select"
+              aria-label="Skill mode"
+              value={mode}
+              onChange={(event) => setMode(event.target.value as TeamSkillMode)}
+              className="min-h-11 w-full appearance-none rounded-xl border border-white/15 bg-[#0f4faa]/60 px-4 py-3 pr-11 font-(family-name:--font-tecmo) text-[14px] uppercase leading-none text-white shadow-[0_0_0_1px_rgba(255,255,255,0.06)] transition-[background-color,box-shadow] duration-150 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
+            >
+              {Object.values(TEAM_SKILL_MODE_CONFIG).map((config) => (
+                <option key={config.id} value={config.id} className="text-black">
+                  {config.label}
+                </option>
+              ))}
+            </select>
+            <span className="pointer-events-none absolute right-4 top-1/2 h-0 w-0 -translate-y-1/2 border-x-[6px] border-t-[6px] border-x-transparent border-t-white" />
+          </div>
+        </label>
 
-          return (
-            <li key={config.id}>
-              <button
-                type="button"
-                data-testid={`team-mode-${config.id}`}
-                onClick={() => setMode(config.id)}
-                className={`relative min-h-10 rounded px-1 pb-0.5 font-bold transition ${
-                  active
-                    ? "border-transparent text-white"
-                    : "border-white/65 text-white/65 hover:border-white hover:text-white"
-                } border-b-2`}
-              >
-                {config.label}
-                {active ? (
-                  <span className="absolute left-1/2 top-full mt-1 h-0 w-0 -translate-x-1/2 border-x-[8px] border-t-[8px] border-x-transparent border-t-white" />
-                ) : null}
-              </button>
-            </li>
-          );
-        })}
-      </ul>
+        <ul className="hidden flex-wrap justify-center gap-2 text-left sm:flex">
+          {Object.values(TEAM_SKILL_MODE_CONFIG).map((config) => {
+            const active = config.id === mode;
+
+            return (
+              <li key={config.id}>
+                <button
+                  type="button"
+                  data-testid={`team-mode-${config.id}`}
+                  onClick={() => setMode(config.id)}
+                  className={`min-h-11 rounded-xl px-4 py-3 font-bold transition-[background-color,color,box-shadow] duration-150 ease-out ${
+                    active
+                      ? "bg-white/14 text-white shadow-[0_0_0_1px_rgba(255,255,255,0.16)]"
+                      : "bg-white/6 text-white/72 shadow-[0_0_0_1px_rgba(255,255,255,0.08)] hover:bg-white/10 hover:text-white"
+                  }`}
+                >
+                  {config.label}
+                </button>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
 
       <HorizontalScrollTable testId="team-skill-table-scroll">
         <TeamHeaderRow
