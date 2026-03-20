@@ -27,11 +27,11 @@ export default async function HomePage() {
 
   return (
     <section data-page-theme="home" className="mx-auto w-full max-w-[1240px]">
-      <h2 className="mx-auto mb-8 mt-2 max-w-[800px] text-center font-(family-name:--font-tecmo) text-[1.25rem] leading-[1.15] text-balance uppercase sm:mb-13 sm:mt-3 sm:text-[1.75em] sm:leading-normal">
+      <h2 className="mx-auto mb-10 mt-2 max-w-[800px] text-center font-(family-name:--font-tecmo) text-xl leading-snug text-balance uppercase sm:mb-13 sm:mt-3 sm:text-[1.75em] sm:leading-normal">
         Comprehensive guide to player attributes in Tecmo Super Bowl for NES.
       </h2>
 
-      <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+      <div className="grid gap-10 sm:grid-cols-2 xl:grid-cols-3">
         {sectionData.map(({ page, entries }) => (
           <div key={page.slug} className="min-w-0">
             <h3 className="pb-1 font-(family-name:--font-tecmo) text-[16px] leading-normal">
