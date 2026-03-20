@@ -34,32 +34,6 @@ export function ArticleTitle({ children, className }: ArticleChildrenProps) {
   );
 }
 
-export function ArticleSectionTitle({ children, className }: ArticleChildrenProps) {
-  return (
-    <h2
-      className={withOptionalClassName(
-        "mb-2 mt-8 text-[19px] font-semibold leading-[1.2] text-balance text-[#3a3a3a] sm:text-[24px]",
-        className,
-      )}
-    >
-      {children}
-    </h2>
-  );
-}
-
-export function ArticleSubsectionTitle({ children, className }: ArticleChildrenProps) {
-  return (
-    <h3
-      className={withOptionalClassName(
-        "mb-1 text-[1.05em] font-bold text-[#3a3a3a] sm:text-[1.2em]",
-        className,
-      )}
-    >
-      {children}
-    </h3>
-  );
-}
-
 export function ArticleParagraph({ children, className }: ArticleChildrenProps) {
   return (
     <p
