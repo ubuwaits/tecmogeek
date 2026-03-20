@@ -5,12 +5,14 @@ import { useState } from "react";
 
 import { HorizontalScrollTable } from "@/components/horizontal-scroll-table";
 import { MetricLegend, MetricStrip } from "@/components/metric-strip";
+import { SkillTabs } from "@/components/skill-tabs";
 import { HeadshotSprite } from "@/components/sprites";
 import { TooltipLabel } from "@/components/tooltip-label";
 import {
   DEFAULT_TEAM_SKILL_MODE,
   TEAM_SECTION_CONFIGS,
   TEAM_SKILL_MODE_CONFIG,
+  TEAM_SKILL_MODES,
   TEAM_SKILL_RANGE,
 } from "@/lib/site-config";
 import { getTeamReturnSpeedValues, sortEntriesByKey } from "@/lib/player-utils";
@@ -191,50 +193,14 @@ export function TeamSkillSection({ team }: { team: TeamData }) {
 
   return (
     <div className="mb-12 sm:mb-16" data-testid="team-skill-section" data-mode={mode}>
-      <div className="mb-4 sm:mb-8">
-        <label className="block sm:hidden">
-          <span className="sr-only">Skill mode</span>
-          <div className="relative">
-            <select
-              data-testid="team-mode-select"
-              aria-label="Skill mode"
-              value={mode}
-              onChange={(event) => setMode(event.target.value as TeamSkillMode)}
-              className="min-h-11 w-full appearance-none rounded-xl border border-white/15 bg-[#0f4faa]/60 px-4 py-3 pr-11 font-(family-name:--font-tecmo) text-[14px] uppercase leading-none text-white shadow-[0_0_0_1px_rgba(255,255,255,0.06)] transition-[background-color,box-shadow] duration-150 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
-            >
-              {Object.values(TEAM_SKILL_MODE_CONFIG).map((config) => (
-                <option key={config.id} value={config.id} className="text-black">
-                  {config.label}
-                </option>
-              ))}
-            </select>
-            <span className="pointer-events-none absolute right-4 top-1/2 h-0 w-0 -translate-y-1/2 border-x-[6px] border-t-[6px] border-x-transparent border-t-white" />
-          </div>
-        </label>
-
-        <ul className="hidden flex-wrap justify-center gap-2 text-left sm:flex">
-          {Object.values(TEAM_SKILL_MODE_CONFIG).map((config) => {
-            const active = config.id === mode;
-
-            return (
-              <li key={config.id}>
-                <button
-                  type="button"
-                  data-testid={`team-mode-${config.id}`}
-                  onClick={() => setMode(config.id)}
-                  className={`min-h-11 rounded-xl px-4 py-3 font-bold transition-[background-color,color,box-shadow] duration-150 ease-out ${
-                    active
-                      ? "bg-white/14 text-white shadow-[0_0_0_1px_rgba(255,255,255,0.16)]"
-                      : "bg-white/6 text-white/72 shadow-[0_0_0_1px_rgba(255,255,255,0.08)] hover:bg-white/10 hover:text-white"
-                  }`}
-                >
-                  {config.label}
-                </button>
-              </li>
-            );
-          })}
-        </ul>
-      </div>
+      <SkillTabs
+        items={TEAM_SKILL_MODES}
+        activeId={mode}
+        onChange={(id) => setMode(id as TeamSkillMode)}
+        tabTestIdPrefix="team-mode"
+        mobileSelectLabel="Skill mode"
+        mobileSelectTestId="team-mode-select"
+      />
 
       <HorizontalScrollTable testId="team-skill-table-scroll">
         <TeamHeaderRow

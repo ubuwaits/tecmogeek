@@ -31,7 +31,9 @@ test("home page renders leaderboards", async ({ page }) => {
 
 test("rushers page filters down to RB entries", async ({ page }) => {
   await page.goto("/players/rushers/");
-  await page.getByTestId("filter-only-rb").click();
+  const onlyRbTab = page.getByTestId("filter-only-rb");
+  await expect(onlyRbTab).toHaveCSS("cursor", "pointer");
+  await onlyRbTab.click();
 
   const positions = await page
     .locator("[data-testid='leaderboard-row']")
@@ -100,7 +102,7 @@ test.describe("mobile responsive layout", () => {
     const playerScroller = page.getByTestId("player-table-scroll");
     await expectLocalHorizontalOverflow(playerScroller);
 
-    await page.getByTestId("filter-only-rb").click();
+    await page.getByTestId("player-filter-select").selectOption("only-rb");
 
     const positions = await page
       .locator("[data-testid='leaderboard-row']")

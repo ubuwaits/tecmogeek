@@ -437,6 +437,13 @@ export const TEAM_SKILL_MODE_CONFIG: Record<TeamSkillMode, TeamSkillModeConfig> 
   },
 };
 
+export const TEAM_SKILL_MODES = [
+  TEAM_SKILL_MODE_CONFIG.rushing,
+  TEAM_SKILL_MODE_CONFIG.receiving,
+  TEAM_SKILL_MODE_CONFIG["kick-return"],
+  TEAM_SKILL_MODE_CONFIG["punt-return"],
+] as const;
+
 export const DEFAULT_TEAM_SKILL_MODE: TeamSkillMode = "rushing";
 export const TEAM_SKILL_RANGE = [2, 11] as const;
 

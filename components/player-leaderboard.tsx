@@ -5,6 +5,7 @@ import { useState } from "react";
 
 import { HorizontalScrollTable } from "@/components/horizontal-scroll-table";
 import { MetricLegend, MetricStrip } from "@/components/metric-strip";
+import { SkillTabs } from "@/components/skill-tabs";
 import { HeadshotSprite, HelmetSprite } from "@/components/sprites";
 import { POSITION_PAGE_CONFIG_MAP } from "@/lib/site-config";
 import { getTeamSlugFromCode, matchesPrefixes, sortEntriesByKey } from "@/lib/player-utils";
@@ -81,31 +82,14 @@ export function PlayerLeaderboard({ slug, entries }: PlayerLeaderboardProps) {
 
       <div className="mb-14 sm:mb-16">
         {config.filters?.length ? (
-          <ul className="mb-6 flex flex-wrap gap-x-3 gap-y-2 text-left sm:mb-8">
-            {config.filters.map((filter) => {
-              const active = filter.id === filterId;
-
-              return (
-                <li key={filter.id}>
-                  <button
-                    type="button"
-                    data-testid={`filter-${filter.id}`}
-                    onClick={() => setFilterId(filter.id)}
-                    className={`relative min-h-10 rounded px-1 pb-0.5 font-bold transition ${
-                      active
-                        ? "border-transparent text-white"
-                        : "border-white/65 text-white/65 hover:border-white hover:text-white"
-                    } border-b-2`}
-                  >
-                    {filter.label}
-                    {active ? (
-                      <span className="absolute left-1/2 top-full mt-1 h-0 w-0 -translate-x-1/2 border-x-8 border-t-8 border-x-transparent border-t-white" />
-                    ) : null}
-                  </button>
-                </li>
-              );
-            })}
-          </ul>
+          <SkillTabs
+            items={config.filters}
+            activeId={filterId}
+            onChange={setFilterId}
+            tabTestIdPrefix="filter"
+            mobileSelectLabel="Player filter"
+            mobileSelectTestId="player-filter-select"
+          />
         ) : null}
 
         <HorizontalScrollTable testId="player-table-scroll">
