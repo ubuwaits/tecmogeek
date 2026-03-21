@@ -1,8 +1,10 @@
 "use client";
 
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import type { Route } from "next";
+
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { cn } from "@/lib/utils";
 
 export type SelectionTabItem = {
   id: string;
@@ -19,14 +21,6 @@ type SelectionTabsProps = {
   mobileSelectTestId?: string;
   collapseToSelectOnMobile?: boolean;
 };
-
-function getTabClass(active: boolean) {
-  return `inline-flex min-h-11 cursor-pointer items-center justify-center rounded-xl px-4 py-3 font-bold no-underline transition-[background-color,color,box-shadow] duration-150 ease-out ${
-    active
-      ? "bg-white/14 text-white shadow-[0_0_0_1px_rgba(255,255,255,0.16)]"
-      : "bg-white/6 text-white/72 shadow-[0_0_0_1px_rgba(255,255,255,0.08)] hover:bg-white/10 hover:text-white"
-  }`;
-}
 
 export function SelectionTabs({
   items,
@@ -55,7 +49,7 @@ export function SelectionTabs({
   }
 
   return (
-    <div className="mb-4 sm:mb-8">
+    <div className="mb-3 sm:mb-4">
       {collapseToSelectOnMobile && mobileSelectLabel && mobileSelectTestId ? (
         <label className="block sm:hidden">
           <span className="sr-only">{mobileSelectLabel}</span>
@@ -78,41 +72,21 @@ export function SelectionTabs({
         </label>
       ) : null}
 
-      <ul
-        className={`flex flex-wrap justify-center gap-2 text-left ${
-          collapseToSelectOnMobile ? "hidden sm:flex" : ""
-        }`}
-      >
-        {items.map((item) => {
-          const active = item.id === activeId;
-          const testId = `${tabTestIdPrefix}-${item.id}`;
-          const className = getTabClass(active);
-
-          return (
-            <li key={item.id}>
-              {item.href ? (
-                <Link
-                  href={item.href}
-                  data-testid={testId}
-                  aria-current={active ? "page" : undefined}
-                  className={className}
-                >
-                  {item.label}
-                </Link>
-              ) : (
-                <button
-                  type="button"
-                  data-testid={testId}
-                  onClick={() => onChange?.(item.id)}
-                  className={className}
-                >
-                  {item.label}
-                </button>
-              )}
-            </li>
-          );
-        })}
-      </ul>
+      <div className={cn(collapseToSelectOnMobile && "hidden sm:block")}>
+        <Tabs value={activeId} onValueChange={handleSelect}>
+          <TabsList variant="line" className="flex flex-wrap gap-x-5 gap-y-2 text-left">
+            {items.map((item) => (
+              <TabsTrigger
+                key={item.id}
+                value={item.id}
+                data-testid={`${tabTestIdPrefix}-${item.id}`}
+              >
+                {item.label}
+              </TabsTrigger>
+            ))}
+          </TabsList>
+        </Tabs>
+      </div>
     </div>
   );
 }
