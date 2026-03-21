@@ -280,11 +280,15 @@ export default function RatingsPage() {
 
         <h3>A note about hitting power for offensive players</h3>
         <p>
-          Hitting power only really makes a difference on offensive player performance at about 88.
-          To account for this, players with hitting power below that threshold do not have hitting
-          power factored into their rating. Players with 75 and 81 hitting power in average
-          condition are given partial credit, since they can reach 88 in Good and Excellent
-          condition.
+          Hitting power only really makes a difference on offensive player performance once it
+          reaches about 88. To account for this, offensive ratings use score bands instead of the
+          raw hitting power value: players below 75 get 0%, 75 gets 40%, 81 gets 60%, 88 gets
+          80%, and 94 gets 100%. That gives players with 75 and 81 hitting power in average
+          condition partial credit, since they can reach 88 in Good and Excellent condition.
+        </p>
+        <p>
+          Rankings still use higher raw hitting power as the tiebreak when two offensive players
+          have the same displayed rating.
         </p>
 
         <h2>
@@ -348,13 +352,13 @@ export default function RatingsPage() {
         <p>Now here are their rusher ratings:</p>
 
         <p>
-          Rice: <strong>81.38%</strong> ((10 * (69.84 / 100)) + (70 * (92 / 100)) + (10 * (13.83 /
+          Rice: <strong>81.38%</strong> ((10 * (69.84 / 100)) + (70 * (92 / 100)) + (10 * (0 /
           100)) + (5 * (100 / 100)) + (5 * (100 / 100)))
         </p>
 
         <p>
           Jackson: <strong>82.20%</strong> ((10 * (60.32 / 100)) + (70 * (100 / 100)) + (10 *
-          (32.98 / 100)) + (5 * (100 / 100)) + (5 * (23.46 / 100)))
+          (0 / 100)) + (5 * (100 / 100)) + (5 * (23.46 / 100)))
         </p>
 
         <p>Jackson is the best rusher in the game, with Rice a close second.</p>
@@ -365,7 +369,8 @@ export default function RatingsPage() {
         <p>
           For each player, I show their rating as well as ranking. The rating shows their actual
           performance at that position compared to every other player, and ranking shows how many
-          players are above or below them using the same rating system.
+          players are above or below them once those ratings are ordered. For offensive players,
+          ties in the displayed rating are broken by higher hitting power.
         </p>
         <p>
           The rating system isn&apos;t perfect, but it&apos;s a useful tool for ranking players
