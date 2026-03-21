@@ -4,12 +4,7 @@ import type { Route } from "next";
 import { MetricLegend, MetricStrip } from "@/components/metric-strip";
 import { PlayerListHeaderLabel } from "@/components/player-list-header-label";
 import { HeadshotSprite, HelmetSprite } from "@/components/sprites";
-import type {
-  HeadshotPosition,
-  MetricColumn,
-  PlayerMetricKey,
-  TeamSlug,
-} from "@/lib/types";
+import type { MetricColumn, PlayerMetricKey, TeamSlug } from "@/lib/types";
 
 const PLAYER_LIST_GRID_CLASS = {
   player: {
@@ -256,7 +251,7 @@ export function PlayerIdentityCell(props: PlayerIdentityCellProps) {
           <Link href={props.helmetHref} className="flex items-center justify-center">
             <HelmetSprite team={props.team} />
           </Link>
-          <HeadshotSprite team={props.team} position={props.headshotPosition as HeadshotPosition} />
+          <HeadshotSprite team={props.team} position={props.headshotPosition} />
         </div>
 
         <div className="min-w-0">

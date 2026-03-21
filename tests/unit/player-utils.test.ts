@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 import fortyNiners from "@/data/49ers.json";
 import rushers from "@/data/rushers.json";
 import {
+  getHeadshotSpriteIndex,
   getHomeEntries,
   getSortValue,
   getTeamReturnSpeedValues,
@@ -41,6 +42,14 @@ describe("player utilities", () => {
     expect(matchesPrefixes("RB3", ["RB"])).toBe(true);
     expect(matchesPrefixes("WR2", ["RB"])).toBe(false);
     expect(matchesPrefixes("TE1", ["WR", "TE"])).toBe(true);
+  });
+
+  it("maps extended wide receiver slots onto the shared headshot sprite positions", () => {
+    expect(getHeadshotSpriteIndex("WR5")).toBe(10);
+    expect(getHeadshotSpriteIndex("WR6")).toBe(11);
+    expect(getHeadshotSpriteIndex("TE1")).toBe(10);
+    expect(getHeadshotSpriteIndex("TE2")).toBe(11);
+    expect(getHeadshotSpriteIndex("C")).toBe(12);
   });
 
   it("derives team return speeds from RT and SS slots", () => {

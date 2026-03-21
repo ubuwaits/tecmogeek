@@ -50,7 +50,7 @@ export default async function HomePage() {
                       <HelmetSprite team={teamSlug} />
                     </Link>
 
-                    <HeadshotSprite team={teamSlug} position={entry.position as never} className="mx-3" />
+                    <HeadshotSprite team={teamSlug} position={entry.position} className="mx-3" />
 
                     <section>
                       <h3 className="font-(family-name:--font-tecmo) text-[14px] uppercase text-balance">

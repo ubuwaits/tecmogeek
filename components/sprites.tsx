@@ -1,13 +1,10 @@
-import { HEADSHOT_POSITIONS, TEAM_SLUGS, type HeadshotPosition, type TeamSlug } from "@/lib/types";
+import { getHeadshotSpriteIndex } from "@/lib/player-utils";
+import { TEAM_SLUGS, type TeamSlug } from "@/lib/types";
 
 type HelmetSize = "small" | "large";
 
 function getTeamIndex(team: TeamSlug): number {
   return TEAM_SLUGS.indexOf(team);
-}
-
-function getHeadshotIndex(position: HeadshotPosition): number {
-  return HEADSHOT_POSITIONS.indexOf(position);
 }
 
 export function HelmetSprite({
@@ -46,11 +43,12 @@ export function HeadshotSprite({
   className = "",
 }: {
   team: TeamSlug;
-  position?: HeadshotPosition;
+  position?: string;
   index?: number;
   className?: string;
 }) {
-  const spriteIndex = typeof index === "number" ? index : getHeadshotIndex(position ?? "QB1");
+  const spriteIndex =
+    typeof index === "number" ? index : getHeadshotSpriteIndex(position ?? "QB1");
 
   return (
     <span
