@@ -12,10 +12,14 @@ import type {
 } from "@/lib/types";
 
 const PLAYER_LIST_GRID_CLASS = {
-  player:
-    "grid w-full grid-cols-[52px_252px_52px_minmax(520px,1fr)] items-center sm:grid-cols-[52px_minmax(0,252px)_52px_minmax(0,1fr)]",
-  team:
-    "grid w-full grid-cols-[52px_32px_180px_52px_minmax(520px,1fr)] items-center sm:grid-cols-[52px_32px_minmax(0,180px)_52px_minmax(0,1fr)]",
+  player: {
+    row: "grid w-full grid-cols-[44px_224px_52px_minmax(520px,1fr)] items-center sm:grid-cols-[44px_minmax(0,224px)_52px_minmax(0,1fr)]",
+    note: "",
+  },
+  team: {
+    row: "grid w-full grid-cols-[44px_32px_156px_52px_minmax(520px,1fr)] items-center sm:grid-cols-[44px_32px_minmax(0,156px)_52px_minmax(0,1fr)]",
+    note: "sm:grid sm:grid-cols-[44px_32px_minmax(0,156px)_52px_minmax(0,1fr)]",
+  },
 } as const;
 
 type PlayerListLayout = keyof typeof PLAYER_LIST_GRID_CLASS;
@@ -89,7 +93,11 @@ type PlayerIdentityCellProps =
     };
 
 function getGridClass(layout: PlayerListLayout): string {
-  return PLAYER_LIST_GRID_CLASS[layout];
+  return PLAYER_LIST_GRID_CLASS[layout].row;
+}
+
+export function getPlayerListNoteGridClass(layout: PlayerListLayout): string {
+  return PLAYER_LIST_GRID_CLASS[layout].note;
 }
 
 export function PlayerListTable({ children, testId }: PlayerListTableProps) {

@@ -2,7 +2,11 @@
 
 import { useState } from "react";
 
-import { PlayerListSection, type PlayerListSectionRow } from "@/components/player-list-table";
+import {
+  PlayerListSection,
+  getPlayerListNoteGridClass,
+  type PlayerListSectionRow,
+} from "@/components/player-list-table";
 import { SelectionTabs } from "@/components/selection-tabs";
 import {
   DEFAULT_TEAM_SKILL_MODE,
@@ -24,7 +28,7 @@ import type {
 
 function PlayerListNote({ children }: { children: React.ReactNode }) {
   return (
-    <div className="sm:grid sm:grid-cols-[52px_32px_minmax(0,180px)_52px_minmax(0,1fr)]">
+    <div className={getPlayerListNoteGridClass("team")}>
       <p className="text-[12px] sm:text-[14px] leading-normal text-pretty text-white/65 sm:col-start-5 sm:ml-3 md:ml-4">
         {children}
       </p>
