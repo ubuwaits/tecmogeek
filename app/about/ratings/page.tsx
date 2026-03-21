@@ -37,7 +37,7 @@ export default function RatingsPage() {
           First, for each type of player, I disregard attributes which are either the same for
           each player or not used by the game to determine performance. Yes, that&apos;s right, for
           whatever reason (the programmers forgot, ran out of time, etc.), the Accuracy of Passing
-          attribute for QBs, and Quickness attribute for defensive players have no affect on actual
+          attribute for QBs, and Quickness attribute for defensive players have no effect on actual
           performance.
         </p>
         <p>

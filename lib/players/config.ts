@@ -1,14 +1,14 @@
 import type { MetricColumn, PositionPageConfig, PositionSlug } from "@/lib/types";
 
 export const QB_NOTE =
-  "All QBs have Running Speed 25, Rushing Power 69, and Hitting Power 13. Accuracy of Passing has no affect on performance.";
+  "All QBs have Running Speed 25, Rushing Power 69, and Hitting Power 13. Accuracy of Passing has no effect on performance.";
 export const SKILL_POSITION_NOTE = "All RBs, WRs and TEs have Rushing Power 69.";
 export const KICK_RETURN_NOTE =
   "Due to a programming glitch, all KRs have the same Maximum Speed as their team's RT.";
 export const PUNT_RETURN_NOTE =
   "Due to a programming glitch, all PRs have the same Maximum Speed as their team's SS and Ball Control 44.";
 export const OFFENSIVE_LINE_NOTE = "All OL have Running Speed 25 and Rushing Power 69.";
-export const DEFENSE_NOTE = "Quickness has no affect on performance for any defensive player.";
+export const DEFENSE_NOTE = "Quickness has no effect on performance for any defensive player.";
 export const KICKER_NOTE =
   "All kickers have Running Speed 56, Rushing Power 81, Maximum Speed 81, and Hitting Power 31.";
 export const PUNTER_NOTE =
