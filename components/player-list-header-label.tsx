@@ -32,7 +32,7 @@ export function PlayerListHeaderLabel({
   );
 
   const trigger = onClick ? (
-    <button type="button" onClick={onClick} className="inline-flex">
+    <button type="button" onClick={onClick} className="inline-flex cursor-pointer">
       {labelContent}
     </button>
   ) : (

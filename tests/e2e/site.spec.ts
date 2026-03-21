@@ -44,7 +44,9 @@ test("rushers page filters down to RB entries", async ({ page }) => {
 
 test("rushers page metric header re-sorts the player list", async ({ page }) => {
   await page.goto("/players/rushers/");
-  await page.getByRole("button", { name: "REC" }).click();
+  const receptionsHeader = page.getByRole("button", { name: "REC" });
+  await expect(receptionsHeader).toHaveCSS("cursor", "pointer");
+  await receptionsHeader.click();
 
   const receptionValues = await page
     .locator("[data-testid='leaderboard-row'] [data-metric-key='receptions']")
@@ -57,6 +59,9 @@ test("rushers page metric header re-sorts the player list", async ({ page }) => 
 
 test("team page mode toggle re-sorts the skill section", async ({ page }) => {
   await page.goto("/teams/49ers/");
+  await expect(
+    page.getByTestId("team-skill-table-scroll").getByText("RB/WR/TE Ranking"),
+  ).toHaveCSS("cursor", "auto");
   await page.getByTestId("team-mode-receiving").click();
 
   const firstRow = page.locator("[data-testid='team-skill-row']").first();
