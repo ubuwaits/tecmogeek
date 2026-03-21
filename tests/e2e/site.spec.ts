@@ -60,7 +60,7 @@ test("rushers page metric header re-sorts the player list", async ({ page }) => 
 test("team page mode toggle re-sorts the skill section", async ({ page }) => {
   await page.goto("/teams/49ers/");
   await expect(
-    page.getByTestId("team-skill-table-scroll").getByText("RB/WR/TE Ranking"),
+    page.getByTestId("team-skill-table-scroll").getByText("Rushing Ranking"),
   ).toHaveCSS("cursor", "auto");
   await page.getByTestId("team-mode-receiving").click();
 

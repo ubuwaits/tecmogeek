@@ -151,6 +151,7 @@ function TeamSkillPlayerList({ team }: { team: TeamData }) {
     getMetricValue: getModeMetricValue,
     rowTestId: "team-skill-row",
   });
+  const rankingLabel = `${modeConfig.label} Ranking`;
 
   return (
     <div className="mb-12 sm:mb-16" data-testid="team-skill-section" data-mode={mode}>
@@ -166,7 +167,7 @@ function TeamSkillPlayerList({ team }: { team: TeamData }) {
       <PlayerListSection
         testId="team-skill-table-scroll"
         layout="team"
-        rankingLabel="RB/WR/TE Ranking"
+        rankingLabel={rankingLabel}
         rankingTooltip="Out of 280 RB, WR & TE"
         columns={modeConfig.columns}
         rows={rows}
