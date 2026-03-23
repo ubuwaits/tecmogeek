@@ -6,6 +6,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { TopNav } from "@/components/top-nav";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { SOCIAL_IMAGE_PATH } from "@/lib/metadata";
+import { SITE_URL } from "@/lib/site";
 
 import "./globals.css";
 
@@ -41,7 +42,7 @@ const tecmo = localFont({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://tecmogeek.com"),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: SITE_NAME,
     template: `%s — ${SITE_TITLE_SUFFIX}`,
@@ -55,7 +56,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     title: SITE_DESCRIPTION,
-    url: "https://tecmogeek.com",
+    url: SITE_URL,
     images: [SOCIAL_IMAGE_PATH],
   },
 };

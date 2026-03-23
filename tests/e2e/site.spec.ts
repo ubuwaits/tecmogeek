@@ -1,5 +1,7 @@
 import { expect, test, type Locator, type Page } from "@playwright/test";
 
+const siteUrl = "https://www.tecmogeek.com";
+
 async function expectNoHorizontalOverflow(page: Page) {
   const dimensions = await page.evaluate(() => ({
     scrollWidth: document.documentElement.scrollWidth,
@@ -85,21 +87,21 @@ test("verification, metadata, and favicon files are exported", async ({ request 
 
   const robots = await request.get("/robots.txt");
   expect(robots.ok()).toBeTruthy();
-  expect(await robots.text()).toContain("Sitemap: https://tecmogeek.com/sitemap.xml");
+  expect(await robots.text()).toContain(`Sitemap: ${siteUrl}/sitemap.xml`);
 
   const sitemap = await request.get("/sitemap.xml");
   expect(sitemap.ok()).toBeTruthy();
   const sitemapText = await sitemap.text();
-  expect(sitemapText).toContain("<loc>https://tecmogeek.com/</loc>");
-  expect(sitemapText).toContain("<loc>https://tecmogeek.com/about/ratings/</loc>");
-  expect(sitemapText).toContain("<loc>https://tecmogeek.com/players/qb/</loc>");
-  expect(sitemapText).toContain("<loc>https://tecmogeek.com/teams/49ers/</loc>");
+  expect(sitemapText).toContain(`<loc>${siteUrl}/</loc>`);
+  expect(sitemapText).toContain(`<loc>${siteUrl}/about/ratings/</loc>`);
+  expect(sitemapText).toContain(`<loc>${siteUrl}/players/qb/</loc>`);
+  expect(sitemapText).toContain(`<loc>${siteUrl}/teams/49ers/</loc>`);
 
   const aboutRatings = await request.get("/about/ratings/");
   expect(aboutRatings.ok()).toBeTruthy();
   const aboutRatingsHtml = await aboutRatings.text();
-  expect(aboutRatingsHtml).toContain('property="og:image" content="https://tecmogeek.com/social-image.png"');
-  expect(aboutRatingsHtml).toContain('name="twitter:image" content="https://tecmogeek.com/social-image.png"');
+  expect(aboutRatingsHtml).toContain(`property="og:image" content="${siteUrl}/social-image.png"`);
+  expect(aboutRatingsHtml).toContain(`name="twitter:image" content="${siteUrl}/social-image.png"`);
 });
 
 test.describe("mobile responsive layout", () => {

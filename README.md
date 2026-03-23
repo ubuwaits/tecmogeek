@@ -1,6 +1,6 @@
 # tecmogeek.com
 
-Static-export Next.js source for [tecmogeek.com](https://tecmogeek.com), built with the App Router, TypeScript, and Tailwind CSS v4.
+Static-export Next.js source for [tecmogeek.com](https://www.tecmogeek.com), built with the App Router, TypeScript, and Tailwind CSS v4.
 
 ## Stack
 
