@@ -149,6 +149,50 @@ export interface TeamData {
   players: PlayerRecord[];
 }
 
+export interface OffensiveSkillLineupRecord {
+  RB1: string;
+  RB2: string;
+  WR1: string;
+  WR2: string;
+  TE1: string;
+}
+
+export interface TeamRatingComponents {
+  qb_room: number;
+  qb_rating: number;
+  return_room: number;
+  ol_line: number;
+  running_skill: number;
+  passing_skill: number;
+  balanced_skill: number;
+  running_offense: number;
+  passing_offense: number;
+  balanced_offense: number;
+  dl_group: number;
+  lb_group: number;
+  secondary_group: number;
+}
+
+export interface TeamRatingSelectedLineups {
+  best_qb: string;
+  backup_qb: string;
+  running_lineup: OffensiveSkillLineupRecord;
+  passing_lineup: OffensiveSkillLineupRecord;
+  balanced_lineup: OffensiveSkillLineupRecord;
+  kr: string;
+  pr: string;
+}
+
+export interface TeamRatingRecord {
+  team: TeamSlug;
+  full_name: string;
+  offensive_rating: number;
+  defensive_rating: number;
+  overall_rating: number;
+  components: TeamRatingComponents;
+  selected_lineups: TeamRatingSelectedLineups;
+}
+
 export interface TeamGroup {
   title: string;
   teams: readonly TeamSlug[];

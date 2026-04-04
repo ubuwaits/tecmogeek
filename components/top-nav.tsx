@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import { PLAYER_NAV_GROUPS } from "@/lib/players/config";
-import { aboutRatingsRoute, homeRoute, playerRoute, teamRoute } from "@/lib/routes";
+import { aboutRatingsRoute, homeRoute, playerRoute, teamRoute, teamsRoute } from "@/lib/routes";
 import { TEAM_GROUPS, getTeamLabel } from "@/lib/teams/config";
 import { HelmetSprite } from "@/components/sprites";
 
@@ -119,6 +119,15 @@ export function TopNav() {
 
               {openMenu === "teams" ? (
                 <div className="absolute left-0 top-full z-[1000] w-[600px] rounded-br rounded-bl rounded-tr bg-(--dark-bg) px-0 py-3">
+                  <div className="px-3 pb-3">
+                    <Link
+                      href={teamsRoute}
+                      className="flex min-h-11 items-center rounded bg-white/8 px-3 py-2 text-[15px] font-bold text-white no-underline transition hover:bg-(--pink)"
+                    >
+                      Team Ratings
+                    </Link>
+                  </div>
+
                   <ol className="flex flex-wrap">
                     {TEAM_GROUPS.map((group) => (
                       <li key={group.title} className="w-1/3">
@@ -222,6 +231,13 @@ export function TopNav() {
 
               {mobileSection === "teams" ? (
                 <div className="space-y-4 pt-3">
+                  <Link
+                    href={teamsRoute}
+                    className="flex min-h-11 items-center rounded-xl border border-white/15 bg-[#0f4faa]/60 px-4 py-3 text-[14px] font-semibold text-white no-underline transition hover:bg-[#0f4faa]"
+                  >
+                    Team Ratings
+                  </Link>
+
                   {TEAM_GROUPS.map((group) => (
                     <section key={group.title}>
                       <h2 className="mb-2 text-[11px] font-bold uppercase tracking-[0.14em] text-white/55">

@@ -163,6 +163,7 @@ function getTeamFileNames() {
           "cb-s.json",
           "k.json",
           "p.json",
+          "team-ratings.json",
         ].includes(fileName),
     )
     .sort();

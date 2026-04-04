@@ -31,6 +31,14 @@ test("home page renders leaderboards", async ({ page }) => {
   await expect(page.getByRole("link", { name: /Top Quarterbacks/i })).toBeVisible();
 });
 
+test("team ratings page renders the ratings table", async ({ page }) => {
+  await page.goto("/teams/");
+
+  await expect(page.getByRole("heading", { name: "Team Ratings" })).toBeVisible();
+  await expect(page.getByTestId("team-ratings-table-scroll")).toBeVisible();
+  await expect(page.locator("[data-testid='team-ratings-row']")).toHaveCount(28);
+});
+
 test("rushers page filters down to RB entries", async ({ page }) => {
   await page.goto("/players/rushers/");
   const onlyRbTab = page.getByTestId("filter-only-rb");
@@ -59,6 +67,86 @@ test("rushers page metric header re-sorts the player list", async ({ page }) => 
   ).toBeTruthy();
 });
 
+test("repeated leaderboard header clicks toggle sort direction", async ({ page }) => {
+  await page.goto("/players/rushers/");
+  const receptionsHeader = page.getByRole("button", { name: "REC" });
+  await receptionsHeader.click();
+
+  const descendingValues = await page
+    .locator("[data-testid='leaderboard-row'] [data-metric-key='receptions']")
+    .evaluateAll((bars) => bars.map((bar) => Number(bar.textContent?.trim() ?? "0")));
+
+  expect(
+    descendingValues.every((value, index, values) => index === 0 || values[index - 1] >= value),
+  ).toBeTruthy();
+
+  await receptionsHeader.click();
+
+  const ascendingValues = await page
+    .locator("[data-testid='leaderboard-row'] [data-metric-key='receptions']")
+    .evaluateAll((bars) => bars.map((bar) => Number(bar.textContent?.trim() ?? "0")));
+
+  expect(
+    ascendingValues.every((value, index, values) => index === 0 || values[index - 1] <= value),
+  ).toBeTruthy();
+});
+
+test("player rating sort keeps ranking values ordered through ties", async ({ page }) => {
+  await page.goto("/players/rushers/");
+  const ratingHeader = page.getByRole("button", { name: "Rating" });
+  await ratingHeader.click();
+
+  const firstClickRanks = await page
+    .locator("[data-testid='leaderboard-row'] > div > div:nth-child(1)")
+    .evaluateAll((cells) => cells.map((cell) => Number.parseInt(cell.textContent?.trim() ?? "0", 10)));
+
+  expect(
+    firstClickRanks.every((value, index, values) => index === 0 || values[index - 1] >= value),
+  ).toBeTruthy();
+
+  await ratingHeader.click();
+
+  const secondClickRanks = await page
+    .locator("[data-testid='leaderboard-row'] > div > div:nth-child(1)")
+    .evaluateAll((cells) => cells.map((cell) => Number.parseInt(cell.textContent?.trim() ?? "0", 10)));
+
+  expect(
+    secondClickRanks.every((value, index, values) => index === 0 || values[index - 1] <= value),
+  ).toBeTruthy();
+});
+
+test("team ratings header clicks toggle sort direction", async ({ page }) => {
+  await page.goto("/teams/");
+  const offenseHeader = page.getByRole("button", { name: "Off" }).first();
+  await offenseHeader.click();
+
+  const descendingValues = await page
+    .locator("[data-testid='team-ratings-row'] > div > div:nth-child(4)")
+    .evaluateAll((cells) => cells.map((cell) => Number.parseFloat(cell.textContent?.trim() ?? "0")));
+  const descendingRanks = await page
+    .locator("[data-testid='team-ratings-row'] > div > div:nth-child(1)")
+    .evaluateAll((cells) => cells.map((cell) => Number.parseInt(cell.textContent?.trim() ?? "0", 10)));
+
+  expect(
+    descendingValues.every((value, index, values) => index === 0 || values[index - 1] >= value),
+  ).toBeTruthy();
+  expect(descendingRanks[0]).toBe(1);
+
+  await offenseHeader.click();
+
+  const ascendingValues = await page
+    .locator("[data-testid='team-ratings-row'] > div > div:nth-child(4)")
+    .evaluateAll((cells) => cells.map((cell) => Number.parseFloat(cell.textContent?.trim() ?? "0")));
+  const ascendingRanks = await page
+    .locator("[data-testid='team-ratings-row'] > div > div:nth-child(1)")
+    .evaluateAll((cells) => cells.map((cell) => Number.parseInt(cell.textContent?.trim() ?? "0", 10)));
+
+  expect(
+    ascendingValues.every((value, index, values) => index === 0 || values[index - 1] <= value),
+  ).toBeTruthy();
+  expect(ascendingRanks[0]).toBe(28);
+});
+
 test("team page mode toggle re-sorts the skill section", async ({ page }) => {
   await page.goto("/teams/49ers/");
   await expect(
@@ -72,6 +160,27 @@ test("team page mode toggle re-sorts the skill section", async ({ page }) => {
     "data-mode",
     "receiving",
   );
+});
+
+test("about ratings page toggles between player and team explanations", async ({ page }) => {
+  await page.goto("/about/ratings/");
+  const playerTab = page.getByTestId("ratings-topic-player");
+  const teamTab = page.getByTestId("ratings-topic-team");
+
+  await expect(
+    page.getByRole("heading", { name: "How player and team ratings are calculated" }),
+  ).toBeVisible();
+  await expect(playerTab).toHaveCSS("color", "rgb(22, 94, 201)");
+  await expect(teamTab).toHaveCSS("color", "rgb(111, 119, 133)");
+  await expect(page.getByTestId("ratings-content-player")).toBeVisible();
+  await expect(page.getByTestId("ratings-content-team")).toBeHidden();
+
+  await teamTab.click();
+
+  await expect(page.getByTestId("ratings-content-player")).toBeHidden();
+  await expect(page.getByTestId("ratings-content-team")).toBeVisible();
+  await expect(teamTab).toHaveCSS("color", "rgb(22, 94, 201)");
+  await expect(page.getByRole("heading", { name: "What team ratings are measuring" })).toBeVisible();
 });
 
 test("verification, metadata, and favicon files are exported", async ({ request }) => {
@@ -94,6 +203,7 @@ test("verification, metadata, and favicon files are exported", async ({ request 
   const sitemapText = await sitemap.text();
   expect(sitemapText).toContain(`<loc>${siteUrl}/</loc>`);
   expect(sitemapText).toContain(`<loc>${siteUrl}/about/ratings/</loc>`);
+  expect(sitemapText).toContain(`<loc>${siteUrl}/teams/</loc>`);
   expect(sitemapText).toContain(`<loc>${siteUrl}/players/qb/</loc>`);
   expect(sitemapText).toContain(`<loc>${siteUrl}/teams/49ers/</loc>`);
 
@@ -126,7 +236,7 @@ test.describe("mobile responsive layout", () => {
 
     await expect(page).toHaveURL(/\/about\/ratings\/$/);
     await expect(
-      page.getByRole("heading", { name: "How player ratings and rankings are calculated" }),
+      page.getByRole("heading", { name: "How player and team ratings are calculated" }),
     ).toBeVisible();
     await expectNoHorizontalOverflow(page);
   });
@@ -157,6 +267,12 @@ test.describe("mobile responsive layout", () => {
       receptionValues.every((value, index, values) => index === 0 || values[index - 1] >= value),
     ).toBeTruthy();
     await expectLocalHorizontalOverflow(playerScroller);
+    await expectNoHorizontalOverflow(page);
+
+    await page.goto("/teams/");
+    await expectNoHorizontalOverflow(page);
+    const teamRatingsScroller = page.getByTestId("team-ratings-table-scroll");
+    await expectLocalHorizontalOverflow(teamRatingsScroller);
     await expectNoHorizontalOverflow(page);
 
     await page.goto("/teams/49ers/");
