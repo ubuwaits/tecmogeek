@@ -121,6 +121,7 @@ function TeamSkillPlayerList({ team }: { team: TeamData }) {
     skillPlayers.map((item) => item.player),
     modeConfig.rankingKey,
     "asc",
+    modeConfig.rankingKey,
   ).map((player) => ({
     player,
     spriteIndex:

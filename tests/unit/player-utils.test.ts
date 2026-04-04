@@ -32,6 +32,33 @@ describe("player utilities", () => {
     expect(sorted[0]?.rushing_rating).toBe("82%");
   });
 
+  it("uses canonical ranking as the tie-breaker when rating values match", () => {
+    const entries = [
+      {
+        team: "Bills",
+        position: "RB1",
+        name: "High Rank",
+        number: "#1",
+        rushing_rating: "40%",
+        rushing_ranking: 100,
+      },
+      {
+        team: "Bills",
+        position: "RB2",
+        name: "Low Rank",
+        number: "#2",
+        rushing_rating: "40%",
+        rushing_ranking: 150,
+      },
+    ];
+
+    const descending = sortEntriesByKey(entries, "rushing_rating", "desc", "rushing_ranking");
+    const ascending = sortEntriesByKey(entries, "rushing_rating", "asc", "rushing_ranking");
+
+    expect(descending.map((entry) => entry.rushing_ranking)).toEqual([100, 150]);
+    expect(ascending.map((entry) => entry.rushing_ranking)).toEqual([150, 100]);
+  });
+
   it("keeps the homepage rusher quirk that excludes WR2 and WR3 from the first nine rows", () => {
     const entries = getHomeEntries(POSITION_PAGE_CONFIG_MAP.rushers, rushers);
     expect(entries).toHaveLength(5);

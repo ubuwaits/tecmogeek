@@ -7,6 +7,7 @@ import { SelectionTabs } from "@/components/selection-tabs";
 import { POSITION_PAGE_CONFIG_MAP } from "@/lib/players/config";
 import { getTeamSlugFromCode, matchesPrefixes, sortEntriesByKey } from "@/lib/player-utils";
 import { teamRoute } from "@/lib/routes";
+import { getNextSortDirection } from "@/lib/sort-utils";
 import type {
   PlayerMetricKey,
   PlayerRecord,
@@ -19,6 +20,10 @@ type PlayerListViewProps = {
   slug: PositionSlug;
   entries: PlayerRecord[];
 };
+
+function hasSameOrder<T>(left: readonly T[], right: readonly T[]) {
+  return left.length === right.length && left.every((entry, index) => entry === right[index]);
+}
 
 function renderMetricValue(entry: PlayerRecord, key: PlayerMetricKey): number {
   return Number(entry[key] ?? 0);
@@ -34,7 +39,7 @@ export function PlayerListView({ slug, entries }: PlayerListViewProps) {
   const filteredEntries = activeFilter
     ? entries.filter((entry) => matchesPrefixes(entry.position, activeFilter.allowedPrefixes))
     : entries;
-  const sortedEntries = sortEntriesByKey(filteredEntries, sortKey, sortDirection);
+  const sortedEntries = sortEntriesByKey(filteredEntries, sortKey, sortDirection, config.rankingKey);
   const activeMetricKey = config.columns.find((column) => column.key === sortKey)?.key ?? null;
   const rows = sortedEntries.map((entry) => {
     const teamSlug = getTeamSlugFromCode(entry.team);
@@ -60,9 +65,23 @@ export function PlayerListView({ slug, entries }: PlayerListViewProps) {
     };
   });
 
-  function changeSort(key: PlayerSortKey, direction: SortDirection) {
+  function changeSort(key: PlayerSortKey, defaultDirection: SortDirection) {
+    const descendingOrder = sortEntriesByKey(filteredEntries, key, "desc", config.rankingKey);
+    const ascendingOrder = sortEntriesByKey(filteredEntries, key, "asc", config.rankingKey);
+    const nextDefaultDirection = hasSameOrder(sortedEntries, descendingOrder)
+      ? "asc"
+      : hasSameOrder(sortedEntries, ascendingOrder)
+        ? "desc"
+        : defaultDirection;
+    const nextDirection = getNextSortDirection({
+      currentKey: sortKey,
+      nextKey: key,
+      currentDirection: sortDirection,
+      defaultDirection: nextDefaultDirection,
+    });
+
     setSortKey(key);
-    setSortDirection(direction);
+    setSortDirection(nextDirection);
   }
 
   return (

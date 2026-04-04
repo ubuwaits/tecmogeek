@@ -41,6 +41,7 @@ export function sortEntriesByKey<T extends PlayerRecord>(
   entries: readonly T[],
   key: PlayerSortKey,
   direction: SortDirection,
+  tieBreakKey?: PlayerSortKey,
 ): T[] {
   return entries
     .map((entry, index) => ({ entry, index }))
@@ -49,6 +50,15 @@ export function sortEntriesByKey<T extends PlayerRecord>(
       const rightValue = getSortValue(right.entry, key);
 
       if (leftValue === rightValue) {
+        if (tieBreakKey && tieBreakKey !== key) {
+          const leftTieValue = getSortValue(left.entry, tieBreakKey);
+          const rightTieValue = getSortValue(right.entry, tieBreakKey);
+
+          if (leftTieValue !== rightTieValue) {
+            return direction === "asc" ? rightTieValue - leftTieValue : leftTieValue - rightTieValue;
+          }
+        }
+
         return left.index - right.index;
       }
 
