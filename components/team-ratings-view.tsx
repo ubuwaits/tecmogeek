@@ -8,18 +8,13 @@ import { HelmetSprite } from "@/components/sprites";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { teamRoute } from "@/lib/routes";
 import { getNextSortDirection } from "@/lib/sort-utils";
+import {
+  formatTeamRating,
+  getTeamRatingSortValue,
+  sortTeamRatingsByKey,
+  type TeamRatingSortKey,
+} from "@/lib/team-rating-utils";
 import type { SortDirection, TeamRatingRecord } from "@/lib/types";
-
-type TeamRatingSortKey =
-  | "overall_rating"
-  | "offensive_rating"
-  | "defensive_rating"
-  | "running_offense"
-  | "passing_offense"
-  | "balanced_offense"
-  | "dl_group"
-  | "lb_group"
-  | "secondary_group";
 
 type TeamRatingColumn = {
   key: TeamRatingSortKey;
@@ -52,7 +47,7 @@ const DEFENSE_SUB_COLUMNS: readonly TeamRatingColumn[] = [
   { key: "secondary_group", label: "Sec", tooltip: "Secondary group rating", group: "defense" },
 ];
 
-const TEAM_NAME_COLUMN_WIDTH = 240;
+const TEAM_NAME_COLUMN_WIDTH = 256;
 const RATING_COLUMN_WIDTH = 96;
 const EXPANDED_GROUP_BACKGROUND_COLOR = "#165ec9";
 const EXPANDED_GROUP_HORIZONTAL_INSET = 8;
@@ -65,47 +60,8 @@ function hasSameOrder<T>(left: readonly T[], right: readonly T[]) {
   return left.length === right.length && left.every((entry, index) => entry === right[index]);
 }
 
-function formatRating(value: number) {
-  return `${value.toFixed(1)}%`;
-}
-
 function getDisplayedRank(index: number, total: number, direction: SortDirection) {
   return direction === "desc" ? index + 1 : total - index;
-}
-
-function getSortValue(team: TeamRatingRecord, sortKey: TeamRatingSortKey) {
-  switch (sortKey) {
-    case "overall_rating":
-    case "offensive_rating":
-    case "defensive_rating":
-      return team[sortKey];
-    case "running_offense":
-    case "passing_offense":
-    case "balanced_offense":
-    case "dl_group":
-    case "lb_group":
-    case "secondary_group":
-      return team.components[sortKey];
-  }
-}
-
-function sortTeamsByKey(
-  teams: readonly TeamRatingRecord[],
-  sortKey: TeamRatingSortKey,
-  sortDirection: SortDirection,
-) {
-  return [...teams].sort((left, right) => {
-    const ratingDifference =
-      sortDirection === "desc"
-        ? getSortValue(right, sortKey) - getSortValue(left, sortKey)
-        : getSortValue(left, sortKey) - getSortValue(right, sortKey);
-
-    if (ratingDifference !== 0) {
-      return ratingDifference;
-    }
-
-    return left.full_name.localeCompare(right.full_name);
-  });
 }
 
 function buildVisibleColumns(offenseExpanded: boolean, defenseExpanded: boolean): TeamRatingColumn[] {
@@ -318,11 +274,11 @@ export function TeamRatingsView({ teams }: TeamRatingsViewProps) {
     offenseExpanded,
     defenseExpanded,
   );
-  const sortedTeams = sortTeamsByKey(teams, sortKey, sortDirection);
+  const sortedTeams = sortTeamRatingsByKey(teams, sortKey, sortDirection);
 
   function changeSort(key: TeamRatingSortKey, defaultDirection: SortDirection = "desc") {
-    const descendingOrder = sortTeamsByKey(teams, key, "desc");
-    const ascendingOrder = sortTeamsByKey(teams, key, "asc");
+    const descendingOrder = sortTeamRatingsByKey(teams, key, "desc");
+    const ascendingOrder = sortTeamRatingsByKey(teams, key, "asc");
     const nextDefaultDirection = hasSameOrder(sortedTeams, descendingOrder)
       ? "asc"
       : hasSameOrder(sortedTeams, ascendingOrder)
@@ -350,7 +306,7 @@ export function TeamRatingsView({ teams }: TeamRatingsViewProps) {
             <div>
               <StaticHeaderLabel label="Rank" />
             </div>
-            <div>
+            <div className="pr-4">
               <StaticHeaderLabel label="Team" />
             </div>
             {visibleColumns.map((column) => (
@@ -397,10 +353,10 @@ export function TeamRatingsView({ teams }: TeamRatingsViewProps) {
                   {getDisplayedRank(index, sortedTeams.length, sortDirection)}
                 </div>
 
-                <div className="min-w-0">
+                <div className="min-w-0 pr-4">
                   <Link
                     href={teamRoute(team.team)}
-                    className="flex min-h-11 items-center gap-3 rounded-lg px-2 py-2 text-inherit no-underline transition-colors hover:bg-white/6 hover:text-(--pink)"
+                    className="flex w-full min-h-11 items-center gap-3 rounded-lg px-2 py-2 text-inherit no-underline transition-colors hover:bg-white/6 hover:text-(--pink)"
                   >
                     <span className="flex shrink-0 items-center justify-center">
                       <HelmetSprite team={team.team} />
@@ -417,7 +373,7 @@ export function TeamRatingsView({ teams }: TeamRatingsViewProps) {
                     key={column.key}
                     className={`flex min-h-11 items-center text-[14px] font-bold tabular-nums ${getColumnCellClass(column, offenseExpanded, defenseExpanded)}`}
                   >
-                    {formatRating(getSortValue(team, column.key))}
+                    {formatTeamRating(getTeamRatingSortValue(team, column.key))}
                   </div>
                 ))}
               </div>

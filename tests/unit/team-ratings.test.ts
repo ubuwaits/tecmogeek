@@ -3,6 +3,8 @@ import path from "node:path";
 
 import { describe, expect, it } from "vitest";
 
+import type { TeamData } from "@/lib/types";
+
 import {
   buildTeamRatings,
   buildTeamRatingRecord,
@@ -98,7 +100,7 @@ describe("team ratings generator", () => {
   });
 
   it("uses qb room and return room in the offensive formulas", () => {
-    const teamData = readJson<any>("eagles.json");
+    const teamData = readJson<TeamData>("eagles.json");
     const quarterbackRoom = createQuarterbackRoom(teamData.players);
     const returnRoom = createReturnRoom(teamData.players);
     const result = buildTeamRatingRecord("eagles", teamData);
