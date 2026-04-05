@@ -9,7 +9,7 @@ import { getHomeEntries, getTeamSlugFromCode } from "@/lib/player-utils";
 import { homeRoute, playerRoute, teamRoute } from "@/lib/routes";
 
 export const metadata: Metadata = {
-  title: "Comprehensive guide to Tecmo Super Bowl",
+  title: "Comprehensive guide to Tecmo Super Bowl for NES",
   alternates: {
     canonical: homeRoute,
   },
