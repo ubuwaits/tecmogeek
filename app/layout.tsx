@@ -13,7 +13,7 @@ import "./globals.css";
 const SITE_NAME = "Tecmo Geek";
 const SITE_DESCRIPTION =
   "Comprehensive guide to player attributes and rankings in Tecmo Super Bowl for NES.";
-const SITE_TITLE_SUFFIX = "Tecmo Geek. The ultimate guide to Tecmo Super Bowl for NES.";
+const SITE_TITLE_SUFFIX = "The ultimate guide to Tecmo Super Bowl for NES";
 const TWITTER_CREATOR = "@ubuwaits";
 
 const inter = localFont({
