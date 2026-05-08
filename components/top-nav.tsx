@@ -13,6 +13,11 @@ type OpenMenu = "teams" | "players" | null;
 
 export function TopNav() {
   const pathname = usePathname();
+
+  return <TopNavContent key={pathname} />;
+}
+
+function TopNavContent() {
   const [openMenu, setOpenMenu] = useState<OpenMenu>(null);
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [mobileSection, setMobileSection] = useState<OpenMenu>(null);
@@ -44,10 +49,6 @@ export function TopNav() {
       document.removeEventListener("keydown", handleKeyDown);
     };
   }, []);
-
-  useEffect(() => {
-    closeAllMenus();
-  }, [pathname]);
 
   function toggleMobileNav() {
     setOpenMenu(null);
