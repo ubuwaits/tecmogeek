@@ -267,7 +267,7 @@ export function AboutRatingsContent() {
 
         <h3>A note about hitting power for offensive players</h3>
         <p>
-          Hitting power only really makes a difference on offensive player performance once it reaches about 88. To account for this, offensive ratings use score bands instead of the raw hitting power value: players below 75 get 0%, 75 gets 40%, 81 gets 60%, 88 gets 80%, and 94 gets 100%. That gives players with 75 and 81 hitting power in average condition partial credit, since they can reach 88 in Good and Excellent condition.
+          Hitting power only really makes a difference on offensive player performance once it reaches about 88. To account for this, offensive ratings use score bands instead of the raw hitting power value: players below 75 get 0%, 75 gets 5%, 81 gets 25%, 88 gets 60%, and 94 gets 100%.
         </p>
         <p>
           Rankings still use higher raw hitting power as the tiebreak when two offensive players have the same displayed rating.

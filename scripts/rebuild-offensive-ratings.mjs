@@ -37,9 +37,9 @@ const SKILL_ATTRIBUTE_KEYS = [
 ];
 
 const OFFENSIVE_HP_SCORE_MAP = {
-  75: 40,
-  81: 60,
-  88: 80,
+  75: 5,
+  81: 25,
+  88: 60,
   94: 100,
 };
 

@@ -8,9 +8,9 @@ const DATA_DIR = path.join(process.cwd(), "data");
 const OFFENSIVE_LINE_POSITIONS = new Set(["C", "LG", "RG", "LT", "RT"]);
 const SKILL_POSITION_PREFIXES = ["RB", "WR", "TE"];
 const OFFENSIVE_HP_SCORE_MAP: Record<number, number> = {
-  75: 40,
-  81: 60,
-  88: 80,
+  75: 5,
+  81: 25,
+  88: 60,
   94: 100,
 };
 
@@ -172,9 +172,9 @@ function getTeamFileNames() {
 describe("offensive ratings data", () => {
   it("uses the expected offensive HP score ladder", () => {
     expect(getOffensiveHpScore(13)).toBe(0);
-    expect(getOffensiveHpScore(75)).toBe(40);
-    expect(getOffensiveHpScore(81)).toBe(60);
-    expect(getOffensiveHpScore(88)).toBe(80);
+    expect(getOffensiveHpScore(75)).toBe(5);
+    expect(getOffensiveHpScore(81)).toBe(25);
+    expect(getOffensiveHpScore(88)).toBe(60);
     expect(getOffensiveHpScore(94)).toBe(100);
   });
 
@@ -300,7 +300,7 @@ describe("offensive ratings data", () => {
 
     expect(computeRating(jerryRice!, SKILL_CONFIGS[0].columns, maxima, "skill")).toBe(81);
     expect(computeRating(boJackson!, SKILL_CONFIGS[0].columns, maxima, "skill")).toBe(82);
-    expect(computeRating(ottisAnderson!, SKILL_CONFIGS[0].columns, maxima, "skill")).toBe(70);
-    expect(computeRating(ickeyWoods!, SKILL_CONFIGS[0].columns, maxima, "skill")).toBe(47);
+    expect(computeRating(ottisAnderson!, SKILL_CONFIGS[0].columns, maxima, "skill")).toBe(68);
+    expect(computeRating(ickeyWoods!, SKILL_CONFIGS[0].columns, maxima, "skill")).toBe(43);
   });
 });
