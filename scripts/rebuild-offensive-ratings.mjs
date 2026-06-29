@@ -64,10 +64,10 @@ const SKILL_CONFIGS = [
     rankingKey: "receiving_ranking",
     columns: [
       { key: "running_speed", weight: 10 },
-      { key: "maximum_speed", weight: 30 },
+      { key: "maximum_speed", weight: 45 },
       { key: "hitting_power", weight: 5 },
       { key: "ball_control", weight: 5 },
-      { key: "receptions", weight: 50 },
+      { key: "receptions", weight: 35 },
     ],
   },
   {

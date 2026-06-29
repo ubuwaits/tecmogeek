@@ -2,20 +2,20 @@
   {
     "team": "49ers",
     "full_name": "San Francisco 49ers",
-    "offensive_rating": 71.591,
+    "offensive_rating": 71.018,
     "defensive_rating": 67.273,
-    "overall_rating": 69.432,
+    "overall_rating": 69.145,
     "components": {
       "qb_room": 72.8,
       "qb_rating": 77,
       "return_room": 77.25,
       "ol_line": 71,
-      "running_skill": 70.62,
-      "passing_skill": 72.05,
-      "balanced_skill": 68.767,
-      "running_offense": 71.386,
-      "passing_offense": 72.766,
-      "balanced_offense": 71.106,
+      "running_skill": 70.596,
+      "passing_skill": 69.5,
+      "balanced_skill": 67.13,
+      "running_offense": 71.37,
+      "passing_offense": 71.963,
+      "balanced_offense": 70.369,
       "dl_group": 66,
       "lb_group": 66.5,
       "secondary_group": 69
@@ -31,8 +31,8 @@
         "TE1": "Tom Rathman (RB2)"
       },
       "passing_lineup": {
-        "RB1": "Mike Sherrard (WR4)",
-        "RB2": "Tom Rathman (RB2)",
+        "RB1": "Roger Craig (RB1)",
+        "RB2": "Mike Sherrard (WR4)",
         "WR1": "Jerry Rice (WR2)",
         "WR2": "John Taylor (WR1)",
         "TE1": "Brent Jones (TE1)"
@@ -51,20 +51,20 @@
   {
     "team": "bears",
     "full_name": "Chicago Bears",
-    "offensive_rating": 57.116,
+    "offensive_rating": 57.326,
     "defensive_rating": 68.636,
-    "overall_rating": 62.876,
+    "overall_rating": 62.981,
     "components": {
       "qb_room": 37.2,
       "qb_rating": 38,
       "return_room": 68.65,
       "ol_line": 71.4,
-      "running_skill": 65.04,
-      "passing_skill": 58.85,
-      "balanced_skill": 55.602,
-      "running_offense": 67.118,
-      "passing_offense": 51.782,
-      "balanced_offense": 54.782,
+      "running_skill": 65.016,
+      "passing_skill": 58.55,
+      "balanced_skill": 56.656,
+      "running_offense": 67.103,
+      "passing_offense": 51.687,
+      "balanced_offense": 55.256,
       "dl_group": 71,
       "lb_group": 63,
       "secondary_group": 72.5
@@ -83,15 +83,15 @@
         "RB1": "Ron Morris (WR1)",
         "RB2": "Wendell Davis (WR2)",
         "WR1": "Neal Anderson (RB2)",
-        "WR2": "Brad Muster (RB1)",
-        "TE1": "Johnny Bailey (RB4)"
+        "WR2": "Johnny Bailey (RB4)",
+        "TE1": "Brad Muster (RB1)"
       },
       "balanced_lineup": {
         "RB1": "Ron Morris (WR1)",
         "RB2": "Wendell Davis (WR2)",
         "WR1": "Neal Anderson (RB2)",
-        "WR2": "Brad Muster (RB1)",
-        "TE1": "Johnny Bailey (RB4)"
+        "WR2": "Johnny Bailey (RB4)",
+        "TE1": "Brad Muster (RB1)"
       },
       "kr": "Brad Muster (RB1)",
       "pr": "Brad Muster (RB1)"
@@ -100,20 +100,20 @@
   {
     "team": "bengals",
     "full_name": "Cincinnati Bengals",
-    "offensive_rating": 60.858,
+    "offensive_rating": 60.726,
     "defensive_rating": 58.273,
-    "overall_rating": 59.565,
+    "overall_rating": 59.499,
     "components": {
       "qb_room": 59.6,
       "qb_rating": 63,
       "return_room": 71.5,
       "ol_line": 71.2,
       "running_skill": 57.6,
-      "passing_skill": 55.4,
-      "balanced_skill": 52.91,
+      "passing_skill": 54.4,
+      "balanced_skill": 52.675,
       "running_offense": 62.662,
-      "passing_offense": 61.033,
-      "balanced_offense": 59.867,
+      "passing_offense": 60.718,
+      "balanced_offense": 59.762,
       "dl_group": 54,
       "lb_group": 57.25,
       "secondary_group": 62.5
@@ -131,16 +131,16 @@
       "passing_lineup": {
         "RB1": "Ickey Woods (RB2)",
         "RB2": "Tim Mcgee (WR1)",
-        "WR1": "Eddie Brown (WR2)",
-        "WR2": "Rodney Holman (TE1)",
-        "TE1": "James Brooks (RB1)"
+        "WR1": "James Brooks (RB1)",
+        "WR2": "Eddie Brown (WR2)",
+        "TE1": "Rodney Holman (TE1)"
       },
       "balanced_lineup": {
         "RB1": "Ickey Woods (RB2)",
         "RB2": "Tim Mcgee (WR1)",
-        "WR1": "Eddie Brown (WR2)",
-        "WR2": "Rodney Holman (TE1)",
-        "TE1": "James Brooks (RB1)"
+        "WR1": "James Brooks (RB1)",
+        "WR2": "Eddie Brown (WR2)",
+        "TE1": "Rodney Holman (TE1)"
       },
       "kr": "Ickey Woods (RB2)",
       "pr": "Ickey Woods (RB2)"
@@ -149,20 +149,20 @@
   {
     "team": "bills",
     "full_name": "Buffalo Bills",
-    "offensive_rating": 65.777,
+    "offensive_rating": 65.652,
     "defensive_rating": 64.091,
-    "overall_rating": 64.934,
+    "overall_rating": 64.872,
     "components": {
       "qb_room": 68.8,
       "qb_rating": 75,
       "return_room": 60.463,
       "ol_line": 71,
       "running_skill": 66.88,
-      "passing_skill": 62.9,
-      "balanced_skill": 60.61,
+      "passing_skill": 62.45,
+      "balanced_skill": 60.213,
       "running_offense": 67.351,
-      "passing_offense": 66.405,
-      "balanced_offense": 64.677,
+      "passing_offense": 66.263,
+      "balanced_offense": 64.498,
       "dl_group": 66.667,
       "lb_group": 67,
       "secondary_group": 59.25
@@ -198,20 +198,20 @@
   {
     "team": "broncos",
     "full_name": "Denver Broncos",
-    "offensive_rating": 56.983,
+    "offensive_rating": 56.708,
     "defensive_rating": 57.455,
-    "overall_rating": 57.219,
+    "overall_rating": 57.081,
     "components": {
       "qb_room": 50,
       "qb_rating": 52,
       "return_room": 61.65,
       "ol_line": 60.6,
-      "running_skill": 59.62,
-      "passing_skill": 60.6,
-      "balanced_skill": 56.405,
-      "running_offense": 60.088,
-      "passing_offense": 55.935,
-      "balanced_offense": 55.955,
+      "running_skill": 59.3,
+      "passing_skill": 59.35,
+      "balanced_skill": 55.843,
+      "running_offense": 59.886,
+      "passing_offense": 55.541,
+      "balanced_offense": 55.702,
       "dl_group": 53.667,
       "lb_group": 61.75,
       "secondary_group": 56
@@ -230,15 +230,15 @@
         "RB1": "Clarence Kay (TE1)",
         "RB2": "Steve Sewell (RB2)",
         "WR1": "Mark Jackson (WR2)",
-        "WR2": "Vance Johnson (WR1)",
-        "TE1": "Bobby Humphrey (RB1)"
+        "WR2": "Bobby Humphrey (RB1)",
+        "TE1": "Vance Johnson (WR1)"
       },
       "balanced_lineup": {
         "RB1": "Clarence Kay (TE1)",
         "RB2": "Steve Sewell (RB2)",
         "WR1": "Mark Jackson (WR2)",
-        "WR2": "Vance Johnson (WR1)",
-        "TE1": "Bobby Humphrey (RB1)"
+        "WR2": "Bobby Humphrey (RB1)",
+        "TE1": "Vance Johnson (WR1)"
       },
       "kr": "Sammy Winder (RB3)",
       "pr": "Sammy Winder (RB3)"
@@ -247,20 +247,20 @@
   {
     "team": "browns",
     "full_name": "Cleveland Browns",
-    "offensive_rating": 57.333,
+    "offensive_rating": 56.577,
     "defensive_rating": 56.364,
-    "overall_rating": 56.848,
+    "overall_rating": 56.47,
     "components": {
       "qb_room": 65.2,
       "qb_rating": 71,
       "return_room": 59.55,
       "ol_line": 59,
-      "running_skill": 49.176,
-      "passing_skill": 55.65,
-      "balanced_skill": 52.576,
-      "running_offense": 52.866,
-      "passing_offense": 60.79,
-      "balanced_offense": 57.838,
+      "running_skill": 49.168,
+      "passing_skill": 52.6,
+      "balanced_skill": 50.287,
+      "running_offense": 52.861,
+      "passing_offense": 59.829,
+      "balanced_offense": 56.808,
       "dl_group": 56.667,
       "lb_group": 60.75,
       "secondary_group": 51.75
@@ -296,20 +296,20 @@
   {
     "team": "buccaneers",
     "full_name": "Tampa Bay Buccaneers",
-    "offensive_rating": 56.153,
+    "offensive_rating": 55.848,
     "defensive_rating": 56.545,
-    "overall_rating": 56.349,
+    "overall_rating": 56.197,
     "components": {
       "qb_room": 55.6,
       "qb_rating": 59,
       "return_room": 65.95,
       "ol_line": 50.8,
-      "running_skill": 57.628,
-      "passing_skill": 57.3,
-      "balanced_skill": 55.522,
-      "running_offense": 56.617,
-      "passing_offense": 56.522,
-      "balanced_offense": 55.736,
+      "running_skill": 57.616,
+      "passing_skill": 55.75,
+      "balanced_skill": 54.719,
+      "running_offense": 56.609,
+      "passing_offense": 56.034,
+      "balanced_offense": 55.375,
       "dl_group": 53,
       "lb_group": 48,
       "secondary_group": 67.75
@@ -326,14 +326,14 @@
       },
       "passing_lineup": {
         "RB1": "Ron Hall (TE1)",
-        "RB2": "Bruce Hill (WR2)",
+        "RB2": "Willie Drewrey (WR4)",
         "WR1": "Mark Carrier (WR1)",
         "WR2": "Gary Anderson (RB1)",
         "TE1": "Reggie Cobb (RB2)"
       },
       "balanced_lineup": {
-        "RB1": "Ron Hall (TE1)",
-        "RB2": "Willie Drewrey (WR4)",
+        "RB1": "John Harvey (RB4)",
+        "RB2": "Ron Hall (TE1)",
         "WR1": "Mark Carrier (WR1)",
         "WR2": "Gary Anderson (RB1)",
         "TE1": "Reggie Cobb (RB2)"
@@ -345,20 +345,20 @@
   {
     "team": "cardinals",
     "full_name": "Phoenix Cardinals",
-    "offensive_rating": 54.21,
+    "offensive_rating": 53.49,
     "defensive_rating": 58.545,
-    "overall_rating": 56.378,
+    "overall_rating": 56.018,
     "components": {
       "qb_room": 44.4,
       "qb_rating": 45,
       "return_room": 61.15,
       "ol_line": 62.4,
-      "running_skill": 52.42,
-      "passing_skill": 56.7,
-      "balanced_skill": 55.335,
-      "running_offense": 55.988,
-      "passing_offense": 52.38,
-      "balanced_offense": 54.236,
+      "running_skill": 52.34,
+      "passing_skill": 54.8,
+      "balanced_skill": 52.857,
+      "running_offense": 55.937,
+      "passing_offense": 51.781,
+      "balanced_offense": 53.121,
       "dl_group": 59.333,
       "lb_group": 55.75,
       "secondary_group": 60.75
@@ -374,18 +374,18 @@
         "TE1": "Roy Green (WR1)"
       },
       "passing_lineup": {
-        "RB1": "Johnny Johnson (RB1)",
-        "RB2": "J.T. Smith (WR4)",
+        "RB1": "Vai Sikahema (RB3)",
+        "RB2": "Ricky Proehl (WR2)",
         "WR1": "Roy Green (WR1)",
-        "WR2": "Ernie Jones (WR3)",
-        "TE1": "Ricky Proehl (WR2)"
+        "WR2": "Johnny Johnson (RB1)",
+        "TE1": "Ernie Jones (WR3)"
       },
       "balanced_lineup": {
-        "RB1": "Johnny Johnson (RB1)",
-        "RB2": "Vai Sikahema (RB3)",
+        "RB1": "Vai Sikahema (RB3)",
+        "RB2": "Anthony Thompson (RB4)",
         "WR1": "Roy Green (WR1)",
-        "WR2": "Ernie Jones (WR3)",
-        "TE1": "Ricky Proehl (WR2)"
+        "WR2": "Johnny Johnson (RB1)",
+        "TE1": "Ernie Jones (WR3)"
       },
       "kr": "Vai Sikahema (RB3)",
       "pr": "Vai Sikahema (RB3)"
@@ -394,20 +394,20 @@
   {
     "team": "chargers",
     "full_name": "San Diego Chargers",
-    "offensive_rating": 55.19,
+    "offensive_rating": 55.193,
     "defensive_rating": 64.909,
-    "overall_rating": 60.049,
+    "overall_rating": 60.051,
     "components": {
       "qb_room": 46.8,
       "qb_rating": 48,
       "return_room": 55.75,
       "ol_line": 69.6,
-      "running_skill": 54.22,
-      "passing_skill": 55.7,
-      "balanced_skill": 52.42,
-      "running_offense": 58.526,
-      "passing_offense": 53.577,
-      "balanced_offense": 54.328,
+      "running_skill": 53.9,
+      "passing_skill": 55.3,
+      "balanced_skill": 52.8,
+      "running_offense": 58.324,
+      "passing_offense": 53.451,
+      "balanced_offense": 54.499,
       "dl_group": 65.667,
       "lb_group": 63,
       "secondary_group": 66.25
@@ -426,15 +426,15 @@
         "RB1": "Quinn Early (WR1)",
         "RB2": "Wayne Walker (WR4)",
         "WR1": "Anthony Miller (WR2)",
-        "WR2": "Ronnie Harmon (RB4)",
-        "TE1": "Marion Butts (RB1)"
+        "WR2": "Marion Butts (RB1)",
+        "TE1": "Ronnie Harmon (RB4)"
       },
       "balanced_lineup": {
         "RB1": "Quinn Early (WR1)",
         "RB2": "Wayne Walker (WR4)",
         "WR1": "Anthony Miller (WR2)",
-        "WR2": "Ronnie Harmon (RB4)",
-        "TE1": "Marion Butts (RB1)"
+        "WR2": "Marion Butts (RB1)",
+        "TE1": "Ronnie Harmon (RB4)"
       },
       "kr": "Rod Bernstine (RB2)",
       "pr": "Rod Bernstine (RB2)"
@@ -443,20 +443,20 @@
   {
     "team": "chiefs",
     "full_name": "Kansas City Chiefs",
-    "offensive_rating": 60.563,
+    "offensive_rating": 60.581,
     "defensive_rating": 65.364,
-    "overall_rating": 62.963,
+    "overall_rating": 62.973,
     "components": {
       "qb_room": 54,
       "qb_rating": 57,
       "return_room": 69.75,
       "ol_line": 75.8,
-      "running_skill": 55.92,
-      "passing_skill": 57.45,
-      "balanced_skill": 55.088,
-      "running_offense": 62.671,
-      "passing_offense": 59.605,
-      "balanced_offense": 59.988,
+      "running_skill": 55.944,
+      "passing_skill": 57.4,
+      "balanced_skill": 55.17,
+      "running_offense": 62.686,
+      "passing_offense": 59.589,
+      "balanced_offense": 60.026,
       "dl_group": 63,
       "lb_group": 74,
       "secondary_group": 58.5
@@ -475,15 +475,15 @@
         "RB1": "J.J. Birden (WR3)",
         "RB2": "Emile Harry (WR4)",
         "WR1": "Stephone Paige (WR2)",
-        "WR2": "Todd Mcnair (RB3)",
-        "TE1": "Christian Okoye (RB1)"
+        "WR2": "Christian Okoye (RB1)",
+        "TE1": "Todd Mcnair (RB3)"
       },
       "balanced_lineup": {
         "RB1": "J.J. Birden (WR3)",
-        "RB2": "Emile Harry (WR4)",
+        "RB2": "Barry Word (RB2)",
         "WR1": "Stephone Paige (WR2)",
-        "WR2": "Todd Mcnair (RB3)",
-        "TE1": "Christian Okoye (RB1)"
+        "WR2": "Christian Okoye (RB1)",
+        "TE1": "Todd Mcnair (RB3)"
       },
       "kr": "Christian Okoye (RB1)",
       "pr": "Christian Okoye (RB1)"
@@ -492,20 +492,20 @@
   {
     "team": "colts",
     "full_name": "Indianapolis Colts",
-    "offensive_rating": 52.416,
+    "offensive_rating": 51.36,
     "defensive_rating": 52.182,
-    "overall_rating": 52.299,
+    "overall_rating": 51.771,
     "components": {
       "qb_room": 39.2,
       "qb_rating": 40,
       "return_room": 51.35,
       "ol_line": 60.8,
-      "running_skill": 51.9,
-      "passing_skill": 61.1,
-      "balanced_skill": 57.625,
-      "running_offense": 54.248,
-      "passing_offense": 50.229,
-      "balanced_offense": 52.594,
+      "running_skill": 49.58,
+      "passing_skill": 57.95,
+      "balanced_skill": 55.658,
+      "running_offense": 52.786,
+      "passing_offense": 49.237,
+      "balanced_offense": 51.709,
       "dl_group": 56,
       "lb_group": 52.75,
       "secondary_group": 48.75
@@ -514,24 +514,24 @@
       "best_qb": "Jack Trudeau (QB2)",
       "backup_qb": "Jeff George (QB1)",
       "running_lineup": {
-        "RB1": "Albert Bentley (RB2)",
+        "RB1": "Bill Brooks (WR1)",
         "RB2": "Jessie Hester (WR2)",
         "WR1": "Clarence Verdin (WR3)",
         "WR2": "Ken Clark (RB4)",
-        "TE1": "Bill Brooks (WR1)"
+        "TE1": "Albert Bentley (RB2)"
       },
       "passing_lineup": {
         "RB1": "Clarence Verdin (WR3)",
-        "RB2": "Stanley Morgan (WR4)",
-        "WR1": "Bill Brooks (WR1)",
-        "WR2": "Albert Bentley (RB2)",
+        "RB2": "Ken Clark (RB4)",
+        "WR1": "Albert Bentley (RB2)",
+        "WR2": "Bill Brooks (WR1)",
         "TE1": "Jessie Hester (WR2)"
       },
       "balanced_lineup": {
         "RB1": "Clarence Verdin (WR3)",
         "RB2": "Ken Clark (RB4)",
-        "WR1": "Bill Brooks (WR1)",
-        "WR2": "Albert Bentley (RB2)",
+        "WR1": "Albert Bentley (RB2)",
+        "WR2": "Bill Brooks (WR1)",
         "TE1": "Jessie Hester (WR2)"
       },
       "kr": "Jessie Hester (WR2)",
@@ -541,20 +541,20 @@
   {
     "team": "cowboys",
     "full_name": "Dallas Cowboys",
-    "offensive_rating": 56.249,
+    "offensive_rating": 55.672,
     "defensive_rating": 62,
-    "overall_rating": 59.125,
+    "overall_rating": 58.836,
     "components": {
       "qb_room": 46.8,
       "qb_rating": 48,
       "return_room": 56.95,
       "ol_line": 63.6,
-      "running_skill": 57.2,
-      "passing_skill": 59.35,
-      "balanced_skill": 58.333,
-      "running_offense": 58.903,
-      "passing_offense": 54.036,
-      "balanced_offense": 56.029,
+      "running_skill": 56.88,
+      "passing_skill": 58.4,
+      "balanced_skill": 56.325,
+      "running_offense": 58.701,
+      "passing_offense": 53.737,
+      "balanced_offense": 55.125,
       "dl_group": 60.667,
       "lb_group": 59.5,
       "secondary_group": 65.5
@@ -570,17 +570,17 @@
         "TE1": "Jay Novacek (TE1)"
       },
       "passing_lineup": {
-        "RB1": "Emmitt Smith (RB1)",
-        "RB2": "Alonzo Highsmith (RB3)",
+        "RB1": "Alonzo Highsmith (RB3)",
+        "RB2": "Kelvin Martin (WR1)",
         "WR1": "Jay Novacek (TE1)",
-        "WR2": "Kelvin Martin (WR1)",
+        "WR2": "Emmitt Smith (RB1)",
         "TE1": "Michael Irvin (WR2)"
       },
       "balanced_lineup": {
-        "RB1": "Emmitt Smith (RB1)",
-        "RB2": "Alonzo Highsmith (RB3)",
+        "RB1": "Alonzo Highsmith (RB3)",
+        "RB2": "Kelvin Martin (WR1)",
         "WR1": "Jay Novacek (TE1)",
-        "WR2": "Kelvin Martin (WR1)",
+        "WR2": "Emmitt Smith (RB1)",
         "TE1": "Michael Irvin (WR2)"
       },
       "kr": "Emmitt Smith (RB1)",
@@ -590,20 +590,20 @@
   {
     "team": "dolphins",
     "full_name": "Miami Dolphins",
-    "offensive_rating": 65.518,
+    "offensive_rating": 64.627,
     "defensive_rating": 62.364,
-    "overall_rating": 63.941,
+    "overall_rating": 63.495,
     "components": {
       "qb_room": 65.4,
       "qb_rating": 70,
       "return_room": 67.65,
       "ol_line": 78,
-      "running_skill": 58.056,
-      "passing_skill": 63.15,
-      "balanced_skill": 60.142,
-      "running_offense": 64.4,
-      "passing_offense": 66.617,
-      "balanced_offense": 65.527,
+      "running_skill": 58.048,
+      "passing_skill": 59.65,
+      "balanced_skill": 57.412,
+      "running_offense": 64.395,
+      "passing_offense": 65.515,
+      "balanced_offense": 64.299,
       "dl_group": 61.667,
       "lb_group": 60,
       "secondary_group": 65.25
@@ -621,15 +621,15 @@
       "passing_lineup": {
         "RB1": "Tony Paige (RB2)",
         "RB2": "Ferrell Edmunds (TE1)",
-        "WR1": "Mark Clayton (WR1)",
-        "WR2": "Mark Duper (WR2)",
+        "WR1": "Mark Duper (WR2)",
+        "WR2": "Mark Clayton (WR1)",
         "TE1": "Jim Jensen (TE2)"
       },
       "balanced_lineup": {
         "RB1": "Tony Paige (RB2)",
         "RB2": "Ferrell Edmunds (TE1)",
-        "WR1": "Mark Clayton (WR1)",
-        "WR2": "Mark Duper (WR2)",
+        "WR1": "Mark Duper (WR2)",
+        "WR2": "Mark Clayton (WR1)",
         "TE1": "Jim Jensen (TE2)"
       },
       "kr": "Tony Paige (RB2)",
@@ -639,20 +639,20 @@
   {
     "team": "eagles",
     "full_name": "Philadelphia Eagles",
-    "offensive_rating": 58.444,
+    "offensive_rating": 57.653,
     "defensive_rating": 64,
-    "overall_rating": 61.222,
+    "overall_rating": 60.826,
     "components": {
       "qb_room": 77.2,
       "qb_rating": 87,
       "return_room": 42.55,
       "ol_line": 54,
-      "running_skill": 47.48,
-      "passing_skill": 59.7,
-      "balanced_skill": 55.888,
-      "running_offense": 48.747,
-      "passing_offense": 65.091,
-      "balanced_offense": 59.968,
+      "running_skill": 47.32,
+      "passing_skill": 56.4,
+      "balanced_skill": 53.64,
+      "running_offense": 48.647,
+      "passing_offense": 64.051,
+      "balanced_offense": 58.957,
       "dl_group": 68,
       "lb_group": 65.75,
       "secondary_group": 59.25
@@ -675,7 +675,7 @@
         "TE1": "Fred Barnett (WR1)"
       },
       "balanced_lineup": {
-        "RB1": "Heath Sherman (RB2)",
+        "RB1": "Robert Drummond (RB4)",
         "RB2": "Calvin Williams (WR2)",
         "WR1": "Keith Jackson (TE1)",
         "WR2": "Keith Byars (RB1)",
@@ -688,20 +688,20 @@
   {
     "team": "falcons",
     "full_name": "Atlanta Falcons",
-    "offensive_rating": 54.448,
+    "offensive_rating": 54.567,
     "defensive_rating": 57.455,
-    "overall_rating": 55.951,
+    "overall_rating": 56.011,
     "components": {
       "qb_room": 42.6,
       "qb_rating": 43,
       "return_room": 51.65,
       "ol_line": 61.2,
-      "running_skill": 58.08,
-      "passing_skill": 61.45,
-      "balanced_skill": 57.992,
-      "running_offense": 58.279,
-      "passing_offense": 51.954,
-      "balanced_offense": 53.78,
+      "running_skill": 57.92,
+      "passing_skill": 61.5,
+      "balanced_skill": 58.617,
+      "running_offense": 58.179,
+      "passing_offense": 51.97,
+      "balanced_offense": 54.061,
       "dl_group": 60,
       "lb_group": 51.5,
       "secondary_group": 61.5
@@ -717,18 +717,18 @@
         "TE1": "Andre Rison (WR3)"
       },
       "passing_lineup": {
-        "RB1": "George Thomas (WR5)",
-        "RB2": "Floyd Dixon (WR2)",
-        "WR1": "Andre Rison (WR3)",
-        "WR2": "Shawn Collins (WR4)",
-        "TE1": "Michael Haynes (WR1)"
-      },
-      "balanced_lineup": {
         "RB1": "Steve Broussard (RB2)",
         "RB2": "George Thomas (WR5)",
         "WR1": "Andre Rison (WR3)",
         "WR2": "Shawn Collins (WR4)",
-        "TE1": "Floyd Dixon (WR2)"
+        "TE1": "Mike Rozier (RB1)"
+      },
+      "balanced_lineup": {
+        "RB1": "Steve Broussard (RB2)",
+        "RB2": "Keith Jones (RB3)",
+        "WR1": "Andre Rison (WR3)",
+        "WR2": "Shawn Collins (WR4)",
+        "TE1": "Mike Rozier (RB1)"
       },
       "kr": "Andre Rison (WR3)",
       "pr": "Andre Rison (WR3)"
@@ -737,20 +737,20 @@
   {
     "team": "giants",
     "full_name": "New York Giants",
-    "offensive_rating": 64.443,
+    "offensive_rating": 64.776,
     "defensive_rating": 67.909,
-    "overall_rating": 66.176,
+    "overall_rating": 66.343,
     "components": {
       "qb_room": 57.8,
       "qb_rating": 62,
       "return_room": 74,
       "ol_line": 70.8,
-      "running_skill": 66.448,
-      "passing_skill": 62.1,
-      "balanced_skill": 61.515,
-      "running_offense": 68.378,
-      "passing_offense": 62.529,
-      "balanced_offense": 63.432,
+      "running_skill": 66.464,
+      "passing_skill": 63.4,
+      "balanced_skill": 62.53,
+      "running_offense": 68.388,
+      "passing_offense": 62.939,
+      "balanced_offense": 63.889,
       "dl_group": 57,
       "lb_group": 77.5,
       "secondary_group": 66.5
@@ -786,20 +786,20 @@
   {
     "team": "jets",
     "full_name": "New York Jets",
-    "offensive_rating": 53.859,
+    "offensive_rating": 53.403,
     "defensive_rating": 59.545,
-    "overall_rating": 56.702,
+    "overall_rating": 56.474,
     "components": {
       "qb_room": 51.6,
       "qb_rating": 53,
       "return_room": 55.75,
       "ol_line": 59,
-      "running_skill": 51.46,
-      "passing_skill": 53.65,
-      "balanced_skill": 52.887,
-      "running_offense": 53.925,
-      "passing_offense": 53.66,
-      "balanced_offense": 53.926,
+      "running_skill": 51.14,
+      "passing_skill": 52.25,
+      "balanced_skill": 51.575,
+      "running_offense": 53.723,
+      "passing_offense": 53.219,
+      "balanced_offense": 53.336,
       "dl_group": 53.333,
       "lb_group": 65,
       "secondary_group": 58.75
@@ -815,18 +815,18 @@
         "TE1": "Al Toon (WR1)"
       },
       "passing_lineup": {
-        "RB1": "Blair Thomas (RB1)",
-        "RB2": "Johnny Hector (RB4)",
+        "RB1": "Johnny Hector (RB4)",
+        "RB2": "Mark Boyer (TE1)",
         "WR1": "Al Toon (WR1)",
-        "WR2": "Rob Moore (WR2)",
-        "TE1": "Mark Boyer (TE1)"
+        "WR2": "Blair Thomas (RB1)",
+        "TE1": "Rob Moore (WR2)"
       },
       "balanced_lineup": {
-        "RB1": "Blair Thomas (RB1)",
-        "RB2": "Johnny Hector (RB4)",
+        "RB1": "Johnny Hector (RB4)",
+        "RB2": "Freeman Mcneil (RB2)",
         "WR1": "Al Toon (WR1)",
-        "WR2": "Rob Moore (WR2)",
-        "TE1": "Mark Boyer (TE1)"
+        "WR2": "Blair Thomas (RB1)",
+        "TE1": "Rob Moore (WR2)"
       },
       "kr": "Brad Baxter (RB3)",
       "pr": "Brad Baxter (RB3)"
@@ -835,20 +835,20 @@
   {
     "team": "lions",
     "full_name": "Detroit Lions",
-    "offensive_rating": 58.697,
+    "offensive_rating": 57.419,
     "defensive_rating": 58.818,
-    "overall_rating": 58.758,
+    "overall_rating": 58.119,
     "components": {
       "qb_room": 51.2,
       "qb_rating": 52,
       "return_room": 61.838,
       "ol_line": 59.6,
-      "running_skill": 65.14,
-      "passing_skill": 63.3,
-      "balanced_skill": 58.66,
-      "running_offense": 63.314,
-      "passing_offense": 57.209,
-      "balanced_offense": 57.133,
+      "running_skill": 57.1,
+      "passing_skill": 62.6,
+      "balanced_skill": 58.852,
+      "running_offense": 58.249,
+      "passing_offense": 56.989,
+      "balanced_offense": 57.219,
       "dl_group": 59.333,
       "lb_group": 58.5,
       "secondary_group": 58.75
@@ -857,24 +857,24 @@
       "best_qb": "Rodney Peete (QB1)",
       "backup_qb": "Andre Ware (QB2)",
       "running_lineup": {
-        "RB1": "Barry Sanders (RB1)",
-        "RB2": "Mel Gray (RB3)",
+        "RB1": "Mel Gray (RB3)",
+        "RB2": "Robert Clark (WR3)",
         "WR1": "Willie Green (RB4)",
         "WR2": "James Wilder (RB2)",
-        "TE1": "Robert Clark (WR3)"
+        "TE1": "Barry Sanders (RB1)"
       },
       "passing_lineup": {
         "RB1": "Terry Greer (WR4)",
         "RB2": "Richard Johnson (WR2)",
-        "WR1": "Robert Clark (WR3)",
-        "WR2": "Barry Sanders (RB1)",
+        "WR1": "Barry Sanders (RB1)",
+        "WR2": "Robert Clark (WR3)",
         "TE1": "Mel Gray (RB3)"
       },
       "balanced_lineup": {
         "RB1": "Willie Green (RB4)",
-        "RB2": "Richard Johnson (WR2)",
-        "WR1": "Robert Clark (WR3)",
-        "WR2": "Barry Sanders (RB1)",
+        "RB2": "Terry Greer (WR4)",
+        "WR1": "Barry Sanders (RB1)",
+        "WR2": "Robert Clark (WR3)",
         "TE1": "Mel Gray (RB3)"
       },
       "kr": "Barry Sanders (RB1)",
@@ -884,20 +884,20 @@
   {
     "team": "oilers",
     "full_name": "Houston Oilers",
-    "offensive_rating": 68.449,
+    "offensive_rating": 67.911,
     "defensive_rating": 62.727,
-    "overall_rating": 65.588,
+    "overall_rating": 65.319,
     "components": {
       "qb_room": 68.6,
       "qb_rating": 76,
       "return_room": 58.45,
       "ol_line": 68.2,
-      "running_skill": 65.58,
-      "passing_skill": 75.65,
-      "balanced_skill": 72.428,
-      "running_offense": 65.574,
-      "passing_offense": 69.752,
-      "balanced_offense": 69.235,
+      "running_skill": 65.5,
+      "passing_skill": 73.6,
+      "balanced_skill": 70.81,
+      "running_offense": 65.524,
+      "passing_offense": 69.106,
+      "balanced_offense": 68.508,
       "dl_group": 64.667,
       "lb_group": 57.75,
       "secondary_group": 66.25
@@ -933,20 +933,20 @@
   {
     "team": "packers",
     "full_name": "Green Bay Packers",
-    "offensive_rating": 55.946,
+    "offensive_rating": 55.151,
     "defensive_rating": 55.182,
-    "overall_rating": 55.564,
+    "overall_rating": 55.166,
     "components": {
       "qb_room": 51.6,
       "qb_rating": 54,
       "return_room": 57.35,
       "ol_line": 59.4,
       "running_skill": 57.6,
-      "passing_skill": 57.45,
-      "balanced_skill": 55.483,
+      "passing_skill": 55.45,
+      "balanced_skill": 52.647,
       "running_offense": 58.061,
-      "passing_offense": 55.071,
-      "balanced_offense": 55.326,
+      "passing_offense": 54.441,
+      "balanced_offense": 54.05,
       "dl_group": 60,
       "lb_group": 54.75,
       "secondary_group": 52
@@ -962,18 +962,18 @@
         "TE1": "Michael Haddix (RB2)"
       },
       "passing_lineup": {
-        "RB1": "Herman Fontenot (RB4)",
-        "RB2": "Charles Wilson (WR3)",
+        "RB1": "Perry Kemp (WR2)",
+        "RB2": "Jeff Query (WR4)",
         "WR1": "Sterling Sharpe (WR1)",
-        "WR2": "Perry Kemp (WR2)",
-        "TE1": "Jeff Query (WR4)"
+        "WR2": "Keith Woodside (RB1)",
+        "TE1": "Herman Fontenot (RB4)"
       },
       "balanced_lineup": {
-        "RB1": "Keith Woodside (RB1)",
-        "RB2": "Herman Fontenot (RB4)",
+        "RB1": "Darrell Thompson (RB3)",
+        "RB2": "Jeff Query (WR4)",
         "WR1": "Sterling Sharpe (WR1)",
-        "WR2": "Perry Kemp (WR2)",
-        "TE1": "Jeff Query (WR4)"
+        "WR2": "Keith Woodside (RB1)",
+        "TE1": "Herman Fontenot (RB4)"
       },
       "kr": "Michael Haddix (RB2)",
       "pr": "Michael Haddix (RB2)"
@@ -982,20 +982,20 @@
   {
     "team": "patriots",
     "full_name": "New England Patriots",
-    "offensive_rating": 49.117,
+    "offensive_rating": 48.213,
     "defensive_rating": 58.182,
-    "overall_rating": 53.649,
+    "overall_rating": 53.197,
     "components": {
       "qb_room": 41.2,
       "qb_rating": 45,
       "return_room": 45.55,
       "ol_line": 60.6,
-      "running_skill": 42.62,
-      "passing_skill": 55.85,
-      "balanced_skill": 51.842,
-      "running_offense": 47.768,
-      "passing_offense": 48.869,
-      "balanced_offense": 49.916,
+      "running_skill": 42.38,
+      "passing_skill": 52.2,
+      "balanced_skill": 49.27,
+      "running_offense": 47.616,
+      "passing_offense": 47.719,
+      "balanced_offense": 48.759,
       "dl_group": 61.667,
       "lb_group": 53.5,
       "secondary_group": 60.25
@@ -1011,8 +1011,8 @@
         "TE1": "Marv Cook (TE1)"
       },
       "passing_lineup": {
-        "RB1": "Eric Sievers (TE2)",
-        "RB2": "Greg Mcmurty (WR3)",
+        "RB1": "John Stephens (RB2)",
+        "RB2": "Eric Sievers (TE2)",
         "WR1": "Marv Cook (TE1)",
         "WR2": "Irving Fryar (WR1)",
         "TE1": "Hart Lee Dykes (WR2)"
@@ -1031,20 +1031,20 @@
   {
     "team": "raiders",
     "full_name": "Los Angeles Raiders",
-    "offensive_rating": 61.463,
+    "offensive_rating": 62.168,
     "defensive_rating": 65.182,
-    "overall_rating": 63.322,
+    "overall_rating": 63.675,
     "components": {
       "qb_room": 45.2,
       "qb_rating": 46,
       "return_room": 57.075,
       "ol_line": 68.8,
-      "running_skill": 73.5,
-      "passing_skill": 63.95,
-      "balanced_skill": 65.77,
-      "running_offense": 70.588,
-      "passing_offense": 55.48,
-      "balanced_offense": 59.892,
+      "running_skill": 73.66,
+      "passing_skill": 66.15,
+      "balanced_skill": 68.023,
+      "running_offense": 70.689,
+      "passing_offense": 56.173,
+      "balanced_offense": 60.906,
       "dl_group": 75.667,
       "lb_group": 58.75,
       "secondary_group": 63.75
@@ -1061,7 +1061,7 @@
       },
       "passing_lineup": {
         "RB1": "Bo Jackson (RB1)",
-        "RB2": "Ethan Horton (TE1)",
+        "RB2": "Marcus Allen (RB2)",
         "WR1": "Willie Gault (WR2)",
         "WR2": "Mervyn Fernandez (WR1)",
         "TE1": "Tim Brown (WR3)"
@@ -1080,20 +1080,20 @@
   {
     "team": "rams",
     "full_name": "Los Angeles Rams",
-    "offensive_rating": 63.713,
+    "offensive_rating": 63.352,
     "defensive_rating": 56,
-    "overall_rating": 59.856,
+    "overall_rating": 59.676,
     "components": {
       "qb_room": 57.2,
       "qb_rating": 61,
       "return_room": 63.35,
       "ol_line": 70.2,
-      "running_skill": 62.02,
-      "passing_skill": 68.5,
-      "balanced_skill": 65.032,
-      "running_offense": 64.362,
-      "passing_offense": 63.13,
-      "balanced_offense": 63.68,
+      "running_skill": 61.78,
+      "passing_skill": 66.5,
+      "balanced_skill": 64.3,
+      "running_offense": 64.21,
+      "passing_offense": 62.5,
+      "balanced_offense": 63.35,
       "dl_group": 52.667,
       "lb_group": 56.75,
       "secondary_group": 57.75
@@ -1110,7 +1110,7 @@
       },
       "passing_lineup": {
         "RB1": "Cleveland Gary (RB1)",
-        "RB2": "Pete Holohan (TE1)",
+        "RB2": "Aaron Cox (WR4)",
         "WR1": "Henry Ellard (WR1)",
         "WR2": "Willie Anderson (WR2)",
         "TE1": "Buford Mcgee (RB4)"
@@ -1129,20 +1129,20 @@
   {
     "team": "redskins",
     "full_name": "Washington Redskins",
-    "offensive_rating": 61.587,
+    "offensive_rating": 61.341,
     "defensive_rating": 60.909,
-    "overall_rating": 61.248,
+    "overall_rating": 61.125,
     "components": {
       "qb_room": 42,
       "qb_rating": 42,
       "return_room": 62.95,
       "ol_line": 75.6,
-      "running_skill": 66.356,
-      "passing_skill": 67.15,
-      "balanced_skill": 65.333,
-      "running_offense": 68.511,
-      "passing_offense": 56.553,
-      "balanced_offense": 60.643,
+      "running_skill": 66.368,
+      "passing_skill": 66.2,
+      "balanced_skill": 64.56,
+      "running_offense": 68.519,
+      "passing_offense": 56.254,
+      "balanced_offense": 60.295,
       "dl_group": 60.667,
       "lb_group": 55.5,
       "secondary_group": 66.5
@@ -1178,20 +1178,20 @@
   {
     "team": "saints",
     "full_name": "New Orleans Saints",
-    "offensive_rating": 58.043,
+    "offensive_rating": 57.768,
     "defensive_rating": 61.636,
-    "overall_rating": 59.84,
+    "overall_rating": 59.702,
     "components": {
       "qb_room": 45.4,
       "qb_rating": 46,
       "return_room": 80.25,
       "ol_line": 72.2,
-      "running_skill": 57.216,
-      "passing_skill": 52.9,
-      "balanced_skill": 52.425,
-      "running_offense": 63.565,
-      "passing_offense": 54.866,
-      "balanced_offense": 56.87,
+      "running_skill": 57.212,
+      "passing_skill": 52.4,
+      "balanced_skill": 51.383,
+      "running_offense": 63.563,
+      "passing_offense": 54.708,
+      "balanced_offense": 56.401,
       "dl_group": 64.667,
       "lb_group": 63.5,
       "secondary_group": 57.5
@@ -1207,18 +1207,18 @@
         "TE1": "Craig Heyward (RB1)"
       },
       "passing_lineup": {
-        "RB1": "Rueben Mayes (RB3)",
-        "RB2": "Gil Fenerty (RB4)",
+        "RB1": "Gil Fenerty (RB4)",
+        "RB2": "Floyd Turner (WR4)",
         "WR1": "Eric Martin (WR1)",
-        "WR2": "Brent Perriman (WR2)",
-        "TE1": "Floyd Turner (WR4)"
+        "WR2": "Dalton Hilliard (RB2)",
+        "TE1": "Rueben Mayes (RB3)"
       },
       "balanced_lineup": {
-        "RB1": "Dalton Hilliard (RB2)",
-        "RB2": "Gil Fenerty (RB4)",
+        "RB1": "Gil Fenerty (RB4)",
+        "RB2": "Craig Heyward (RB1)",
         "WR1": "Eric Martin (WR1)",
-        "WR2": "Brent Perriman (WR2)",
-        "TE1": "Floyd Turner (WR4)"
+        "WR2": "Dalton Hilliard (RB2)",
+        "TE1": "Rueben Mayes (RB3)"
       },
       "kr": "Craig Heyward (RB1)",
       "pr": "Craig Heyward (RB1)"
@@ -1227,20 +1227,20 @@
   {
     "team": "seahawks",
     "full_name": "Seattle Seahawks",
-    "offensive_rating": 56.387,
+    "offensive_rating": 55.568,
     "defensive_rating": 56.364,
-    "overall_rating": 56.375,
+    "overall_rating": 55.966,
     "components": {
       "qb_room": 55.6,
       "qb_rating": 59,
       "return_room": 64.95,
       "ol_line": 64.2,
-      "running_skill": 50.476,
-      "passing_skill": 54,
-      "balanced_skill": 51.78,
-      "running_offense": 55.629,
-      "passing_offense": 57.192,
-      "balanced_offense": 56.364,
+      "running_skill": 50.48,
+      "passing_skill": 51,
+      "balanced_skill": 49.185,
+      "running_offense": 55.631,
+      "passing_offense": 56.247,
+      "balanced_offense": 55.196,
       "dl_group": 62.667,
       "lb_group": 53.75,
       "secondary_group": 54.25
@@ -1256,18 +1256,18 @@
         "TE1": "Derrick Fenner (RB2)"
       },
       "passing_lineup": {
-        "RB1": "Jeff Chadwick (WR4)",
-        "RB2": "Paul Skansi (WR3)",
-        "WR1": "John L. Williams (RB1)",
-        "WR2": "Tommy Kane (WR2)",
-        "TE1": "Brian Blades (WR1)"
+        "RB1": "Chris Warren (RB4)",
+        "RB2": "Brian Blades (WR1)",
+        "WR1": "Tommy Kane (WR2)",
+        "WR2": "John L. Williams (RB1)",
+        "TE1": "Jeff Chadwick (WR4)"
       },
       "balanced_lineup": {
         "RB1": "Chris Warren (RB4)",
-        "RB2": "Jeff Chadwick (WR4)",
-        "WR1": "John L. Williams (RB1)",
-        "WR2": "Tommy Kane (WR2)",
-        "TE1": "Brian Blades (WR1)"
+        "RB2": "Brian Blades (WR1)",
+        "WR1": "Tommy Kane (WR2)",
+        "WR2": "John L. Williams (RB1)",
+        "TE1": "Jeff Chadwick (WR4)"
       },
       "kr": "Derrick Fenner (RB2)",
       "pr": "Derrick Fenner (RB2)"
@@ -1276,20 +1276,20 @@
   {
     "team": "steelers",
     "full_name": "Pittsburgh Steelers",
-    "offensive_rating": 54.11,
+    "offensive_rating": 53.643,
     "defensive_rating": 68,
-    "overall_rating": 61.055,
+    "overall_rating": 60.821,
     "components": {
       "qb_room": 42,
       "qb_rating": 42,
       "return_room": 76.15,
       "ol_line": 66.8,
-      "running_skill": 48.82,
-      "passing_skill": 53.2,
-      "balanced_skill": 50.87,
-      "running_offense": 56.408,
-      "passing_offense": 52.291,
-      "balanced_offense": 53.87,
+      "running_skill": 47.48,
+      "passing_skill": 51.6,
+      "balanced_skill": 50.293,
+      "running_offense": 55.563,
+      "passing_offense": 51.787,
+      "balanced_offense": 53.611,
       "dl_group": 62.333,
       "lb_group": 67.25,
       "secondary_group": 73
@@ -1298,25 +1298,25 @@
       "best_qb": "Rick Strom (QB2)",
       "backup_qb": "Bubby Brister (QB1)",
       "running_lineup": {
-        "RB1": "Merril Hoge (RB1)",
-        "RB2": "Warren Williams (RB2)",
-        "WR1": "Tim Worley (RB3)",
+        "RB1": "Warren Williams (RB2)",
+        "RB2": "Tim Worley (RB3)",
+        "WR1": "Louis Lipps (WR1)",
         "WR2": "Dwight Stone (WR4)",
-        "TE1": "Louis Lipps (WR1)"
+        "TE1": "Merril Hoge (RB1)"
       },
       "passing_lineup": {
         "RB1": "Dwight Stone (WR4)",
         "RB2": "Eric Green (TE1)",
-        "WR1": "Louis Lipps (WR1)",
-        "WR2": "Merril Hoge (RB1)",
-        "TE1": "Warren Williams (RB2)"
+        "WR1": "Merril Hoge (RB1)",
+        "WR2": "Warren Williams (RB2)",
+        "TE1": "Louis Lipps (WR1)"
       },
       "balanced_lineup": {
         "RB1": "Tim Worley (RB3)",
         "RB2": "Dwight Stone (WR4)",
-        "WR1": "Louis Lipps (WR1)",
-        "WR2": "Merril Hoge (RB1)",
-        "TE1": "Warren Williams (RB2)"
+        "WR1": "Merril Hoge (RB1)",
+        "WR2": "Warren Williams (RB2)",
+        "TE1": "Louis Lipps (WR1)"
       },
       "kr": "Merril Hoge (RB1)",
       "pr": "Merril Hoge (RB1)"
@@ -1325,20 +1325,20 @@
   {
     "team": "vikings",
     "full_name": "Minnesota Vikings",
-    "offensive_rating": 58.082,
+    "offensive_rating": 57.319,
     "defensive_rating": 64.909,
-    "overall_rating": 61.495,
+    "overall_rating": 61.114,
     "components": {
       "qb_room": 44.2,
       "qb_rating": 46,
       "return_room": 64.3,
       "ol_line": 72.8,
-      "running_skill": 52.74,
-      "passing_skill": 63.3,
-      "balanced_skill": 59.99,
-      "running_offense": 59.312,
-      "passing_offense": 56.087,
-      "balanced_offense": 58.464,
+      "running_skill": 52.5,
+      "passing_skill": 60.9,
+      "balanced_skill": 57.61,
+      "running_offense": 59.161,
+      "passing_offense": 55.331,
+      "balanced_offense": 57.393,
       "dl_group": 64.667,
       "lb_group": 61.75,
       "secondary_group": 68.25
@@ -1354,18 +1354,18 @@
         "TE1": "Anthony Carter (WR2)"
       },
       "passing_lineup": {
-        "RB1": "Herschel Walker (RB1)",
+        "RB1": "Hassan Jones (WR1)",
         "RB2": "Cris Carter (WR4)",
         "WR1": "Anthony Carter (WR2)",
-        "WR2": "Hassan Jones (WR1)",
-        "TE1": "Steve Jordan (TE1)"
+        "WR2": "Steve Jordan (TE1)",
+        "TE1": "Herschel Walker (RB1)"
       },
       "balanced_lineup": {
-        "RB1": "Herschel Walker (RB1)",
-        "RB2": "Cris Carter (WR4)",
+        "RB1": "Rick Fenney (RB2)",
+        "RB2": "Hassan Jones (WR1)",
         "WR1": "Anthony Carter (WR2)",
-        "WR2": "Hassan Jones (WR1)",
-        "TE1": "Steve Jordan (TE1)"
+        "WR2": "Steve Jordan (TE1)",
+        "TE1": "Herschel Walker (RB1)"
       },
       "kr": "Anthony Carter (WR2)",
       "pr": "Anthony Carter (WR2)"

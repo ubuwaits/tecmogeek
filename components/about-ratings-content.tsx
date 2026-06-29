@@ -180,13 +180,13 @@ export function AboutRatingsContent() {
         <p>
           Running Speed: 10%
           <br />
-          Maximum Speed: 30%
+          Maximum Speed: 45%
           <br />
           Hitting Power: 5%
           <br />
           Ball Control: 5%
           <br />
-          Receptions: 50%
+          Receptions: 35%
         </p>
 
         <h3>Kick Returners (all RB, WR, TE receive a kick returner rating)</h3>
@@ -308,7 +308,7 @@ export function AboutRatingsContent() {
           <br />
           Ball Control: 81 (100.00%)
           <br />
-          Receptions: 81 (23.46%)
+          Receptions: 19 (23.46%)
         </p>
 
         <p>
@@ -318,11 +318,11 @@ export function AboutRatingsContent() {
         <p>Here are the ratings for each player as a receiver:</p>
 
         <p>
-          Rice: <strong>89.58%</strong> ((10 * (69.84 / 100)) + (30 * (92 / 100)) + (5 * (0 / 100)) + (5 * (100 / 100)) + (50 * (100 / 100)))
+          Rice: <strong>88.38%</strong> ((10 * (69.84 / 100)) + (45 * (92 / 100)) + (5 * (0 / 100)) + (5 * (100 / 100)) + (35 * (100 / 100)))
         </p>
 
         <p>
-          Jackson: <strong>52.76%</strong> ((10 * (60.32 / 100)) + (40 * (100 / 100)) + (5 * (0 / 100)) + (5 * (100 / 100)) + (50 * (23.46 / 100)))
+          Jackson: <strong>64.24%</strong> ((10 * (60.32 / 100)) + (45 * (100 / 100)) + (5 * (0 / 100)) + (5 * (100 / 100)) + (35 * (23.46 / 100)))
         </p>
 
         <p>

@@ -31,10 +31,10 @@ export const RUSHING_COLUMNS: readonly MetricColumn[] = [
 
 export const RECEIVING_COLUMNS: readonly MetricColumn[] = [
   { key: "running_speed", label: "RS", tooltip: "Running Speed", weight: 10 },
-  { key: "maximum_speed", label: "MS", tooltip: "Maximum Speed", weight: 30 },
+  { key: "maximum_speed", label: "MS", tooltip: "Maximum Speed", weight: 45 },
   { key: "hitting_power", label: "HP", tooltip: "Hitting Power", weight: 5 },
   { key: "ball_control", label: "BC", tooltip: "Ball Control", weight: 5 },
-  { key: "receptions", label: "REC", tooltip: "Receptions", weight: 50 },
+  { key: "receptions", label: "REC", tooltip: "Receptions", weight: 35 },
 ];
 
 export const KICK_RETURN_COLUMNS: readonly MetricColumn[] = [
