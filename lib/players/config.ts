@@ -2,11 +2,13 @@ import type { MetricColumn, PositionPageConfig, PositionSlug } from "@/lib/types
 
 export const QB_NOTE =
   "All QBs have Running Speed 25, Rushing Power 69, and Hitting Power 13. Accuracy of Passing has no effect on performance.";
-export const SKILL_POSITION_NOTE = "All RBs, WRs and TEs have Rushing Power 69.";
+export const OFFENSIVE_HP_SCORE_NOTE =
+  "HP score bands: 75 = 5%, 81 = 25%, 88 = 60%, 94 = 100%; HP below 75 gets no rating weight.";
+export const SKILL_POSITION_NOTE = `All RBs, WRs and TEs have Rushing Power 69. ${OFFENSIVE_HP_SCORE_NOTE}`;
 export const KICK_RETURN_NOTE =
-  "Due to a programming glitch, all KRs have the same Maximum Speed as their team's RT.";
+  `Due to a programming glitch, all KRs have the same Maximum Speed as their team's RT. ${OFFENSIVE_HP_SCORE_NOTE}`;
 export const PUNT_RETURN_NOTE =
-  "Due to a programming glitch, all PRs have the same Maximum Speed as their team's SS and Ball Control 44.";
+  `Due to a programming glitch, all PRs have the same Maximum Speed as their team's SS and Ball Control 44. ${OFFENSIVE_HP_SCORE_NOTE}`;
 export const OFFENSIVE_LINE_NOTE = "All OL have Running Speed 25 and Rushing Power 69.";
 export const DEFENSE_NOTE = "Quickness has no effect on performance for any defensive player.";
 export const KICKER_NOTE =
