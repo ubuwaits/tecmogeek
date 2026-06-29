@@ -19,6 +19,7 @@ const AGGREGATE_FILE_NAMES = new Set([
   "cb-s.json",
   "k.json",
   "p.json",
+  "team-ratings.json",
 ]);
 
 const SKILL_ATTRIBUTE_KEYS = [
@@ -36,10 +37,22 @@ const SKILL_ATTRIBUTE_KEYS = [
 ];
 
 const OFFENSIVE_HP_SCORE_MAP = {
-  75: 40,
-  81: 60,
-  88: 80,
+  75: 5,
+  81: 25,
+  88: 60,
   94: 100,
+};
+
+const OFFENSIVE_LINE_HP_SCORE_MAP = {
+  31: 0,
+  38: 15,
+  44: 30,
+  50: 45,
+  56: 55,
+  63: 65,
+  69: 80,
+  75: 90,
+  81: 100,
 };
 
 const SKILL_CONFIGS = [
@@ -63,10 +76,10 @@ const SKILL_CONFIGS = [
     rankingKey: "receiving_ranking",
     columns: [
       { key: "running_speed", weight: 10 },
-      { key: "maximum_speed", weight: 30 },
+      { key: "maximum_speed", weight: 45 },
       { key: "hitting_power", weight: 5 },
       { key: "ball_control", weight: 5 },
-      { key: "receptions", weight: 50 },
+      { key: "receptions", weight: 35 },
     ],
   },
   {
@@ -100,8 +113,8 @@ const OL_CONFIG = {
   ratingKey: "rating",
   rankingKey: "ranking",
   columns: [
-    { key: "maximum_speed", weight: 50 },
-    { key: "hitting_power", weight: 50 },
+    { key: "maximum_speed", weight: 20 },
+    { key: "hitting_power", weight: 80 },
   ],
 };
 
@@ -115,6 +128,10 @@ function getNumericValue(player, key) {
 
 function getOffensiveHpScore(hittingPower) {
   return OFFENSIVE_HP_SCORE_MAP[hittingPower] ?? 0;
+}
+
+function getOffensiveLineHpScore(hittingPower) {
+  return OFFENSIVE_LINE_HP_SCORE_MAP[hittingPower] ?? 0;
 }
 
 function formatPercent(value) {
@@ -139,7 +156,7 @@ function buildMaxima(players, columns, hpMode) {
   const maxima = {};
 
   for (const column of columns) {
-    if (hpMode === "skill" && column.key === "hitting_power") {
+    if (hpMode !== "raw" && column.key === "hitting_power") {
       continue;
     }
 
@@ -157,6 +174,8 @@ function computeRating(player, columns, maxima, hpMode) {
 
     if (hpMode === "skill" && column.key === "hitting_power") {
       score = getOffensiveHpScore(getNumericValue(player, "hitting_power"));
+    } else if (hpMode === "offensiveLine" && column.key === "hitting_power") {
+      score = getOffensiveLineHpScore(getNumericValue(player, "hitting_power"));
     } else {
       const maximum = maxima[column.key] ?? 0;
       score = maximum === 0 ? 0 : (getNumericValue(player, column.key) / maximum) * 100;
@@ -297,14 +316,14 @@ async function rebuildSkillAggregates() {
 
 async function rebuildOlAggregate() {
   const sourceRows = await readJson(OL_CONFIG.fileName);
-  const maxima = buildMaxima(sourceRows, OL_CONFIG.columns, "raw");
+  const maxima = buildMaxima(sourceRows, OL_CONFIG.columns, "offensiveLine");
   const updates = new Map();
 
   const rebuiltRows = sourceRows
     .map((player, sourceIndex) => ({
       player,
       sourceIndex,
-      rating: computeRating(player, OL_CONFIG.columns, maxima, "raw"),
+      rating: computeRating(player, OL_CONFIG.columns, maxima, "offensiveLine"),
       hittingPower: getNumericValue(player, "hitting_power"),
     }))
     .sort((left, right) => {

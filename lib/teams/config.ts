@@ -2,12 +2,13 @@ import {
   DEFENSE_NOTE,
   DEFENSIVE_LINE_COLUMNS,
   KICKER_NOTE,
-  KICKING_COLUMNS,
+  KICKER_COLUMNS,
   KICK_RETURN_COLUMNS,
   KICK_RETURN_NOTE,
   LINEBACKER_COLUMNS,
   OFFENSIVE_LINE_COLUMNS,
   OFFENSIVE_LINE_NOTE,
+  PUNTER_COLUMNS,
   PUNTER_NOTE,
   PUNT_RETURN_COLUMNS,
   PUNT_RETURN_NOTE,
@@ -123,7 +124,7 @@ export const TEAM_SECTION_CONFIGS: readonly TeamSectionConfig[] = [
     rankingTooltip: "Out of 28 kickers",
     note: KICKER_NOTE,
     playerPage: "k",
-    columns: KICKING_COLUMNS,
+    columns: KICKER_COLUMNS,
   },
   {
     id: "p",
@@ -132,7 +133,7 @@ export const TEAM_SECTION_CONFIGS: readonly TeamSectionConfig[] = [
     rankingTooltip: "Out of 28 punters",
     note: PUNTER_NOTE,
     playerPage: "p",
-    columns: KICKING_COLUMNS,
+    columns: PUNTER_COLUMNS,
   },
 ];
 

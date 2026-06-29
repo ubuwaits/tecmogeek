@@ -96,6 +96,11 @@ export function AboutRatingsContent() {
           Maximum Speed: <strong>81</strong>
           <br />
           Hitting Power: <strong>31</strong>
+          <br />
+          Avoid Kick Block: <strong>not used</strong>
+        </p>
+        <p>
+          Due to a programming glitch, if the blocked-kick cutscene is triggered, the game uses the worst Avoid Kick Block value rather than the kicker&apos;s actual rating.
         </p>
 
         <h3>P</h3>
@@ -107,13 +112,15 @@ export function AboutRatingsContent() {
           Maximum Speed: <strong>44</strong>
           <br />
           Hitting Power: <strong>31</strong>
+          <br />
+          Avoid Kick Block: <strong>not used because punts cannot be blocked</strong>
         </p>
 
         <h2>
           Step two: Calculate a score for attributes that do matter
         </h2>
         <p>
-          Next, for the attributes that remain, I assign a score based on the highest value for a player at that position.
+          Next, for most attributes that remain, I assign a score based on the highest value for a player at that position.
         </p>
         <p>
           For example, the highest Maximum Speed for a QB is 56, which belongs to QB Eagles. So he scores 100% on that attribute. The highest Pass Control is 81, shared by both Montana and QB Bills, who again both get 100%. Since QB Eagles has Pass Control of 69, he receives an 85% (69/81 * 100) for that attribute.
@@ -126,7 +133,7 @@ export function AboutRatingsContent() {
           Once each attribute score is calculated, they are averaged to give a final score. However, rather than treating all scores as equal, I weight each score based on its importance for determining the performance of the player at that position.
         </p>
         <p>
-          For instance, for rushers, Maximum Speed is by far the most important attribute. For receivers, Receptions is most important.
+          For instance, Maximum Speed is the largest part of both rusher and receiver ratings, while Receptions still has a major role for receivers.
         </p>
         <p>Below are the weightings of attributes for players at each position.</p>
 
@@ -173,13 +180,13 @@ export function AboutRatingsContent() {
         <p>
           Running Speed: 10%
           <br />
-          Maximum Speed: 30%
+          Maximum Speed: 45%
           <br />
           Hitting Power: 5%
           <br />
           Ball Control: 5%
           <br />
-          Receptions: 50%
+          Receptions: 35%
         </p>
 
         <h3>Kick Returners (all RB, WR, TE receive a kick returner rating)</h3>
@@ -202,11 +209,22 @@ export function AboutRatingsContent() {
           Hitting Power: 10%
         </p>
 
+        <h3>A note about hitting power for RBs, WRs and TEs</h3>
+        <p>
+          Hitting Power uses score bands for rusher, receiver and returner ratings: 75 = 5%, 81 = 25%, 88 = 60%, and 94 = 100%. Values below 75 receive no Hitting Power weight.
+        </p>
+        <p>
+          Rankings still use higher raw hitting power as the tiebreak when two offensive players have the same displayed rating.
+        </p>
+
         <h3>OL</h3>
         <p>
-          Maximum Speed: 50%
+          Maximum Speed: 20%
           <br />
-          Hitting Power: 50%
+          Hitting Power: 80%
+        </p>
+        <p>
+          OL Hitting Power uses score bands: 31 = 0%, 38 = 15%, 44 = 30%, 50 = 45%, 56 = 55%, 63 = 65%, 69 = 80%, 75 = 90%, and 81 = 100%.
         </p>
 
         <h3>DL</h3>
@@ -247,27 +265,18 @@ export function AboutRatingsContent() {
           <br />
           Pass Interceptions: 40%
         </p>
+        <p>
+          Defensive Hitting Power uses score bands for DL, LB and CB/S ratings: 19 = 0%, 25 = 7%, 31 = 16%, 38 = 23%, 44 = 30%, 50 = 36%, 56 = 45%, 63 = 59%, 69 = 78%, and 75 = 100%.
+        </p>
 
         <h3>K</h3>
         <p>
-          Kicking attribute: 70%
-          <br />
-          Avoid Kick Block: 30%
+          Kicking Ability: 100%
         </p>
 
         <h3>P</h3>
         <p>
-          Kicking attribute: 70%
-          <br />
-          Avoid Kick Block: 30%
-        </p>
-
-        <h3>A note about hitting power for offensive players</h3>
-        <p>
-          Hitting power only really makes a difference on offensive player performance once it reaches about 88. To account for this, offensive ratings use score bands instead of the raw hitting power value: players below 75 get 0%, 75 gets 40%, 81 gets 60%, 88 gets 80%, and 94 gets 100%. That gives players with 75 and 81 hitting power in average condition partial credit, since they can reach 88 in Good and Excellent condition.
-        </p>
-        <p>
-          Rankings still use higher raw hitting power as the tiebreak when two offensive players have the same displayed rating.
+          Kicking Ability: 100%
         </p>
 
         <h2>
@@ -278,7 +287,7 @@ export function AboutRatingsContent() {
           and Bo Jackson.
         </p>
         <p>First, here are the attributes and scores for each player.</p>
-        <p>(Reminder: Score = Highest value for any player at that position/player value * 100)</p>
+        <p>(Reminder: most scores compare the player value to the highest player value in that group. Hitting Power uses the score bands listed above.)</p>
 
         <p>
           <strong>Rice:</strong>
@@ -305,21 +314,21 @@ export function AboutRatingsContent() {
           <br />
           Ball Control: 81 (100.00%)
           <br />
-          Receptions: 81 (23.46%)
+          Receptions: 19 (23.46%)
         </p>
 
         <p>
-          As explained above, hitting power below 75 is discarded when determining player rating.
+          For RB, WR and TE ratings, Hitting Power below 75 receives no Hitting Power score.
         </p>
 
         <p>Here are the ratings for each player as a receiver:</p>
 
         <p>
-          Rice: <strong>89.58%</strong> ((10 * (69.84 / 100)) + (30 * (92 / 100)) + (5 * (0 / 100)) + (5 * (100 / 100)) + (50 * (100 / 100)))
+          Rice: <strong>88.38%</strong> ((10 * (69.84 / 100)) + (45 * (92 / 100)) + (5 * (0 / 100)) + (5 * (100 / 100)) + (35 * (100 / 100)))
         </p>
 
         <p>
-          Jackson: <strong>52.76%</strong> ((10 * (60.32 / 100)) + (40 * (100 / 100)) + (5 * (0 / 100)) + (5 * (100 / 100)) + (50 * (23.46 / 100)))
+          Jackson: <strong>64.24%</strong> ((10 * (60.32 / 100)) + (45 * (100 / 100)) + (5 * (0 / 100)) + (5 * (100 / 100)) + (35 * (23.46 / 100)))
         </p>
 
         <p>
@@ -344,7 +353,7 @@ export function AboutRatingsContent() {
           Step four: Use rating to assign a ranking
         </h2>
         <p>
-          For each player, I show their rating as well as ranking. The rating shows their actual performance at that position compared to every other player, and ranking shows how many players are above or below them once those ratings are ordered. For offensive players, ties in the displayed rating are broken by higher hitting power.
+          For each player, I show their rating as well as ranking. The rating shows their actual performance at that position compared to every other player, and ranking shows how many players are above or below them once those ratings are ordered. For RB, WR, TE, OL and defensive players, ties in the displayed rating are broken by higher Hitting Power.
         </p>
         <p>
           The rating system isn&apos;t perfect, but it&apos;s a useful tool for ranking players against each other and getting a relative sense of their ability.
