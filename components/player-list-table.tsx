@@ -222,7 +222,11 @@ export function PlayerListSection({
       <PlayerListTableHeader {...headerProps} />
 
       {rows.map(({ key, identityProps, ratingHref, ratingValue, itemData, ...row }) => (
-        <li key={key} {...itemData}>
+        <li
+          key={key}
+          className="[contain-intrinsic-size:2.5rem] [content-visibility:auto]"
+          {...itemData}
+        >
           <PlayerListMetricsRow
             layout={headerProps.layout}
             rankingValue={row.rankingValue}

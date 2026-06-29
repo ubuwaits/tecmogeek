@@ -180,7 +180,7 @@ test("about ratings page toggles between player and team explanations", async ({
   await expect(page.getByTestId("ratings-content-player")).toBeHidden();
   await expect(page.getByTestId("ratings-content-team")).toBeVisible();
   await expect(teamTab).toHaveCSS("color", "rgb(22, 94, 201)");
-  await expect(page.getByRole("heading", { name: "What team ratings are measuring" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "What team ratings measure" })).toBeVisible();
 });
 
 test("verification, metadata, and favicon files are exported", async ({ request }) => {
