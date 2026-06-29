@@ -363,24 +363,24 @@ export function AboutRatingsContent() {
       <section data-testid="ratings-content-team" hidden={activeTopic !== "team"}>
         <h2>What team ratings measure</h2>
         <p>
-          Team ratings start with the player ratings already shown across the site, which are then rolled up into offensive, defensive, and overall team strength. The goal is to answer a simple question: if you line this roster up in the strongest realistic way, how good is the team?
+          Team ratings start with the player ratings, which are then rolled up into offensive, defensive, and overall team ratings. The goal is to model the strongest possible lineup for a given team.
         </p>
         <p>
-          The <Link href="/teams">Team Ratings page</Link> shows the final overall score, including offensive and defensive sub-ratings. These team numbers are built from the existing player ratings for each team.
+          The <Link href="/teams">Team Ratings page</Link> shows the final overall score, including offensive and defensive sub-ratings.
         </p>
 
-        <h2>How offense is built</h2>
+        <h2>Offensive rating</h2>
         <p>
-          Offensive ratings combine four ideas: quarterback quality, the best available skill-player lineup, the offensive line, and the return game.
+          Offensive ratings combine four sub-ratings: quarterbacks, the best skill-player lineup, the offensive line, and kick and punk returners.
         </p>
         <ul>
           <li>The QB value is the weighted average of the best quarterback at 80% and the backup at 20%.</li>
           <li>The offensive line is the average of the five starters: C, LG, RG, LT, and RT.</li>
-          <li>The return game uses the best kick and punt return options from the RB/WR/TE pool.</li>
-          <li>The skill positions are treated as one shared pool, and the model searches for the best five-man static lineup for each offensive style.</li>
+          <li>The return game uses the best kick and punt returners from the RB/WR/TE pool.</li>
+          <li>The skill positions are treated as one shared pool, and the model searches for the best five-man lineup for each offensive style.</li>
         </ul>
         <p>
-          That last part is the key difference between team and player ratings. Instead of grading one player in isolation, the offense is trying to find the best combination of backs, wideouts, and tight ends for how a team would actually want to play.
+          That last part is the key difference between team and player ratings. Instead of grading one player in isolation, the offensive rating is the best combination of backs, wideouts, and tight ends for how a team would actually want to play.
         </p>
 
         <h2>Why there are three offensive sub-ratings</h2>
@@ -396,37 +396,32 @@ export function AboutRatingsContent() {
           The final offensive rating leans most heavily on that balanced score, so teams with flexible, pass-friendly lineups usually grade better than teams that are one-dimensional.
         </p>
 
-        <h2>How defense is built</h2>
+        <h2>Defensive rating</h2>
         <p>
           Defense is simpler. It uses the fixed 11 starters only, then breaks them into three units: defensive line, linebackers, and secondary.
         </p>
         <ul>
           <li>The defensive line is the average of RE, NT, and LE.</li>
-          <li>The linebacker score is the average of the four starting linebackers.</li>
+          <li>The linebacker score is the average of ROLB, RILB, LILB, and LOLB.</li>
           <li>The secondary score is the average of RCB, LCB, FS, and SS.</li>
         </ul>
         <p>
           Those three unit scores are then combined by starter count, so the four-man linebacker group and four-man secondary group matter slightly more than the three-man defensive line.
         </p>
 
-        <h2>How overall rating is calculated</h2>
+        <h2>Overall rating</h2>
         <p>
-          Once offense and defense are finished, the final overall team rating is just a 50/50 split between them.
+          The overall team rating is just a 50/50 average between the offensive and defensive rating.
         </p>
 
-        <h2>What team ratings do not try to model</h2>
         <p>
-          The team ratings are meant to be useful, not all-knowing. They intentionally leave out a few things.
+          The team ratings intentionally leave out a few things:
         </p>
         <ul>
           <li>Kickers and punters are not part of the team rating.</li>
-          <li>The model does not simulate injuries, fatigue, or deep bench rotations.</li>
-          <li>It does not model defensive substitutions or constant position shuffling between plays.</li>
-          <li>It does not try to read playbooks, play-calling tendencies, or down-and-distance strategy.</li>
+          <li>The model does not simulate injuries, fatigue, or player substitutions.</li>
+          <li>It does not take into account the default playbooks for each team.</li>
         </ul>
-        <p>
-          So the best way to read the number is: this is a static lineup strength model built from the player ratings on the site. It&apos;s very useful for comparing rosters, but it is not pretending to capture every part of a real game.
-        </p>
       </section>
     </article>
   );
