@@ -31,6 +31,6 @@
     {"team":"Raiders","position":"FS","name":"Eddie Anderson","number":"#33","running_speed":38,"rushing_power":50,"maximum_speed":63,"hitting_power":69,"pass_interceptions":50,"rating":"74%","ranking":16},
     {"team":"Raiders","position":"SS","name":"Mike Harden","number":"#45","running_speed":25,"rushing_power":31,"maximum_speed":44,"hitting_power":50,"pass_interceptions":50,"rating":"57%","ranking":65},
     {"team":"Raiders","position":"K","name":"Jeff Jaeger","number":"#18","kicking_ability":56,"avoid_kick_block":56,"rating":"69%","ranking":12},
-    {"team":"Raiders","position":"P","name":"Jeff Gossett","number":"#6","kicking_ability":31,"avoid_kick_block":38,"rating":"41%","ranking":19}
+    {"team":"Raiders","position":"P","name":"Jeff Gossett","number":"#6","kicking_ability":31,"avoid_kick_block":38,"rating":"38%","ranking":19}
   ]
 }

@@ -31,6 +31,6 @@
     {"team":"Chiefs","position":"FS","name":"Deron Cherry","number":"#20","running_speed":25,"rushing_power":31,"maximum_speed":44,"hitting_power":38,"pass_interceptions":50,"rating":"56%","ranking":73},
     {"team":"Chiefs","position":"SS","name":"Kevin Porter","number":"#27","running_speed":25,"rushing_power":31,"maximum_speed":44,"hitting_power":38,"pass_interceptions":38,"rating":"50%","ranking":97},
     {"team":"Chiefs","position":"K","name":"Nick Lowery","number":"#8","kicking_ability":81,"avoid_kick_block":81,"rating":"100%","ranking":1},
-    {"team":"Chiefs","position":"P","name":"Bryan Barker","number":"#4","kicking_ability":31,"avoid_kick_block":63,"rating":"50%","ranking":18}
+    {"team":"Chiefs","position":"P","name":"Bryan Barker","number":"#4","kicking_ability":31,"avoid_kick_block":63,"rating":"38%","ranking":18}
   ]
 }

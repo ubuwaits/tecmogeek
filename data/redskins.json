@@ -31,6 +31,6 @@
     {"team":"Redskins","position":"FS","name":"Todd Bowles","number":"#23","running_speed":25,"rushing_power":31,"maximum_speed":44,"hitting_power":44,"pass_interceptions":50,"rating":"56%","ranking":71},
     {"team":"Redskins","position":"SS","name":"Alvin Walton","number":"#40","running_speed":25,"rushing_power":31,"maximum_speed":44,"hitting_power":31,"pass_interceptions":44,"rating":"53%","ranking":89},
     {"team":"Redskins","position":"K","name":"Chip Lohmiller","number":"#8","kicking_ability":50,"avoid_kick_block":81,"rating":"73%","ranking":7},
-    {"team":"Redskins","position":"P","name":"Kelly Goodburn","number":"#2","kicking_ability":25,"avoid_kick_block":50,"rating":"40%","ranking":21}
+    {"team":"Redskins","position":"P","name":"Kelly Goodburn","number":"#2","kicking_ability":25,"avoid_kick_block":50,"rating":"31%","ranking":23}
   ]
 }

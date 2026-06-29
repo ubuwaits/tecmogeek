@@ -31,6 +31,6 @@
     {"team":"Browns","position":"FS","name":"Thane Gash","number":"#30","running_speed":25,"rushing_power":31,"maximum_speed":38,"hitting_power":44,"pass_interceptions":31,"rating":"46%","ranking":106},
     {"team":"Browns","position":"SS","name":"Felix Wright","number":"#22","running_speed":25,"rushing_power":31,"maximum_speed":38,"hitting_power":38,"pass_interceptions":50,"rating":"55%","ranking":76},
     {"team":"Browns","position":"K","name":"Jerry Kauric","number":"#2","kicking_ability":38,"avoid_kick_block":31,"rating":"44%","ranking":24},
-    {"team":"Browns","position":"P","name":"Bryan Wagner","number":"#15","kicking_ability":25,"avoid_kick_block":19,"rating":"29%","ranking":28}
+    {"team":"Browns","position":"P","name":"Bryan Wagner","number":"#15","kicking_ability":25,"avoid_kick_block":19,"rating":"31%","ranking":25}
   ]
 }

@@ -31,6 +31,6 @@
     {"team":"Bills","position":"FS","name":"Mark Kelso","number":"#38","running_speed":31,"rushing_power":38,"maximum_speed":50,"hitting_power":38,"pass_interceptions":44,"rating":"59%","ranking":61},
     {"team":"Bills","position":"SS","name":"Leonard Smith","number":"#46","running_speed":31,"rushing_power":38,"maximum_speed":50,"hitting_power":44,"pass_interceptions":44,"rating":"60%","ranking":56},
     {"team":"Bills","position":"K","name":"Scott Norwood","number":"#11","kicking_ability":44,"avoid_kick_block":44,"rating":"54%","ranking":17},
-    {"team":"Bills","position":"P","name":"Rick Tuten","number":"#10","kicking_ability":19,"avoid_kick_block":63,"rating":"40%","ranking":22}
+    {"team":"Bills","position":"P","name":"Rick Tuten","number":"#10","kicking_ability":19,"avoid_kick_block":63,"rating":"23%","ranking":26}
   ]
 }

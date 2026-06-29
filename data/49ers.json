@@ -31,6 +31,6 @@
     {"team":"49ers","position":"FS","name":"Ronnie Lott","number":"#42","running_speed":44,"rushing_power":56,"maximum_speed":69,"hitting_power":69,"pass_interceptions":50,"rating":"80%","ranking":11},
     {"team":"49ers","position":"SS","name":"Dave Waymer","number":"#43","running_speed":38,"rushing_power":50,"maximum_speed":63,"hitting_power":50,"pass_interceptions":69,"rating":"83%","ranking":8},
     {"team":"49ers","position":"K","name":"Mike Cofer","number":"#6","kicking_ability":56,"avoid_kick_block":56,"rating":"69%","ranking":11},
-    {"team":"49ers","position":"P","name":"Barry Helton","number":"#9","kicking_ability":19,"avoid_kick_block":38,"rating":"30%","ranking":27}
+    {"team":"49ers","position":"P","name":"Barry Helton","number":"#9","kicking_ability":19,"avoid_kick_block":38,"rating":"23%","ranking":28}
   ]
 }

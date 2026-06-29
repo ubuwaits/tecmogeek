@@ -31,6 +31,6 @@
     {"team":"Packers","position":"FS","name":"Chuck Cecil","number":"#26","running_speed":25,"rushing_power":31,"maximum_speed":38,"hitting_power":44,"pass_interceptions":38,"rating":"50%","ranking":100},
     {"team":"Packers","position":"SS","name":"Mark Murphy","number":"#37","running_speed":25,"rushing_power":31,"maximum_speed":44,"hitting_power":44,"pass_interceptions":50,"rating":"56%","ranking":70},
     {"team":"Packers","position":"K","name":"Chris Jacke","number":"#13","kicking_ability":56,"avoid_kick_block":38,"rating":"62%","ranking":14},
-    {"team":"Packers","position":"P","name":"Don Bracken","number":"#17","kicking_ability":25,"avoid_kick_block":50,"rating":"40%","ranking":20}
+    {"team":"Packers","position":"P","name":"Don Bracken","number":"#17","kicking_ability":25,"avoid_kick_block":50,"rating":"31%","ranking":22}
   ]
 }

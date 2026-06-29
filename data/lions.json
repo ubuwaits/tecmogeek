@@ -31,6 +31,6 @@
     {"team":"Lions","position":"FS","name":"Bennie Blades","number":"#36","running_speed":25,"rushing_power":31,"maximum_speed":38,"hitting_power":50,"pass_interceptions":44,"rating":"53%","ranking":86},
     {"team":"Lions","position":"SS","name":"William White","number":"#35","running_speed":38,"rushing_power":44,"maximum_speed":56,"hitting_power":56,"pass_interceptions":56,"rating":"72%","ranking":22},
     {"team":"Lions","position":"K","name":"Eddie Murray","number":"#3","kicking_ability":31,"avoid_kick_block":50,"rating":"45%","ranking":23},
-    {"team":"Lions","position":"P","name":"Jim Arnold","number":"#6","kicking_ability":50,"avoid_kick_block":56,"rating":"64%","ranking":12}
+    {"team":"Lions","position":"P","name":"Jim Arnold","number":"#6","kicking_ability":50,"avoid_kick_block":56,"rating":"62%","ranking":12}
   ]
 }

@@ -12,7 +12,7 @@ export const DEFENSE_NOTE = "Quickness has no effect on performance for any defe
 export const KICKER_NOTE =
   "All kickers have Running Speed 56, Rushing Power 81, Maximum Speed 81, and Hitting Power 31.";
 export const PUNTER_NOTE =
-  "All punters have Running Speed 25, Rushing Power 56, Maximum Speed 44, and Hitting Power 31.";
+  "All punters have Running Speed 25, Rushing Power 56, Maximum Speed 44, and Hitting Power 31. Punts cannot be blocked, so Avoid Kick Block is ignored and punters are ranked only by Kicking Ability.";
 
 export const QB_COLUMNS: readonly MetricColumn[] = [
   { key: "maximum_speed", label: "MS", tooltip: "Maximum Speed", weight: 25 },
@@ -97,6 +97,10 @@ export const KICKING_COLUMNS: readonly MetricColumn[] = [
     tooltip: "Avoid Kick Block",
     weight: 30,
   },
+];
+
+export const PUNTER_COLUMNS: readonly MetricColumn[] = [
+  { key: "kicking_ability", label: "KA", tooltip: "Kicking Ability", weight: 100 },
 ];
 
 export const POSITION_PAGES: readonly PositionPageConfig[] = [
@@ -251,7 +255,7 @@ export const POSITION_PAGES: readonly PositionPageConfig[] = [
     rankingKey: "ranking",
     ratingKey: "rating",
     rankingTooltip: "Out of 28 punters",
-    columns: KICKING_COLUMNS,
+    columns: PUNTER_COLUMNS,
     homeLimit: 5,
   },
 ];

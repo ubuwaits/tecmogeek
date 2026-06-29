@@ -107,6 +107,8 @@ export function AboutRatingsContent() {
           Maximum Speed: <strong>44</strong>
           <br />
           Hitting Power: <strong>31</strong>
+          <br />
+          Avoid Kick Block: <strong>not used because punts cannot be blocked</strong>
         </p>
 
         <h2>
@@ -257,9 +259,7 @@ export function AboutRatingsContent() {
 
         <h3>P</h3>
         <p>
-          Kicking attribute: 70%
-          <br />
-          Avoid Kick Block: 30%
+          Kicking Ability: 100%
         </p>
 
         <h3>A note about hitting power for offensive players</h3>

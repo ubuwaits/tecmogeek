@@ -31,6 +31,6 @@
     {"team":"Vikings","position":"FS","name":"D. Fullington","number":"#29","running_speed":31,"rushing_power":38,"maximum_speed":50,"hitting_power":44,"pass_interceptions":38,"rating":"57%","ranking":66},
     {"team":"Vikings","position":"SS","name":"Joey Browner","number":"#47","running_speed":38,"rushing_power":50,"maximum_speed":63,"hitting_power":56,"pass_interceptions":69,"rating":"83%","ranking":6},
     {"team":"Vikings","position":"K","name":"Fuad Reveiz","number":"#7","kicking_ability":44,"avoid_kick_block":63,"rating":"61%","ranking":16},
-    {"team":"Vikings","position":"P","name":"Harry Newsome","number":"#18","kicking_ability":25,"avoid_kick_block":44,"rating":"38%","ranking":24}
+    {"team":"Vikings","position":"P","name":"Harry Newsome","number":"#18","kicking_ability":25,"avoid_kick_block":44,"rating":"31%","ranking":24}
   ]
 }
