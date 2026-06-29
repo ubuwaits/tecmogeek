@@ -61,8 +61,8 @@ export const PUNT_RETURN_COLUMNS: readonly MetricColumn[] = [
 ];
 
 export const OFFENSIVE_LINE_COLUMNS: readonly MetricColumn[] = [
-  { key: "maximum_speed", label: "MS", tooltip: "Maximum Speed", weight: 50 },
-  { key: "hitting_power", label: "HP", tooltip: "Hitting Power", weight: 50 },
+  { key: "maximum_speed", label: "MS", tooltip: "Maximum Speed", weight: 20 },
+  { key: "hitting_power", label: "HP", tooltip: "Hitting Power", weight: 80 },
 ];
 
 export const DEFENSIVE_LINE_COLUMNS: readonly MetricColumn[] = [

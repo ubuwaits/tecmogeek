@@ -67,8 +67,8 @@ const OL_CONFIG = {
   ratingKey: "rating",
   rankingKey: "ranking",
   columns: [
-    { key: "maximum_speed", weight: 50 },
-    { key: "hitting_power", weight: 50 },
+    { key: "maximum_speed", weight: 20 },
+    { key: "hitting_power", weight: 80 },
   ],
 } as const;
 

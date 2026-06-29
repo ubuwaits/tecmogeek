@@ -211,9 +211,9 @@ export function AboutRatingsContent() {
 
         <h3>OL</h3>
         <p>
-          Maximum Speed: 50%
+          Maximum Speed: 20%
           <br />
-          Hitting Power: 50%
+          Hitting Power: 80%
         </p>
 
         <h3>DL</h3>
