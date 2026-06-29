@@ -4,13 +4,19 @@ export const QB_NOTE =
   "All QBs have Running Speed 25, Rushing Power 69, and Hitting Power 13. Accuracy of Passing has no effect on performance.";
 export const OFFENSIVE_HP_SCORE_NOTE =
   "HP score bands: 75 = 5%, 81 = 25%, 88 = 60%, 94 = 100%; HP below 75 gets no rating weight.";
+export const OFFENSIVE_LINE_HP_SCORE_NOTE =
+  "HP score bands: 31 = 0%, 38 = 15%, 44 = 30%, 50 = 45%, 56 = 55%, 63 = 65%, 69 = 80%, 75 = 90%, 81 = 100%.";
+export const DEFENSIVE_HP_SCORE_NOTE =
+  "HP score bands: 19 = 0%, 25 = 7%, 31 = 16%, 38 = 23%, 44 = 30%, 50 = 36%, 56 = 45%, 63 = 59%, 69 = 78%, 75 = 100%.";
 export const SKILL_POSITION_NOTE = `All RBs, WRs and TEs have Rushing Power 69. ${OFFENSIVE_HP_SCORE_NOTE}`;
 export const KICK_RETURN_NOTE =
   `Due to a programming glitch, all KRs have the same Maximum Speed as their team's RT. ${OFFENSIVE_HP_SCORE_NOTE}`;
 export const PUNT_RETURN_NOTE =
   `Due to a programming glitch, all PRs have the same Maximum Speed as their team's SS and Ball Control 44. ${OFFENSIVE_HP_SCORE_NOTE}`;
-export const OFFENSIVE_LINE_NOTE = "All OL have Running Speed 25 and Rushing Power 69.";
-export const DEFENSE_NOTE = "Quickness has no effect on performance for any defensive player.";
+export const OFFENSIVE_LINE_NOTE =
+  `All OL have Running Speed 25 and Rushing Power 69. ${OFFENSIVE_LINE_HP_SCORE_NOTE}`;
+export const DEFENSE_NOTE =
+  `Quickness has no effect on performance for any defensive player. ${DEFENSIVE_HP_SCORE_NOTE}`;
 export const KICKER_NOTE =
   "All kickers have Running Speed 56, Rushing Power 81, Maximum Speed 81, and Hitting Power 31. Avoid Kick Block has no effect on performance, so kickers are ranked only by Kicking Ability.";
 export const PUNTER_NOTE =

@@ -13,6 +13,17 @@ const OFFENSIVE_HP_SCORE_MAP: Record<number, number> = {
   88: 60,
   94: 100,
 };
+const OFFENSIVE_LINE_HP_SCORE_MAP: Record<number, number> = {
+  31: 0,
+  38: 15,
+  44: 30,
+  50: 45,
+  56: 55,
+  63: 65,
+  69: 80,
+  75: 90,
+  81: 100,
+};
 
 const SKILL_CONFIGS = [
   {
@@ -103,11 +114,17 @@ function getOffensiveHpScore(hittingPower: number) {
   return OFFENSIVE_HP_SCORE_MAP[hittingPower] ?? 0;
 }
 
-function buildMaxima(players: readonly PlayerRecord[], columns: readonly RatingColumn[], hpMode: "skill" | "raw") {
+function getOffensiveLineHpScore(hittingPower: number) {
+  return OFFENSIVE_LINE_HP_SCORE_MAP[hittingPower] ?? 0;
+}
+
+type HpMode = "skill" | "offensiveLine" | "raw";
+
+function buildMaxima(players: readonly PlayerRecord[], columns: readonly RatingColumn[], hpMode: HpMode) {
   const maxima: Record<string, number> = {};
 
   for (const column of columns) {
-    if (hpMode === "skill" && column.key === "hitting_power") {
+    if (hpMode !== "raw" && column.key === "hitting_power") {
       continue;
     }
 
@@ -121,7 +138,7 @@ function computeRating(
   player: PlayerRecord,
   columns: readonly RatingColumn[],
   maxima: Record<string, number>,
-  hpMode: "skill" | "raw",
+  hpMode: HpMode,
 ) {
   let total = 0;
 
@@ -130,6 +147,8 @@ function computeRating(
 
     if (hpMode === "skill" && column.key === "hitting_power") {
       score = getOffensiveHpScore(getNumericValue(player, "hitting_power"));
+    } else if (hpMode === "offensiveLine" && column.key === "hitting_power") {
+      score = getOffensiveLineHpScore(getNumericValue(player, "hitting_power"));
     } else {
       const maximum = maxima[column.key] ?? 0;
       score = maximum === 0 ? 0 : (getNumericValue(player, column.key) / maximum) * 100;
@@ -178,6 +197,18 @@ describe("offensive ratings data", () => {
     expect(getOffensiveHpScore(94)).toBe(100);
   });
 
+  it("uses the expected offensive line HP score ladder", () => {
+    expect(getOffensiveLineHpScore(31)).toBe(0);
+    expect(getOffensiveLineHpScore(38)).toBe(15);
+    expect(getOffensiveLineHpScore(44)).toBe(30);
+    expect(getOffensiveLineHpScore(50)).toBe(45);
+    expect(getOffensiveLineHpScore(56)).toBe(55);
+    expect(getOffensiveLineHpScore(63)).toBe(65);
+    expect(getOffensiveLineHpScore(69)).toBe(80);
+    expect(getOffensiveLineHpScore(75)).toBe(90);
+    expect(getOffensiveLineHpScore(81)).toBe(100);
+  });
+
   it("keeps offensive aggregate ratings aligned with recomputed values", () => {
     for (const config of SKILL_CONFIGS) {
       const players = readJson<PlayerRecord[]>(config.fileName);
@@ -191,11 +222,11 @@ describe("offensive ratings data", () => {
     }
 
     const linemen = readJson<PlayerRecord[]>(OL_CONFIG.fileName);
-    const maxima = buildMaxima(linemen, OL_CONFIG.columns, "raw");
+    const maxima = buildMaxima(linemen, OL_CONFIG.columns, "offensiveLine");
 
     for (const player of linemen) {
       expect(parsePercent(player[OL_CONFIG.ratingKey])).toBe(
-        computeRating(player, OL_CONFIG.columns, maxima, "raw"),
+        computeRating(player, OL_CONFIG.columns, maxima, "offensiveLine"),
       );
     }
   });

@@ -43,6 +43,18 @@ const OFFENSIVE_HP_SCORE_MAP = {
   94: 100,
 };
 
+const OFFENSIVE_LINE_HP_SCORE_MAP = {
+  31: 0,
+  38: 15,
+  44: 30,
+  50: 45,
+  56: 55,
+  63: 65,
+  69: 80,
+  75: 90,
+  81: 100,
+};
+
 const SKILL_CONFIGS = [
   {
     name: "rushers",
@@ -118,6 +130,10 @@ function getOffensiveHpScore(hittingPower) {
   return OFFENSIVE_HP_SCORE_MAP[hittingPower] ?? 0;
 }
 
+function getOffensiveLineHpScore(hittingPower) {
+  return OFFENSIVE_LINE_HP_SCORE_MAP[hittingPower] ?? 0;
+}
+
 function formatPercent(value) {
   return `${Math.round(value)}%`;
 }
@@ -140,7 +156,7 @@ function buildMaxima(players, columns, hpMode) {
   const maxima = {};
 
   for (const column of columns) {
-    if (hpMode === "skill" && column.key === "hitting_power") {
+    if (hpMode !== "raw" && column.key === "hitting_power") {
       continue;
     }
 
@@ -158,6 +174,8 @@ function computeRating(player, columns, maxima, hpMode) {
 
     if (hpMode === "skill" && column.key === "hitting_power") {
       score = getOffensiveHpScore(getNumericValue(player, "hitting_power"));
+    } else if (hpMode === "offensiveLine" && column.key === "hitting_power") {
+      score = getOffensiveLineHpScore(getNumericValue(player, "hitting_power"));
     } else {
       const maximum = maxima[column.key] ?? 0;
       score = maximum === 0 ? 0 : (getNumericValue(player, column.key) / maximum) * 100;
@@ -298,14 +316,14 @@ async function rebuildSkillAggregates() {
 
 async function rebuildOlAggregate() {
   const sourceRows = await readJson(OL_CONFIG.fileName);
-  const maxima = buildMaxima(sourceRows, OL_CONFIG.columns, "raw");
+  const maxima = buildMaxima(sourceRows, OL_CONFIG.columns, "offensiveLine");
   const updates = new Map();
 
   const rebuiltRows = sourceRows
     .map((player, sourceIndex) => ({
       player,
       sourceIndex,
-      rating: computeRating(player, OL_CONFIG.columns, maxima, "raw"),
+      rating: computeRating(player, OL_CONFIG.columns, maxima, "offensiveLine"),
       hittingPower: getNumericValue(player, "hitting_power"),
     }))
     .sort((left, right) => {

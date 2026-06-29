@@ -223,6 +223,9 @@ export function AboutRatingsContent() {
           <br />
           Hitting Power: 80%
         </p>
+        <p>
+          OL Hitting Power uses score bands: 31 = 0%, 38 = 15%, 44 = 30%, 50 = 45%, 56 = 55%, 63 = 65%, 69 = 80%, 75 = 90%, and 81 = 100%.
+        </p>
 
         <h3>DL</h3>
         <p>
@@ -262,6 +265,9 @@ export function AboutRatingsContent() {
           <br />
           Pass Interceptions: 40%
         </p>
+        <p>
+          Defensive Hitting Power uses score bands for DL, LB and CB/S ratings: 19 = 0%, 25 = 7%, 31 = 16%, 38 = 23%, 44 = 30%, 50 = 36%, 56 = 45%, 63 = 59%, 69 = 78%, and 75 = 100%.
+        </p>
 
         <h3>K</h3>
         <p>
@@ -281,7 +287,7 @@ export function AboutRatingsContent() {
           and Bo Jackson.
         </p>
         <p>First, here are the attributes and scores for each player.</p>
-        <p>(Reminder: Score = Highest value for any player at that position/player value * 100)</p>
+        <p>(Reminder: most scores compare the player value to the highest player value in that group. Hitting Power uses the score bands listed above.)</p>
 
         <p>
           <strong>Rice:</strong>
