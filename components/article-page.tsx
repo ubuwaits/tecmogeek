@@ -12,7 +12,7 @@ export function ArticlePage({ children, className }: ArticleChildrenProps) {
     <section
       data-page-theme="text"
       className={withOptionalClassName(
-        "mx-auto mt-4 max-w-[700px] text-[#3a3a3a] [text-shadow:0_1px_0_#fff] sm:mt-6",
+        "mx-auto mt-4 max-w-[700px] text-[#3a3a3a] sm:mt-6",
         className,
       )}
     >
