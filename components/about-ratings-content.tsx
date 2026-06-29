@@ -120,7 +120,7 @@ export function AboutRatingsContent() {
           Step two: Calculate a score for attributes that do matter
         </h2>
         <p>
-          Next, for the attributes that remain, I assign a score based on the highest value for a player at that position.
+          Next, for most attributes that remain, I assign a score based on the highest value for a player at that position.
         </p>
         <p>
           For example, the highest Maximum Speed for a QB is 56, which belongs to QB Eagles. So he scores 100% on that attribute. The highest Pass Control is 81, shared by both Montana and QB Bills, who again both get 100%. Since QB Eagles has Pass Control of 69, he receives an 85% (69/81 * 100) for that attribute.
@@ -133,7 +133,7 @@ export function AboutRatingsContent() {
           Once each attribute score is calculated, they are averaged to give a final score. However, rather than treating all scores as equal, I weight each score based on its importance for determining the performance of the player at that position.
         </p>
         <p>
-          For instance, for rushers, Maximum Speed is by far the most important attribute. For receivers, Receptions is most important.
+          For instance, Maximum Speed is the largest part of both rusher and receiver ratings, while Receptions still has a major role for receivers.
         </p>
         <p>Below are the weightings of attributes for players at each position.</p>
 
@@ -318,7 +318,7 @@ export function AboutRatingsContent() {
         </p>
 
         <p>
-          As explained above, hitting power below 75 is discarded when determining player rating.
+          For RB, WR and TE ratings, Hitting Power below 75 receives no Hitting Power score.
         </p>
 
         <p>Here are the ratings for each player as a receiver:</p>
@@ -353,7 +353,7 @@ export function AboutRatingsContent() {
           Step four: Use rating to assign a ranking
         </h2>
         <p>
-          For each player, I show their rating as well as ranking. The rating shows their actual performance at that position compared to every other player, and ranking shows how many players are above or below them once those ratings are ordered. For offensive players, ties in the displayed rating are broken by higher hitting power.
+          For each player, I show their rating as well as ranking. The rating shows their actual performance at that position compared to every other player, and ranking shows how many players are above or below them once those ratings are ordered. For RB, WR, TE, OL and defensive players, ties in the displayed rating are broken by higher Hitting Power.
         </p>
         <p>
           The rating system isn&apos;t perfect, but it&apos;s a useful tool for ranking players against each other and getting a relative sense of their ability.
