@@ -10,9 +10,9 @@ export const PUNT_RETURN_NOTE =
 export const OFFENSIVE_LINE_NOTE = "All OL have Running Speed 25 and Rushing Power 69.";
 export const DEFENSE_NOTE = "Quickness has no effect on performance for any defensive player.";
 export const KICKER_NOTE =
-  "All kickers have Running Speed 56, Rushing Power 81, Maximum Speed 81, and Hitting Power 31.";
+  "All kickers have Running Speed 56, Rushing Power 81, Maximum Speed 81, and Hitting Power 31. Avoid Kick Block has no effect on performance, so kickers are ranked only by Kicking Ability.";
 export const PUNTER_NOTE =
-  "All punters have Running Speed 25, Rushing Power 56, Maximum Speed 44, and Hitting Power 31. Punts cannot be blocked, so Avoid Kick Block is ignored and punters are ranked only by Kicking Ability.";
+  "All punters have Running Speed 25, Rushing Power 56, Maximum Speed 44, and Hitting Power 31. Punts cannot be blocked, so Avoid Kick Block has no effect on performance and punters are ranked only by Kicking Ability.";
 
 export const QB_COLUMNS: readonly MetricColumn[] = [
   { key: "maximum_speed", label: "MS", tooltip: "Maximum Speed", weight: 25 },
@@ -89,14 +89,8 @@ export const SECONDARY_COLUMNS: readonly MetricColumn[] = [
   { key: "pass_interceptions", label: "PI", tooltip: "Pass Interceptions", weight: 40 },
 ];
 
-export const KICKING_COLUMNS: readonly MetricColumn[] = [
-  { key: "kicking_ability", label: "KA", tooltip: "Kicking Ability", weight: 70 },
-  {
-    key: "avoid_kick_block",
-    label: "AKB",
-    tooltip: "Avoid Kick Block",
-    weight: 30,
-  },
+export const KICKER_COLUMNS: readonly MetricColumn[] = [
+  { key: "kicking_ability", label: "KA", tooltip: "Kicking Ability", weight: 100 },
 ];
 
 export const PUNTER_COLUMNS: readonly MetricColumn[] = [
@@ -242,7 +236,7 @@ export const POSITION_PAGES: readonly PositionPageConfig[] = [
     rankingKey: "ranking",
     ratingKey: "rating",
     rankingTooltip: "Out of 28 kickers",
-    columns: KICKING_COLUMNS,
+    columns: KICKER_COLUMNS,
     homeLimit: 5,
   },
   {

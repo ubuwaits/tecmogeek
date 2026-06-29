@@ -30,7 +30,7 @@
     {"team":"Saints","position":"LCB","name":"Robert Massey","number":"#40","running_speed":31,"rushing_power":38,"maximum_speed":50,"hitting_power":44,"pass_interceptions":56,"rating":"65%","ranking":38},
     {"team":"Saints","position":"FS","name":"Gene Atkins","number":"#28","running_speed":25,"rushing_power":31,"maximum_speed":38,"hitting_power":44,"pass_interceptions":44,"rating":"53%","ranking":88},
     {"team":"Saints","position":"SS","name":"Brett Maxie","number":"#39","running_speed":31,"rushing_power":38,"maximum_speed":50,"hitting_power":44,"pass_interceptions":44,"rating":"60%","ranking":58},
-    {"team":"Saints","position":"K","name":"Morten Andersen","number":"#7","kicking_ability":56,"avoid_kick_block":69,"rating":"74%","ranking":6},
+    {"team":"Saints","position":"K","name":"Morten Andersen","number":"#7","kicking_ability":56,"avoid_kick_block":69,"rating":"69%","ranking":10},
     {"team":"Saints","position":"P","name":"Tommy Barnhardt","number":"#6","kicking_ability":63,"avoid_kick_block":44,"rating":"78%","ranking":10}
   ]
 }

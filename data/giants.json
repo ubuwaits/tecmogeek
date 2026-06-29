@@ -30,7 +30,7 @@
     {"team":"Giants","position":"LCB","name":"Mark Collins","number":"#25","running_speed":38,"rushing_power":44,"maximum_speed":56,"hitting_power":50,"pass_interceptions":44,"rating":"66%","ranking":35},
     {"team":"Giants","position":"FS","name":"Myron Guyton","number":"#29","running_speed":31,"rushing_power":38,"maximum_speed":50,"hitting_power":56,"pass_interceptions":44,"rating":"60%","ranking":54},
     {"team":"Giants","position":"SS","name":"Greg Jackson","number":"#47","running_speed":31,"rushing_power":38,"maximum_speed":50,"hitting_power":56,"pass_interceptions":56,"rating":"66%","ranking":31},
-    {"team":"Giants","position":"K","name":"Matt Bahr","number":"#9","kicking_ability":44,"avoid_kick_block":63,"rating":"61%","ranking":15},
+    {"team":"Giants","position":"K","name":"Matt Bahr","number":"#9","kicking_ability":44,"avoid_kick_block":63,"rating":"54%","ranking":16},
     {"team":"Giants","position":"P","name":"Sean Landeta","number":"#5","kicking_ability":81,"avoid_kick_block":81,"rating":"100%","ranking":1}
   ]
 }

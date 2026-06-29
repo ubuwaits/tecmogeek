@@ -30,7 +30,7 @@
     {"team":"Patriots","position":"LCB","name":"Ronnie Lippett","number":"#42","running_speed":38,"rushing_power":44,"maximum_speed":56,"hitting_power":50,"pass_interceptions":63,"rating":"75%","ranking":15},
     {"team":"Patriots","position":"FS","name":"Fred Marion","number":"#31","running_speed":25,"rushing_power":31,"maximum_speed":44,"hitting_power":50,"pass_interceptions":50,"rating":"57%","ranking":64},
     {"team":"Patriots","position":"SS","name":"Rod Mcswain","number":"#23","running_speed":25,"rushing_power":31,"maximum_speed":31,"hitting_power":56,"pass_interceptions":31,"rating":"46%","ranking":107},
-    {"team":"Patriots","position":"K","name":"Jason Staurovsky","number":"#4","kicking_ability":63,"avoid_kick_block":44,"rating":"71%","ranking":10},
+    {"team":"Patriots","position":"K","name":"Jason Staurovsky","number":"#4","kicking_ability":63,"avoid_kick_block":44,"rating":"78%","ranking":8},
     {"team":"Patriots","position":"P","name":"Brian Hansen","number":"#10","kicking_ability":31,"avoid_kick_block":31,"rating":"38%","ranking":20}
   ]
 }

@@ -47,12 +47,69 @@ function getTeamFileNames() {
     .sort();
 }
 
-describe("punter rankings", () => {
+function expectKickingAbilityOnlyColumns(columns: unknown) {
+  expect(columns).toEqual([
+    { key: "kicking_ability", label: "KA", tooltip: "Kicking Ability", weight: 100 },
+  ]);
+}
+
+function expectAggregateRanksByKickingAbility(fileName: string) {
+  const players = readJson<PlayerRecord[]>(fileName);
+  const maxKickingAbility = Math.max(...players.map((player) => Number(player.kicking_ability ?? 0)));
+
+  players.forEach((player, index) => {
+    const expectedRating = Math.round((Number(player.kicking_ability ?? 0) / maxKickingAbility) * 100);
+
+    expect(parsePercent(player.rating)).toBe(expectedRating);
+    expect(player.ranking).toBe(index + 1);
+  });
+
+  for (let index = 0; index < players.length - 1; index += 1) {
+    expect(Number(players[index]?.kicking_ability ?? 0)).toBeGreaterThanOrEqual(
+      Number(players[index + 1]?.kicking_ability ?? 0),
+    );
+  }
+}
+
+function expectTeamRatingsSyncedWithAggregate(position: "K" | "P", aggregateFileName: string) {
+  const updates = new Map<string, PlayerRecord>(
+    readJson<PlayerRecord[]>(aggregateFileName).map((player) => [
+      getPlayerKey(player),
+      {
+        rating: player.rating,
+        ranking: player.ranking,
+      },
+    ]),
+  );
+
+  for (const fileName of getTeamFileNames()) {
+    const team = readJson<{ players: PlayerRecord[] }>(fileName);
+    const player = team.players.find((teamPlayer) => teamPlayer.position === position);
+
+    expect(player, `${fileName} is missing ${position}`).toBeDefined();
+
+    const aggregate = updates.get(getPlayerKey(player!));
+
+    expect(aggregate, `${fileName} missing ${position} aggregate entry`).toBeDefined();
+    expect(player?.rating).toBe(aggregate?.rating);
+    expect(player?.ranking).toBe(aggregate?.ranking);
+  }
+}
+
+describe("kicking rankings", () => {
+  it("documents and displays kickers as Kicking Ability only", () => {
+    expect(POSITION_PAGE_CONFIG_MAP.k.note).toContain("Avoid Kick Block has no effect on performance");
+    expectKickingAbilityOnlyColumns(POSITION_PAGE_CONFIG_MAP.k.columns);
+
+    const teamKickerSection = TEAM_SECTION_CONFIGS.find((section) => section.id === "k");
+
+    expect(teamKickerSection?.note).toContain("Avoid Kick Block has no effect on performance");
+    expect(teamKickerSection?.columns).toEqual(POSITION_PAGE_CONFIG_MAP.k.columns);
+  });
+
   it("documents and displays punters as Kicking Ability only", () => {
     expect(POSITION_PAGE_CONFIG_MAP.p.note).toContain("Punts cannot be blocked");
-    expect(POSITION_PAGE_CONFIG_MAP.p.columns).toEqual([
-      { key: "kicking_ability", label: "KA", tooltip: "Kicking Ability", weight: 100 },
-    ]);
+    expectKickingAbilityOnlyColumns(POSITION_PAGE_CONFIG_MAP.p.columns);
 
     const teamPunterSection = TEAM_SECTION_CONFIGS.find((section) => section.id === "p");
 
@@ -60,46 +117,19 @@ describe("punter rankings", () => {
     expect(teamPunterSection?.columns).toEqual(POSITION_PAGE_CONFIG_MAP.p.columns);
   });
 
+  it("ranks kickers by Kicking Ability without Avoid Kick Block", () => {
+    expectAggregateRanksByKickingAbility("k.json");
+  });
+
   it("ranks punters by Kicking Ability without Avoid Kick Block", () => {
-    const punters = readJson<PlayerRecord[]>("p.json");
-    const maxKickingAbility = Math.max(...punters.map((player) => Number(player.kicking_ability ?? 0)));
+    expectAggregateRanksByKickingAbility("p.json");
+  });
 
-    punters.forEach((player, index) => {
-      const expectedRating = Math.round((Number(player.kicking_ability ?? 0) / maxKickingAbility) * 100);
-
-      expect(parsePercent(player.rating)).toBe(expectedRating);
-      expect(player.ranking).toBe(index + 1);
-    });
-
-    for (let index = 0; index < punters.length - 1; index += 1) {
-      expect(Number(punters[index]?.kicking_ability ?? 0)).toBeGreaterThanOrEqual(
-        Number(punters[index + 1]?.kicking_ability ?? 0),
-      );
-    }
+  it("keeps team kicker ratings and rankings in sync with the aggregate file", () => {
+    expectTeamRatingsSyncedWithAggregate("K", "k.json");
   });
 
   it("keeps team punter ratings and rankings in sync with the aggregate file", () => {
-    const punterUpdates = new Map<string, PlayerRecord>(
-      readJson<PlayerRecord[]>("p.json").map((player) => [
-        getPlayerKey(player),
-        {
-          rating: player.rating,
-          ranking: player.ranking,
-        },
-      ]),
-    );
-
-    for (const fileName of getTeamFileNames()) {
-      const team = readJson<{ players: PlayerRecord[] }>(fileName);
-      const punter = team.players.find((player) => player.position === "P");
-
-      expect(punter, `${fileName} is missing a punter`).toBeDefined();
-
-      const aggregate = punterUpdates.get(getPlayerKey(punter!));
-
-      expect(aggregate, `${fileName} missing punter aggregate entry`).toBeDefined();
-      expect(punter?.rating).toBe(aggregate?.rating);
-      expect(punter?.ranking).toBe(aggregate?.ranking);
-    }
+    expectTeamRatingsSyncedWithAggregate("P", "p.json");
   });
 });

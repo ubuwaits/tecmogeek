@@ -30,7 +30,7 @@
     {"team":"Jets","position":"LCB","name":"Tony Stargell","number":"#45","running_speed":25,"rushing_power":31,"maximum_speed":38,"hitting_power":31,"pass_interceptions":44,"rating":"52%","ranking":92},
     {"team":"Jets","position":"FS","name":"Erik Mcmillan","number":"#22","running_speed":38,"rushing_power":44,"maximum_speed":56,"hitting_power":56,"pass_interceptions":63,"rating":"75%","ranking":14},
     {"team":"Jets","position":"SS","name":"Brian Washington","number":"#21","running_speed":25,"rushing_power":31,"maximum_speed":44,"hitting_power":38,"pass_interceptions":50,"rating":"56%","ranking":74},
-    {"team":"Jets","position":"K","name":"Pat Leahy","number":"#5","kicking_ability":75,"avoid_kick_block":69,"rating":"90%","ranking":2},
+    {"team":"Jets","position":"K","name":"Pat Leahy","number":"#5","kicking_ability":75,"avoid_kick_block":69,"rating":"93%","ranking":2},
     {"team":"Jets","position":"P","name":"Joe Prokop","number":"#6","kicking_ability":69,"avoid_kick_block":75,"rating":"85%","ranking":6}
   ]
 }

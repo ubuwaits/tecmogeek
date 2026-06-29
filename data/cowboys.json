@@ -30,7 +30,7 @@
     {"team":"Cowboys","position":"LCB","name":"Issiac Holt","number":"#30","running_speed":38,"rushing_power":44,"maximum_speed":56,"hitting_power":56,"pass_interceptions":50,"rating":"69%","ranking":27},
     {"team":"Cowboys","position":"FS","name":"Ray Horton","number":"#20","running_speed":31,"rushing_power":38,"maximum_speed":50,"hitting_power":56,"pass_interceptions":44,"rating":"60%","ranking":53},
     {"team":"Cowboys","position":"SS","name":"James Washington","number":"#37","running_speed":31,"rushing_power":38,"maximum_speed":50,"hitting_power":50,"pass_interceptions":50,"rating":"63%","ranking":44},
-    {"team":"Cowboys","position":"K","name":"Ken Willis","number":"#1","kicking_ability":44,"avoid_kick_block":44,"rating":"54%","ranking":18},
+    {"team":"Cowboys","position":"K","name":"Ken Willis","number":"#1","kicking_ability":44,"avoid_kick_block":44,"rating":"54%","ranking":19},
     {"team":"Cowboys","position":"P","name":"Mike Saxon","number":"#4","kicking_ability":56,"avoid_kick_block":75,"rating":"69%","ranking":11}
   ]
 }

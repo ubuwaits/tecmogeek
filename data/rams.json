@@ -30,7 +30,7 @@
     {"team":"Rams","position":"LCB","name":"Jerry Gray","number":"#25","running_speed":25,"rushing_power":31,"maximum_speed":38,"hitting_power":31,"pass_interceptions":38,"rating":"49%","ranking":102},
     {"team":"Rams","position":"FS","name":"Anthony Newman","number":"#26","running_speed":25,"rushing_power":31,"maximum_speed":31,"hitting_power":44,"pass_interceptions":44,"rating":"52%","ranking":93},
     {"team":"Rams","position":"SS","name":"Vince Newsome","number":"#22","running_speed":31,"rushing_power":38,"maximum_speed":50,"hitting_power":31,"pass_interceptions":56,"rating":"65%","ranking":40},
-    {"team":"Rams","position":"K","name":"Mike Lansford","number":"#1","kicking_ability":19,"avoid_kick_block":25,"rating":"26%","ranking":28},
+    {"team":"Rams","position":"K","name":"Mike Lansford","number":"#1","kicking_ability":19,"avoid_kick_block":25,"rating":"23%","ranking":28},
     {"team":"Rams","position":"P","name":"Keith English","number":"#8","kicking_ability":19,"avoid_kick_block":50,"rating":"23%","ranking":27}
   ]
 }

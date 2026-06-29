@@ -96,6 +96,11 @@ export function AboutRatingsContent() {
           Maximum Speed: <strong>81</strong>
           <br />
           Hitting Power: <strong>31</strong>
+          <br />
+          Avoid Kick Block: <strong>not used</strong>
+        </p>
+        <p>
+          Due to a programming glitch, if the blocked-kick cutscene is triggered, the game uses the worst Avoid Kick Block value rather than the kicker&apos;s actual rating.
         </p>
 
         <h3>P</h3>
@@ -252,9 +257,7 @@ export function AboutRatingsContent() {
 
         <h3>K</h3>
         <p>
-          Kicking attribute: 70%
-          <br />
-          Avoid Kick Block: 30%
+          Kicking Ability: 100%
         </p>
 
         <h3>P</h3>

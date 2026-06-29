@@ -30,7 +30,7 @@
     {"team":"Dolphins","position":"LCB","name":"Tim Mckyer","number":"#22","running_speed":31,"rushing_power":38,"maximum_speed":50,"hitting_power":44,"pass_interceptions":50,"rating":"63%","ranking":46},
     {"team":"Dolphins","position":"FS","name":"Louis Oliver","number":"#25","running_speed":38,"rushing_power":44,"maximum_speed":56,"hitting_power":56,"pass_interceptions":56,"rating":"72%","ranking":21},
     {"team":"Dolphins","position":"SS","name":"Jarvis Williams","number":"#26","running_speed":38,"rushing_power":44,"maximum_speed":56,"hitting_power":56,"pass_interceptions":56,"rating":"72%","ranking":20},
-    {"team":"Dolphins","position":"K","name":"Pete Stoyanovich","number":"#10","kicking_ability":69,"avoid_kick_block":75,"rating":"87%","ranking":4},
+    {"team":"Dolphins","position":"K","name":"Pete Stoyanovich","number":"#10","kicking_ability":69,"avoid_kick_block":75,"rating":"85%","ranking":5},
     {"team":"Dolphins","position":"P","name":"Reggie Roby","number":"#4","kicking_ability":75,"avoid_kick_block":38,"rating":"93%","ranking":5}
   ]
 }

@@ -30,7 +30,7 @@
     {"team":"Bears","position":"LCB","name":"Donnell Woolford","number":"#21","running_speed":31,"rushing_power":38,"maximum_speed":50,"hitting_power":44,"pass_interceptions":63,"rating":"69%","ranking":26},
     {"team":"Bears","position":"FS","name":"Mark Carrier","number":"#20","running_speed":38,"rushing_power":44,"maximum_speed":56,"hitting_power":50,"pass_interceptions":81,"rating":"84%","ranking":5},
     {"team":"Bears","position":"SS","name":"Shaun Gayle","number":"#23","running_speed":25,"rushing_power":31,"maximum_speed":44,"hitting_power":44,"pass_interceptions":56,"rating":"59%","ranking":59},
-    {"team":"Bears","position":"K","name":"Kevin Butler","number":"#6","kicking_ability":38,"avoid_kick_block":50,"rating":"51%","ranking":21},
+    {"team":"Bears","position":"K","name":"Kevin Butler","number":"#6","kicking_ability":38,"avoid_kick_block":50,"rating":"47%","ranking":21},
     {"team":"Bears","position":"P","name":"Maury Buford","number":"#8","kicking_ability":31,"avoid_kick_block":25,"rating":"38%","ranking":21}
   ]
 }

@@ -30,7 +30,7 @@
     {"team":"Falcons","position":"LCB","name":"Charles Dimry","number":"#22","running_speed":25,"rushing_power":31,"maximum_speed":31,"hitting_power":31,"pass_interceptions":50,"rating":"54%","ranking":85},
     {"team":"Falcons","position":"FS","name":"Scott Case","number":"#25","running_speed":25,"rushing_power":31,"maximum_speed":38,"hitting_power":31,"pass_interceptions":50,"rating":"55%","ranking":79},
     {"team":"Falcons","position":"SS","name":"Brian Jordan","number":"#40","running_speed":25,"rushing_power":31,"maximum_speed":25,"hitting_power":44,"pass_interceptions":50,"rating":"54%","ranking":83},
-    {"team":"Falcons","position":"K","name":"Greg Davis","number":"#5","kicking_ability":25,"avoid_kick_block":50,"rating":"40%","ranking":26},
+    {"team":"Falcons","position":"K","name":"Greg Davis","number":"#5","kicking_ability":25,"avoid_kick_block":50,"rating":"31%","ranking":26},
     {"team":"Falcons","position":"P","name":"Scott Fulhage","number":"#17","kicking_ability":63,"avoid_kick_block":69,"rating":"78%","ranking":9}
   ]
 }
