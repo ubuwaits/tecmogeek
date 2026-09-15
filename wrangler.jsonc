@@ -5,6 +5,14 @@
   "compatibility_date": "2026-09-15",
   "workers_dev": true,
   "preview_urls": true,
+  "observability": {
+    "enabled": true,
+    "logs": {
+      "enabled": true,
+      "invocation_logs": true,
+      "persist": true
+    }
+  },
   "routes": [
     {
       "pattern": "www.tecmogeek.com",
