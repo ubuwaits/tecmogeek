@@ -76,10 +76,13 @@ Deploy command: pnpm exec wrangler deploy
 The Workers Build environment supplies its own deployment token, so its deploy
 command intentionally does not select the local `personal` profile.
 
-Custom domains and DNS are configured separately after the `workers.dev`
-deployment has been verified. Keep the previous host available until DNS has
-propagated and both the apex and `www` hostnames have passed production smoke
-tests.
+The `www.tecmogeek.com` and `tecmogeek.com` custom domains are declared in
+`wrangler.jsonc`, which is the source of truth for Worker routing. The Worker
+serves the site on `www` and permanently redirects the apex hostname to the
+same path and query string on `www`.
+
+Keep the previous host available until DNS has propagated and both hostnames
+have passed production smoke tests.
 
 ### Other Static Hosting
 
