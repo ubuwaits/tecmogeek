@@ -3,9 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "packageManager": "pnpm@10.10.0",
+  "engines": {
+    "node": ">=24.0.0 <25"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "deploy": "pnpm run build && wrangler deploy --profile personal",
+    "deploy:check": "pnpm run build && wrangler deploy --dry-run",
     "rebuild:offense": "node scripts/rebuild-offensive-ratings.mjs",
     "rebuild:defense": "node scripts/rebuild-defensive-ratings.mjs",
     "rebuild:team-ratings": "node --experimental-strip-types --experimental-default-type=module scripts/rebuild-team-ratings.ts",
@@ -17,7 +22,6 @@
   "dependencies": {
     "@radix-ui/react-tabs": "^1.1.13",
     "@radix-ui/react-tooltip": "^1.2.8",
-    "@vercel/analytics": "^2.0.1",
     "next": "16.2.6",
     "react": "19.2.6",
     "react-dom": "19.2.6"
@@ -26,7 +30,7 @@
     "@playwright/test": "^1.56.1",
     "@tailwindcss/postcss": "^4.2.4",
     "@tailwindcss/typography": "^0.5.19",
-    "@types/node": "^20.19.24",
+    "@types/node": "^24.13.3",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "eslint": "^9.39.4",
@@ -35,12 +39,15 @@
     "tailwindcss": "^4.2.4",
     "typescript": "^5.9.3",
     "vite": "8.0.11",
-    "vitest": "^4.1.5"
+    "vitest": "^4.1.5",
+    "wrangler": "^4.129.0"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
+      "esbuild",
       "sharp",
-      "unrs-resolver"
+      "unrs-resolver",
+      "workerd"
     ],
     "overrides": {
       "minimatch@3.1.5>brace-expansion": "1.1.14",

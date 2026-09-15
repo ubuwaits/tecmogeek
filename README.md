@@ -48,26 +48,38 @@ pnpm e2e
 
 `next build` writes the static site to `out/` because the app uses `output: 'export'`.
 
-### Vercel
+### Cloudflare Workers Static Assets
 
-This repo can be deployed to Vercel with the standard Git workflow:
+The site deploys the `out/` export as Cloudflare Workers Static Assets. Wrangler
+configuration is source-controlled in [`wrangler.jsonc`](/Users/chad/source/tecmogeek/wrangler.jsonc).
 
-1. Import the repository into Vercel
-2. Use the repo root as the Root Directory
-3. Keep the Framework Preset as `Next.js`
-4. Push to your production branch normally
-
-Vercel should auto-detect `pnpm` from [`package.json`](/Users/chad/source/tecmogeek/package.json) and [`pnpm-lock.yaml`](/Users/chad/source/tecmogeek/pnpm-lock.yaml), so you usually do not need custom install or build commands.
-
-If Vercel does not auto-detect correctly, use:
+Validate the production build and deployment configuration without uploading:
 
 ```bash
-Install Command: pnpm install
-Build Command: pnpm build
-Output Directory: out
+pnpm deploy:check
 ```
 
-Custom domains should be configured in Vercel project settings.
+Deploy from a local checkout using the separately authenticated personal
+Cloudflare profile:
+
+```bash
+pnpm deploy
+```
+
+For Cloudflare Workers Builds, use:
+
+```text
+Build command: pnpm build
+Deploy command: pnpm exec wrangler deploy
+```
+
+The Workers Build environment supplies its own deployment token, so its deploy
+command intentionally does not select the local `personal` profile.
+
+Custom domains and DNS are configured separately after the `workers.dev`
+deployment has been verified. Keep the previous host available until DNS has
+propagated and both the apex and `www` hostnames have passed production smoke
+tests.
 
 ### Other Static Hosting
 
