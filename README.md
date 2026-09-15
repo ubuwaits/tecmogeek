@@ -77,9 +77,16 @@ The Workers Build environment supplies its own deployment token, so its deploy
 command intentionally does not select the local `personal` profile.
 
 The `www.tecmogeek.com` and `tecmogeek.com` custom domains are declared in
-`wrangler.jsonc`, which is the source of truth for Worker routing. The Worker
-serves the site on `www` and permanently redirects the apex hostname to the
-same path and query string on `www`.
+`wrangler.jsonc`, which is the source of truth for Worker domain attachments.
+The Worker serves static assets directly, without running application code
+first.
+
+The Cloudflare zone has a separate Redirect Rule named
+`Redirect tecmogeek.com to www.tecmogeek.com`. It matches the apex hostname and
+issues a permanent redirect to `https://www.tecmogeek.com`, preserving the path
+and query string. Wrangler does not manage zone-level Redirect Rules, so this
+rule remains dashboard-owned and is documented here to prevent configuration
+drift.
 
 Keep the previous host available until DNS has propagated and both hostnames
 have passed production smoke tests.

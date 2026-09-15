@@ -1,7 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "tecmogeek",
-  "main": "./worker/index.ts",
   "account_id": "aad45d3ead83fd32ae6c0d50b1ef7d04",
   "compatibility_date": "2026-09-15",
   "workers_dev": true,
@@ -18,8 +17,6 @@
   ],
   "assets": {
     "directory": "./out",
-    "binding": "ASSETS",
-    "run_worker_first": true,
     "html_handling": "force-trailing-slash",
     "not_found_handling": "404-page"
   }
