@@ -7,13 +7,13 @@ export function SiteFooter() {
         <p>
           A labor of love by{" "}
           <a
-            href="https://chad.is"
+            href="https://www.chad.is"
             target="_blank"
             rel="noopener noreferrer"
             className="font-bold text-(--pink) no-underline"
           >
             Chad Mazzola
-          </a>.
+          </a>
         </p>
         <a
           href="https://www.chadwin.co"
