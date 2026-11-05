@@ -11,6 +11,57 @@ const RATING_TOPIC_TABS: readonly SelectionTabItem[] = [
   { id: "team", label: "Team Ratings" },
 ];
 
+function RatingsTable({
+  headings = ["Attribute", "Value"],
+  rows,
+}: {
+  headings?: readonly string[];
+  rows: readonly (readonly (string | number)[])[];
+}) {
+  return (
+    <table className="max-w-md tabular-nums">
+      <thead>
+        <tr>
+          {headings.map((heading) => <th key={heading} scope="col">{heading}</th>)}
+        </tr>
+      </thead>
+      <tbody>
+        {rows.map(([label, ...values]) => (
+          <tr key={label}>
+            <th scope="row" className="font-normal">{label}</th>
+            {values.map((value, index) => <td key={index}>{value}</td>)}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
+}
+
+function RatingCalculation({
+  player,
+  rating,
+  terms,
+}: {
+  player: string;
+  rating: string;
+  terms: readonly string[];
+}) {
+  return (
+    <div className="not-prose my-5 border-l-2 border-neutral-200 pl-4">
+      <p className="mb-2 font-semibold">{player}: {rating}%</p>
+      <p className="flex flex-wrap items-baseline gap-x-2 gap-y-1 text-[14px] leading-relaxed tabular-nums sm:text-[16px]">
+        {terms.map((term, index) => (
+          <span key={index} className="inline-flex gap-2 whitespace-nowrap">
+            {index > 0 ? <span>+</span> : null}
+            <span>{term}</span>
+          </span>
+        ))}
+        <span className="whitespace-nowrap">≈ {rating}%</span>
+      </p>
+    </div>
+  );
+}
+
 export function AboutRatingsContent() {
   const [activeTopic, setActiveTopic] = useState("player");
 
@@ -48,73 +99,76 @@ export function AboutRatingsContent() {
         </p>
 
         <h3>QB</h3>
-        <p>
-          Running Speed: <strong>25</strong>
-          <br />
-          Rushing Power: <strong>69</strong>
-          <br />
-          Hitting Power: <strong>13</strong>
-          <br />
-          Accuracy of Passing: <strong>not used</strong>
-        </p>
+        <RatingsTable
+          rows={[
+            ["Running Speed", "25"],
+            ["Rushing Power", "69"],
+            ["Hitting Power", "13"],
+            ["Accuracy of Passing", "not used"],
+          ]}
+        />
 
         <h3>RB/WR/TE</h3>
-        <p>
-          Rushing Power: <strong>69</strong> (Even Okoye, who has a listed Rushing Power of 75)
-        </p>
+        <RatingsTable
+          rows={[
+            ["Rushing Power", "69 (Even Okoye, who has a listed Rushing Power of 75)"],
+          ]}
+        />
 
         <h3>Kick Returners</h3>
-        <p>
-          Receptions: <strong>not used</strong>
-        </p>
+        <RatingsTable
+          rows={[
+            ["Receptions", "not used"],
+          ]}
+        />
 
         <h3>Punt Returners</h3>
-        <p>
-          Ball Control: <strong>44</strong>
-          <br />
-          Receptions: <strong>not used</strong>
-        </p>
+        <RatingsTable
+          rows={[
+            ["Ball Control", "44"],
+            ["Receptions", "not used"],
+          ]}
+        />
 
         <h3>OL</h3>
-        <p>
-          Running Speed: <strong>25</strong>
-          <br />
-          Rushing Power: <strong>69</strong>
-        </p>
+        <RatingsTable
+          rows={[
+            ["Running Speed", "25"],
+            ["Rushing Power", "69"],
+          ]}
+        />
 
         <h3>DL/LB/C/S</h3>
-        <p>
-          Quickness: <strong>not used</strong>
-        </p>
+        <RatingsTable
+          rows={[
+            ["Quickness", "not used"],
+          ]}
+        />
 
         <h3>K</h3>
-        <p>
-          Running Speed: <strong>56</strong>
-          <br />
-          Rushing Power: <strong>81</strong>
-          <br />
-          Maximum Speed: <strong>81</strong>
-          <br />
-          Hitting Power: <strong>31</strong>
-          <br />
-          Avoid Kick Block: <strong>not used</strong>
-        </p>
+        <RatingsTable
+          rows={[
+            ["Running Speed", "56"],
+            ["Rushing Power", "81"],
+            ["Maximum Speed", "81"],
+            ["Hitting Power", "31"],
+            ["Avoid Kick Block", "not used"],
+          ]}
+        />
         <p>
           Due to a programming glitch, if the blocked-kick cutscene is triggered, the game uses the worst Avoid Kick Block value rather than the kicker&apos;s actual rating.
         </p>
 
         <h3>P</h3>
-        <p>
-          Running Speed: <strong>25</strong>
-          <br />
-          Rushing Power: <strong>56</strong>
-          <br />
-          Maximum Speed: <strong>44</strong>
-          <br />
-          Hitting Power: <strong>31</strong>
-          <br />
-          Avoid Kick Block: <strong>not used because punts cannot be blocked</strong>
-        </p>
+        <RatingsTable
+          rows={[
+            ["Running Speed", "25"],
+            ["Rushing Power", "56"],
+            ["Maximum Speed", "44"],
+            ["Hitting Power", "31"],
+            ["Avoid Kick Block", "not used because punts cannot be blocked"],
+          ]}
+        />
 
         <h2>
           Step two: Calculate a score for attributes that do matter
@@ -153,131 +207,170 @@ export function AboutRatingsContent() {
         </figure>
 
         <h3>QB</h3>
-        <p>
-          Maximum Speed: 25%
-          <br />
-          Passing Speed: 20%
-          <br />
-          Pass Control: 50%
-          <br />
-          Avoid Pass Block: 5%
-        </p>
+        <RatingsTable
+          headings={["Attribute", "Weight"]}
+          rows={[
+            ["Maximum Speed", "25%"],
+            ["Passing Speed", "20%"],
+            ["Pass Control", "50%"],
+            ["Avoid Pass Block", "5%"],
+          ]}
+        />
 
         <h3>Rushers (all RB, WR, TE receive a rusher rating)</h3>
-        <p>
-          Running Speed: 10%
-          <br />
-          Maximum Speed: 70%
-          <br />
-          Hitting Power: 10%
-          <br />
-          Ball Control: 5%
-          <br />
-          Receptions: 5%
-        </p>
+        <RatingsTable
+          headings={["Attribute", "Weight"]}
+          rows={[
+            ["Running Speed", "10%"],
+            ["Maximum Speed", "70%"],
+            ["Hitting Power", "10%"],
+            ["Ball Control", "5%"],
+            ["Receptions", "5%"],
+          ]}
+        />
 
         <h3>Receivers (all RB, WR, TE receive a receiver rating)</h3>
-        <p>
-          Running Speed: 10%
-          <br />
-          Maximum Speed: 45%
-          <br />
-          Hitting Power: 5%
-          <br />
-          Ball Control: 5%
-          <br />
-          Receptions: 35%
-        </p>
+        <RatingsTable
+          headings={["Attribute", "Weight"]}
+          rows={[
+            ["Running Speed", "10%"],
+            ["Maximum Speed", "45%"],
+            ["Hitting Power", "5%"],
+            ["Ball Control", "5%"],
+            ["Receptions", "35%"],
+          ]}
+        />
 
         <h3>Kick Returners (all RB, WR, TE receive a kick returner rating)</h3>
-        <p>
-          Running Speed: 20%
-          <br />
-          Maximum Speed: 60%
-          <br />
-          Hitting Power: 10%
-          <br />
-          Ball Control: 10%
-        </p>
+        <RatingsTable
+          headings={["Attribute", "Weight"]}
+          rows={[
+            ["Running Speed", "20%"],
+            ["Maximum Speed", "60%"],
+            ["Hitting Power", "10%"],
+            ["Ball Control", "10%"],
+          ]}
+        />
 
         <h3>Punt Returners (all RB, WR, TE receive a punt returner rating)</h3>
-        <p>
-          Running Speed: 20%
-          <br />
-          Maximum Speed: 70%
-          <br />
-          Hitting Power: 10%
-        </p>
+        <RatingsTable
+          headings={["Attribute", "Weight"]}
+          rows={[
+            ["Running Speed", "20%"],
+            ["Maximum Speed", "70%"],
+            ["Hitting Power", "10%"],
+          ]}
+        />
 
         <h3>A note about hitting power for RBs, WRs and TEs</h3>
-        <p>
-          Hitting Power uses score bands for rusher, receiver and returner ratings: 75 = 5%, 81 = 25%, 88 = 60%, and 94 = 100%. Values below 75 receive no Hitting Power weight.
-        </p>
+        <p>Hitting Power uses these score bands for rusher, receiver and returner ratings:</p>
+        <RatingsTable
+          headings={["Hitting Power", "Score"]}
+          rows={[
+            ["Below 75", "0%"],
+            [75, "5%"],
+            [81, "25%"],
+            [88, "60%"],
+            [94, "100%"],
+          ]}
+        />
         <p>
           Rankings still use higher raw hitting power as the tiebreak when two offensive players have the same displayed rating.
         </p>
 
         <h3>OL</h3>
-        <p>
-          Maximum Speed: 20%
-          <br />
-          Hitting Power: 80%
-        </p>
-        <p>
-          OL Hitting Power uses score bands: 31 = 0%, 38 = 15%, 44 = 30%, 50 = 45%, 56 = 55%, 63 = 65%, 69 = 80%, 75 = 90%, and 81 = 100%.
-        </p>
+        <RatingsTable
+          headings={["Attribute", "Weight"]}
+          rows={[
+            ["Maximum Speed", "20%"],
+            ["Hitting Power", "80%"],
+          ]}
+        />
+        <p>OL Hitting Power uses these score bands:</p>
+        <RatingsTable
+          headings={["Hitting Power", "Score"]}
+          rows={[
+            [31, "0%"],
+            [38, "15%"],
+            [44, "30%"],
+            [50, "45%"],
+            [56, "55%"],
+            [63, "65%"],
+            [69, "80%"],
+            [75, "90%"],
+            [81, "100%"],
+          ]}
+        />
 
         <h3>DL</h3>
-        <p>
-          Running Speed: 10%
-          <br />
-          Rushing Power: 35%
-          <br />
-          Maximum Speed: 10%
-          <br />
-          Hitting Power: 40%
-          <br />
-          Pass Interceptions: 5%
-        </p>
+        <RatingsTable
+          headings={["Attribute", "Weight"]}
+          rows={[
+            ["Running Speed", "10%"],
+            ["Rushing Power", "35%"],
+            ["Maximum Speed", "10%"],
+            ["Hitting Power", "40%"],
+            ["Pass Interceptions", "5%"],
+          ]}
+        />
 
         <h3>LB</h3>
-        <p>
-          Running Speed: 10%
-          <br />
-          Rushing Power: 35%
-          <br />
-          Maximum Speed: 10%
-          <br />
-          Hitting Power: 30%
-          <br />
-          Pass Interceptions: 15%
-        </p>
+        <RatingsTable
+          headings={["Attribute", "Weight"]}
+          rows={[
+            ["Running Speed", "10%"],
+            ["Rushing Power", "35%"],
+            ["Maximum Speed", "10%"],
+            ["Hitting Power", "30%"],
+            ["Pass Interceptions", "15%"],
+          ]}
+        />
 
         <h3>CB/S</h3>
+        <RatingsTable
+          headings={["Attribute", "Weight"]}
+          rows={[
+            ["Running Speed", "10%"],
+            ["Rushing Power", "35%"],
+            ["Maximum Speed", "10%"],
+            ["Hitting Power", "5%"],
+            ["Pass Interceptions", "40%"],
+          ]}
+        />
         <p>
-          Running Speed: 10%
-          <br />
-          Rushing Power: 35%
-          <br />
-          Maximum Speed: 10%
-          <br />
-          Hitting Power: 5%
-          <br />
-          Pass Interceptions: 40%
+          Defensive Hitting Power uses these score bands for DL, LB and CB/S ratings:
         </p>
-        <p>
-          Defensive Hitting Power uses score bands for DL, LB and CB/S ratings: 19 = 0%, 25 = 7%, 31 = 16%, 38 = 23%, 44 = 30%, 50 = 36%, 56 = 45%, 63 = 59%, 69 = 78%, and 75 = 100%.
-        </p>
+        <RatingsTable
+          headings={["Hitting Power", "Score"]}
+          rows={[
+            [19, "0%"],
+            [25, "7%"],
+            [31, "16%"],
+            [38, "23%"],
+            [44, "30%"],
+            [50, "36%"],
+            [56, "45%"],
+            [63, "59%"],
+            [69, "78%"],
+            [75, "100%"],
+          ]}
+        />
 
         <h3>K</h3>
-        <p>
-          Kicking Ability: 100%
-        </p>
+        <RatingsTable
+          headings={["Attribute", "Weight"]}
+          rows={[
+            ["Kicking Ability", "100%"],
+          ]}
+        />
 
         <h3>P</h3>
-        <p>
-          Kicking Ability: 100%
-        </p>
+        <RatingsTable
+          headings={["Attribute", "Weight"]}
+          rows={[
+            ["Kicking Ability", "100%"],
+          ]}
+        />
 
         <h2>
           Example: ratings for Jerry Rice and Bo Jackson
@@ -289,33 +382,29 @@ export function AboutRatingsContent() {
         <p>First, here are the attributes and scores for each player.</p>
         <p>(Reminder: most scores compare the player value to the highest player value in that group. Hitting Power uses the score bands listed above.)</p>
 
-        <p>
-          <strong>Rice:</strong>
-          <br />
-          Running Speed: 44 (69.84%)
-          <br />
-          Maximum Speed: 69 (92.00%)
-          <br />
-          Hitting Power: 13 (0%)
-          <br />
-          Ball Control: 81 (100.00%)
-          <br />
-          Receptions: 81 (100.00%)
-        </p>
+        <h3>Rice</h3>
+        <RatingsTable
+          headings={["Attribute", "Value", "Score"]}
+          rows={[
+            ["Running Speed", "44", "69.84%"],
+            ["Maximum Speed", "69", "92.00%"],
+            ["Hitting Power", "13", "0%"],
+            ["Ball Control", "81", "100.00%"],
+            ["Receptions", "81", "100.00%"],
+          ]}
+        />
 
-        <p>
-          <strong>Jackson:</strong>
-          <br />
-          Running Speed: 38 (60.32%)
-          <br />
-          Maximum Speed: 75 (100.00%)
-          <br />
-          Hitting Power: 31 (0%)
-          <br />
-          Ball Control: 81 (100.00%)
-          <br />
-          Receptions: 19 (23.46%)
-        </p>
+        <h3>Jackson</h3>
+        <RatingsTable
+          headings={["Attribute", "Value", "Score"]}
+          rows={[
+            ["Running Speed", "38", "60.32%"],
+            ["Maximum Speed", "75", "100.00%"],
+            ["Hitting Power", "31", "0%"],
+            ["Ball Control", "81", "100.00%"],
+            ["Receptions", "19", "23.46%"],
+          ]}
+        />
 
         <p>
           For RB, WR and TE ratings, Hitting Power below 75 receives no Hitting Power score.
@@ -323,13 +412,16 @@ export function AboutRatingsContent() {
 
         <p>Here are the ratings for each player as a receiver:</p>
 
-        <p>
-          Rice: <strong>88.38%</strong> ((10 * (69.84 / 100)) + (45 * (92 / 100)) + (5 * (0 / 100)) + (5 * (100 / 100)) + (35 * (100 / 100)))
-        </p>
-
-        <p>
-          Jackson: <strong>64.24%</strong> ((10 * (60.32 / 100)) + (45 * (100 / 100)) + (5 * (0 / 100)) + (5 * (100 / 100)) + (35 * (23.46 / 100)))
-        </p>
+        <RatingCalculation
+          player="Rice"
+          rating="88.38"
+          terms={["10 × 0.6984", "45 × 0.92", "5 × 0", "5 × 1", "35 × 1"]}
+        />
+        <RatingCalculation
+          player="Jackson"
+          rating="64.24"
+          terms={["10 × 0.6032", "45 × 1", "5 × 0", "5 × 1", "35 × 0.2346"]}
+        />
 
         <p>
           No surprises here, as Jerry Rice is the best receiver in the game. While Bo Jackson&apos;s speed counts for a lot, his poor Receptions hurts him as a receiver.
@@ -337,15 +429,16 @@ export function AboutRatingsContent() {
 
         <p>Now here are their rusher ratings:</p>
 
-        <p>
-          Rice: <strong>81.38%</strong> ((10 * (69.84 / 100)) + (70 * (92 / 100)) + (10 * (0 /
-          100)) + (5 * (100 / 100)) + (5 * (100 / 100)))
-        </p>
-
-        <p>
-          Jackson: <strong>82.20%</strong> ((10 * (60.32 / 100)) + (70 * (100 / 100)) + (10 *
-          (0 / 100)) + (5 * (100 / 100)) + (5 * (23.46 / 100)))
-        </p>
+        <RatingCalculation
+          player="Rice"
+          rating="81.38"
+          terms={["10 × 0.6984", "70 × 0.92", "10 × 0", "5 × 1", "5 × 1"]}
+        />
+        <RatingCalculation
+          player="Jackson"
+          rating="82.20"
+          terms={["10 × 0.6032", "70 × 1", "10 × 0", "5 × 1", "5 × 0.2346"]}
+        />
 
         <p>Jackson is the best rusher in the game, with Rice a close second.</p>
 
