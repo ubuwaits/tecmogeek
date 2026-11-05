@@ -1,116 +1,38 @@
 # tecmogeek.com
 
-Static-export Next.js source for [tecmogeek.com](https://www.tecmogeek.com), built with the App Router, TypeScript, and Tailwind CSS v4.
-
-## Stack
-
-- Next.js 16 App Router
-- React 19
-- TypeScript 5
-- Tailwind CSS v4
-- Vitest for unit tests
-- Playwright for smoke/e2e coverage
+Source for [tecmogeek.com](https://www.tecmogeek.com), built with Next.js, TypeScript, and Tailwind CSS. Uses local JSON data from `data/` and exports a static site to `out/`.
 
 ## Development
 
-Install dependencies:
+Requires Node.js 24 and pnpm 10.
 
 ```bash
 pnpm install
-```
-
-Start the local dev server:
-
-```bash
 pnpm dev
 ```
 
-The site reads local JSON files from [`data/`](/Users/chad/source/tecmogeek/data) and emits a static export to `out/`.
-
-## Verification
-
-Run lint, types, unit tests, and the production export build:
+## Checks
 
 ```bash
 pnpm lint
 pnpm typecheck
 pnpm test
 pnpm build
-```
-
-Run the Playwright smoke suite against the exported static site:
-
-```bash
 pnpm e2e
 ```
 
 ## Deployment
 
-`next build` writes the static site to `out/` because the app uses `output: 'export'`.
-
-### Cloudflare Workers Static Assets
-
-The site deploys the `out/` export as Cloudflare Workers Static Assets. Wrangler
-configuration is source-controlled in [`wrangler.jsonc`](/Users/chad/source/tecmogeek/wrangler.jsonc).
-
-Validate the production build and deployment configuration without uploading:
+Build the static site:
 
 ```bash
-pnpm deploy:check
+pnpm build
 ```
 
-Deploy from a local checkout using the separately authenticated personal
-Cloudflare profile:
+Publish `out/` to a static host. Cloudflare Workers Static Assets configuration is included in [`wrangler.jsonc`](wrangler.jsonc).
+
+To deploy with an authenticated Cloudflare account:
 
 ```bash
-pnpm deploy
+pnpm exec wrangler deploy
 ```
-
-For Cloudflare Workers Builds, use:
-
-```text
-Build command: pnpm build
-Deploy command: pnpm exec wrangler deploy
-```
-
-The Workers Build environment supplies its own deployment token, so its deploy
-command intentionally does not select the local `personal` profile.
-
-The `www.tecmogeek.com` and `tecmogeek.com` custom domains are declared in
-`wrangler.jsonc`, which is the source of truth for Worker domain attachments.
-The Worker serves static assets directly, without running application code
-first.
-
-The Cloudflare zone has a separate Redirect Rule named
-`Redirect tecmogeek.com to www.tecmogeek.com`. It matches the apex hostname and
-issues a permanent redirect to `https://www.tecmogeek.com`, preserving the path
-and query string. Wrangler does not manage zone-level Redirect Rules, so this
-rule remains dashboard-owned and is documented here to prevent configuration
-drift.
-
-Keep the previous host available until DNS has propagated and both hostnames
-have passed production smoke tests.
-
-### Other Static Hosting
-
-For any static host that can publish a directory:
-
-1. Run `pnpm build`
-2. Publish the contents of `out/`
-
-### Static Export Constraints
-
-Because the site uses `output: 'export'`, avoid introducing features that require a Next.js server at request time. In particular, do not depend on:
-
-- redirects or rewrites in `next.config`
-- custom response headers
-- cookies, Draft Mode, or Server Actions
-- ISR or other request-time regeneration
-- dynamic routes without `generateStaticParams()`
-- `next/image` with the default image optimization loader
-
-## Project Notes
-
-- Legacy site data lives in local JSON files and is loaded at build time.
-- Sprite sheets and historic team/player naming have been preserved.
-- The current migration intentionally keeps the original desktop-only layout; responsive work is a separate task.
