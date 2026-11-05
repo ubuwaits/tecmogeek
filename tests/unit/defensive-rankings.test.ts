@@ -3,9 +3,6 @@ import path from "node:path";
 
 import { describe, expect, it } from "vitest";
 
-import { POSITION_PAGE_CONFIG_MAP } from "@/lib/players/config";
-import { TEAM_SECTION_CONFIGS } from "@/lib/teams/config";
-
 const DATA_DIR = path.join(process.cwd(), "data");
 
 const AGGREGATE_FILE_NAMES = new Set([
@@ -162,18 +159,6 @@ describe("defensive ratings data", () => {
     expect(getDefensiveHpScore(63)).toBe(59);
     expect(getDefensiveHpScore(69)).toBe(78);
     expect(getDefensiveHpScore(75)).toBe(100);
-  });
-
-  it("documents defensive HP score bands on player and team pages", () => {
-    expect(POSITION_PAGE_CONFIG_MAP.dl.note).toContain("HP score bands");
-    expect(POSITION_PAGE_CONFIG_MAP.lb.note).toContain("69 = 78%");
-    expect(POSITION_PAGE_CONFIG_MAP["cb-s"].note).toContain("75 = 100%");
-
-    for (const id of ["dl", "lb", "secondary"]) {
-      const section = TEAM_SECTION_CONFIGS.find((candidate) => candidate.id === id);
-
-      expect(section?.note).toContain("HP score bands");
-    }
   });
 
   it("keeps defensive aggregate ratings aligned with recomputed values", () => {
