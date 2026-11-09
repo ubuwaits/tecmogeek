@@ -209,6 +209,7 @@ function TopNavContent() {
           mobileNavOpen ? "max-h-[calc(100vh-72px)] opacity-100" : "max-h-0 overflow-hidden opacity-0"
         }`}
         aria-hidden={!mobileNavOpen}
+        inert={!mobileNavOpen}
       >
         <nav className="max-h-[calc(100vh-72px)] overflow-y-auto px-4 py-4">
           <ul className="space-y-3">

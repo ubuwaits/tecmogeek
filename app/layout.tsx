@@ -16,18 +16,9 @@ const SITE_TITLE_SUFFIX = "The ultimate guide to Tecmo Super Bowl for NES";
 const TWITTER_CREATOR = "@ubuwaits";
 
 const inter = localFont({
-  src: [
-    {
-      path: "./fonts/InterVariable.woff2",
-      weight: "100 900",
-      style: "normal",
-    },
-    {
-      path: "./fonts/InterVariable-Italic.woff2",
-      weight: "100 900",
-      style: "italic",
-    },
-  ],
+  src: "./fonts/InterVariable.woff2",
+  weight: "100 900",
+  style: "normal",
   display: "swap",
   variable: "--font-inter",
 });

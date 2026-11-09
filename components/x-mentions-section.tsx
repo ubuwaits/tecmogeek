@@ -49,11 +49,11 @@ function XMentionCard({ mention }: { mention: XMention }) {
             {mention.authorName}
           </p>
           <p className="mt-1 flex flex-wrap items-baseline gap-x-2 gap-y-0.5 font-medium leading-none">
-            <span className="min-w-0 text-[13px] text-white/65">@{mention.authorHandle}</span>
+            <span className="min-w-0 text-[13px] text-white/90">@{mention.authorHandle}</span>
             <span aria-hidden="true" className="text-[13px] text-white/35">
               •
             </span>
-            <time dateTime={mention.postedAt} className="text-[13px] text-white/65">
+            <time dateTime={mention.postedAt} className="text-[13px] text-white/90">
               {formatDate(mention.postedAt)}
             </time>
           </p>

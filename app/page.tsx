@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import { HeadshotSprite, HelmetSprite } from "@/components/sprites";
 import { XMentionsSection } from "@/components/x-mentions-section";
-import { getPositionEntries } from "@/lib/data";
+import { getPositionEntries, getTeam } from "@/lib/data";
 import { POSITION_PAGES } from "@/lib/players/config";
 import { getHomeEntries, getTeamSlugFromCode } from "@/lib/player-utils";
 import { homeRoute, playerRoute, teamRoute } from "@/lib/routes";
@@ -17,10 +17,19 @@ export const metadata: Metadata = {
 
 export default async function HomePage() {
   const sectionData = await Promise.all(
-    POSITION_PAGES.map(async (page) => ({
-      page,
-      entries: getHomeEntries(page, await getPositionEntries(page.slug)),
-    })),
+    POSITION_PAGES.map(async (page) => {
+      const entries = getHomeEntries(page, await getPositionEntries(page.slug));
+      const players = await Promise.all(
+        entries.map(async (entry) => {
+          const teamSlug = getTeamSlugFromCode(entry.team);
+          const team = await getTeam(teamSlug);
+
+          return { entry, teamSlug, teamName: team.full_name };
+        }),
+      );
+
+      return { page, players };
+    }),
   );
 
   return (
@@ -30,7 +39,7 @@ export default async function HomePage() {
       </h2>
 
       <div className="grid gap-10 sm:grid-cols-2 xl:grid-cols-3">
-        {sectionData.map(({ page, entries }) => (
+        {sectionData.map(({ page, players }) => (
           <div key={page.slug} className="min-w-0">
             <h3 className="pb-1 font-(family-name:--font-tecmo) text-[16px] leading-normal">
               <Link href={playerRoute(page.slug)} className="text-inherit no-underline hover:text-(--pink)">
@@ -39,15 +48,13 @@ export default async function HomePage() {
             </h3>
 
             <ol className="bg-(--dark-bg) px-0 py-3 shadow-[8px_8px_0_var(--pink)]">
-              {entries.map((entry) => {
-                const teamSlug = getTeamSlugFromCode(entry.team);
-
+              {players.map(({ entry, teamSlug, teamName }) => {
                 return (
                   <li
                     key={`${page.slug}-${entry.name}`}
                     className="flex items-center px-4 py-2 sm:px-5"
                   >
-                    <Link href={teamRoute(teamSlug)} className="block w-8">
+                    <Link href={teamRoute(teamSlug)} aria-label={`${teamName} team page`} className="block w-8">
                       <HelmetSprite team={teamSlug} />
                     </Link>
 
