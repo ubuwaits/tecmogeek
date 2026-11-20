@@ -52,7 +52,7 @@ pnpm e2e
 
 `pnpm verify:rebuilds` runs the offense, defense, and team-rating commands twice in one temporary checkout. It uses the current package commands and scripts with data from `HEAD`. After each pass it checks the complete file list and compares every data file byte-for-byte with its committed Git blob.
 
-`pnpm verify:rebuild-edits` runs all three rebuilds on two independent edits in a temporary checkout. Each edit changes one raw field in the Eagles roster. The check recomputes every defensive line rating and rank, checks all rosters and team outputs, and exercises a new league maximum.
+`pnpm verify:rebuild-edits` runs the standalone rebuilds after three independent Eagles roster edits in a temporary checkout. The two left-end edits exercise hitting power and a new league maximum. The right-tackle speed edit checks offensive-line and kick-return ratings and ranks, including that punt-return fields stay unchanged. Each scenario checks all rosters and team ratings.
 
 `pnpm verify:lineup-precision` uses Z3 to bound binary64 error in the generator's running, passing, and balanced score expressions for whole-percent inputs from 0 to 100. It checks score ordering and tolerance ties against exact multiples of 1/8000, then exercises the numeric comparator across the entire score grid.
 

@@ -2,92 +2,105 @@ import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
 import { readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
-import { DEFENSIVE_HP_SCORE_MAP } from "../../rebuild/defensive-ratings.mjs";
+import { positions, skillPositions } from "../roster-data.mjs";
 
-const attributes = { running_speed: 10, rushing_power: 35, maximum_speed: 10, pass_interceptions: 5 };
-function expectedLine(rows) {
-  const maxima = Object.fromEntries(Object.keys(attributes).map(key => [key, Math.max(...rows.map(p => p[key]))]));
+// Independently score with integer arithmetic, then resolve full ties by the prior category rank.
+function rateGroup(players, weights, hpWeight, ladder, ratingKey, rankingKey) {
+  const maxima = Object.fromEntries(Object.keys(weights).map(key => [key, Math.max(...players.map(p => p[key]))]));
   const denominator = Object.values(maxima).reduce((a, b) => a * b, 100);
-  for (const p of rows) {
-    let numerator = (DEFENSIVE_HP_SCORE_MAP[p.hitting_power] ?? 0) * 40 * (denominator / 100);
-    for (const [key, weight] of Object.entries(attributes)) numerator += weight * p[key] * (denominator / maxima[key]);
+  const changedTeams = new Set();
+  let ratings = 0;
+  let ranks = 0;
+  for (const player of players) {
+    let numerator = (ladder[player.hitting_power] ?? 0) * hpWeight * (denominator / 100);
+    for (const [key, weight] of Object.entries(weights)) numerator += weight * player[key] * (denominator / maxima[key]);
     assert(Number.isSafeInteger(2 * numerator + denominator));
-    p.rating = Math.floor((2 * numerator + denominator) / (2 * denominator)) + "%";
+    const rating = Math.floor((2 * numerator + denominator) / (2 * denominator)) + "%";
+    if (player[ratingKey] !== rating) {
+      ratings++;
+      changedTeams.add(player.team);
+    }
+    player[ratingKey] = rating;
   }
-  // Start from published defensive-line order to independently preserve complete ties.
-  rows.sort((a, b) => parseInt(b.rating) - parseInt(a.rating) || b.hitting_power - a.hitting_power);
-  rows.forEach((p, i) => { p.ranking = i + 1; });
-  return rows;
+  players.sort((a, b) => parseInt(b[ratingKey]) - parseInt(a[ratingKey]) ||
+    b.hitting_power - a.hitting_power || a[rankingKey] - b[rankingKey]);
+  players.forEach((player, i) => {
+    if (player[rankingKey] !== i + 1) ranks++;
+    player[rankingKey] = i + 1;
+  });
+  return { ratings, ranks, changedTeams };
+}
+
+function defensiveEdit(players, edited, attribute) {
+  const group = players.filter(p => positions.dl.test(p.position));
+  const changes = rateGroup(group, { running_speed: 10, rushing_power: 35, maximum_speed: 10, pass_interceptions: 5 },
+    40, { 19: 0, 25: 7, 31: 16, 38: 23, 44: 30, 50: 36, 56: 45, 63: 59, 69: 78, 75: 100 }, "rating", "ranking");
+  assert(changes.ranks > 0);
+  if (attribute === "maximum_speed") {
+    assert(group.every(p => p === edited || p.maximum_speed < edited.maximum_speed));
+    assert(changes.changedTeams.size > 1);
+  } else {
+    assert.equal(changes.ratings, 1);
+  }
+}
+
+function rightTackleEdit(players, edited) {
+  const skill = players.filter(p => skillPositions.test(p.position));
+  for (const player of skill.filter(p => p.team === edited.team)) player.kick_return_maximum_speed = edited.maximum_speed;
+  const returns = rateGroup(skill, { running_speed: 20, kick_return_maximum_speed: 60, ball_control: 10 },
+    10, { 75: 5, 81: 25, 88: 60, 94: 100 }, "kick_return_rating", "kick_return_ranking");
+  assert(returns.ratings > 0 && returns.ranks > 0);
+  rateGroup(players.filter(p => positions.ol.test(p.position)), { maximum_speed: 20 },
+    80, { 31: 0, 38: 15, 44: 30, 50: 45, 56: 55, 63: 65, 69: 80, 75: 90, 81: 100 }, "rating", "ranking");
 }
 
 export function verifyRosterEdits(checkout, baseline, runRebuilds, listFiles) {
   const directory = path.join(checkout, "data");
   const file = name => path.join(directory, name);
-  const source = name => JSON.parse(baseline.get(name));
-  const read = name => JSON.parse(readFileSync(file(name)));
-  for (const [attribute, value] of [["hitting_power", 50], ["maximum_speed", 81]]) {
+  const scenarios = [
+    { position: "LE", attribute: "hitting_power", value: 50, predict: defensiveEdit },
+    { position: "LE", attribute: "maximum_speed", value: 81, predict: defensiveEdit },
+    { position: "RT", attribute: "maximum_speed", value: 50, predict: rightTackleEdit },
+  ];
+  for (const { position, attribute, value, predict } of scenarios) {
     for (const [name, bytes] of baseline) writeFileSync(file(name), bytes);
-    const originalLine = source("team-ratings.json").flatMap(({ team }) => source(team + ".json").players)
-      .filter(player => ["RE", "NT", "LE"].includes(player.position))
-      .sort((a, b) => a.ranking - b.ranking);
-    const roster = source("eagles.json");
-    const edited = roster.players.find(p => p.position === "LE");
+    const records = JSON.parse(baseline.get("team-ratings.json"));
+    const rosters = new Map(records.map(({ team }) => [team, JSON.parse(baseline.get(team + ".json"))]));
+    const eagles = rosters.get("eagles");
+    const edited = eagles.players.find(p => p.position === position);
     assert.notEqual(edited[attribute], value);
     edited[attribute] = value;
-    writeFileSync(file("eagles.json"), JSON.stringify(roster));
+    writeFileSync(file("eagles.json"), JSON.stringify(eagles));
+    predict([...rosters.values()].flatMap(team => team.players), edited, attribute);
     runRebuilds();
-    const expected = expectedLine(originalLine.map(player =>
-      player.team === "Eagles" && player.position === "LE" ? { ...player, [attribute]: value } : { ...player }));
-    const bySlot = new Map(expected.map(p => [p.team.toLowerCase() + "/" + p.position, p]));
-    const updatedTeams = new Set();
-    let ratings = 0, ranks = 0;
-    const teamRecords = source("team-ratings.json");
-    const actualRecords = read("team-ratings.json");
-    assert.deepEqual(actualRecords.map(r => r.team), teamRecords.map(r => r.team));
-    const allowed = new Set(["team-ratings.json"]);
-    for (const [i, record] of teamRecords.entries()) {
-      const name = record.team + ".json";
-      const original = source(name);
-      let sumChange = 0;
-      for (const player of original.players) {
-        const next = bySlot.get(record.team + "/" + player.position);
-        if (!next) continue;
-        sumChange += parseInt(next.rating) - parseInt(player.rating);
-        if (next.rating !== player.rating) {
-          ratings++;
-          updatedTeams.add(record.team);
-        }
-        if (next.ranking !== player.ranking) ranks++;
-        Object.assign(player, { rating: next.rating, ranking: next.ranking });
-        if (record.team === "eagles" && player.position === "LE") player[attribute] = value;
-      }
-      assert.deepEqual(read(name), original, name);
-      allowed.add(name);
-      // Only these three team fields depend on defensive line ratings. The exact
-      // rounding verifier below independently checks their values in the edited checkout.
+
+    assert.deepEqual(new Set(listFiles(directory)), new Set(baseline.keys()));
+    const actualRecords = JSON.parse(readFileSync(file("team-ratings.json")));
+    assert.deepEqual(actualRecords.map(r => r.team), records.map(r => r.team));
+    for (const [i, record] of records.entries()) {
+      const team = rosters.get(record.team);
+      assert.deepEqual(JSON.parse(readFileSync(file(record.team + ".json"))), team, record.team);
+      const kickReturner = team.players.filter(p => skillPositions.test(p.position))
+        .sort((a, b) => parseInt(b.kick_return_rating) - parseInt(a.kick_return_rating))[0];
+      record.selected_lineups.kr = `${kickReturner.name} (${kickReturner.position})`;
       const actual = actualRecords[i];
-      if (sumChange !== 0) {
-        for (const field of ["defensive_rating", "overall_rating"]) {
-          assert.notEqual(record[field], actual[field]);
-          record[field] = actual[field];
-        }
-        assert.notEqual(record.components.dl_group, actual.components.dl_group);
-        record.components.dl_group = actual.components.dl_group;
+      // The rounding verifier below checks every numeric field against the edited rosters.
+      const changed = position === "RT"
+        ? ["ol_line", "return_room", "running_offense", "passing_offense", "balanced_offense", "offensive_rating", "overall_rating"]
+        : ["dl_group", "defensive_rating", "overall_rating"];
+      for (const field of changed) {
+        if (field in record.components) record.components[field] = actual.components[field];
+        else record[field] = actual[field];
       }
       assert.deepEqual(actual, record, record.team);
     }
-    assert.deepEqual(new Set(listFiles(directory)), new Set(baseline.keys()));
+    const rebuiltFiles = new Set(["team-ratings.json", ...records.map(record => record.team + ".json")]);
     for (const [name, bytes] of baseline) {
-      if (!allowed.has(name)) assert(readFileSync(file(name)).equals(bytes), name);
-    }
-    assert(ranks > 0);
-    if (attribute === "maximum_speed") {
-      assert(value > Math.max(...originalLine.map(p => p.maximum_speed)));
-      assert(updatedTeams.size > 1);
-    } else {
-      assert.equal(ratings, 1);
+      if (!rebuiltFiles.has(name)) {
+        assert(readFileSync(file(name)).equals(bytes), name);
+      }
     }
     execFileSync(process.execPath, ["scripts/verify/teams/rounding.mjs"], { cwd: checkout, stdio: ["ignore", "ignore", "inherit"] });
-    console.log(`${attribute} edit: verified ${ratings} rating changes across ${updatedTeams.size} teams, ${ranks} rank changes, and league-wide roster and team outputs.`);
+    console.log(`Verified Eagles ${position} ${attribute} edit across all ${records.length} teams.`);
   }
 }
