@@ -1,3 +1,4 @@
+import { comparePlayerRanks } from "./compare-player-ranks.mjs";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -154,17 +155,7 @@ async function rebuildDefensiveAggregate(config) {
       rating: computeRating(player, config.columns, maxima),
       hittingPower: getNumericValue(player, "hitting_power"),
     }))
-    .sort((left, right) => {
-      if (left.rating !== right.rating) {
-        return right.rating - left.rating;
-      }
-
-      if (left.hittingPower !== right.hittingPower) {
-        return right.hittingPower - left.hittingPower;
-      }
-
-      return left.sourceIndex - right.sourceIndex;
-    })
+    .sort(comparePlayerRanks)
     .map(({ player, rating }, index) => {
       const nextPlayer = {
         ...player,

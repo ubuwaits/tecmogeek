@@ -1,0 +1,24 @@
+import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
+
+export const skillPositions = /^(RB|WR|TE)\d+$/;
+export const positions = {
+  qb: /^QB\d+$/, rushers: skillPositions, receivers: skillPositions,
+  "kick-returners": skillPositions, "punt-returners": skillPositions,
+  ol: /^(C|LG|RG|LT|RT)$/, dl: /^(RE|NT|LE)$/, lb: /^(ROLB|RILB|LILB|LOLB)$/,
+  "cb-s": /^(RCB|LCB|FS|SS)$/, k: /^K$/, p: /^P$/,
+};
+
+export function read(file) {
+  return JSON.parse(readFileSync(new URL("../data/" + file, import.meta.url), "utf8"));
+}
+
+export function key(player) {
+  return [player.team, player.position, player.name].join("|");
+}
+
+export function indexPlayers(players, source) {
+  const indexed = new Map(players.map(player => [key(player), player]));
+  assert.equal(indexed.size, players.length, `Duplicate player in ${source}`);
+  return indexed;
+}

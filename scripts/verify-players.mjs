@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { indexPlayers, key, positions, read, skillPositions } from "./player-ranking-data.mjs";
 import { init } from "z3-solver";
 import { POSITION_PAGES } from "../lib/players/config.ts";
 import { getTeamFileNames } from "./rebuild-team-ratings.ts";
@@ -13,13 +13,6 @@ const { Int, Real, ToInt, ToReal, Solver, Sum, If, Or, substitute, simplify } = 
 const skillHP = { 75: 5, 81: 25, 88: 60, 94: 100 };
 const lineHP = { 31: 0, 38: 15, 44: 30, 50: 45, 56: 55, 63: 65, 69: 80, 75: 90, 81: 100 };
 const defenseHP = { 19: 0, 25: 7, 31: 16, 38: 23, 44: 30, 50: 36, 56: 45, 63: 59, 69: 78, 75: 100 };
-const skillPositions = /^(RB|WR|TE)\d+$/;
-const positions = {
-  qb: /^QB\d+$/, rushers: skillPositions, receivers: skillPositions,
-  "kick-returners": skillPositions, "punt-returners": skillPositions,
-  ol: /^(C|LG|RG|LT|RT)$/, dl: /^(RE|NT|LE)$/, lb: /^(ROLB|RILB|LILB|LOLB)$/,
-  "cb-s": /^(RCB|LCB|FS|SS)$/, k: /^K$/, p: /^P$/,
-};
 // QB, kicker and punter ratings have published weights but no rebuild script.
 const publishedOnlyWeights = {
   qb: { maximum_speed: 25, passing_speed: 20, pass_control: 50, avoid_pass_block: 5 },
@@ -35,20 +28,6 @@ for (const config of [...offense.SKILL_CONFIGS, offense.OL_CONFIG]) {
 }
 for (const config of defense.DEFENSIVE_CONFIGS) {
   models.set(config.fileName, { config, engine: defense, ladder: defense.DEFENSIVE_HP_SCORE_MAP, specLadder: defenseHP });
-}
-
-function read(file) {
-  return JSON.parse(readFileSync(new URL("../data/" + file, import.meta.url), "utf8"));
-}
-
-function key(player) {
-  return [player.team, player.position, player.name].join("|");
-}
-
-function indexPlayers(players, source) {
-  const indexed = new Map(players.map(player => [key(player), player]));
-  assert.equal(indexed.size, players.length, `Duplicate player in ${source}`);
-  return indexed;
 }
 
 function ladderScore(raw, ladder) {
