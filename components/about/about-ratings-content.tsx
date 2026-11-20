@@ -6,6 +6,10 @@ import { useState } from "react";
 
 import { SelectionTabs } from "@/components/ui/selection-tabs";
 
+import { POSITION_PAGE_CONFIG_MAP } from "@/lib/players/config";
+import { DEFENSIVE_HP_SCORE_MAP, OFFENSIVE_HP_SCORE_MAP, OFFENSIVE_LINE_HP_SCORE_MAP } from "@/lib/players/metrics";
+import type { PositionSlug } from "@/lib/types";
+
 const RATING_TOPIC_TABS = [
   { id: "player", label: "Player Ratings" },
   { id: "team", label: "Team Ratings" },
@@ -37,6 +41,20 @@ function RatingsTable({
       </tbody>
     </table>
   );
+}
+
+function WeightTable({ slug }: { slug: PositionSlug }) {
+  const rows = POSITION_PAGE_CONFIG_MAP[slug].columns.map(({ tooltip, weight }) => [tooltip, weight + "%"]);
+  return <RatingsTable headings={["Attribute", "Weight"]} rows={rows} />;
+}
+
+function HittingPowerTable({ scores, showLowerBand = false }: {
+  scores: Record<number, number>;
+  showLowerBand?: boolean;
+}) {
+  const rows = Object.entries(scores).map(([value, score]) => [value, score + "%"]);
+  if (showLowerBand) rows.unshift(["Below " + Math.min(...Object.keys(scores).map(Number)), "0%"]);
+  return <RatingsTable headings={["Hitting Power", "Score"]} rows={rows} />;
 }
 
 function RatingCalculation({
@@ -209,170 +227,50 @@ export function AboutRatingsContent() {
         </figure>
 
         <h3>QB</h3>
-        <RatingsTable
-          headings={["Attribute", "Weight"]}
-          rows={[
-            ["Maximum Speed", "25%"],
-            ["Passing Speed", "20%"],
-            ["Pass Control", "50%"],
-            ["Avoid Pass Block", "5%"],
-          ]}
-        />
+        <WeightTable slug="qb" />
 
         <h3>Rushers (all RB, WR, TE receive a rusher rating)</h3>
-        <RatingsTable
-          headings={["Attribute", "Weight"]}
-          rows={[
-            ["Running Speed", "10%"],
-            ["Maximum Speed", "70%"],
-            ["Hitting Power", "10%"],
-            ["Ball Control", "5%"],
-            ["Receptions", "5%"],
-          ]}
-        />
+        <WeightTable slug="rushers" />
 
         <h3>Receivers (all RB, WR, TE receive a receiver rating)</h3>
-        <RatingsTable
-          headings={["Attribute", "Weight"]}
-          rows={[
-            ["Running Speed", "10%"],
-            ["Maximum Speed", "45%"],
-            ["Hitting Power", "5%"],
-            ["Ball Control", "5%"],
-            ["Receptions", "35%"],
-          ]}
-        />
+        <WeightTable slug="receivers" />
 
         <h3>Kick Returners (all RB, WR, TE receive a kick returner rating)</h3>
-        <RatingsTable
-          headings={["Attribute", "Weight"]}
-          rows={[
-            ["Running Speed", "20%"],
-            ["Maximum Speed", "60%"],
-            ["Hitting Power", "10%"],
-            ["Ball Control", "10%"],
-          ]}
-        />
+        <WeightTable slug="kick-returners" />
 
         <h3>Punt Returners (all RB, WR, TE receive a punt returner rating)</h3>
-        <RatingsTable
-          headings={["Attribute", "Weight"]}
-          rows={[
-            ["Running Speed", "20%"],
-            ["Maximum Speed", "70%"],
-            ["Hitting Power", "10%"],
-          ]}
-        />
+        <WeightTable slug="punt-returners" />
 
         <h3>A note about hitting power for RBs, WRs and TEs</h3>
         <p>Hitting Power uses these score bands for rusher, receiver and returner ratings:</p>
-        <RatingsTable
-          headings={["Hitting Power", "Score"]}
-          rows={[
-            ["Below 75", "0%"],
-            [75, "5%"],
-            [81, "25%"],
-            [88, "60%"],
-            [94, "100%"],
-          ]}
-        />
+        <HittingPowerTable scores={OFFENSIVE_HP_SCORE_MAP} showLowerBand />
         <p>
           Rankings still use higher raw hitting power as the tiebreak when two offensive players have the same displayed rating.
         </p>
 
         <h3>OL</h3>
-        <RatingsTable
-          headings={["Attribute", "Weight"]}
-          rows={[
-            ["Maximum Speed", "20%"],
-            ["Hitting Power", "80%"],
-          ]}
-        />
+        <WeightTable slug="ol" />
         <p>OL Hitting Power uses these score bands:</p>
-        <RatingsTable
-          headings={["Hitting Power", "Score"]}
-          rows={[
-            [31, "0%"],
-            [38, "15%"],
-            [44, "30%"],
-            [50, "45%"],
-            [56, "55%"],
-            [63, "65%"],
-            [69, "80%"],
-            [75, "90%"],
-            [81, "100%"],
-          ]}
-        />
+        <HittingPowerTable scores={OFFENSIVE_LINE_HP_SCORE_MAP} />
 
         <h3>DL</h3>
-        <RatingsTable
-          headings={["Attribute", "Weight"]}
-          rows={[
-            ["Running Speed", "10%"],
-            ["Rushing Power", "35%"],
-            ["Maximum Speed", "10%"],
-            ["Hitting Power", "40%"],
-            ["Pass Interceptions", "5%"],
-          ]}
-        />
+        <WeightTable slug="dl" />
 
         <h3>LB</h3>
-        <RatingsTable
-          headings={["Attribute", "Weight"]}
-          rows={[
-            ["Running Speed", "10%"],
-            ["Rushing Power", "35%"],
-            ["Maximum Speed", "10%"],
-            ["Hitting Power", "30%"],
-            ["Pass Interceptions", "15%"],
-          ]}
-        />
+        <WeightTable slug="lb" />
 
         <h3>CB/S</h3>
-        <RatingsTable
-          headings={["Attribute", "Weight"]}
-          rows={[
-            ["Running Speed", "10%"],
-            ["Rushing Power", "35%"],
-            ["Maximum Speed", "10%"],
-            ["Hitting Power", "5%"],
-            ["Pass Interceptions", "40%"],
-          ]}
-        />
+        <WeightTable slug="cb-s" />
         <p>
           Defensive Hitting Power uses these score bands for DL, LB and CB/S ratings:
         </p>
-        <RatingsTable
-          headings={["Hitting Power", "Score"]}
-          rows={[
-            [19, "0%"],
-            [25, "7%"],
-            [31, "16%"],
-            [38, "23%"],
-            [44, "30%"],
-            [50, "36%"],
-            [56, "45%"],
-            [63, "59%"],
-            [69, "78%"],
-            [75, "100%"],
-          ]}
-        />
+        <HittingPowerTable scores={DEFENSIVE_HP_SCORE_MAP} />
 
         <h3>K</h3>
-        <RatingsTable
-          headings={["Attribute", "Weight"]}
-          rows={[
-            ["Kicking Ability", "100%"],
-          ]}
-        />
+        <WeightTable slug="k" />
 
         <h3>P</h3>
-        <RatingsTable
-          headings={["Attribute", "Weight"]}
-          rows={[
-            ["Kicking Ability", "100%"],
-          ]}
-        />
+        <WeightTable slug="p" />
 
         <h2>
           Example: ratings for Jerry Rice and Bo Jackson

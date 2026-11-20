@@ -33,7 +33,7 @@ try {
   rmSync(path.join(checkout, "scripts"), { recursive: true });
   cpSync(path.join(root, "scripts"), path.join(checkout, "scripts"), { recursive: true });
 
-  for (const modulePath of ["lib/teams/slugs.mts", "lib/players/return-speeds.mts"]) {
+  for (const modulePath of ["lib/teams/slugs.mts", "lib/players/return-speeds.mts", "lib/players/metrics.ts"]) {
     cpSync(path.join(root, modulePath), path.join(checkout, modulePath));
   }
 

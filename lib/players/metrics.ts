@@ -94,3 +94,35 @@ export const KICKER_COLUMNS: readonly MetricColumn[] = [
 export const PUNTER_COLUMNS: readonly MetricColumn[] = [
   metricColumn("kicking_ability", 100),
 ];
+
+export const OFFENSIVE_HP_SCORE_MAP = {
+  75: 5,
+  81: 25,
+  88: 60,
+  94: 100,
+};
+
+export const OFFENSIVE_LINE_HP_SCORE_MAP = {
+  31: 0,
+  38: 15,
+  44: 30,
+  50: 45,
+  56: 55,
+  63: 65,
+  69: 80,
+  75: 90,
+  81: 100,
+};
+
+export const DEFENSIVE_HP_SCORE_MAP = {
+  19: 0,
+  25: 7,
+  31: 16,
+  38: 23,
+  44: 30,
+  50: 36,
+  56: 45,
+  63: 59,
+  69: 78,
+  75: 100,
+};

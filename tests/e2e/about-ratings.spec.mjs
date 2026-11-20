@@ -1,12 +1,11 @@
+import { expectedWeights, skillHP, lineHP, defenseHP } from "../../scripts/verify/players/rating-spec.mjs";
 import { readFileSync } from "node:fs";
 import { expect, test } from "@playwright/test";
 import { createRequire } from "node:module";
-import { DEFENSIVE_HP_SCORE_MAP } from "../../scripts/rebuild/defensive-ratings.mjs";
-import { OFFENSIVE_HP_SCORE_MAP, OFFENSIVE_LINE_HP_SCORE_MAP } from "../../scripts/rebuild/offensive-ratings.mjs";
 
 const require = createRequire(import.meta.url);
 const { POSITION_PAGES } = require("../../lib/players/config.ts");
-const { RECEIVING_COLUMNS, RUSHING_COLUMNS } = require("../../lib/players/metrics.ts");
+const { RECEIVING_COLUMNS } = require("../../lib/players/metrics.ts");
 const { TEAM_SLUGS } = require("../../lib/types.ts");
 
 const weightHeadings = {
@@ -34,13 +33,15 @@ test("published weights and hitting-power lookups match the player formulas", as
     const heading = weightHeadings[slug];
     const title = content.getByRole("heading", { name: new RegExp(`^${heading}(?:$| )`) }).last();
     const table = title.locator("xpath=following-sibling::*[1]").and(weights);
-    await expectTable(table, [["Attribute", "Weight"], ...columns.map(column => [column.tooltip, column.weight + "%"])], slug);
+    const rows = Object.entries(expectedWeights[slug]).map(([key, weight]) =>
+      [columns.find(column => column.key === key).tooltip, weight + "%"]);
+    await expectTable(table, [["Attribute", "Weight"], ...rows], slug);
   }
 
   const ladders = [
-    ["Hitting Power uses these score bands for rusher", OFFENSIVE_HP_SCORE_MAP, true],
-    ["OL Hitting Power uses these score bands", OFFENSIVE_LINE_HP_SCORE_MAP, false],
-    ["Defensive Hitting Power uses these score bands", DEFENSIVE_HP_SCORE_MAP, false],
+    ["Hitting Power uses these score bands for rusher", skillHP, true],
+    ["OL Hitting Power uses these score bands", lineHP, false],
+    ["Defensive Hitting Power uses these score bands", defenseHP, false],
   ];
   await expect(tables.filter({ has: page.getByRole("columnheader", { name: "Hitting Power" }) })).toHaveCount(ladders.length);
   for (const [intro, ladder, hasLowerBand] of ladders) {
@@ -62,8 +63,8 @@ test("Rice and Jackson examples agree with raw rosters at each displayed precisi
     .filter(player => /^(RB|WR|TE)\d+$/.test(player.position));
   expect(pool).toHaveLength(280);
   const roles = [
-    { columns: RECEIVING_COLUMNS, intro: "Here are the ratings for each player as a receiver:", ratingKey: "receiving_rating" },
-    { columns: RUSHING_COLUMNS, intro: "Now here are their rusher ratings:", ratingKey: "rushing_rating" },
+    { weights: expectedWeights.receivers, intro: "Here are the ratings for each player as a receiver:", ratingKey: "receiving_rating" },
+    { weights: expectedWeights.rushers, intro: "Now here are their rusher ratings:", ratingKey: "rushing_rating" },
   ];
   for (const [index, name] of ["Jerry Rice", "Bo Jackson"].entries()) {
     const matches = pool.filter(player => player.name === name);
@@ -75,7 +76,7 @@ test("Rice and Jackson examples agree with raw rosters at each displayed precisi
     for (const { key, tooltip } of RECEIVING_COLUMNS) {
       const raw = player[key];
       const hp = key === "hitting_power";
-      const numerator = BigInt(hp ? OFFENSIVE_HP_SCORE_MAP[raw] ?? 0 : raw);
+      const numerator = BigInt(hp ? skillHP[raw] ?? 0 : raw);
       const denominator = BigInt(hp ? 100 : Math.max(...pool.map(p => p[key])));
       const basisPoints = rounded(numerator, denominator, 10000);
       scores.set(key, { numerator, denominator, basisPoints });
@@ -84,11 +85,11 @@ test("Rice and Jackson examples agree with raw rosters at each displayed precisi
     const heading = content.getByRole("heading", { name: surname, exact: true });
     await expectTable(heading.locator("xpath=following-sibling::*[1]"), rows, name);
 
-    for (const { columns, intro, ratingKey } of roles) {
+    for (const { weights, intro, ratingKey } of roles) {
       const terms = [];
       let total = 0n;
       let divisor = 1n;
-      for (const { key, weight } of columns) {
+      for (const [key, weight] of Object.entries(weights)) {
         const { numerator, denominator, basisPoints } = scores.get(key);
         total = total * denominator + BigInt(weight) * numerator * divisor;
         divisor *= denominator;
