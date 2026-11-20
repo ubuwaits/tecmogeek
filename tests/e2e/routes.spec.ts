@@ -1,7 +1,8 @@
-import { readdirSync } from "node:fs";
+import { readFileSync, readdirSync } from "node:fs";
 import { relative, resolve } from "node:path";
 import { expect, test } from "@playwright/test";
 
+import { POSITION_PAGES } from "../../lib/players/config";
 import { POSITION_SLUGS, TEAM_SLUGS } from "../../lib/types";
 
 const site = "https://www.tecmogeek.com";
@@ -10,7 +11,18 @@ const players = POSITION_SLUGS.map(slug => `/players/${slug}/`);
 const routes = ["/", "/about/ratings/", "/teams/", ...teams, ...players];
 const output = resolve("out");
 
-test("public HTML, canonical URLs, sitemap and internal links agree", async ({ page, request }) => {
+const socialTitles = new Map<string, string>([
+  ["/", "Comprehensive guide to player attributes and rankings in Tecmo Super Bowl for NES."],
+  ["/about/ratings/", "About player and team ratings"],
+  ["/teams/", "Team Ratings"],
+]);
+for (const slug of TEAM_SLUGS) {
+  const roster = JSON.parse(readFileSync(resolve("data", slug + ".json"), "utf8"));
+  socialTitles.set(`/teams/${slug}/`, roster.full_name);
+}
+for (const { slug, title } of POSITION_PAGES) socialTitles.set(`/players/${slug}/`, title);
+
+test("public HTML, canonical URLs, Open Graph tags, sitemap and internal links agree", async ({ page, request }) => {
   const files = readdirSync(output, { recursive: true, withFileTypes: true })
     .filter(entry => entry.isFile()).map(entry => relative(output, resolve(entry.parentPath, entry.name)));
   const auxiliary = new Set(["404.html", "404/index.html", "_not-found/index.html", "google146824b99fdbed48.html"]);
@@ -43,6 +55,8 @@ test("public HTML, canonical URLs, sitemap and internal links agree", async ({ p
       const doc = new DOMParser().parseFromString(html, "text/html");
       return {
         canonicals: Array.from(doc.querySelectorAll('link[rel~="canonical" i]'), link => link.getAttribute("href")),
+        socialUrls: Array.from(doc.querySelectorAll('meta[property="og:url"]'), el => el.getAttribute("content")),
+        socialTitles: Array.from(doc.querySelectorAll('meta[property="og:title"]'), el => el.getAttribute("content")),
         base: doc.querySelector("base[href]")?.getAttribute("href"),
         links: Array.from(doc.querySelectorAll("a[href], area[href]"), a => a.getAttribute("href")!),
         ids: [...Array.from(doc.querySelectorAll("[id]"), el => el.id),
@@ -50,6 +64,8 @@ test("public HTML, canonical URLs, sitemap and internal links agree", async ({ p
       };
     }, await response.text());
     expect(parsed.canonicals, route).toEqual([site + route]);
+    expect(parsed.socialUrls, route).toEqual([site + route]);
+    expect(parsed.socialTitles, route).toEqual([socialTitles.get(route)]);
     fragments.set(route, new Set(parsed.ids));
     const base = new URL(parsed.base ?? "", site + route);
     for (const href of parsed.links) {

@@ -2,23 +2,14 @@ import type { Metadata, ResolvingMetadata } from "next";
 
 import { TeamRatingsView } from "@/components/team-ratings-view";
 import { getTeamRatings } from "@/lib/data";
-import { mergeOpenGraph } from "@/lib/metadata";
+import { pageMetadata } from "@/lib/metadata";
 import { teamsRoute } from "@/lib/routes";
 
 export async function generateMetadata(
   _: unknown,
   parent: ResolvingMetadata,
 ): Promise<Metadata> {
-  return {
-    title: "Team Ratings",
-    alternates: {
-      canonical: teamsRoute,
-    },
-    openGraph: await mergeOpenGraph(parent, {
-      url: teamsRoute,
-      title: "Team Ratings",
-    }),
-  };
+  return pageMetadata(parent, "Team Ratings", teamsRoute);
 }
 
 export default async function TeamsPage() {

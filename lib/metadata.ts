@@ -1,18 +1,11 @@
-import type { Metadata, ResolvingMetadata } from "next";
+import type { Metadata, ResolvingMetadata, Route } from "next";
 
 export const SOCIAL_IMAGE_PATH = "/social-image.png";
 
-type OpenGraphMetadata = NonNullable<Metadata["openGraph"]>;
-
-export async function mergeOpenGraph(
-  parent: ResolvingMetadata,
-  openGraph: Partial<OpenGraphMetadata>,
-): Promise<Metadata["openGraph"]> {
-  const parentOpenGraph = (await parent).openGraph;
-
+export async function pageMetadata(parent: ResolvingMetadata, title: string, route: Route): Promise<Metadata> {
   return {
-    ...(parentOpenGraph ?? {}),
-    ...openGraph,
-    url: openGraph.url ?? parentOpenGraph?.url ?? undefined,
+    title,
+    alternates: { canonical: route },
+    openGraph: { ...(await parent).openGraph, title, url: route },
   };
 }

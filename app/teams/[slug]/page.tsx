@@ -6,7 +6,7 @@ import { TeamRatingSummaryCards } from "@/components/team-rating-summary-cards";
 import { HelmetSprite } from "@/components/sprites";
 import { TeamPlayerListsView } from "@/components/team-player-lists-view";
 import { getTeam, getTeamRatings } from "@/lib/data";
-import { mergeOpenGraph } from "@/lib/metadata";
+import { pageMetadata } from "@/lib/metadata";
 import { teamRoute, teamsRoute } from "@/lib/routes";
 import { getTeamRatingSummaries } from "@/lib/team-rating-utils";
 import { isTeamSlug, TEAM_SLUG_SET } from "@/lib/teams/config";
@@ -29,16 +29,7 @@ export async function generateMetadata(
 
   const team = await getTeam(slug);
 
-  return {
-    title: team.full_name,
-    alternates: {
-      canonical: teamRoute(team.short_name),
-    },
-    openGraph: await mergeOpenGraph(parent, {
-      url: teamRoute(team.short_name),
-      title: team.full_name,
-    }),
-  };
+  return pageMetadata(parent, team.full_name, teamRoute(team.short_name));
 }
 
 export default async function TeamPage({ params }: TeamPageProps) {

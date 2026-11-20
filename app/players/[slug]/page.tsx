@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 
 import { PlayerListView } from "@/components/player-list-view";
 import { getPositionEntries } from "@/lib/data";
-import { mergeOpenGraph } from "@/lib/metadata";
+import { pageMetadata } from "@/lib/metadata";
 import { getPositionPageConfig, POSITION_PAGES } from "@/lib/players/config";
 import { playerRoute } from "@/lib/routes";
 
@@ -24,16 +24,7 @@ export async function generateMetadata(
     return {};
   }
 
-  return {
-    title: config.title,
-    alternates: {
-      canonical: playerRoute(config.slug),
-    },
-    openGraph: await mergeOpenGraph(parent, {
-      url: playerRoute(config.slug),
-      title: config.title,
-    }),
-  };
+  return pageMetadata(parent, config.title, playerRoute(config.slug));
 }
 
 export default async function PlayerPage({ params }: PlayerPageProps) {
