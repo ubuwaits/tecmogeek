@@ -1,7 +1,7 @@
 import { rejectCounterexample } from "../reject-counterexample.mjs";
 import assert from "node:assert/strict";
 import { init } from "z3-solver";
-import { sortEntriesByKey } from "../../../lib/player-sort.ts";
+import { sortEntriesByKey } from "../../../lib/players/sort.ts";
 import { POSITION_PAGES } from "../../../lib/players/config.ts";
 import { indexPlayers, key, positions, read } from "../roster-data.mjs";
 import { getTeamFileNames } from "../../rebuild/team-ratings.ts";

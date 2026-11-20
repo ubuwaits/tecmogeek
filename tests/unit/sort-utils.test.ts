@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { getNextSortDirection } from "@/lib/sort-utils";
+import { getNextSortDirection } from "@/lib/shared/sort-direction";
 
 describe("sort utilities", () => {
   it("toggles the active column direction on repeated clicks", () => {

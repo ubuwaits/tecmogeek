@@ -15,8 +15,8 @@ import {
   TEAM_SKILL_MODES,
   TEAM_SKILL_RANGE,
 } from "@/lib/teams/config";
-import { getTeamReturnSpeedValues, sortEntriesByKey } from "@/lib/player-utils";
-import { playerRoute } from "@/lib/routes";
+import { getTeamReturnSpeedValues, sortEntriesByKey } from "@/lib/players/utils";
+import { playerRoute } from "@/lib/site/routes";
 import type {
   PlayerMetricKey,
   PlayerRecord,

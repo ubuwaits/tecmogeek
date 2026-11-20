@@ -1,4 +1,4 @@
-import type { TeamRatingSummaryItem } from "@/lib/team-rating-utils";
+import type { TeamRatingSummaryItem } from "@/lib/teams/ratings";
 
 type TeamRatingSummaryCardsProps = {
   items: readonly TeamRatingSummaryItem[];

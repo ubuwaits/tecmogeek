@@ -10,7 +10,7 @@ import {
   matchesPrefixes,
   parsePercent,
   sortEntriesByKey,
-} from "@/lib/player-utils";
+} from "@/lib/players/utils";
 import { POSITION_PAGE_CONFIG_MAP } from "@/lib/players/config";
 
 describe("player utilities", () => {

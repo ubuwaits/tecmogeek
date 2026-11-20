@@ -5,8 +5,8 @@ import { HeadshotSprite, HelmetSprite } from "@/components/ui/sprites";
 import { XMentionsSection } from "@/components/home/x-mentions-section";
 import { getPositionEntries, getTeam } from "@/lib/data";
 import { POSITION_PAGES } from "@/lib/players/config";
-import { getHomeEntries, getTeamSlugFromCode } from "@/lib/player-utils";
-import { homeRoute, playerRoute, teamRoute } from "@/lib/routes";
+import { getHomeEntries, getTeamSlugFromCode } from "@/lib/players/utils";
+import { homeRoute, playerRoute, teamRoute } from "@/lib/site/routes";
 
 export const metadata: Metadata = {
   title: "Comprehensive guide to Tecmo Super Bowl for NES",

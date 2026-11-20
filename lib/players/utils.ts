@@ -9,7 +9,7 @@ import type {
 } from "@/lib/types";
 import { HEADSHOT_POSITIONS } from "@/lib/types";
 
-export { getSortValue, parsePercent, sortEntriesByKey } from "@/lib/player-sort";
+export { getSortValue, parsePercent, sortEntriesByKey } from "@/lib/players/sort";
 
 export function matchesPrefixes(position: string, prefixes: readonly string[]): boolean {
   if (prefixes.length === 0) {

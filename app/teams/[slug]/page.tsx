@@ -6,9 +6,9 @@ import { TeamRatingSummaryCards } from "@/components/teams/team-rating-summary-c
 import { HelmetSprite } from "@/components/ui/sprites";
 import { TeamPlayerListsView } from "@/components/teams/team-player-lists-view";
 import { getTeam, getTeamRatings } from "@/lib/data";
-import { pageMetadata } from "@/lib/metadata";
-import { teamRoute, teamsRoute } from "@/lib/routes";
-import { getTeamRatingSummaries } from "@/lib/team-rating-utils";
+import { pageMetadata } from "@/lib/site/metadata";
+import { teamRoute, teamsRoute } from "@/lib/site/routes";
+import { getTeamRatingSummaries } from "@/lib/teams/ratings";
 import { isTeamSlug, TEAM_SLUG_SET } from "@/lib/teams/config";
 
 type TeamPageProps = PageProps<"/teams/[slug]">;

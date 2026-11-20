@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import { PLAYER_NAV_GROUPS } from "@/lib/players/config";
-import { aboutRatingsRoute, homeRoute, playerRoute, teamRoute, teamsRoute } from "@/lib/routes";
+import { aboutRatingsRoute, homeRoute, playerRoute, teamRoute, teamsRoute } from "@/lib/site/routes";
 import { TEAM_GROUPS, getTeamLabel } from "@/lib/teams/config";
 import { HelmetSprite } from "@/components/ui/sprites";
 

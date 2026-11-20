@@ -2,8 +2,8 @@ import type { Metadata, ResolvingMetadata } from "next";
 
 import { AboutRatingsContent } from "@/components/about/about-ratings-content";
 import { ArticlePage } from "@/components/layout/article-page";
-import { pageMetadata } from "@/lib/metadata";
-import { aboutRatingsRoute } from "@/lib/routes";
+import { pageMetadata } from "@/lib/site/metadata";
+import { aboutRatingsRoute } from "@/lib/site/routes";
 
 export async function generateMetadata(
   _: PageProps<"/about/ratings">,

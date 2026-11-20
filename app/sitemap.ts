@@ -1,8 +1,8 @@
 import type { MetadataRoute } from "next";
 
 import { POSITION_PAGES } from "@/lib/players/config";
-import { homeRoute, aboutRatingsRoute, playerRoute, teamRoute, teamsRoute } from "@/lib/routes";
-import { SITE_URL } from "@/lib/site";
+import { homeRoute, aboutRatingsRoute, playerRoute, teamRoute, teamsRoute } from "@/lib/site/routes";
+import { SITE_URL } from "@/lib/site/origin";
 import { TEAM_SLUG_SET } from "@/lib/teams/config";
 
 export const dynamic = "force-static";

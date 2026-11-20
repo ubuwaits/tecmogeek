@@ -5,7 +5,7 @@ import {
   getTeamRatingSortValue,
   getTeamRatingSummaries,
   sortTeamRatingsByKey,
-} from "@/lib/team-rating-utils";
+} from "@/lib/teams/ratings";
 import type { TeamRatingRecord } from "@/lib/types";
 
 const teams: TeamRatingRecord[] = [

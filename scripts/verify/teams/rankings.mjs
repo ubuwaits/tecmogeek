@@ -2,7 +2,7 @@ import { rejectCounterexample } from "../reject-counterexample.mjs";
 import assert from "node:assert/strict";
 import { read } from "../roster-data.mjs";
 import { init } from "z3-solver";
-import { getRankedTeamRows, getTeamRatingSummaries } from "../../../lib/team-rating-utils.ts";
+import { getRankedTeamRows, getTeamRatingSummaries } from "../../../lib/teams/ratings.ts";
 import { getTeamFileNames } from "../../rebuild/team-ratings.ts";
 
 const summaryKeys = ["overall_rating", "offensive_rating", "defensive_rating"];

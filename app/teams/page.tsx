@@ -2,8 +2,8 @@ import type { Metadata, ResolvingMetadata } from "next";
 
 import { TeamRatingsView } from "@/components/teams/team-ratings-view";
 import { getTeamRatings } from "@/lib/data";
-import { pageMetadata } from "@/lib/metadata";
-import { teamsRoute } from "@/lib/routes";
+import { pageMetadata } from "@/lib/site/metadata";
+import { teamsRoute } from "@/lib/site/routes";
 
 export async function generateMetadata(
   _: unknown,

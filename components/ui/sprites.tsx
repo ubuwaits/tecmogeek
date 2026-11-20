@@ -1,4 +1,4 @@
-import { getHeadshotSpriteIndex } from "@/lib/player-utils";
+import { getHeadshotSpriteIndex } from "@/lib/players/utils";
 import { TEAM_SLUGS, type TeamSlug } from "@/lib/types";
 
 type HelmetSize = "small" | "large";

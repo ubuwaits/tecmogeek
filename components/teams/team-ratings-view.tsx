@@ -6,15 +6,15 @@ import { useState } from "react";
 import { PlayerListHeaderLabel } from "@/components/ui/player-list-header-label";
 import { HelmetSprite } from "@/components/ui/sprites";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
-import { teamRoute } from "@/lib/routes";
-import { getNextSortDirection } from "@/lib/sort-utils";
+import { teamRoute } from "@/lib/site/routes";
+import { getNextSortDirection } from "@/lib/shared/sort-direction";
 import {
   formatTeamRating,
   getRankedTeamRows,
   getTeamRatingSortValue,
   sortTeamRatingsByKey,
   type TeamRatingSortKey,
-} from "@/lib/team-rating-utils";
+} from "@/lib/teams/ratings";
 import type { SortDirection, TeamRatingRecord } from "@/lib/types";
 
 type TeamRatingColumn = {

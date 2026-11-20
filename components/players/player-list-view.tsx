@@ -5,9 +5,9 @@ import { useState } from "react";
 import { PlayerListSection } from "@/components/players/player-list-table";
 import { SelectionTabs } from "@/components/ui/selection-tabs";
 import { POSITION_PAGE_CONFIG_MAP } from "@/lib/players/config";
-import { getTeamSlugFromCode, matchesPrefixes, sortEntriesByKey } from "@/lib/player-utils";
-import { teamRoute } from "@/lib/routes";
-import { getNextSortDirection } from "@/lib/sort-utils";
+import { getTeamSlugFromCode, matchesPrefixes, sortEntriesByKey } from "@/lib/players/utils";
+import { teamRoute } from "@/lib/site/routes";
+import { getNextSortDirection } from "@/lib/shared/sort-direction";
 import type {
   PlayerMetricKey,
   PlayerRecord,
