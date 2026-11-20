@@ -5,7 +5,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 
 import { POSITION_PAGE_CONFIG_MAP } from "@/lib/players/config";
-import { resolveTeamSlug } from "@/lib/teams/config";
+import { resolveTeamSlug } from "@/lib/teams/slugs.mts";
 import { leaderboardCounts, positionEntries } from "@/lib/players/leaderboard";
 import { TEAM_SLUGS } from "@/lib/types";
 import type { PlayerRecord, PositionSlug, TeamData, TeamRatingRecord, TeamSlug } from "@/lib/types";

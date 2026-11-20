@@ -2,7 +2,8 @@ import { readFileSync } from "node:fs";
 import { expect, it } from "vitest";
 import { TEAM_GROUPS } from "@/data/divisions";
 import { TEAM_SLUGS, type TeamData } from "@/lib/types";
-import { getTeamLabel, resolveTeamSlug } from "@/lib/teams/config";
+import { getTeamLabel } from "@/lib/teams/config";
+import { resolveTeamSlug } from "@/lib/teams/slugs.mts";
 
 it("uses a recognized roster short name and otherwise falls back to the route", () => {
   expect(resolveTeamSlug("bills", "bears")).toBe("bills");

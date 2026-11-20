@@ -9,7 +9,8 @@ import { getLeaderboardCounts, getTeam, getTeamRatings } from "@/lib/data";
 import { pageMetadata } from "@/lib/site/metadata";
 import { teamRoute, teamsRoute } from "@/lib/site/routes";
 import { getTeamRatingSummaries } from "@/lib/teams/ratings";
-import { isTeamSlug, TEAM_SLUG_SET } from "@/lib/teams/config";
+import { TEAM_SLUG_SET } from "@/lib/teams/config";
+import { isTeamSlug } from "@/lib/teams/slugs.mts";
 
 type TeamPageProps = PageProps<"/teams/[slug]">;
 

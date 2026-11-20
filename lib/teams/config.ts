@@ -52,14 +52,6 @@ export const TEAM_SKILL_MODES = Object.values(TEAM_SKILL_MODE_CONFIG);
 export const DEFAULT_TEAM_SKILL_MODE: TeamSkillMode = "rushing";
 export const TEAM_SKILL_RANGE = [2, 11] as const;
 
-export function isTeamSlug(slug: string): slug is TeamSlug {
-  return TEAM_SLUG_SET.has(slug as TeamSlug);
-}
-
-export function resolveTeamSlug(shortName: string, routeSlug: TeamSlug): TeamSlug {
-  return isTeamSlug(shortName) ? shortName : routeSlug;
-}
-
 export function getTeamLabel(slug: TeamSlug): string {
   return slug.charAt(0).toUpperCase() + slug.slice(1);
 }
