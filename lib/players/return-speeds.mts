@@ -1,4 +1,5 @@
-import type { PlayerRecord, TeamData } from "../types.ts";
+import { eligibleForPosition } from "./positions.mts";
+import type { TeamData } from "../types.ts";
 
 function starterSpeed(team: TeamData, position: "RT" | "SS"): number {
   const starters = team.players.filter(player => player.position === position);
@@ -14,13 +15,9 @@ export function applyReturnSpeeds(team: TeamData) {
   const kickSpeed = starterSpeed(team, "RT");
   const puntSpeed = starterSpeed(team, "SS");
   for (const player of team.players) {
-    if (isReturner(player)) {
+    if (eligibleForPosition(player, "kick-returners")) {
       player.kick_return_maximum_speed = kickSpeed;
       player.punt_return_maximum_speed = puntSpeed;
     }
   }
-}
-
-export function isReturner(player: PlayerRecord) {
-  return /^(RB|WR|TE)\d+$/.test(player.position);
 }

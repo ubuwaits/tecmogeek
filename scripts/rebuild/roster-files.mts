@@ -38,9 +38,3 @@ export async function writeTeamRosters(rosters: ReadonlyMap<string, TeamData>) {
     await fs.promises.writeFile(path.join(DATA_DIR, slug + ".json"), formatTeamFile(team), "utf8");
   }
 }
-
-export async function rebuildRosterPlayers(rebuild: (teams: TeamData[]) => void) {
-  const rosters = readTeamRosters();
-  rebuild([...rosters.values()]);
-  await writeTeamRosters(rosters);
-}

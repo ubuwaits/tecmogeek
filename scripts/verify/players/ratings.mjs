@@ -4,21 +4,17 @@ import assert from "node:assert/strict";
 import { getTeamFileNames, indexPlayers, key, positions, readRosterPlayers, skillPositions } from "../roster-data.mjs";
 import { init } from "z3-solver";
 import { POSITION_PAGES } from "../../../lib/players/config.ts";
-import * as offense from "../../rebuild/offensive-ratings.mjs";
-import { DEFENSIVE_HP_SCORE_MAP } from "../../../lib/players/metrics.ts";
-import * as defense from "../../rebuild/defensive-ratings.mjs";
+import { rebuildScales } from "../../rebuild/player-ratings.mjs";
+import { attributeMaxima, weightedRating } from "../../rebuild/player-rating.mjs";
 
 const { Context } = await init();
 const { Int, Real, ToInt, ToReal, Solver, Sum, If, Or, substitute, simplify } = new Context("players");
 
-const models = new Map();
-for (const config of [...offense.SKILL_CONFIGS, offense.OL_CONFIG]) {
-  models.set(config.slug, { config, engine: offense, ladder: config.hittingPowerScores,
-    specLadder: config.slug === "ol" ? lineHP : skillHP });
-}
-for (const config of defense.DEFENSIVE_CONFIGS) {
-  models.set(config.slug, { config, engine: defense, ladder: DEFENSIVE_HP_SCORE_MAP, specLadder: defenseHP });
-}
+const expectedScales = {
+  rushers: skillHP, receivers: skillHP, "kick-returners": skillHP, "punt-returners": skillHP,
+  ol: lineHP, dl: defenseHP, lb: defenseHP, "cb-s": defenseHP,
+};
+assert.deepEqual(Object.keys(rebuildScales).sort(), Object.keys(expectedScales).sort());
 
 function ladderScore(raw, ladder) {
   return Object.entries(ladder).reduce((score, [value, points]) =>
@@ -27,7 +23,7 @@ function ladderScore(raw, ladder) {
 
 // Use the observed positional maxima. All raw attributes are symbolic integers,
 // including HP values absent from the ladders, which contribute zero.
-async function prove(page, model, maxima) {
+async function prove(page, maxima) {
   const raw = new Map(page.columns.map(({ key }) => [key, Int.const(key)]));
   const solver = new Solver();
   try {
@@ -41,9 +37,8 @@ async function prove(page, model, maxima) {
       const denominator = key === "hitting_power" ? 100 : maxima[key];
       return denominator === 0 ? Real.val(0) : ToReal(numerator).mul(weight).div(denominator);
     }
-    const spec = Sum(...Object.entries(expectedWeights[page.slug]).map(([key, weight]) => term({ key, weight }, model?.specLadder)));
-    const columns = model?.config.columns ?? page.columns;
-    const formula = Sum(...columns.map(column => term(column, model?.ladder)));
+    const spec = Sum(...Object.entries(expectedWeights[page.slug]).map(([key, weight]) => term({ key, weight }, expectedScales[page.slug])));
+    const formula = Sum(...page.columns.map(column => term(column, rebuildScales[page.slug])));
     const rounded = ToInt(formula.add(Real.val("1/2")));
     // A whole-percent rating r is correct iff r - 1/2 <= spec < r + 1/2.
     solver.add(Or(formula.neq(spec), rounded.lt(0), rounded.gt(100),
@@ -91,19 +86,19 @@ for (const page of POSITION_PAGES) {
     if (field !== "hitting_power") maxima[field] = Math.max(...eligible.map(player => player[field]));
   }
 
-  const model = models.get(page.slug);
-  if (model) {
-    assert.deepEqual(model.engine.buildMaxima(rows, model.config.columns), maxima);
+  const scale = rebuildScales[page.slug];
+  if (scale) {
+    assert.deepEqual(attributeMaxima(rows, page.columns), maxima);
   }
-  const { raw, rounded } = await prove(page, model, maxima);
+  const { raw, rounded } = await prove(page, maxima);
   for (const player of eligible) {
     const concrete = substitute(rounded, ...Array.from(raw, ([field, variable]) => [variable, Int.val(player[field])]));
     const rating = Number((await simplify(concrete)).toString());
     assert(Number.isInteger(rating));
     unclassified.delete(key(player));
     if (player[page.ratingKey] !== rating + "%") errors.push(`${key(player)} ${page.ratingKey}=${player[page.ratingKey]}, expected ${rating}%`);
-    if (model) {
-      const rebuilt = model.engine.computeRating(player, model.config.columns, maxima, model.ladder);
+    if (scale) {
+      const rebuilt = weightedRating(player, page.columns, maxima, scale);
       if (rebuilt !== rating) errors.push(`${page.slug}: ${key(player)} rebuild gives ${rebuilt}, exact formula gives ${rating}`);
     }
   }
