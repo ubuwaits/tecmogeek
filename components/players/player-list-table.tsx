@@ -1,10 +1,12 @@
 import Link from "next/link";
 import type { Route } from "next";
+import { playerRoute, teamRoute } from "@/lib/site/routes";
+import { POSITION_PAGE_CONFIG_MAP } from "@/lib/players/config";
 
 import { MetricLegend, MetricStrip } from "@/components/players/metric-strip";
 import { PlayerListHeaderLabel } from "@/components/ui/player-list-header-label";
 import { HeadshotSprite, HelmetSprite } from "@/components/ui/sprites";
-import type { MetricColumn, PlayerMetricKey, TeamSlug } from "@/lib/types";
+import type { LeaderboardPlayer, MetricColumn, PlayerMetricKey, PlayerRecord, PositionSlug, TeamSlug } from "@/lib/types";
 
 const PLAYER_LIST_GRID_CLASS = {
   player: {
@@ -44,46 +46,14 @@ type PlayerListTableHeaderProps = {
   onMetricClick?: (key: PlayerMetricKey) => void;
 };
 
-type PlayerListMetricsRowProps = {
-  layout: PlayerListLayout;
-  rankingValue: React.ReactNode;
-  identity: React.ReactNode;
-  ratingValue: React.ReactNode;
-  columns: readonly MetricColumn[];
-  getMetricValue: (key: PlayerMetricKey) => number;
-};
-
-export type PlayerListSectionRow = {
-  key: string;
-  rankingValue: React.ReactNode;
-  identityProps: PlayerIdentityCellProps;
-  ratingValue: React.ReactNode;
-  ratingHref?: Route;
-  getMetricValue: (key: PlayerMetricKey) => number;
-  itemData?: Partial<Record<`data-${string}`, string>>;
-};
-
-type PlayerListSectionProps = PlayerListTableHeaderProps & {
-  testId?: string;
-  rows: readonly PlayerListSectionRow[];
-};
-
-type PlayerIdentityCellProps =
-  | {
-      layout: "player";
-      team: TeamSlug;
-      helmetHref: Route;
-      name: string;
-      position: string;
-      number: string;
-    }
-  | {
-      layout: "team";
-      team: TeamSlug;
-      name: string;
-      position: string;
-      number: string;
-    };
+type PlayerListSectionProps = Omit<PlayerListTableHeaderProps, "layout" | "columns"> & {
+  slug: PositionSlug;
+  testId: string;
+  rowTestId?: string;
+} & (
+  | { layout: "player"; players: readonly LeaderboardPlayer[] }
+  | { layout: "team"; players: readonly PlayerRecord[]; teamSlug: TeamSlug }
+);
 
 function getGridClass(layout: PlayerListLayout): string {
   return PLAYER_LIST_GRID_CLASS[layout].row;
@@ -192,74 +162,61 @@ function PlayerListTableHeader({
   );
 }
 
-function PlayerListMetricsRow({
-  layout,
-  rankingValue,
-  identity,
-  ratingValue,
-  columns,
-  getMetricValue,
-}: PlayerListMetricsRowProps) {
-  return (
-    <PlayerListRow layout={layout}>
-      <PlayerListValueCell>{rankingValue}</PlayerListValueCell>
-      {identity}
-      <PlayerListValueCell>{ratingValue}</PlayerListValueCell>
-      <MetricStrip columns={columns} getValue={getMetricValue} className="ml-3 md:ml-4" />
-    </PlayerListRow>
-  );
-}
+export function PlayerListSection(props: PlayerListSectionProps) {
+  const { layout, slug, testId, rowTestId } = props;
+  const { rankingKey, ratingKey, columns } = POSITION_PAGE_CONFIG_MAP[slug];
+  const ratingHref = layout === "team" ? playerRoute(slug) : undefined;
 
-export function PlayerListSection({
-  testId,
-  rows,
-  ...headerProps
-}: PlayerListSectionProps) {
+  function renderPlayer(player: PlayerRecord, team: TeamSlug) {
+    const rating = player[ratingKey];
+    return (
+      <li
+        key={`${team}-${player.position}-${player.name}`}
+        className="[contain-intrinsic-size:2.5rem] [content-visibility:auto]"
+        data-testid={rowTestId}
+        data-position={layout === "player" ? player.position : undefined}
+      >
+        <PlayerListRow layout={layout}>
+          <PlayerListValueCell>{player[rankingKey]}</PlayerListValueCell>
+          <PlayerIdentityCell layout={layout} team={team} player={player} />
+          <PlayerListValueCell>
+            {ratingHref ? <PlayerListRatingLink href={ratingHref}>{rating}</PlayerListRatingLink> : rating}
+          </PlayerListValueCell>
+          <MetricStrip columns={columns} getValue={key => Number(player[key] ?? 0)} className="ml-3 md:ml-4" />
+        </PlayerListRow>
+      </li>
+    );
+  }
+
   return (
     <PlayerListTable testId={testId}>
-      <PlayerListTableHeader {...headerProps} />
-
-      {rows.map(({ key, identityProps, ratingHref, ratingValue, itemData, ...row }) => (
-        <li
-          key={key}
-          className="[contain-intrinsic-size:2.5rem] [content-visibility:auto]"
-          {...itemData}
-        >
-          <PlayerListMetricsRow
-            layout={headerProps.layout}
-            rankingValue={row.rankingValue}
-            identity={<PlayerIdentityCell {...identityProps} />}
-            ratingValue={
-              ratingHref ? (
-                <PlayerListRatingLink href={ratingHref}>{ratingValue}</PlayerListRatingLink>
-              ) : (
-                ratingValue
-              )
-            }
-            columns={headerProps.columns}
-            getMetricValue={row.getMetricValue}
-          />
-        </li>
-      ))}
+      <PlayerListTableHeader {...props} columns={columns} />
+      {props.layout === "team"
+        ? props.players.map(player => renderPlayer(player, props.teamSlug))
+        : props.players.map(player => renderPlayer(player, player.teamSlug))}
     </PlayerListTable>
   );
 }
 
-function PlayerIdentityCell(props: PlayerIdentityCellProps) {
-  if (props.layout === "player") {
+function PlayerIdentityCell({ layout, team, player }: {
+  layout: PlayerListLayout;
+  team: TeamSlug;
+  player: PlayerRecord;
+}) {
+  if (layout === "player") {
     return (
       <div className="flex min-w-0 items-center gap-3">
         <div className="flex shrink-0 items-center gap-3">
-          <Link href={props.helmetHref} className="flex items-center justify-center">
-            <HelmetSprite team={props.team} />
+          <Link href={teamRoute(team)} className="flex items-center justify-center">
+            <HelmetSprite team={team} />
           </Link>
-          <HeadshotSprite team={props.team} position={props.position} />
+          <HeadshotSprite team={team} position={player.position} />
         </div>
 
         <div className="min-w-0">
-          <h3 className="mt-1 text-[14px] font-medium leading-none text-balance">{props.name}</h3>
+          <h3 className="mt-1 text-[14px] font-medium leading-none text-balance">{player.name}</h3>
           <h4 className="text-[14px] font-medium text-white/65">
-            {props.position} {props.number}
+            {player.position} {player.number}
           </h4>
         </div>
       </div>
@@ -269,13 +226,13 @@ function PlayerIdentityCell(props: PlayerIdentityCellProps) {
   return (
     <>
       <div className="flex items-center justify-center">
-        <HeadshotSprite team={props.team} position={props.position} />
+        <HeadshotSprite team={team} position={player.position} />
       </div>
 
       <div className="pl-3">
-        <h3 className="mt-1 text-[14px] font-medium leading-none text-balance">{props.name}</h3>
+        <h3 className="mt-1 text-[14px] font-medium leading-none text-balance">{player.name}</h3>
         <h4 className="text-[14px] font-medium text-white/65">
-          {props.position} {props.number}
+          {player.position} {player.number}
         </h4>
       </div>
     </>

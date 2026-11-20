@@ -202,7 +202,6 @@ export interface TeamSectionConfig {
   rankingGroupLabel: string;
   note: string;
   playerPage: PositionSlug;
-  columns: readonly MetricColumn[];
 }
 
 export interface TeamSkillModeConfig {
@@ -211,6 +210,4 @@ export interface TeamSkillModeConfig {
   note: string;
   playerPage: PositionSlug;
   rankingKey: PlayerRankingKey;
-  ratingKey: PlayerRatingKey;
-  columns: readonly MetricColumn[];
 }

@@ -6,12 +6,9 @@ import { PlayerListSection } from "@/components/players/player-list-table";
 import { SelectionTabs } from "@/components/ui/selection-tabs";
 import { POSITION_PAGE_CONFIG_MAP } from "@/lib/players/config";
 import { matchesPrefixes, rankingTooltip, sortEntriesByKey } from "@/lib/players/utils";
-import { teamRoute } from "@/lib/site/routes";
 import { getNextSortDirection } from "@/lib/shared/sort-direction";
 import type {
   LeaderboardPlayer,
-  PlayerMetricKey,
-  PlayerRecord,
   PlayerSortKey,
   PositionSlug,
   SortDirection,
@@ -21,10 +18,6 @@ type PlayerListViewProps = {
   slug: PositionSlug;
   entries: LeaderboardPlayer[];
 };
-
-function renderMetricValue(entry: PlayerRecord, key: PlayerMetricKey): number {
-  return Number(entry[key] ?? 0);
-}
 
 export function PlayerListView({ slug, entries }: PlayerListViewProps) {
   const config = POSITION_PAGE_CONFIG_MAP[slug];
@@ -38,28 +31,6 @@ export function PlayerListView({ slug, entries }: PlayerListViewProps) {
     : entries;
   const sortedEntries = sortEntriesByKey(filteredEntries, sortKey, sortDirection, config.rankingKey);
   const activeMetricKey = config.columns.find((column) => column.key === sortKey)?.key ?? null;
-  const rows = sortedEntries.map((entry) => {
-    const teamSlug = entry.teamSlug;
-
-    return {
-      key: `${teamSlug}-${entry.position}-${entry.name}`,
-      rankingValue: String(entry[config.rankingKey] ?? ""),
-      identityProps: {
-        layout: "player" as const,
-        team: teamSlug,
-        helmetHref: teamRoute(teamSlug),
-        name: entry.name,
-        position: entry.position,
-        number: entry.number,
-      },
-      ratingValue: String(entry[config.ratingKey] ?? ""),
-      getMetricValue: (key: PlayerMetricKey) => renderMetricValue(entry, key),
-      itemData: {
-        "data-testid": "leaderboard-row",
-        "data-position": entry.position,
-      },
-    };
-  });
 
   function changeSort(key: PlayerSortKey, defaultDirection: SortDirection) {
     const nextDirection = getNextSortDirection({
@@ -97,10 +68,11 @@ export function PlayerListView({ slug, entries }: PlayerListViewProps) {
         onRankingClick={() => changeSort(config.rankingKey, "asc")}
         ratingActive={sortKey === config.ratingKey}
         onRatingClick={() => changeSort(config.ratingKey, "desc")}
-        columns={config.columns}
         activeMetricKey={activeMetricKey}
         onMetricClick={(key) => changeSort(key, "desc")}
-        rows={rows}
+        slug={slug}
+        players={sortedEntries}
+        rowTestId="leaderboard-row"
       />
     </div>
   );

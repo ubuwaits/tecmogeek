@@ -17,8 +17,8 @@ function rosterSection(
   range: TeamSectionConfig["range"],
   rankingLabel: string,
 ): TeamSectionConfig {
-  const { rankingGroupLabel, note, columns } = POSITION_PAGE_CONFIG_MAP[playerPage];
-  return { id, playerPage, range, rankingLabel, rankingGroupLabel, note, columns };
+  const { rankingGroupLabel, note } = POSITION_PAGE_CONFIG_MAP[playerPage];
+  return { id, playerPage, range, rankingLabel, rankingGroupLabel, note };
 }
 
 export const TEAM_SECTION_CONFIGS: readonly TeamSectionConfig[] = [
@@ -36,8 +36,8 @@ function skillMode(
   label: string,
   playerPage: TeamSkillModeConfig["playerPage"],
 ): TeamSkillModeConfig {
-  const { rankingKey, ratingKey, columns, note } = POSITION_PAGE_CONFIG_MAP[playerPage];
-  return { id, label, playerPage, rankingKey, ratingKey, columns, note };
+  const { rankingKey, note } = POSITION_PAGE_CONFIG_MAP[playerPage];
+  return { id, label, playerPage, rankingKey, note };
 }
 
 export const TEAM_SKILL_MODE_CONFIG: Record<TeamSkillMode, TeamSkillModeConfig> = {

@@ -5,7 +5,6 @@ import { useState } from "react";
 import {
   PlayerListSection,
   getPlayerListNoteGridClass,
-  type PlayerListSectionRow,
 } from "@/components/players/player-list-table";
 import { SelectionTabs } from "@/components/ui/selection-tabs";
 import {
@@ -16,9 +15,7 @@ import {
   TEAM_SKILL_RANGE,
 } from "@/lib/teams/config";
 import { rankingTooltip, sortEntriesByKey } from "@/lib/players/utils";
-import { playerRoute } from "@/lib/site/routes";
 import type {
-  PlayerRecord,
   PositionSlug,
   TeamData,
   TeamSectionConfig,
@@ -36,38 +33,6 @@ function PlayerListNote({ children }: { children: React.ReactNode }) {
   );
 }
 
-function buildTeamRows({
-  players,
-  teamSlug,
-  playerPage,
-  getRankingValue,
-  getRatingValue,
-  rowTestId,
-}: {
-  players: readonly PlayerRecord[];
-  teamSlug: TeamSlug;
-  playerPage: TeamSectionConfig["playerPage"];
-  getRankingValue: (player: PlayerRecord) => React.ReactNode;
-  getRatingValue: (player: PlayerRecord) => React.ReactNode;
-  rowTestId?: string;
-}): PlayerListSectionRow[] {
-  return players.map((player) => ({
-    key: `${playerPage}-${player.position}-${player.name}`,
-    rankingValue: getRankingValue(player),
-    identityProps: {
-      layout: "team",
-      team: teamSlug,
-      name: player.name,
-      position: player.position,
-      number: player.number,
-    },
-    ratingValue: getRatingValue(player),
-    ratingHref: playerRoute(playerPage),
-    getMetricValue: (key) => Number(player[key] ?? 0),
-    itemData: rowTestId ? { "data-testid": rowTestId } : undefined,
-  }));
-}
-
 type TeamRosterProps = { team: TeamData; teamSlug: TeamSlug; counts: Record<PositionSlug, number> };
 
 function TeamPositionPlayerList({
@@ -79,13 +44,6 @@ function TeamPositionPlayerList({
   section: TeamSectionConfig;
 }) {
   const players = team.players.slice(section.range[0], section.range[1] + 1);
-  const rows = buildTeamRows({
-    players,
-    teamSlug,
-    playerPage: section.playerPage,
-    getRankingValue: (player) => String(player.ranking ?? ""),
-    getRatingValue: (player) => String(player.rating ?? ""),
-  });
 
   return (
     <div className="mb-12 sm:mb-16">
@@ -94,8 +52,9 @@ function TeamPositionPlayerList({
         layout="team"
         rankingLabel={section.rankingLabel}
         rankingTooltip={rankingTooltip(counts[section.playerPage], section.rankingGroupLabel)}
-        columns={section.columns}
-        rows={rows}
+        slug={section.playerPage}
+        players={players}
+        teamSlug={teamSlug}
       />
 
       <PlayerListNote>{section.note}</PlayerListNote>
@@ -108,14 +67,6 @@ function TeamSkillPlayerList({ team, teamSlug, counts }: TeamRosterProps) {
   const modeConfig = TEAM_SKILL_MODE_CONFIG[mode];
   const skillPlayers = team.players.slice(TEAM_SKILL_RANGE[0], TEAM_SKILL_RANGE[1] + 1);
   const sortedPlayers = sortEntriesByKey(skillPlayers, modeConfig.rankingKey, "asc", modeConfig.rankingKey);
-  const rows = buildTeamRows({
-    players: sortedPlayers,
-    teamSlug,
-    playerPage: modeConfig.playerPage,
-    getRankingValue: (player) => String(player[modeConfig.rankingKey] ?? ""),
-    getRatingValue: (player) => String(player[modeConfig.ratingKey] ?? ""),
-    rowTestId: "team-skill-row",
-  });
   const rankingLabel = `${modeConfig.label} Ranking`;
 
   return (
@@ -134,8 +85,10 @@ function TeamSkillPlayerList({ team, teamSlug, counts }: TeamRosterProps) {
         layout="team"
         rankingLabel={rankingLabel}
         rankingTooltip={rankingTooltip(counts[modeConfig.playerPage], "RB, WR & TE")}
-        columns={modeConfig.columns}
-        rows={rows}
+        slug={modeConfig.playerPage}
+        players={sortedPlayers}
+        teamSlug={teamSlug}
+        rowTestId="team-skill-row"
       />
 
       <PlayerListNote>{modeConfig.note}</PlayerListNote>

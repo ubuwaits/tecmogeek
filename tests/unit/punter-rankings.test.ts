@@ -45,7 +45,7 @@ describe("kicking rankings", () => {
     const teamKickerSection = TEAM_SECTION_CONFIGS.find((section) => section.id === "k");
 
     expect(teamKickerSection?.note).toContain("Avoid Kick Block has no effect on performance");
-    expect(teamKickerSection?.columns).toEqual(POSITION_PAGE_CONFIG_MAP.k.columns);
+    expect(teamKickerSection?.playerPage).toBe("k");
   });
 
   it("documents and displays punters as Kicking Ability only", () => {
@@ -55,7 +55,7 @@ describe("kicking rankings", () => {
     const teamPunterSection = TEAM_SECTION_CONFIGS.find((section) => section.id === "p");
 
     expect(teamPunterSection?.note).toContain("Punts cannot be blocked");
-    expect(teamPunterSection?.columns).toEqual(POSITION_PAGE_CONFIG_MAP.p.columns);
+    expect(teamPunterSection?.playerPage).toBe("p");
   });
 
   it("ranks kickers by Kicking Ability without Avoid Kick Block", () => {
