@@ -394,6 +394,8 @@ No extra team-level bonus, durability adjustment, or special-teams adjustment is
 
 ## What the output file contains
 
+The generator computes each score at full JavaScript number precision, then applies `toFixed(3)` when storing it. At an exact decimal midpoint, accumulated binary rounding can put the computed value on either side. The published convention rounds that binary value to the nearest thousandth, with an exactly representable midpoint rounding up. `pnpm verify:team-rounding` reports every such decimal midpoint and checks the stored result.
+
 Each team record in [team-ratings.json](/Users/chad/source/tecmogeek/data/team-ratings.json) contains:
 
 - `team`

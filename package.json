@@ -31,6 +31,10 @@
     "verify:players": "node scripts/verify-players.mjs",
     "verify:offense": "node scripts/verify-offense.mjs",
     "verify:defense": "node scripts/verify-defense.mjs",
+    "verify:lineup-precision": "node scripts/verify-lineup-precision.mjs",
+    "verify:team-rounding": "node scripts/verify-team-rounding.mjs",
+    "verify:rebuild-edits": "node scripts/verify-rebuilds.mjs --edit",
+    "verify:table-transitions": "playwright test table-transitions.spec.mjs",
     "verify:lineups": "node scripts/verify-lineups.mjs"
   },
   "dependencies": {

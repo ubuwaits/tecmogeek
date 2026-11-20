@@ -48,7 +48,7 @@ const BALANCED_SKILL_WEIGHTS = {
   running: 0.25,
   passing: 0.75,
 } as const;
-const FLOAT_TOLERANCE = 1e-9;
+export const FLOAT_TOLERANCE = 1e-9;
 
 type RatingKey =
   | "rating"
@@ -271,41 +271,50 @@ function getAssignmentSignature(assignment: SkillSlotAssignment): string {
   return OFFENSIVE_SKILL_SLOTS.map((slot) => `${slot}:${assignment[slot].name}`).join("|");
 }
 
-function getWeightedAssignmentScore(
-  assignment: SkillSlotAssignment,
-  ratingKey: "rushing_rating" | "receiving_rating",
-  weights: Record<OffensiveSkillSlot, number>,
-): number {
-  return OFFENSIVE_SKILL_SLOTS.reduce(
-    (total, slot) => total + weights[slot] * getPlayerRating(assignment[slot], ratingKey),
-    0,
-  );
+type LineupArithmetic<T> = {
+  add: (a: T, b: T) => T;
+  multiply: (value: T, weight: number) => T;
+  constant: (value: number) => T;
+};
+
+const numericArithmetic: LineupArithmetic<number> = {
+  add: (a, b) => a + b,
+  multiply: (value, weight) => value * weight,
+  constant: value => value,
+};
+
+function runningSupport<T>(receiving: T, highPower: boolean, ops: LineupArithmetic<T>): T {
+  return highPower ? ops.add(ops.constant(95), ops.multiply(receiving, 0.05)) : receiving;
+}
+
+export function hasHighRunningPower(hittingPower: number) {
+  return hittingPower >= 75;
 }
 
 function getRunningTeSupportScore(player: PlayerRecord): number {
-  const receivingRating = getPlayerRating(player, "receiving_rating");
-  return getHittingPower(player) >= 75 ? 95 + receivingRating * 0.05 : receivingRating;
+  return runningSupport(getPlayerRating(player, "receiving_rating"), hasHighRunningPower(getHittingPower(player)), numericArithmetic);
 }
 
-function getRunningSkillScore(assignment: SkillSlotAssignment): number {
-  return (
-    RUN_SLOT_WEIGHTS.RB1 * getPlayerRating(assignment.RB1, "rushing_rating") +
-    RUN_SLOT_WEIGHTS.RB2 * getPlayerRating(assignment.RB2, "rushing_rating") +
-    RUN_SLOT_WEIGHTS.WR1 * getPlayerRating(assignment.WR1, "rushing_rating") +
-    RUN_SLOT_WEIGHTS.WR2 * getPlayerRating(assignment.WR2, "rushing_rating") +
-    RUN_SLOT_WEIGHTS.TE1 * getRunningTeSupportScore(assignment.TE1)
-  );
-}
-
-function getPassingSkillScore(assignment: SkillSlotAssignment): number {
-  return getWeightedAssignmentScore(assignment, "receiving_rating", PASS_SLOT_WEIGHTS);
-}
-
-function getBalancedSkillScore(assignment: SkillSlotAssignment): number {
-  return weightedAverage([
-    { weight: BALANCED_SKILL_WEIGHTS.running, value: getRunningSkillScore(assignment) },
-    { weight: BALANCED_SKILL_WEIGHTS.passing, value: getPassingSkillScore(assignment) },
-  ]);
+// The precision proof evaluates this same expression with bounded binary64 operation errors.
+export function lineupScore<T>(
+  mode: "running" | "passing" | "balanced",
+  rush: (slot: OffensiveSkillSlot) => T, receive: (slot: OffensiveSkillSlot) => T,
+  highPowerTE: boolean, ops: LineupArithmetic<T>,
+): T {
+  function running() {
+    return OFFENSIVE_SKILL_SLOTS.reduce((sum, slot) => {
+      const value = slot === "TE1" ? runningSupport(receive(slot), highPowerTE, ops) : rush(slot);
+      return ops.add(sum, ops.multiply(value, RUN_SLOT_WEIGHTS[slot]));
+    }, ops.constant(0));
+  }
+  function passing() {
+    return OFFENSIVE_SKILL_SLOTS.reduce((sum, slot) =>
+      ops.add(sum, ops.multiply(receive(slot), PASS_SLOT_WEIGHTS[slot])), ops.constant(0));
+  }
+  if (mode === "running") return running();
+  if (mode === "passing") return passing();
+  return ops.add(ops.multiply(running(), BALANCED_SKILL_WEIGHTS.running),
+    ops.multiply(passing(), BALANCED_SKILL_WEIGHTS.passing));
 }
 
 function createLineupAssignment(
@@ -343,8 +352,8 @@ function createRunningLineupAssignment(
 
 function sortPlayersByRunningTeSupport(players: readonly RatedPlayer[]): RatedPlayer[] {
   return [...players].sort((left, right) => {
-    const rightHasHighHp = getHittingPower(right) >= 75;
-    const leftHasHighHp = getHittingPower(left) >= 75;
+    const rightHasHighHp = hasHighRunningPower(getHittingPower(right));
+    const leftHasHighHp = hasHighRunningPower(getHittingPower(left));
 
     if (rightHasHighHp !== leftHasHighHp) {
       return Number(rightHasHighHp) - Number(leftHasHighHp);
@@ -400,6 +409,12 @@ function assignBalancedLineup(players: readonly RatedPlayer[]): SkillSlotAssignm
   return assignPassingLineup(players);
 }
 
+export function compareLineupScores(candidate: number, incumbent: number) {
+  if (candidate > incumbent + FLOAT_TOLERANCE) return 1;
+  if (Math.abs(candidate - incumbent) <= FLOAT_TOLERANCE) return 0;
+  return -1;
+}
+
 function chooseBestAssignment(
   skillPlayers: readonly RatedPlayer[],
   buildAssignment: (players: readonly RatedPlayer[]) => SkillSlotAssignment,
@@ -412,14 +427,15 @@ function chooseBestAssignment(
     const assignment = buildAssignment(lineupPlayers);
     const score = scoreAssignment(assignment);
 
-    if (score > bestScore + FLOAT_TOLERANCE) {
+    const comparison = compareLineupScores(score, bestScore);
+    if (comparison > 0) {
       bestScore = score;
       bestAssignment = assignment;
       continue;
     }
 
     if (
-      Math.abs(score - bestScore) <= FLOAT_TOLERANCE &&
+      comparison === 0 &&
       bestAssignment &&
       getAssignmentSignature(assignment) < getAssignmentSignature(bestAssignment)
     ) {
@@ -499,9 +515,13 @@ export function createOffensiveSkillLineups(players: readonly PlayerRecord[]): O
     throw new Error(`Expected 10 skill players, received ${skillPlayers.length}.`);
   }
 
-  const running = chooseBestAssignment(skillPlayers, assignRunningLineup, getRunningSkillScore);
-  const passing = chooseBestAssignment(skillPlayers, assignPassingLineup, getPassingSkillScore);
-  const balanced = chooseBestAssignment(skillPlayers, assignBalancedLineup, getBalancedSkillScore);
+  const score = (mode: "running" | "passing" | "balanced") => (assignment: SkillSlotAssignment) =>
+    lineupScore(mode, slot => getPlayerRating(assignment[slot], "rushing_rating"),
+      slot => getPlayerRating(assignment[slot], "receiving_rating"), hasHighRunningPower(getHittingPower(assignment.TE1)),
+      numericArithmetic);
+  const running = chooseBestAssignment(skillPlayers, assignRunningLineup, score("running"));
+  const passing = chooseBestAssignment(skillPlayers, assignPassingLineup, score("passing"));
+  const balanced = chooseBestAssignment(skillPlayers, assignBalancedLineup, score("balanced"));
 
   return {
     runningSkillRating: running.score,
@@ -573,7 +593,7 @@ export function calculateTeamOffenseAndOverall<T>(
   return { runningOffenseRating, passingOffenseRating, balancedOffenseRating, offensiveRating, overallRating };
 }
 
-export function buildTeamRatingRecord(teamSlug: string, teamData: TeamData): TeamRatingRecord {
+export function buildTeamRatingRecord(teamSlug: string, teamData: TeamData, round = roundTo): TeamRatingRecord {
   const players = teamData.players.map((player, rosterIndex) => ({ ...player, rosterIndex }));
   const quarterbackRoom = createQuarterbackRoom(players);
   const quarterbackRoomScore = quarterbackRoom.score;
@@ -598,23 +618,23 @@ export function buildTeamRatingRecord(teamSlug: string, teamData: TeamData): Tea
   return {
     team: teamSlug,
     full_name: teamData.full_name,
-    offensive_rating: roundTo(offensiveRating),
-    defensive_rating: roundTo(defensiveRating),
-    overall_rating: roundTo(overallRating),
+    offensive_rating: round(offensiveRating),
+    defensive_rating: round(defensiveRating),
+    overall_rating: round(overallRating),
     components: {
-      qb_room: roundTo(quarterbackRoomScore),
-      qb_rating: roundTo(quarterbackRating),
-      return_room: roundTo(returnRoomScore),
-      ol_line: roundTo(offensiveLineScore),
-      running_skill: roundTo(offensiveSkillLineups.runningSkillRating),
-      passing_skill: roundTo(offensiveSkillLineups.passingSkillRating),
-      balanced_skill: roundTo(offensiveSkillLineups.balancedSkillRating),
-      running_offense: roundTo(runningOffenseRating),
-      passing_offense: roundTo(passingOffenseRating),
-      balanced_offense: roundTo(balancedOffenseRating),
-      dl_group: roundTo(defensiveGroups.dlGroup),
-      lb_group: roundTo(defensiveGroups.lbGroup),
-      secondary_group: roundTo(defensiveGroups.secondaryGroup),
+      qb_room: round(quarterbackRoomScore),
+      qb_rating: round(quarterbackRating),
+      return_room: round(returnRoomScore),
+      ol_line: round(offensiveLineScore),
+      running_skill: round(offensiveSkillLineups.runningSkillRating),
+      passing_skill: round(offensiveSkillLineups.passingSkillRating),
+      balanced_skill: round(offensiveSkillLineups.balancedSkillRating),
+      running_offense: round(runningOffenseRating),
+      passing_offense: round(passingOffenseRating),
+      balanced_offense: round(balancedOffenseRating),
+      dl_group: round(defensiveGroups.dlGroup),
+      lb_group: round(defensiveGroups.lbGroup),
+      secondary_group: round(defensiveGroups.secondaryGroup),
     },
     selected_lineups: {
       best_qb: getPlayerLabel(quarterbackRoom.bestQb),

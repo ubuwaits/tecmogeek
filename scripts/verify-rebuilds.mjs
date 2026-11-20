@@ -3,6 +3,8 @@ import { cpSync, mkdtempSync, readFileSync, readdirSync, rmSync } from "node:fs"
 import { tmpdir } from "node:os";
 import path from "node:path";
 
+import { verifyRosterEdits } from "./rebuild-edit-checks.mjs";
+
 const root = path.resolve(import.meta.dirname, "..");
 const revision = execFileSync("git", ["rev-parse", "HEAD"], { cwd: root, encoding: "utf8" }).trim();
 const commands = ["rebuild:offense", "rebuild:defense", "rebuild:team-ratings"];
@@ -31,11 +33,12 @@ try {
   rmSync(path.join(checkout, "scripts"), { recursive: true });
   cpSync(path.join(root, "scripts"), path.join(checkout, "scripts"), { recursive: true });
 
-  for (const pass of [1, 2]) {
-    for (const command of commands) {
-      console.log(`Pass ${pass}: pnpm ${command}`);
-      execFileSync("pnpm", ["run", command], { cwd: checkout, stdio: "inherit" });
-    }
+  function runRebuilds() {
+    for (const command of commands) execFileSync("pnpm", ["run", command], { cwd: checkout, stdio: "inherit" });
+  }
+
+  function checkBaseline(pass) {
+    runRebuilds();
     const files = new Set(dataFiles(directory));
     const differences = [];
     for (const [file, bytes] of baseline) {
@@ -45,6 +48,12 @@ try {
     for (const file of files) differences.push(`unexpected data/${file}`);
     if (differences.length) throw new Error(`Pass ${pass} differs from ${revision}:\n${differences.join("\n")}`);
     console.log(`Pass ${pass}: all ${baseline.size} data files match ${revision.slice(0, 7)} byte-for-byte.`);
+  }
+
+  if (process.argv.includes("--edit")) {
+    verifyRosterEdits(checkout, baseline, runRebuilds, dataFiles);
+  } else {
+    for (const pass of [1, 2]) checkBaseline(pass);
   }
 } finally {
   rmSync(checkout, { recursive: true, force: true });

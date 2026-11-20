@@ -19,6 +19,10 @@ pnpm typecheck
 pnpm test
 pnpm verify:routes
 pnpm verify:rebuilds
+pnpm verify:rebuild-edits
+pnpm verify:lineup-precision
+pnpm verify:team-rounding
+pnpm verify:table-transitions
 pnpm verify:players
 pnpm verify:portraits
 pnpm verify:attributes
@@ -38,6 +42,14 @@ pnpm e2e
 `pnpm verify:routes` builds the static export and checks the 42 public pages, their canonical URLs, the complete sitemap, internal hyperlinks, and the desktop and mobile navigation menus.
 
 `pnpm verify:rebuilds` runs the offense, defense, and team-rating commands twice in one temporary checkout. It uses the current package commands and scripts with data from `HEAD`. After each pass it checks the complete file list and compares every data file byte-for-byte with its committed Git blob.
+
+`pnpm verify:rebuild-edits` runs all three rebuilds on two independent edits in a temporary checkout. Each edit changes the same raw field in its position file (the rebuild input) and team roster. The check recomputes every defensive line rating and rank, checks all data copies and team outputs, and exercises a new league maximum.
+
+`pnpm verify:lineup-precision` uses Z3 to bound binary64 error in the generator's running, passing, and balanced score expressions for whole-percent inputs from 0 to 100. It checks score ordering and tolerance ties against exact multiples of 1/8000, then exercises the numeric comparator across the entire score grid.
+
+`pnpm verify:team-rounding` checks all 16 stored values per team using integer arithmetic. At exact half-thousandths it preserves the published rounding convention by decoding the generator's unrounded binary64 value and independently rounding that fraction to three decimals. It lists each midpoint and its decimal half-up alternative.
+
+`pnpm verify:table-transitions` traverses the reachable sort, filter, and column-expansion states in Chromium on all 11 position tables and the league table. Every available action is exercised from each reachable state, including collapsing a group while sorting by one of its columns.
 
 `pnpm verify:leaderboard-views` checks the 11 homepage lists, both position filters through sort changes, all 84 team rank cards against league standings, and both helmet sizes for all 28 teams against the inspected sprite sheet.
 
