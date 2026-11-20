@@ -17,6 +17,7 @@ pnpm dev
 pnpm lint
 pnpm typecheck
 pnpm test
+pnpm verify:rebuilds
 pnpm verify:players
 pnpm verify:portraits
 pnpm verify:rankings
@@ -29,6 +30,8 @@ pnpm verify:offense
 pnpm build
 pnpm e2e
 ```
+
+`pnpm verify:rebuilds` runs the offense, defense, and team-rating commands twice in one temporary checkout. It uses the current package commands and scripts with data from `HEAD`. After each pass it checks the complete file list and compares every data file byte-for-byte with its committed Git blob.
 
 `pnpm verify:portraits` checks roster sections, rendered portrait cells and decoded sprite pixels for all 840 players across team pages and position leaderboards. See the [portrait references](tests/fixtures/portraits/README.md) for the game face IDs and pixel baselines.
 
