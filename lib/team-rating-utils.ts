@@ -68,26 +68,22 @@ export function getRankedTeamRows(
   sortKey: TeamRatingSortKey,
   direction: SortDirection,
 ) {
-  const standings = sortTeamRatingsByKey(teams, sortKey, "desc");
-  const ranks = new Map(standings.map((team, index) => [team.team, index + 1]));
-  const ordered = direction === "desc" ? standings : sortTeamRatingsByKey(teams, sortKey, "asc");
-  return ordered.map(team => ({ team, rank: ranks.get(team.team)! }));
+  const standings = sortTeamRatingsByKey(teams, sortKey, "desc")
+    .map((team, index) => ({ team, rank: index + 1 }));
+  if (direction === "desc") return standings;
+
+  const rowsByTeam = new Map(standings.map(row => [row.team.team, row]));
+  return sortTeamRatingsByKey(teams, sortKey, "asc").map(team => rowsByTeam.get(team.team)!);
 }
 
 export function getTeamRatingSummaries(
   teams: readonly TeamRatingRecord[],
   teamSlug: TeamSlug,
 ): TeamRatingSummaryItem[] {
-  const team = teams.find((entry) => entry.team === teamSlug);
+  return TEAM_PAGE_RATING_ITEMS.flatMap(({ key, label }) => {
+    const row = getRankedTeamRows(teams, key, "desc").find(({ team }) => team.team === teamSlug);
+    if (!row) return [];
 
-  if (!team) {
-    return [];
-  }
-
-  return TEAM_PAGE_RATING_ITEMS.map(({ key, label }) => ({
-    key,
-    label,
-    rank: sortTeamRatingsByKey(teams, key, "desc").findIndex((entry) => entry.team === teamSlug) + 1,
-    rating: getTeamRatingSortValue(team, key),
-  }));
+    return [{ key, label, rank: row.rank, rating: getTeamRatingSortValue(row.team, key) }];
+  });
 }
