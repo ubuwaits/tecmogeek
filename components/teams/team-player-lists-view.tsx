@@ -6,8 +6,8 @@ import {
   PlayerListSection,
   getPlayerListNoteGridClass,
   type PlayerListSectionRow,
-} from "@/components/player-list-table";
-import { SelectionTabs } from "@/components/selection-tabs";
+} from "@/components/players/player-list-table";
+import { SelectionTabs } from "@/components/ui/selection-tabs";
 import {
   DEFAULT_TEAM_SKILL_MODE,
   TEAM_SECTION_CONFIGS,

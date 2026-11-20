@@ -1,6 +1,6 @@
 import {
   PlayerListHeaderLabel,
-} from "@/components/player-list-header-label";
+} from "@/components/ui/player-list-header-label";
 import type { MetricColumn, PlayerMetricKey } from "@/lib/types";
 
 type MetricLegendProps = {

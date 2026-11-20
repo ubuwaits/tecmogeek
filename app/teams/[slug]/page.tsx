@@ -2,9 +2,9 @@ import type { Metadata, ResolvingMetadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-import { TeamRatingSummaryCards } from "@/components/team-rating-summary-cards";
-import { HelmetSprite } from "@/components/sprites";
-import { TeamPlayerListsView } from "@/components/team-player-lists-view";
+import { TeamRatingSummaryCards } from "@/components/teams/team-rating-summary-cards";
+import { HelmetSprite } from "@/components/ui/sprites";
+import { TeamPlayerListsView } from "@/components/teams/team-player-lists-view";
 import { getTeam, getTeamRatings } from "@/lib/data";
 import { pageMetadata } from "@/lib/metadata";
 import { teamRoute, teamsRoute } from "@/lib/routes";

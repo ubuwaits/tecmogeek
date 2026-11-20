@@ -1,9 +1,9 @@
 import Link from "next/link";
 import type { Route } from "next";
 
-import { MetricLegend, MetricStrip } from "@/components/metric-strip";
-import { PlayerListHeaderLabel } from "@/components/player-list-header-label";
-import { HeadshotSprite, HelmetSprite } from "@/components/sprites";
+import { MetricLegend, MetricStrip } from "@/components/players/metric-strip";
+import { PlayerListHeaderLabel } from "@/components/ui/player-list-header-label";
+import { HeadshotSprite, HelmetSprite } from "@/components/ui/sprites";
 import type { MetricColumn, PlayerMetricKey, TeamSlug } from "@/lib/types";
 
 const PLAYER_LIST_GRID_CLASS = {

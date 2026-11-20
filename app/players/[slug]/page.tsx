@@ -1,7 +1,7 @@
 import type { Metadata, ResolvingMetadata } from "next";
 import { notFound } from "next/navigation";
 
-import { PlayerListView } from "@/components/player-list-view";
+import { PlayerListView } from "@/components/players/player-list-view";
 import { getPositionEntries } from "@/lib/data";
 import { pageMetadata } from "@/lib/metadata";
 import { getPositionPageConfig, POSITION_PAGES } from "@/lib/players/config";

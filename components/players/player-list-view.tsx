@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 
-import { PlayerListSection } from "@/components/player-list-table";
-import { SelectionTabs } from "@/components/selection-tabs";
+import { PlayerListSection } from "@/components/players/player-list-table";
+import { SelectionTabs } from "@/components/ui/selection-tabs";
 import { POSITION_PAGE_CONFIG_MAP } from "@/lib/players/config";
 import { getTeamSlugFromCode, matchesPrefixes, sortEntriesByKey } from "@/lib/player-utils";
 import { teamRoute } from "@/lib/routes";

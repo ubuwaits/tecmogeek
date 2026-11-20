@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import { HeadshotSprite, HelmetSprite } from "@/components/sprites";
-import { XMentionsSection } from "@/components/x-mentions-section";
+import { HeadshotSprite, HelmetSprite } from "@/components/ui/sprites";
+import { XMentionsSection } from "@/components/home/x-mentions-section";
 import { getPositionEntries, getTeam } from "@/lib/data";
 import { POSITION_PAGES } from "@/lib/players/config";
 import { getHomeEntries, getTeamSlugFromCode } from "@/lib/player-utils";

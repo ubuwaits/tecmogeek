@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
-import { SelectionTabs } from "@/components/selection-tabs";
+import { SelectionTabs } from "@/components/ui/selection-tabs";
 
 const RATING_TOPIC_TABS = [
   { id: "player", label: "Player Ratings" },

@@ -3,8 +3,8 @@
 import Link from "next/link";
 import { useState } from "react";
 
-import { PlayerListHeaderLabel } from "@/components/player-list-header-label";
-import { HelmetSprite } from "@/components/sprites";
+import { PlayerListHeaderLabel } from "@/components/ui/player-list-header-label";
+import { HelmetSprite } from "@/components/ui/sprites";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { teamRoute } from "@/lib/routes";
 import { getNextSortDirection } from "@/lib/sort-utils";

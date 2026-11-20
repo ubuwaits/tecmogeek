@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 
-import { SiteFooter } from "@/components/site-footer";
-import { TopNav } from "@/components/top-nav";
+import { SiteFooter } from "@/components/layout/site-footer";
+import { TopNav } from "@/components/layout/top-nav";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { SOCIAL_IMAGE_PATH } from "@/lib/metadata";
 import { SITE_URL } from "@/lib/site";

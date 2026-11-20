@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation";
 import { PLAYER_NAV_GROUPS } from "@/lib/players/config";
 import { aboutRatingsRoute, homeRoute, playerRoute, teamRoute, teamsRoute } from "@/lib/routes";
 import { TEAM_GROUPS, getTeamLabel } from "@/lib/teams/config";
-import { HelmetSprite } from "@/components/sprites";
+import { HelmetSprite } from "@/components/ui/sprites";
 
 type Menu = "teams" | "players";
 type NavState = {
