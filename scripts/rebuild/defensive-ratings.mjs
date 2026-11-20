@@ -1,25 +1,7 @@
 import { comparePlayerRanks } from "./compare-player-ranks.mjs";
-import fs from "node:fs/promises";
+import { formatAggregateFile, formatTeamFile, getPlayerKey, getTeamFileNames, readJson, writeFile } from "./roster-files.mts";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const DATA_DIR = path.join(__dirname, "../..", "data");
-
-const AGGREGATE_FILE_NAMES = new Set([
-  "qb.json",
-  "rushers.json",
-  "receivers.json",
-  "kick-returners.json",
-  "punt-returners.json",
-  "ol.json",
-  "dl.json",
-  "lb.json",
-  "cb-s.json",
-  "k.json",
-  "p.json",
-  "team-ratings.json",
-]);
 
 export const DEFENSIVE_HP_SCORE_MAP = {
   19: 0,
@@ -73,10 +55,6 @@ export const DEFENSIVE_CONFIGS = [
   },
 ];
 
-function getPlayerKey(player) {
-  return `${player.team}|${player.position}|${player.name}`;
-}
-
 function getNumericValue(player, key) {
   return Number(player[key] ?? 0);
 }
@@ -87,16 +65,6 @@ function getDefensiveHpScore(hittingPower) {
 
 function formatPercent(value) {
   return `${Math.round(value)}%`;
-}
-
-function formatAggregateFile(rows) {
-  return `[${rows.map((row) => JSON.stringify(row)).join(",\n")}]\n`;
-}
-
-function formatTeamFile(team) {
-  const players = team.players.map((player) => `    ${JSON.stringify(player)}`).join(",\n");
-
-  return `{\n  "full_name": ${JSON.stringify(team.full_name)},\n  "short_name": ${JSON.stringify(team.short_name)},\n  "players": [\n${players}\n  ]\n}\n`;
 }
 
 export function buildMaxima(players, columns) {
@@ -130,17 +98,6 @@ export function computeRating(player, columns, maxima) {
   }
 
   return Math.round(total);
-}
-
-async function readJson(fileName) {
-  const filePath = path.join(DATA_DIR, fileName);
-  const raw = await fs.readFile(filePath, "utf8");
-  return JSON.parse(raw);
-}
-
-async function writeFile(fileName, contents) {
-  const filePath = path.join(DATA_DIR, fileName);
-  await fs.writeFile(filePath, contents, "utf8");
 }
 
 async function rebuildDefensiveAggregate(config) {
@@ -177,9 +134,7 @@ async function rebuildDefensiveAggregate(config) {
 }
 
 async function syncTeamFiles(updatesByGroup) {
-  const fileNames = (await fs.readdir(DATA_DIR))
-    .filter((fileName) => fileName.endsWith(".json") && !AGGREGATE_FILE_NAMES.has(fileName))
-    .sort();
+  const fileNames = getTeamFileNames();
 
   const seenKeysByGroup = new Map(DEFENSIVE_CONFIGS.map((config) => [config.name, new Set()]));
 

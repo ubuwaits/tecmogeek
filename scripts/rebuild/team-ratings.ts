@@ -2,24 +2,9 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const DATA_DIR = path.join(__dirname, "../..", "data");
+import { DATA_DIR, getTeamFileNames, TEAM_RATINGS_FILE_NAME } from "./roster-files.mts";
 
-const TEAM_RATINGS_FILE_NAME = "team-ratings.json";
-const AGGREGATE_FILE_NAMES = new Set([
-  "qb.json",
-  "rushers.json",
-  "receivers.json",
-  "kick-returners.json",
-  "punt-returners.json",
-  "ol.json",
-  "dl.json",
-  "lb.json",
-  "cb-s.json",
-  "k.json",
-  "p.json",
-  TEAM_RATINGS_FILE_NAME,
-]);
+export { getTeamFileNames };
 
 const SKILL_POSITION_PREFIXES = ["RB", "WR", "TE"];
 const OFFENSIVE_SKILL_SLOTS = ["RB1", "RB2", "WR1", "WR2", "TE1"] as const;
@@ -650,13 +635,6 @@ export function buildTeamRatingRecord(teamSlug: string, teamData: TeamData, roun
       pr: getPlayerLabel(returnRoom.puntReturner),
     },
   };
-}
-
-export function getTeamFileNames(): string[] {
-  return fs
-    .readdirSync(DATA_DIR)
-    .filter((fileName) => fileName.endsWith(".json") && !AGGREGATE_FILE_NAMES.has(fileName))
-    .sort();
 }
 
 export function buildTeamRatings(): TeamRatingRecord[] {

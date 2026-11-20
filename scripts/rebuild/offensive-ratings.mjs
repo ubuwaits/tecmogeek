@@ -1,28 +1,10 @@
 import { comparePlayerRanks } from "./compare-player-ranks.mjs";
-import fs from "node:fs/promises";
+import { formatAggregateFile, formatTeamFile, getPlayerKey, getTeamFileNames, readJson, writeFile } from "./roster-files.mts";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const DATA_DIR = path.join(__dirname, "../..", "data");
-
 const OFFENSIVE_LINE_POSITIONS = new Set(["C", "LG", "RG", "LT", "RT"]);
 const SKILL_POSITION_PREFIXES = ["RB", "WR", "TE"];
-const AGGREGATE_FILE_NAMES = new Set([
-  "qb.json",
-  "rushers.json",
-  "receivers.json",
-  "kick-returners.json",
-  "punt-returners.json",
-  "ol.json",
-  "dl.json",
-  "lb.json",
-  "cb-s.json",
-  "k.json",
-  "p.json",
-  "team-ratings.json",
-]);
-
 const SKILL_ATTRIBUTE_KEYS = [
   "team",
   "position",
@@ -119,10 +101,6 @@ export const OL_CONFIG = {
   ],
 };
 
-function getPlayerKey(player) {
-  return `${player.team}|${player.position}|${player.name}`;
-}
-
 function getNumericValue(player, key) {
   return Number(player[key] ?? 0);
 }
@@ -137,16 +115,6 @@ function getOffensiveLineHpScore(hittingPower) {
 
 function formatPercent(value) {
   return `${Math.round(value)}%`;
-}
-
-function formatAggregateFile(rows) {
-  return `[${rows.map((row) => JSON.stringify(row)).join(",\n")}]\n`;
-}
-
-function formatTeamFile(team) {
-  const players = team.players.map((player) => `    ${JSON.stringify(player)}`).join(",\n");
-
-  return `{\n  "full_name": ${JSON.stringify(team.full_name)},\n  "short_name": ${JSON.stringify(team.short_name)},\n  "players": [\n${players}\n  ]\n}\n`;
 }
 
 function isSkillPosition(position) {
@@ -196,17 +164,6 @@ function assertSkillAttributesMatch(canonicalPlayer, comparisonPlayer, fileName)
       );
     }
   }
-}
-
-async function readJson(fileName) {
-  const filePath = path.join(DATA_DIR, fileName);
-  const raw = await fs.readFile(filePath, "utf8");
-  return JSON.parse(raw);
-}
-
-async function writeFile(fileName, contents) {
-  const filePath = path.join(DATA_DIR, fileName);
-  await fs.writeFile(filePath, contents, "utf8");
 }
 
 async function rebuildSkillAggregates() {
@@ -339,9 +296,7 @@ async function rebuildOlAggregate() {
 }
 
 async function syncTeamFiles(skillFieldUpdates, olUpdates) {
-  const fileNames = (await fs.readdir(DATA_DIR))
-    .filter((fileName) => fileName.endsWith(".json") && !AGGREGATE_FILE_NAMES.has(fileName))
-    .sort();
+  const fileNames = getTeamFileNames();
 
   const seenSkillKeys = new Set();
   const seenOlKeys = new Set();
