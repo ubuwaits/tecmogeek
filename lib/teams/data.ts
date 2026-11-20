@@ -4,7 +4,7 @@ import { cache } from "react";
 import fs from "node:fs/promises";
 import path from "node:path";
 
-import { resolveTeamSlug, type TeamSlug } from "@/lib/teams/slugs.mts";
+import type { TeamSlug } from "@/lib/teams/slugs.mts";
 import type { TeamData, TeamRatingRecord } from "@/lib/types";
 
 const DATA_DIR = path.join(process.cwd(), "data");
@@ -16,8 +16,7 @@ async function readJson<T>(fileName: string): Promise<T> {
 }
 
 export const getTeam = cache(async (slug: TeamSlug) => {
-  const team = await readJson<TeamData>(`${slug}.json`);
-  return { ...team, short_name: resolveTeamSlug(team.short_name, slug) };
+  return readJson<TeamData>(`${slug}.json`);
 });
 
 export const getTeamRatings = cache(async (): Promise<TeamRatingRecord[]> => {

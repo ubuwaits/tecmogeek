@@ -1,6 +1,5 @@
 {
   "full_name": "San Francisco 49ers",
-  "short_name": "49ers",
   "players": [
     {"position":"QB1","name":"Joe Montana","number":"#16","maximum_speed":19,"passing_speed":56,"pass_control":81,"avoid_pass_block":75,"rating":"77%","ranking":2},
     {"position":"QB2","name":"Steve Young","number":"#8","maximum_speed":25,"passing_speed":56,"pass_control":44,"avoid_pass_block":56,"rating":"56%","ranking":13},

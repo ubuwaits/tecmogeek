@@ -31,7 +31,7 @@ export async function generateMetadata(
 
   const team = await getTeam(slug);
 
-  return pageMetadata(parent, team.full_name, teamRoute(team.short_name));
+  return pageMetadata(parent, team.full_name, teamRoute(slug));
 }
 
 export default async function TeamPage({ params }: TeamPageProps) {
@@ -42,15 +42,14 @@ export default async function TeamPage({ params }: TeamPageProps) {
   }
 
   const [team, teamRatings, counts] = await Promise.all([getTeam(slug), getTeamRatings(), getLeaderboardCounts()]);
-  const teamSlug = team.short_name;
-  const ratingSummaries = getTeamRatingSummaries(teamRatings, teamSlug);
+  const ratingSummaries = getTeamRatingSummaries(teamRatings, slug);
 
   return (
     <>
       <header className="mb-10">
         <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_minmax(420px,560px)] xl:items-center xl:gap-8">
           <h1 className="grid grid-cols-[auto_minmax(0,1fr)] items-center gap-4 self-center sm:gap-6">
-            <HelmetSprite team={teamSlug} size="large" className="shrink-0 self-center" />
+            <HelmetSprite team={slug} size="large" className="shrink-0 self-center" />
             <div className="font-(family-name:--font-tecmo) text-[20px] leading-snug text-balance uppercase md:text-[28px]">
               {team.full_name}
             </div>
@@ -66,7 +65,7 @@ export default async function TeamPage({ params }: TeamPageProps) {
         </div>
       </header>
 
-      <TeamPlayerListsView team={team} teamSlug={teamSlug} counts={counts} />
+      <TeamPlayerListsView team={team} teamSlug={slug} counts={counts} />
     </>
   );
 }

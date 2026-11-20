@@ -1,6 +1,5 @@
 {
   "full_name": "San Diego Chargers",
-  "short_name": "chargers",
   "players": [
     {"position":"QB1","name":"B.J. Tolliver","number":"#11","maximum_speed":13,"passing_speed":81,"pass_control":31,"avoid_pass_block":44,"rating":"48%","ranking":20},
     {"position":"QB2","name":"Mark Vlasic","number":"#13","maximum_speed":13,"passing_speed":44,"pass_control":38,"avoid_pass_block":38,"rating":"42%","ranking":35},

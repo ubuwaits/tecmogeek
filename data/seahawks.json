@@ -1,6 +1,5 @@
 {
   "full_name": "Seattle Seahawks",
-  "short_name": "seahawks",
   "players": [
     {"position":"QB1","name":"Dave Krieg","number":"#17","maximum_speed":13,"passing_speed":25,"pass_control":69,"avoid_pass_block":69,"rating":"59%","ranking":10},
     {"position":"QB2","name":"Kelly Stouffer","number":"#11","maximum_speed":13,"passing_speed":44,"pass_control":38,"avoid_pass_block":38,"rating":"42%","ranking":42},

@@ -1,6 +1,5 @@
 {
   "full_name": "New Orleans Saints",
-  "short_name": "saints",
   "players": [
     {"position":"QB2","name":"John Fourcade","number":"#11","maximum_speed":13,"passing_speed":44,"pass_control":44,"avoid_pass_block":38,"rating":"46%","ranking":23},
     {"position":"QB1","name":"Steve Walsh","number":"#3","maximum_speed":13,"passing_speed":44,"pass_control":38,"avoid_pass_block":50,"rating":"43%","ranking":30},

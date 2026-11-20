@@ -1,6 +1,5 @@
 {
   "full_name": "Cincinnati Bengals",
-  "short_name": "bengals",
   "players": [
     {"position":"QB1","name":"Boomer Esiason","number":"#7","maximum_speed":19,"passing_speed":63,"pass_control":56,"avoid_pass_block":75,"rating":"63%","ranking":7},
     {"position":"QB2","name":"Erik Wilhelm","number":"#4","maximum_speed":13,"passing_speed":44,"pass_control":44,"avoid_pass_block":38,"rating":"46%","ranking":22},

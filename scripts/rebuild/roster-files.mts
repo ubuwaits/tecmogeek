@@ -5,7 +5,6 @@ import path from "node:path";
 
 export type TeamData = {
   full_name: string;
-  short_name: string;
   players: PlayerRecord[];
 };
 
@@ -16,10 +15,10 @@ export function getTeamFileNames(): string[] {
   return TEAM_SLUGS.map(slug => slug + ".json");
 }
 
-export function formatTeamFile(team: { full_name: string; short_name: string; players: readonly unknown[] }) {
+export function formatTeamFile(team: { full_name: string; players: readonly unknown[] }) {
   const players = team.players.map((player) => `    ${JSON.stringify(player)}`).join(",\n");
 
-  return `{\n  "full_name": ${JSON.stringify(team.full_name)},\n  "short_name": ${JSON.stringify(team.short_name)},\n  "players": [\n${players}\n  ]\n}\n`;
+  return `{\n  "full_name": ${JSON.stringify(team.full_name)},\n  "players": [\n${players}\n  ]\n}\n`;
 }
 
 export function readTeamRosters() {

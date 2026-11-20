@@ -14,11 +14,11 @@ const modes = new Map([["rushers", "rushing"], ["receivers", "receiving"],
   ["kick-returners", "kick-return"], ["punt-returners", "punt-return"]]);
 const rosters = TEAM_SLUGS.map(slug => {
   const team: TeamData = JSON.parse(readFileSync(`data/${slug}.json`, "utf8"));
-  return { ...team, players: team.players.map(player => ({ ...player, teamSlug: slug })) };
+  return { ...team, slug, players: team.players.map(player => ({ ...player, teamSlug: slug })) };
 });
 const allPlayers = rosters.flatMap(team => team.players);
 
-async function checkTable(table: Locator, config: PositionPageConfig, roster: PlayerRecord[], team?: TeamData) {
+async function checkTable(table: Locator, config: PositionPageConfig, roster: PlayerRecord[], team?: (typeof rosters)[number]) {
   const eligible = roster.filter(player => positions[config.slug].test(player.position));
   const expected = eligible.map(player => ({
     id: [player.teamSlug, player.position, player.name].join("|"),
@@ -60,7 +60,7 @@ async function checkTable(table: Locator, config: PositionPageConfig, roster: Pl
       return { id, bars };
     });
     return { headers, rows };
-  }, team?.short_name);
+  }, team?.slug);
 
   expect(actual.headers).toEqual(config.columns.map(column => ({ label: column.label, weight: String(column.weight) })));
   const byId = new Map(expected.map(row => [row.id, row.bars]));
@@ -88,9 +88,9 @@ for (const config of POSITION_PAGES) {
 }
 
 for (const team of rosters) {
-  test(`${team.short_name} team metric bars`, async ({ page }) => {
+  test(`${team.slug} team metric bars`, async ({ page }) => {
     expect(team.players).toHaveLength(30);
-    await page.goto(`/teams/${team.short_name}/`);
+    await page.goto(`/teams/${team.slug}/`);
     for (const config of POSITION_PAGES) {
       const mode = modes.get(config.slug);
       if (mode) {

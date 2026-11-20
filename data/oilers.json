@@ -1,6 +1,5 @@
 {
   "full_name": "Houston Oilers",
-  "short_name": "oilers",
   "players": [
     {"position":"QB1","name":"Warren Moon","number":"#1","maximum_speed":19,"passing_speed":69,"pass_control":75,"avoid_pass_block":63,"rating":"76%","ranking":3},
     {"position":"QB2","name":"Cody Carlson","number":"#14","maximum_speed":13,"passing_speed":44,"pass_control":31,"avoid_pass_block":44,"rating":"39%","ranking":50},

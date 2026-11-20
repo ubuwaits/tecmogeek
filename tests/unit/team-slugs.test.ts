@@ -3,11 +3,11 @@ import { expect, it } from "vitest";
 import { TEAM_GROUPS } from "@/data/divisions";
 import { TEAM_SLUGS, type TeamData } from "@/lib/types";
 import { getTeamLabel } from "@/lib/teams/config";
-import { resolveTeamSlug } from "@/lib/teams/slugs.mts";
+import { isTeamSlug } from "@/lib/teams/slugs.mts";
 
-it("uses a recognized roster short name and otherwise falls back to the route", () => {
-  expect(resolveTeamSlug("bills", "bears")).toBe("bills");
-  expect(resolveTeamSlug("unknown", "bears")).toBe("bears");
+it("recognizes only configured team slugs", () => {
+  for (const slug of TEAM_SLUGS) expect(isTeamSlug(slug)).toBe(true);
+  expect(isTeamSlug("unknown")).toBe(false);
 });
 
 it("includes each league team in exactly one division", () => {

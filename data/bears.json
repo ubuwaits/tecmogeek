@@ -1,6 +1,5 @@
 {
   "full_name": "Chicago Bears",
-  "short_name": "bears",
   "players": [
     {"position":"QB2","name":"Mike Tomczak","number":"#18","maximum_speed":13,"passing_speed":44,"pass_control":31,"avoid_pass_block":38,"rating":"38%","ranking":51},
     {"position":"QB1","name":"Jim Harbaugh","number":"#4","maximum_speed":13,"passing_speed":44,"pass_control":25,"avoid_pass_block":25,"rating":"34%","ranking":55},

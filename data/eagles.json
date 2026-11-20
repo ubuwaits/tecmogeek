@@ -1,6 +1,5 @@
 {
   "full_name": "Philadelphia Eagles",
-  "short_name": "eagles",
   "players": [
     {"position":"QB1","name":"QB Eagles","number":"#0","maximum_speed":56,"passing_speed":63,"pass_control":69,"avoid_pass_block":63,"rating":"87%","ranking":1},
     {"position":"QB2","name":"Jim Mcmahon","number":"#9","maximum_speed":6,"passing_speed":38,"pass_control":38,"avoid_pass_block":38,"rating":"38%","ranking":52},

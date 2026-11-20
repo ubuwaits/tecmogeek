@@ -120,7 +120,6 @@ export interface PlayerRecord {
 
 export interface TeamData {
   full_name: string;
-  short_name: TeamSlug | string;
   players: PlayerRecord[];
 }
 

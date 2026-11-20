@@ -1,6 +1,5 @@
 {
   "full_name": "Washington Redskins",
-  "short_name": "redskins",
   "players": [
     {"position":"QB2","name":"Stan Humphries","number":"#16","maximum_speed":13,"passing_speed":44,"pass_control":38,"avoid_pass_block":38,"rating":"42%","ranking":41},
     {"position":"QB1","name":"Mark Rypien","number":"#11","maximum_speed":6,"passing_speed":38,"pass_control":44,"avoid_pass_block":38,"rating":"42%","ranking":46},

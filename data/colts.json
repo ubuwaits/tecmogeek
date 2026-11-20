@@ -1,6 +1,5 @@
 {
   "full_name": "Indianapolis Colts",
-  "short_name": "colts",
   "players": [
     {"position":"QB2","name":"Jack Trudeau","number":"#10","maximum_speed":13,"passing_speed":31,"pass_control":38,"avoid_pass_block":50,"rating":"40%","ranking":49},
     {"position":"QB1","name":"Jeff George","number":"#11","maximum_speed":6,"passing_speed":50,"pass_control":31,"avoid_pass_block":25,"rating":"36%","ranking":54},

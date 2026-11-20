@@ -1,6 +1,5 @@
 {
   "full_name": "Minnesota Vikings",
-  "short_name": "vikings",
   "players": [
     {"position":"QB1","name":"Wade Wilson","number":"#11","maximum_speed":13,"passing_speed":44,"pass_control":44,"avoid_pass_block":38,"rating":"46%","ranking":24},
     {"position":"QB2","name":"Rich Gannon","number":"#16","maximum_speed":13,"passing_speed":25,"pass_control":38,"avoid_pass_block":31,"rating":"37%","ranking":53},

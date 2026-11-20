@@ -1,6 +1,5 @@
 {
   "full_name": "Detroit Lions",
-  "short_name": "lions",
   "players": [
     {"position":"QB1","name":"Rodney Peete","number":"#9","maximum_speed":31,"passing_speed":38,"pass_control":44,"avoid_pass_block":25,"rating":"52%","ranking":16},
     {"position":"QB2","name":"Andre Ware","number":"#11","maximum_speed":25,"passing_speed":44,"pass_control":38,"avoid_pass_block":44,"rating":"48%","ranking":19},

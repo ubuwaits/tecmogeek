@@ -1,6 +1,5 @@
 {
   "full_name": "Cleveland Browns",
-  "short_name": "browns",
   "players": [
     {"position":"QB1","name":"QB Browns","number":"#0","maximum_speed":25,"passing_speed":44,"pass_control":75,"avoid_pass_block":44,"rating":"71%","ranking":5},
     {"position":"QB2","name":"Mike Pagel","number":"#10","maximum_speed":25,"passing_speed":38,"pass_control":31,"avoid_pass_block":38,"rating":"42%","ranking":45},

@@ -1,6 +1,5 @@
 {
   "full_name": "New York Giants",
-  "short_name": "giants",
   "players": [
     {"position":"QB1","name":"Phil Simms","number":"#11","maximum_speed":13,"passing_speed":50,"pass_control":63,"avoid_pass_block":81,"rating":"62%","ranking":8},
     {"position":"QB2","name":"Jeff Hostetler","number":"#15","maximum_speed":25,"passing_speed":38,"pass_control":31,"avoid_pass_block":19,"rating":"41%","ranking":48},

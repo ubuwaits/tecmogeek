@@ -1,6 +1,5 @@
 {
   "full_name": "New York Jets",
-  "short_name": "jets",
   "players": [
     {"position":"QB1","name":"Ken O.Brien","number":"#7","maximum_speed":13,"passing_speed":56,"pass_control":50,"avoid_pass_block":38,"rating":"53%","ranking":15},
     {"position":"QB2","name":"Tony Eason","number":"#11","maximum_speed":13,"passing_speed":44,"pass_control":44,"avoid_pass_block":31,"rating":"46%","ranking":26},

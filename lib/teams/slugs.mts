@@ -36,7 +36,3 @@ const validTeamSlugs: ReadonlySet<string> = new Set(TEAM_SLUGS);
 export function isTeamSlug(slug: string): slug is TeamSlug {
   return validTeamSlugs.has(slug);
 }
-
-export function resolveTeamSlug(shortName: string, routeSlug: TeamSlug): TeamSlug {
-  return isTeamSlug(shortName) ? shortName : routeSlug;
-}

@@ -1,6 +1,5 @@
 {
   "full_name": "Buffalo Bills",
-  "short_name": "bills",
   "players": [
     {"position":"QB1","name":"QB Bills","number":"#0","maximum_speed":13,"passing_speed":56,"pass_control":81,"avoid_pass_block":81,"rating":"75%","ranking":4},
     {"position":"QB2","name":"Frank Reich","number":"#14","maximum_speed":13,"passing_speed":31,"pass_control":44,"avoid_pass_block":50,"rating":"44%","ranking":29},

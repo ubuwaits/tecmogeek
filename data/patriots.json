@@ -1,6 +1,5 @@
 {
   "full_name": "New England Patriots",
-  "short_name": "patriots",
   "players": [
     {"position":"QB2","name":"Marc Wilson","number":"#15","maximum_speed":13,"passing_speed":38,"pass_control":44,"avoid_pass_block":38,"rating":"45%","ranking":28},
     {"position":"QB1","name":"Steve Grogan","number":"#14","maximum_speed":6,"passing_speed":19,"pass_control":25,"avoid_pass_block":44,"rating":"26%","ranking":56},

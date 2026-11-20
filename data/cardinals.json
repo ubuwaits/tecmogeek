@@ -1,6 +1,5 @@
 {
   "full_name": "Phoenix Cardinals",
-  "short_name": "cardinals",
   "players": [
     {"position":"QB1","name":"Timm Rosenbach","number":"#3","maximum_speed":19,"passing_speed":31,"pass_control":44,"avoid_pass_block":31,"rating":"45%","ranking":27},
     {"position":"QB2","name":"Tom Tupa","number":"#19","maximum_speed":13,"passing_speed":44,"pass_control":38,"avoid_pass_block":38,"rating":"42%","ranking":34},

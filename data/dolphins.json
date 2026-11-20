@@ -1,6 +1,5 @@
 {
   "full_name": "Miami Dolphins",
-  "short_name": "dolphins",
   "players": [
     {"position":"QB1","name":"Dan Marino","number":"#13","maximum_speed":6,"passing_speed":81,"pass_control":69,"avoid_pass_block":69,"rating":"70%","ranking":6},
     {"position":"QB2","name":"Scott Mitchell","number":"#19","maximum_speed":13,"passing_speed":44,"pass_control":44,"avoid_pass_block":50,"rating":"47%","ranking":21},

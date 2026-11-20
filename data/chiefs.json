@@ -1,6 +1,5 @@
 {
   "full_name": "Kansas City Chiefs",
-  "short_name": "chiefs",
   "players": [
     {"position":"QB1","name":"Steve De Berg","number":"#17","maximum_speed":6,"passing_speed":50,"pass_control":63,"avoid_pass_block":56,"rating":"57%","ranking":12},
     {"position":"QB2","name":"Mike Elkins","number":"#10","maximum_speed":13,"passing_speed":44,"pass_control":38,"avoid_pass_block":38,"rating":"42%","ranking":36},

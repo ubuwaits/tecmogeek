@@ -1,6 +1,5 @@
 {
   "full_name": "Atlanta Falcons",
-  "short_name": "falcons",
   "players": [
     {"position":"QB1","name":"Chris Miller","number":"#12","maximum_speed":13,"passing_speed":31,"pass_control":44,"avoid_pass_block":31,"rating":"43%","ranking":31},
     {"position":"QB2","name":"Hugh Millen","number":"#7","maximum_speed":13,"passing_speed":38,"pass_control":38,"avoid_pass_block":38,"rating":"41%","ranking":47},

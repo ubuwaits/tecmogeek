@@ -1,6 +1,5 @@
 {
   "full_name": "Green Bay Packers",
-  "short_name": "packers",
   "players": [
     {"position":"QB1","name":"Don Majkowski","number":"#7","maximum_speed":25,"passing_speed":38,"pass_control":50,"avoid_pass_block":50,"rating":"54%","ranking":14},
     {"position":"QB2","name":"Anthony Dilweg","number":"#8","maximum_speed":13,"passing_speed":44,"pass_control":38,"avoid_pass_block":38,"rating":"42%","ranking":38},
