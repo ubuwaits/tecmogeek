@@ -45,7 +45,7 @@ function buildTeamRows({
   getMetricValue,
   rowTestId,
 }: {
-  players: readonly { player: PlayerRecord; spriteIndex: number }[];
+  players: readonly PlayerRecord[];
   teamSlug: TeamSlug;
   playerPage: TeamSectionConfig["playerPage"];
   getRankingValue: (player: PlayerRecord) => React.ReactNode;
@@ -53,13 +53,12 @@ function buildTeamRows({
   getMetricValue: (player: PlayerRecord, key: PlayerMetricKey) => number;
   rowTestId?: string;
 }): PlayerListSectionRow[] {
-  return players.map(({ player, spriteIndex }) => ({
+  return players.map((player) => ({
     key: `${playerPage}-${player.position}-${player.name}`,
     rankingValue: getRankingValue(player),
     identityProps: {
       layout: "team",
       team: teamSlug,
-      spriteIndex,
       name: player.name,
       position: player.position,
       number: player.number,
@@ -81,10 +80,7 @@ function TeamPositionPlayerList({
   const players = team.players.slice(section.range[0], section.range[1] + 1);
   const teamSlug = team.short_name as TeamSlug;
   const rows = buildTeamRows({
-    players: players.map((player, index) => ({
-      player,
-      spriteIndex: section.range[0] + index,
-    })),
+    players,
     teamSlug,
     playerPage: section.playerPage,
     getRankingValue: (player) => String(player.ranking ?? ""),
@@ -111,23 +107,8 @@ function TeamPositionPlayerList({
 function TeamSkillPlayerList({ team }: { team: TeamData }) {
   const [mode, setMode] = useState<TeamSkillMode>(DEFAULT_TEAM_SKILL_MODE);
   const modeConfig = TEAM_SKILL_MODE_CONFIG[mode];
-  const skillPlayers = team.players
-    .slice(TEAM_SKILL_RANGE[0], TEAM_SKILL_RANGE[1] + 1)
-    .map((player, offset) => ({
-      player,
-      spriteIndex: TEAM_SKILL_RANGE[0] + offset,
-    }));
-  const sortedPlayers = sortEntriesByKey(
-    skillPlayers.map((item) => item.player),
-    modeConfig.rankingKey,
-    "asc",
-    modeConfig.rankingKey,
-  ).map((player) => ({
-    player,
-    spriteIndex:
-      skillPlayers.find((item) => item.player.name === player.name && item.player.position === player.position)
-        ?.spriteIndex ?? TEAM_SKILL_RANGE[0],
-  }));
+  const skillPlayers = team.players.slice(TEAM_SKILL_RANGE[0], TEAM_SKILL_RANGE[1] + 1);
+  const sortedPlayers = sortEntriesByKey(skillPlayers, modeConfig.rankingKey, "asc", modeConfig.rankingKey);
   const returnSpeeds = getTeamReturnSpeedValues(team);
   const teamSlug = team.short_name as TeamSlug;
 

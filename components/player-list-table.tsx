@@ -73,7 +73,6 @@ type PlayerIdentityCellProps =
       layout: "player";
       team: TeamSlug;
       helmetHref: Route;
-      headshotPosition: string;
       name: string;
       position: string;
       number: string;
@@ -81,7 +80,6 @@ type PlayerIdentityCellProps =
   | {
       layout: "team";
       team: TeamSlug;
-      spriteIndex: number;
       name: string;
       position: string;
       number: string;
@@ -255,7 +253,7 @@ export function PlayerIdentityCell(props: PlayerIdentityCellProps) {
           <Link href={props.helmetHref} className="flex items-center justify-center">
             <HelmetSprite team={props.team} />
           </Link>
-          <HeadshotSprite team={props.team} position={props.headshotPosition} />
+          <HeadshotSprite team={props.team} position={props.position} />
         </div>
 
         <div className="min-w-0">
@@ -271,7 +269,7 @@ export function PlayerIdentityCell(props: PlayerIdentityCellProps) {
   return (
     <>
       <div className="flex items-center justify-center">
-        <HeadshotSprite team={props.team} index={props.spriteIndex} />
+        <HeadshotSprite team={props.team} position={props.position} />
       </div>
 
       <div className="pl-3">

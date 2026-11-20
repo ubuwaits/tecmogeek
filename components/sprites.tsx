@@ -39,16 +39,13 @@ export function HelmetSprite({
 export function HeadshotSprite({
   team,
   position,
-  index,
   className = "",
 }: {
   team: TeamSlug;
-  position?: string;
-  index?: number;
+  position: string;
   className?: string;
 }) {
-  const spriteIndex =
-    typeof index === "number" ? index : getHeadshotSpriteIndex(position ?? "QB1");
+  const spriteIndex = getHeadshotSpriteIndex(position);
 
   return (
     <span

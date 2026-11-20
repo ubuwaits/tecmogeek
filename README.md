@@ -18,6 +18,7 @@ pnpm lint
 pnpm typecheck
 pnpm test
 pnpm verify:players
+pnpm verify:portraits
 pnpm verify:rankings
 pnpm verify:player-sorting
 pnpm verify:team-rankings
@@ -28,6 +29,8 @@ pnpm verify:offense
 pnpm build
 pnpm e2e
 ```
+
+`pnpm verify:portraits` checks roster sections, rendered portrait cells and decoded sprite pixels for all 840 players across team pages and position leaderboards. See the [portrait references](tests/fixtures/portraits/README.md) for the game face IDs and pixel baselines.
 
 `pnpm verify:players` uses exact Z3 arithmetic to check all eleven individual rating formulas, including position-specific normalization, hitting-power lookups and whole-percent rounding. It uses the current position-group maxima, evaluates each eligible player, and checks the stored ratings in the team and position files.
 

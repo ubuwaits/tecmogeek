@@ -51,7 +51,6 @@ export function PlayerListView({ slug, entries }: PlayerListViewProps) {
         layout: "player" as const,
         team: teamSlug,
         helmetHref: teamRoute(teamSlug),
-        headshotPosition: entry.position,
         name: entry.name,
         position: entry.position,
         number: entry.number,
