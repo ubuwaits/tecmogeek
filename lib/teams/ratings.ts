@@ -18,7 +18,7 @@ export type TeamRatingSummaryItem = {
   rating: number;
 };
 
-export const TEAM_PAGE_RATING_ITEMS = [
+const TEAM_PAGE_RATING_ITEMS = [
   { key: "overall_rating", label: "Overall" },
   { key: "offensive_rating", label: "Offense" },
   { key: "defensive_rating", label: "Defense" },

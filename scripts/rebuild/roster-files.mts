@@ -15,7 +15,7 @@ export function getTeamFileNames(): string[] {
   return TEAM_SLUGS.map(slug => slug + ".json");
 }
 
-export function formatTeamFile(team: TeamData) {
+function formatTeamFile(team: TeamData) {
   const players = team.players.map(player => {
     const stored = { ...player };
     // Older rosters also carried their team label on every player.

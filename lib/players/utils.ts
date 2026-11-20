@@ -1,9 +1,7 @@
-import { POSITION_PAGE_CONFIG_MAP } from "@/lib/players/config";
 import type {
   HeadshotPosition,
   PlayerRecord,
   PositionPageConfig,
-  PositionSlug,
 } from "@/lib/types";
 import { HEADSHOT_POSITIONS } from "@/lib/types";
 
@@ -42,10 +40,6 @@ export function getHomeEntries<T extends PlayerRecord>(
   }
 
   return limited.filter((entry) => !config.homeExcludePositions?.includes(entry.position));
-}
-
-export function getHomeEntriesForSlug(slug: PositionSlug, entries: readonly PlayerRecord[]) {
-  return getHomeEntries(POSITION_PAGE_CONFIG_MAP[slug], entries);
 }
 
 export function rankingTooltip(count: number, groupLabel: string): string {

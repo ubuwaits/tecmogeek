@@ -93,7 +93,7 @@ export function getPlayerListNoteGridClass(layout: PlayerListLayout): string {
   return PLAYER_LIST_GRID_CLASS[layout].note;
 }
 
-export function PlayerListTable({ children, testId }: PlayerListTableProps) {
+function PlayerListTable({ children, testId }: PlayerListTableProps) {
   return (
     <div className="overflow-x-auto overscroll-x-contain pb-2" data-testid={testId}>
       <ol className="w-max min-w-full space-y-4 sm:w-full sm:min-w-0 sm:space-y-3">
@@ -103,7 +103,7 @@ export function PlayerListTable({ children, testId }: PlayerListTableProps) {
   );
 }
 
-export function PlayerListHeaderRow({ children, layout }: PlayerListRowProps) {
+function PlayerListHeaderRow({ children, layout }: PlayerListRowProps) {
   return (
     <li className={`${getGridClass(layout)} border-b-4 border-white/35 pb-3 text-white/65`}>
       {children}
@@ -111,7 +111,7 @@ export function PlayerListHeaderRow({ children, layout }: PlayerListRowProps) {
   );
 }
 
-export function PlayerListRow({ children, layout }: PlayerListRowProps) {
+function PlayerListRow({ children, layout }: PlayerListRowProps) {
   return <div className={getGridClass(layout)}>{children}</div>;
 }
 
@@ -150,7 +150,7 @@ function PlayerListRatingLink({ children, href }: { children: React.ReactNode; h
   );
 }
 
-export function PlayerListTableHeader({
+function PlayerListTableHeader({
   layout,
   rankingLabel,
   rankingTooltip,
@@ -192,7 +192,7 @@ export function PlayerListTableHeader({
   );
 }
 
-export function PlayerListMetricsRow({
+function PlayerListMetricsRow({
   layout,
   rankingValue,
   identity,
@@ -245,7 +245,7 @@ export function PlayerListSection({
   );
 }
 
-export function PlayerIdentityCell(props: PlayerIdentityCellProps) {
+function PlayerIdentityCell(props: PlayerIdentityCellProps) {
   if (props.layout === "player") {
     return (
       <div className="flex min-w-0 items-center gap-3">

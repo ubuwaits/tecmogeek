@@ -69,14 +69,14 @@ export type PlayerMetricKey =
   | "kicking_ability"
   | "avoid_kick_block";
 
-export type PlayerRankingKey =
+type PlayerRankingKey =
   | "ranking"
   | "rushing_ranking"
   | "receiving_ranking"
   | "kick_return_ranking"
   | "punt_return_ranking";
 
-export type PlayerRatingKey =
+type PlayerRatingKey =
   | "rating"
   | "rushing_rating"
   | "receiving_rating"
@@ -125,7 +125,7 @@ export interface TeamData {
 
 export type OffensiveSkillLineupRecord = Record<"RB1" | "RB2" | "WR1" | "WR2" | "TE1", string>;
 
-export interface TeamRatingComponents {
+interface TeamRatingComponents {
   qb_room: number;
   qb_rating: number;
   return_room: number;
@@ -141,7 +141,7 @@ export interface TeamRatingComponents {
   secondary_group: number;
 }
 
-export interface TeamRatingSelectedLineups {
+interface TeamRatingSelectedLineups {
   best_qb: string;
   backup_qb: string;
   running_lineup: OffensiveSkillLineupRecord;
@@ -173,7 +173,7 @@ export interface MetricColumn {
   weight: number;
 }
 
-export interface FilterOption {
+interface FilterOption {
   id: string;
   label: string;
   allowedPrefixes: readonly string[];

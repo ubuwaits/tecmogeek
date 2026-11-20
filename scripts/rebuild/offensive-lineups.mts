@@ -26,11 +26,11 @@ const BALANCED_SKILL_WEIGHTS = {
 } as const;
 export const FLOAT_TOLERANCE = 1e-9;
 
-export type OffensiveSkillSlot = (typeof OFFENSIVE_SKILL_SLOTS)[number];
+type OffensiveSkillSlot = (typeof OFFENSIVE_SKILL_SLOTS)[number];
 
 type SkillSlotAssignment = Record<OffensiveSkillSlot, RatedPlayer>;
 
-export type OffensiveSkillLineupsResult = {
+type OffensiveSkillLineupsResult = {
   runningSkillRating: number;
   passingSkillRating: number;
   balancedSkillRating: number;

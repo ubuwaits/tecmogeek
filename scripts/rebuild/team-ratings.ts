@@ -2,7 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-import type { OffensiveSkillLineupRecord, TeamRatingRecord as SharedTeamRatingRecord } from "../../lib/types.ts";
+import type { TeamRatingRecord as SharedTeamRatingRecord } from "../../lib/types.ts";
 
 import { DATA_DIR, getTeamFileNames, readTeamRosters, TEAM_RATINGS_FILE_NAME, type TeamData } from "./roster-files.mts";
 
@@ -13,10 +13,8 @@ import {
 } from "./team-rating-players.mts";
 
 export { getTeamFileNames };
-export { parsePercent } from "./team-rating-players.mts";
 export {
   compareLineupScores, createOffensiveSkillLineups, FLOAT_TOLERANCE, hasHighRunningPower, lineupScore,
-  type OffensiveSkillLineupsResult, type OffensiveSkillSlot,
 } from "./offensive-lineups.mts";
 
 const OFFENSIVE_LINE_POSITIONS = ["C", "LG", "RG", "LT", "RT"];
@@ -27,18 +25,15 @@ export const DEFENSIVE_UNITS = {
 } as const;
 export const DEFENSIVE_STARTER_COUNT = 11;
 
-
-export type { TeamRatingComponents, TeamRatingSelectedLineups } from "../../lib/types.ts";
-export type OffensiveSkillLineup = OffensiveSkillLineupRecord;
 export type TeamRatingRecord = SharedTeamRatingRecord<string>;
 
-export type QuarterbackRoomResult = {
+type QuarterbackRoomResult = {
   score: number;
   bestQb: RatedPlayer;
   backupQb: RatedPlayer;
 };
 
-export type ReturnRoomResult = {
+type ReturnRoomResult = {
   score: number;
   kickReturnScore: number;
   puntReturnScore: number;
@@ -46,7 +41,7 @@ export type ReturnRoomResult = {
   puntReturner: RatedPlayer;
 };
 
-export type DefensiveGroupsResult = {
+type DefensiveGroupsResult = {
   dlGroup: number;
   lbGroup: number;
   secondaryGroup: number;
@@ -256,7 +251,7 @@ export function writeTeamRatingsFile(records: readonly TeamRatingRecord[]) {
   writeJson(TEAM_RATINGS_FILE_NAME, records);
 }
 
-export function rebuildTeamRatings() {
+function rebuildTeamRatings() {
   const records = buildTeamRatings();
   writeTeamRatingsFile(records);
   return records;

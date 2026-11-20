@@ -13,20 +13,20 @@ import {
   PUNTER_COLUMNS,
 } from "./metrics.ts";
 
-export const QB_NOTE =
+const QB_NOTE =
   "All QBs have Running Speed 25, Rushing Power 69, and Hitting Power 13. Accuracy of Passing has no effect on performance.";
-export const SKILL_POSITION_NOTE = "All RBs, WRs and TEs have Rushing Power 69.";
-export const KICK_RETURN_NOTE =
+const SKILL_POSITION_NOTE = "All RBs, WRs and TEs have Rushing Power 69.";
+const KICK_RETURN_NOTE =
   "Due to a programming glitch, all KRs have the same Maximum Speed as their team's RT.";
-export const PUNT_RETURN_NOTE =
+const PUNT_RETURN_NOTE =
   "Due to a programming glitch, all PRs have the same Maximum Speed as their team's SS and Ball Control 44.";
-export const OFFENSIVE_LINE_NOTE =
+const OFFENSIVE_LINE_NOTE =
   "All OL have Running Speed 25 and Rushing Power 69.";
-export const DEFENSE_NOTE =
+const DEFENSE_NOTE =
   "Quickness has no effect on performance for any defensive player.";
-export const KICKER_NOTE =
+const KICKER_NOTE =
   "All kickers have Running Speed 56, Rushing Power 81, Maximum Speed 81, and Hitting Power 31. Avoid Kick Block has no effect on performance, so kickers are ranked only by Kicking Ability.";
-export const PUNTER_NOTE =
+const PUNTER_NOTE =
   "All punters have Running Speed 25, Rushing Power 56, Maximum Speed 44, and Hitting Power 31. Punts cannot be blocked, so Avoid Kick Block has no effect on performance and punters are ranked only by Kicking Ability.";
 
 type PositionPageConfigMap = {

@@ -23,7 +23,7 @@ export type RatedPlayer = PlayerRecord & {
   rosterIndex: number;
 };
 
-export function parsePercent(value: string | number | undefined): number {
+function parsePercent(value: string | number | undefined): number {
   if (typeof value === "number") {
     return value;
   }
