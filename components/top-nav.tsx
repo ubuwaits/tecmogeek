@@ -97,6 +97,42 @@ function DesktopMenu({
   );
 }
 
+function MobileMenuSection({
+  menu,
+  label,
+  openMenu,
+  dispatch,
+  children,
+}: {
+  menu: Menu;
+  label: string;
+  openMenu: NavState["mobile"];
+  dispatch: Dispatch<NavAction>;
+  children: ReactNode;
+}) {
+  const expanded = openMenu === menu;
+
+  return (
+    <li>
+      <button
+        type="button"
+        data-testid={`mobile-nav-section-${menu}`}
+        aria-expanded={expanded}
+        onClick={() => dispatch({ type: "toggleSection", menu })}
+        className="flex min-h-11 w-full cursor-pointer items-center justify-between rounded-xl border border-white/15 bg-[#0f4faa]/60 px-4 py-3 font-(family-name:--font-tecmo) text-[14px] uppercase leading-none text-white transition hover:bg-[#0f4faa]"
+      >
+        <span>{label}</span>
+        <span
+          className={`h-0 w-0 border-x-[6px] border-t-[6px] border-x-transparent border-t-white transition ${
+            expanded ? "rotate-180" : ""
+          }`}
+        />
+      </button>
+      {expanded && children}
+    </li>
+  );
+}
+
 export function TopNav() {
   const pathname = usePathname();
 
@@ -264,85 +300,51 @@ function TopNavContent() {
       >
         <nav className="max-h-[calc(100vh-72px)] overflow-y-auto px-4 py-4">
           <ul className="space-y-3">
-            <li>
-              <button
-                type="button"
-                data-testid="mobile-nav-section-teams"
-                aria-expanded={state.mobile === "teams"}
-                onClick={() => dispatch({ type: "toggleSection", menu: "teams" })}
-                className="flex min-h-11 w-full cursor-pointer items-center justify-between rounded-xl border border-white/15 bg-[#0f4faa]/60 px-4 py-3 font-(family-name:--font-tecmo) text-[14px] uppercase leading-none text-white transition hover:bg-[#0f4faa]"
-              >
-                <span>Teams</span>
-                <span
-                  className={`h-0 w-0 border-x-[6px] border-t-[6px] border-x-transparent border-t-white transition ${
-                    state.mobile === "teams" ? "rotate-180" : ""
-                  }`}
-                />
-              </button>
+            <MobileMenuSection menu="teams" label="Teams" openMenu={state.mobile} dispatch={dispatch}>
+              <div className="space-y-4 pt-3">
+                <Link
+                  href={teamsRoute}
+                  className="flex min-h-11 items-center rounded-xl border border-white/15 bg-[#0f4faa]/60 px-4 py-3 text-[14px] font-semibold text-white no-underline transition hover:bg-[#0f4faa]"
+                >
+                  Team Ratings
+                </Link>
 
-              {state.mobile === "teams" ? (
-                <div className="space-y-4 pt-3">
+                {TEAM_GROUPS.map((group) => (
+                  <section key={group.title}>
+                    <h2 className="mb-2 text-[11px] font-bold uppercase tracking-[0.14em] text-white/55">
+                      {group.title}
+                    </h2>
+                    <ol className="grid grid-cols-2 gap-2">
+                      {group.teams.map((team) => (
+                        <li key={team}>
+                          <Link
+                            href={teamRoute(team)}
+                            className="flex min-h-11 cursor-pointer items-center gap-2 rounded-xl bg-white/8 px-3 py-2.5 text-[13px] font-semibold text-white no-underline transition hover:bg-white/14"
+                          >
+                            <HelmetSprite team={team} />
+                            <span className="min-w-0 text-pretty">{getTeamLabel(team)}</span>
+                          </Link>
+                        </li>
+                      ))}
+                    </ol>
+                  </section>
+                ))}
+              </div>
+            </MobileMenuSection>
+
+            <MobileMenuSection menu="players" label="Players" openMenu={state.mobile} dispatch={dispatch}>
+              <div className="grid grid-cols-2 gap-2 pt-3">
+                {PLAYER_NAV_GROUPS.flat().map((page) => (
                   <Link
-                    href={teamsRoute}
-                    className="flex min-h-11 items-center rounded-xl border border-white/15 bg-[#0f4faa]/60 px-4 py-3 text-[14px] font-semibold text-white no-underline transition hover:bg-[#0f4faa]"
+                    key={page.slug}
+                    href={playerRoute(page.slug)}
+                    className="flex min-h-11 cursor-pointer items-center rounded-xl bg-white/8 px-3 py-2.5 text-[13px] font-semibold text-white no-underline transition hover:bg-white/14"
                   >
-                    Team Ratings
+                    {page.navLabel}
                   </Link>
-
-                  {TEAM_GROUPS.map((group) => (
-                    <section key={group.title}>
-                      <h2 className="mb-2 text-[11px] font-bold uppercase tracking-[0.14em] text-white/55">
-                        {group.title}
-                      </h2>
-                      <ol className="grid grid-cols-2 gap-2">
-                        {group.teams.map((team) => (
-                          <li key={team}>
-                            <Link
-                              href={teamRoute(team)}
-                              className="flex min-h-11 cursor-pointer items-center gap-2 rounded-xl bg-white/8 px-3 py-2.5 text-[13px] font-semibold text-white no-underline transition hover:bg-white/14"
-                            >
-                              <HelmetSprite team={team} />
-                              <span className="min-w-0 text-pretty">{getTeamLabel(team)}</span>
-                            </Link>
-                          </li>
-                        ))}
-                      </ol>
-                    </section>
-                  ))}
-                </div>
-              ) : null}
-            </li>
-
-            <li>
-              <button
-                type="button"
-                data-testid="mobile-nav-section-players"
-                aria-expanded={state.mobile === "players"}
-                onClick={() => dispatch({ type: "toggleSection", menu: "players" })}
-                className="flex min-h-11 w-full cursor-pointer items-center justify-between rounded-xl border border-white/15 bg-[#0f4faa]/60 px-4 py-3 font-(family-name:--font-tecmo) text-[14px] uppercase leading-none text-white transition hover:bg-[#0f4faa]"
-              >
-                <span>Players</span>
-                <span
-                  className={`h-0 w-0 border-x-[6px] border-t-[6px] border-x-transparent border-t-white transition ${
-                    state.mobile === "players" ? "rotate-180" : ""
-                  }`}
-                />
-              </button>
-
-              {state.mobile === "players" ? (
-                <div className="grid grid-cols-2 gap-2 pt-3">
-                  {PLAYER_NAV_GROUPS.flat().map((page) => (
-                    <Link
-                      key={page.slug}
-                      href={playerRoute(page.slug)}
-                      className="flex min-h-11 cursor-pointer items-center rounded-xl bg-white/8 px-3 py-2.5 text-[13px] font-semibold text-white no-underline transition hover:bg-white/14"
-                    >
-                      {page.navLabel}
-                    </Link>
-                  ))}
-                </div>
-              ) : null}
-            </li>
+                ))}
+              </div>
+            </MobileMenuSection>
 
             <li>
               <Link
