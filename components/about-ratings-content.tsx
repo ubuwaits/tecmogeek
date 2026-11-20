@@ -4,12 +4,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
-import { SelectionTabs, type SelectionTabItem } from "@/components/selection-tabs";
+import { SelectionTabs } from "@/components/selection-tabs";
 
-const RATING_TOPIC_TABS: readonly SelectionTabItem[] = [
+const RATING_TOPIC_TABS = [
   { id: "player", label: "Player Ratings" },
   { id: "team", label: "Team Ratings" },
-];
+] as const;
+
+type RatingTopic = (typeof RATING_TOPIC_TABS)[number]["id"];
 
 function RatingsTable({
   headings = ["Attribute", "Value"],
@@ -63,7 +65,7 @@ function RatingCalculation({
 }
 
 export function AboutRatingsContent() {
-  const [activeTopic, setActiveTopic] = useState("player");
+  const [activeTopic, setActiveTopic] = useState<RatingTopic>("player");
 
   return (
     <article className="prose prose-neutral max-w-none prose-a:no-underline prose-a:text-(--blue) prose-headings:text-[#3a3a3a] prose-strong:text-[#3a3a3a]">

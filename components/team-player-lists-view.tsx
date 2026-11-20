@@ -140,7 +140,7 @@ function TeamSkillPlayerList({ team, teamSlug }: TeamRosterProps) {
       <SelectionTabs
         items={TEAM_SKILL_MODES}
         activeId={mode}
-        onChange={(id) => setMode(id as TeamSkillMode)}
+        onChange={setMode}
         tabTestIdPrefix="team-mode"
         mobileSelectLabel="Skill mode"
         mobileSelectTestId="team-mode-select"
