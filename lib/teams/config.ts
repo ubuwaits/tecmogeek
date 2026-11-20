@@ -3,21 +3,15 @@ import {
   DEFENSIVE_LINE_COLUMNS,
   KICKER_NOTE,
   KICKER_COLUMNS,
-  KICK_RETURN_COLUMNS,
-  KICK_RETURN_NOTE,
   LINEBACKER_COLUMNS,
   OFFENSIVE_LINE_COLUMNS,
   OFFENSIVE_LINE_NOTE,
+  POSITION_PAGE_CONFIG_MAP,
   PUNTER_COLUMNS,
   PUNTER_NOTE,
-  PUNT_RETURN_COLUMNS,
-  PUNT_RETURN_NOTE,
   QB_COLUMNS,
   QB_NOTE,
-  RECEIVING_COLUMNS,
   SECONDARY_COLUMNS,
-  SKILL_POSITION_NOTE,
-  RUSHING_COLUMNS,
 } from "@/lib/players/config";
 import type {
   TeamGroup,
@@ -137,51 +131,23 @@ export const TEAM_SECTION_CONFIGS: readonly TeamSectionConfig[] = [
   },
 ];
 
+function skillMode(
+  id: TeamSkillMode,
+  label: string,
+  playerPage: TeamSkillModeConfig["playerPage"],
+): TeamSkillModeConfig {
+  const { rankingKey, ratingKey, columns, note } = POSITION_PAGE_CONFIG_MAP[playerPage];
+  return { id, label, playerPage, rankingKey, ratingKey, columns, note };
+}
+
 export const TEAM_SKILL_MODE_CONFIG: Record<TeamSkillMode, TeamSkillModeConfig> = {
-  rushing: {
-    id: "rushing",
-    label: "Rushing",
-    note: SKILL_POSITION_NOTE,
-    playerPage: "rushers",
-    rankingKey: "rushing_ranking",
-    ratingKey: "rushing_rating",
-    columns: RUSHING_COLUMNS,
-  },
-  receiving: {
-    id: "receiving",
-    label: "Receiving",
-    note: SKILL_POSITION_NOTE,
-    playerPage: "receivers",
-    rankingKey: "receiving_ranking",
-    ratingKey: "receiving_rating",
-    columns: RECEIVING_COLUMNS,
-  },
-  "kick-return": {
-    id: "kick-return",
-    label: "Kick Returning",
-    note: KICK_RETURN_NOTE,
-    playerPage: "kick-returners",
-    rankingKey: "kick_return_ranking",
-    ratingKey: "kick_return_rating",
-    columns: KICK_RETURN_COLUMNS,
-  },
-  "punt-return": {
-    id: "punt-return",
-    label: "Punt Returning",
-    note: PUNT_RETURN_NOTE,
-    playerPage: "punt-returners",
-    rankingKey: "punt_return_ranking",
-    ratingKey: "punt_return_rating",
-    columns: PUNT_RETURN_COLUMNS,
-  },
+  rushing: skillMode("rushing", "Rushing", "rushers"),
+  receiving: skillMode("receiving", "Receiving", "receivers"),
+  "kick-return": skillMode("kick-return", "Kick Returning", "kick-returners"),
+  "punt-return": skillMode("punt-return", "Punt Returning", "punt-returners"),
 };
 
-export const TEAM_SKILL_MODES = [
-  TEAM_SKILL_MODE_CONFIG.rushing,
-  TEAM_SKILL_MODE_CONFIG.receiving,
-  TEAM_SKILL_MODE_CONFIG["kick-return"],
-  TEAM_SKILL_MODE_CONFIG["punt-return"],
-] as const;
+export const TEAM_SKILL_MODES = Object.values(TEAM_SKILL_MODE_CONFIG);
 
 export const DEFAULT_TEAM_SKILL_MODE: TeamSkillMode = "rushing";
 export const TEAM_SKILL_RANGE = [2, 11] as const;
