@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useEffectEvent, useRef, useState, type ReactNode } from "react";
+import { useEffect, useReducer, useRef, type Dispatch, type ReactNode } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -9,19 +9,46 @@ import { aboutRatingsRoute, homeRoute, playerRoute, teamRoute, teamsRoute } from
 import { TEAM_GROUPS, getTeamLabel } from "@/lib/teams/config";
 import { HelmetSprite } from "@/components/sprites";
 
-type OpenMenu = "teams" | "players" | null;
+type Menu = "teams" | "players";
+type NavState = {
+  desktop: "closed" | Menu;
+  mobile: "closed" | "root" | Menu;
+};
+type NavAction =
+  | { type: "openDesktop" | "closeDesktop" | "toggleDesktop" | "toggleSection"; menu: Menu }
+  | { type: "toggleMobile" | "dismiss" };
+
+const initialNav: NavState = { desktop: "closed", mobile: "closed" };
+
+function navigationReducer(state: NavState, action: NavAction): NavState {
+  switch (action.type) {
+    case "openDesktop":
+      return { ...state, desktop: action.menu };
+    case "closeDesktop":
+      return state.desktop === action.menu ? { ...state, desktop: "closed" } : state;
+    case "toggleDesktop":
+      return { ...state, desktop: state.desktop === action.menu ? "closed" : action.menu };
+    case "toggleMobile":
+      return state.mobile === "closed" ? { desktop: "closed", mobile: "root" } : initialNav;
+    case "toggleSection":
+      if (state.mobile === "closed") return state;
+      return { ...state, mobile: state.mobile === action.menu ? "root" : action.menu };
+    case "dismiss":
+      return initialNav;
+  }
+}
 
 function DesktopMenu({
   menu,
   label,
   openMenu,
-  onChange,
+  dispatch,
   children,
 }: {
-  menu: Exclude<OpenMenu, null>;
+  menu: Menu;
   label: string;
-  openMenu: OpenMenu;
-  onChange: (menu: OpenMenu) => void;
+  openMenu: NavState["desktop"];
+  dispatch: Dispatch<NavAction>;
   children: ReactNode;
 }) {
   const expanded = openMenu === menu;
@@ -32,13 +59,13 @@ function DesktopMenu({
     <li
       className="relative mr-6 text-white"
       onPointerEnter={(event) => {
-        if (event.pointerType === "mouse") onChange(menu);
+        if (event.pointerType === "mouse") dispatch({ type: "openDesktop", menu });
       }}
       onPointerLeave={(event) => {
-        if (event.pointerType === "mouse" && expanded) onChange(null);
+        if (event.pointerType === "mouse" && expanded) dispatch({ type: "closeDesktop", menu });
       }}
       onBlur={(event) => {
-        if (expanded && !event.currentTarget.contains(event.relatedTarget)) onChange(null);
+        if (expanded && !event.currentTarget.contains(event.relatedTarget)) dispatch({ type: "closeDesktop", menu });
       }}
       onKeyDown={(event) => {
         if (event.key === "Escape" && expanded) trigger.current?.focus();
@@ -55,7 +82,7 @@ function DesktopMenu({
         onClick={(event) => {
           // Keyboard and touch users activate the disclosure directly.
           if (event.detail === 0 || pointerType.current !== "mouse") {
-            onChange(expanded ? null : menu);
+            dispatch({ type: "toggleDesktop", menu });
           }
         }}
         className={`relative block cursor-pointer px-3 py-2 pr-[30px] font-(family-name:--font-tecmo) text-[13px] uppercase leading-none text-inherit no-underline ${
@@ -77,26 +104,20 @@ export function TopNav() {
 }
 
 function TopNavContent() {
-  const [openMenu, setOpenMenu] = useState<OpenMenu>(null);
-  const [mobileNavOpen, setMobileNavOpen] = useState(false);
-  const [mobileSection, setMobileSection] = useState<OpenMenu>(null);
+  const [state, dispatch] = useReducer(navigationReducer, initialNav);
+  const mobileNavOpen = state.mobile !== "closed";
   const navRef = useRef<HTMLElement>(null);
-  const closeAllMenus = useEffectEvent(() => {
-    setOpenMenu(null);
-    setMobileNavOpen(false);
-    setMobileSection(null);
-  });
 
   useEffect(() => {
     function handleClick(event: MouseEvent) {
       if (!navRef.current?.contains(event.target as Node)) {
-        closeAllMenus();
+        dispatch({ type: "dismiss" });
       }
     }
 
     function handleKeyDown(event: KeyboardEvent) {
       if (event.key === "Escape") {
-        closeAllMenus();
+        dispatch({ type: "dismiss" });
       }
     }
 
@@ -108,12 +129,6 @@ function TopNavContent() {
       document.removeEventListener("keydown", handleKeyDown);
     };
   }, []);
-
-  function toggleMobileNav() {
-    setOpenMenu(null);
-    setMobileSection(null);
-    setMobileNavOpen((current) => !current);
-  }
 
   return (
     <header
@@ -132,7 +147,7 @@ function TopNavContent() {
         <button
           type="button"
           data-testid="mobile-nav-toggle"
-          onClick={toggleMobileNav}
+          onClick={() => dispatch({ type: "toggleMobile" })}
           aria-label={mobileNavOpen ? "Close menu" : "Open menu"}
           aria-expanded={mobileNavOpen}
           aria-controls="mobile-nav-panel"
@@ -162,8 +177,8 @@ function TopNavContent() {
             <DesktopMenu
               menu="teams"
               label="Teams"
-              openMenu={openMenu}
-              onChange={setOpenMenu}
+              openMenu={state.desktop}
+              dispatch={dispatch}
             >
               <div className="absolute left-0 top-full z-[1000] w-[600px] rounded-br rounded-bl rounded-tr bg-(--dark-bg) px-0 py-3">
                 <div className="px-3 pb-3">
@@ -201,8 +216,8 @@ function TopNavContent() {
             <DesktopMenu
               menu="players"
               label="Players"
-              openMenu={openMenu}
-              onChange={setOpenMenu}
+              openMenu={state.desktop}
+              dispatch={dispatch}
             >
               <div className="absolute left-0 top-full z-[1000] w-[400px] rounded-br rounded-bl rounded-tr bg-(--dark-bg) px-0 py-3">
                 <ol className="flex flex-wrap">
@@ -253,21 +268,19 @@ function TopNavContent() {
               <button
                 type="button"
                 data-testid="mobile-nav-section-teams"
-                aria-expanded={mobileSection === "teams"}
-                onClick={() =>
-                  setMobileSection((current) => (current === "teams" ? null : "teams"))
-                }
+                aria-expanded={state.mobile === "teams"}
+                onClick={() => dispatch({ type: "toggleSection", menu: "teams" })}
                 className="flex min-h-11 w-full cursor-pointer items-center justify-between rounded-xl border border-white/15 bg-[#0f4faa]/60 px-4 py-3 font-(family-name:--font-tecmo) text-[14px] uppercase leading-none text-white transition hover:bg-[#0f4faa]"
               >
                 <span>Teams</span>
                 <span
                   className={`h-0 w-0 border-x-[6px] border-t-[6px] border-x-transparent border-t-white transition ${
-                    mobileSection === "teams" ? "rotate-180" : ""
+                    state.mobile === "teams" ? "rotate-180" : ""
                   }`}
                 />
               </button>
 
-              {mobileSection === "teams" ? (
+              {state.mobile === "teams" ? (
                 <div className="space-y-4 pt-3">
                   <Link
                     href={teamsRoute}
@@ -304,21 +317,19 @@ function TopNavContent() {
               <button
                 type="button"
                 data-testid="mobile-nav-section-players"
-                aria-expanded={mobileSection === "players"}
-                onClick={() =>
-                  setMobileSection((current) => (current === "players" ? null : "players"))
-                }
+                aria-expanded={state.mobile === "players"}
+                onClick={() => dispatch({ type: "toggleSection", menu: "players" })}
                 className="flex min-h-11 w-full cursor-pointer items-center justify-between rounded-xl border border-white/15 bg-[#0f4faa]/60 px-4 py-3 font-(family-name:--font-tecmo) text-[14px] uppercase leading-none text-white transition hover:bg-[#0f4faa]"
               >
                 <span>Players</span>
                 <span
                   className={`h-0 w-0 border-x-[6px] border-t-[6px] border-x-transparent border-t-white transition ${
-                    mobileSection === "players" ? "rotate-180" : ""
+                    state.mobile === "players" ? "rotate-180" : ""
                   }`}
                 />
               </button>
 
-              {mobileSection === "players" ? (
+              {state.mobile === "players" ? (
                 <div className="grid grid-cols-2 gap-2 pt-3">
                   {PLAYER_NAV_GROUPS.flat().map((page) => (
                     <Link
