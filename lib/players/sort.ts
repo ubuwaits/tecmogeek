@@ -32,26 +32,16 @@ export function sortEntriesByKey<T extends PlayerRecord>(
   direction: SortDirection,
   tieBreakKey?: PlayerSortKey,
 ): T[] {
-  return entries
-    .map((entry, index) => ({ entry, index }))
-    .sort((left, right) => {
-      const leftValue = getSortValue(left.entry, key);
-      const rightValue = getSortValue(right.entry, key);
-
-      if (leftValue === rightValue) {
-        if (tieBreakKey && tieBreakKey !== key) {
-          const leftTieValue = getSortValue(left.entry, tieBreakKey);
-          const rightTieValue = getSortValue(right.entry, tieBreakKey);
-
-          if (leftTieValue !== rightTieValue) {
-            return direction === "asc" ? rightTieValue - leftTieValue : leftTieValue - rightTieValue;
-          }
-        }
-
-        return left.index - right.index;
-      }
-
+  return [...entries].sort((left, right) => {
+    const leftValue = getSortValue(left, key);
+    const rightValue = getSortValue(right, key);
+    if (leftValue !== rightValue) {
       return direction === "asc" ? leftValue - rightValue : rightValue - leftValue;
-    })
-    .map(({ entry }) => entry);
+    }
+
+    if (!tieBreakKey || tieBreakKey === key) return 0;
+    const leftTieValue = getSortValue(left, tieBreakKey);
+    const rightTieValue = getSortValue(right, tieBreakKey);
+    return direction === "asc" ? rightTieValue - leftTieValue : leftTieValue - rightTieValue;
+  });
 }
