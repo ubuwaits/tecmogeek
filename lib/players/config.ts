@@ -99,8 +99,12 @@ export const PUNTER_COLUMNS: readonly MetricColumn[] = [
   { key: "kicking_ability", label: "KA", tooltip: "Kicking Ability", weight: 100 },
 ];
 
-export const POSITION_PAGES: readonly PositionPageConfig[] = [
-  {
+type PositionPageConfigMap = {
+  [Slug in PositionSlug]: PositionPageConfig & { slug: Slug };
+};
+
+export const POSITION_PAGE_CONFIG_MAP: PositionPageConfigMap = {
+  qb: {
     slug: "qb",
     title: "Quarterbacks",
     navLabel: "Quarterbacks",
@@ -113,7 +117,7 @@ export const POSITION_PAGES: readonly PositionPageConfig[] = [
     columns: QB_COLUMNS,
     homeLimit: 5,
   },
-  {
+  rushers: {
     slug: "rushers",
     title: "Rushers",
     navLabel: "Rushers",
@@ -132,7 +136,7 @@ export const POSITION_PAGES: readonly PositionPageConfig[] = [
     ],
     defaultFilterId: "all",
   },
-  {
+  receivers: {
     slug: "receivers",
     title: "Receivers",
     navLabel: "Receivers",
@@ -150,7 +154,7 @@ export const POSITION_PAGES: readonly PositionPageConfig[] = [
     ],
     defaultFilterId: "all",
   },
-  {
+  "kick-returners": {
     slug: "kick-returners",
     title: "Kick Returners",
     navLabel: "Kick Returners",
@@ -163,7 +167,7 @@ export const POSITION_PAGES: readonly PositionPageConfig[] = [
     columns: KICK_RETURN_COLUMNS,
     homeLimit: 5,
   },
-  {
+  "punt-returners": {
     slug: "punt-returners",
     title: "Punt Returners",
     navLabel: "Punt Returners",
@@ -176,7 +180,7 @@ export const POSITION_PAGES: readonly PositionPageConfig[] = [
     columns: PUNT_RETURN_COLUMNS,
     homeLimit: 5,
   },
-  {
+  ol: {
     slug: "ol",
     title: "Offensive Linemen",
     navLabel: "Offensive Linemen",
@@ -189,7 +193,7 @@ export const POSITION_PAGES: readonly PositionPageConfig[] = [
     columns: OFFENSIVE_LINE_COLUMNS,
     homeLimit: 5,
   },
-  {
+  dl: {
     slug: "dl",
     title: "Defensive Linemen",
     navLabel: "Defensive Linemen",
@@ -202,7 +206,7 @@ export const POSITION_PAGES: readonly PositionPageConfig[] = [
     columns: DEFENSIVE_LINE_COLUMNS,
     homeLimit: 5,
   },
-  {
+  lb: {
     slug: "lb",
     title: "Linebackers",
     navLabel: "Linebackers",
@@ -215,7 +219,7 @@ export const POSITION_PAGES: readonly PositionPageConfig[] = [
     columns: LINEBACKER_COLUMNS,
     homeLimit: 5,
   },
-  {
+  "cb-s": {
     slug: "cb-s",
     title: "Cornerbacks & Safeties",
     navLabel: "Secondary",
@@ -228,7 +232,7 @@ export const POSITION_PAGES: readonly PositionPageConfig[] = [
     columns: SECONDARY_COLUMNS,
     homeLimit: 5,
   },
-  {
+  k: {
     slug: "k",
     title: "Kickers",
     navLabel: "Kickers",
@@ -241,7 +245,7 @@ export const POSITION_PAGES: readonly PositionPageConfig[] = [
     columns: KICKER_COLUMNS,
     homeLimit: 5,
   },
-  {
+  p: {
     slug: "p",
     title: "Punters",
     navLabel: "Punters",
@@ -254,11 +258,9 @@ export const POSITION_PAGES: readonly PositionPageConfig[] = [
     columns: PUNTER_COLUMNS,
     homeLimit: 5,
   },
-];
+};
 
-export const POSITION_PAGE_CONFIG_MAP = Object.fromEntries(
-  POSITION_PAGES.map((page) => [page.slug, page]),
-) as Record<PositionSlug, PositionPageConfig>;
+export const POSITION_PAGES: readonly PositionPageConfig[] = Object.values(POSITION_PAGE_CONFIG_MAP);
 
 export const PLAYER_NAV_GROUPS = [
   [
