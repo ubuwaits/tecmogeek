@@ -17,6 +17,6 @@ it("includes each league team in exactly one division", () => {
 it("derives each navigation label from its slug with the published roster spelling", () => {
   for (const slug of TEAM_SLUGS) {
     const roster: TeamData = JSON.parse(readFileSync(`data/${slug}.json`, "utf8"));
-    expect(new Set(roster.players.map(player => player.team))).toEqual(new Set([getTeamLabel(slug)]));
+    expect(roster.full_name.endsWith(" " + getTeamLabel(slug))).toBe(true);
   }
 });

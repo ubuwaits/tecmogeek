@@ -8,7 +8,7 @@ import { positions, skillPositions } from "../roster-data.mjs";
 function rateGroup(players, weights, hpWeight, ladder, ratingKey, rankingKey) {
   const maxima = Object.fromEntries(Object.keys(weights).map(key => [key, Math.max(...players.map(p => p[key]))]));
   const denominator = Object.values(maxima).reduce((a, b) => a * b, 100);
-  const changedTeams = new Set();
+  const changedPlayers = new Set();
   let ratings = 0;
   let ranks = 0;
   for (const player of players) {
@@ -18,7 +18,7 @@ function rateGroup(players, weights, hpWeight, ladder, ratingKey, rankingKey) {
     const rating = Math.floor((2 * numerator + denominator) / (2 * denominator)) + "%";
     if (player[ratingKey] !== rating) {
       ratings++;
-      changedTeams.add(player.team);
+      changedPlayers.add(player);
     }
     player[ratingKey] = rating;
   }
@@ -28,25 +28,27 @@ function rateGroup(players, weights, hpWeight, ladder, ratingKey, rankingKey) {
     if (player[rankingKey] !== i + 1) ranks++;
     player[rankingKey] = i + 1;
   });
-  return { ratings, ranks, changedTeams };
+  return { ratings, ranks, changedPlayers };
 }
 
-function defensiveEdit(players, edited, attribute) {
+function defensiveEdit(rosters, edited, attribute) {
+  const players = rosters.flatMap(team => team.players);
   const group = players.filter(p => positions.dl.test(p.position));
   const changes = rateGroup(group, { running_speed: 10, rushing_power: 35, maximum_speed: 10, pass_interceptions: 5 },
     40, { 19: 0, 25: 7, 31: 16, 38: 23, 44: 30, 50: 36, 56: 45, 63: 59, 69: 78, 75: 100 }, "rating", "ranking");
   assert(changes.ranks > 0);
   if (attribute === "maximum_speed") {
     assert(group.every(p => p === edited || p.maximum_speed < edited.maximum_speed));
-    assert(changes.changedTeams.size > 1);
+    assert(rosters.filter(team => team.players.some(p => changes.changedPlayers.has(p))).length > 1);
   } else {
     assert.equal(changes.ratings, 1);
   }
 }
 
-function rightTackleEdit(players, edited) {
+function rightTackleEdit(rosters, edited, _attribute, editedTeam) {
+  const players = rosters.flatMap(team => team.players);
   const skill = players.filter(p => skillPositions.test(p.position));
-  for (const player of skill.filter(p => p.team === edited.team)) player.kick_return_maximum_speed = edited.maximum_speed;
+  for (const player of editedTeam.players.filter(p => skillPositions.test(p.position))) player.kick_return_maximum_speed = edited.maximum_speed;
   const returns = rateGroup(skill, { running_speed: 20, kick_return_maximum_speed: 60, ball_control: 10 },
     10, { 75: 5, 81: 25, 88: 60, 94: 100 }, "kick_return_rating", "kick_return_ranking");
   assert(returns.ratings > 0 && returns.ranks > 0);
@@ -71,7 +73,7 @@ export function verifyRosterEdits(checkout, baseline, runRebuilds, listFiles) {
     assert.notEqual(edited[attribute], value);
     edited[attribute] = value;
     writeFileSync(file("eagles.json"), JSON.stringify(eagles));
-    predict([...rosters.values()].flatMap(team => team.players), edited, attribute);
+    predict([...rosters.values()], edited, attribute, eagles);
     runRebuilds();
 
     assert.deepEqual(new Set(listFiles(directory)), new Set(baseline.keys()));

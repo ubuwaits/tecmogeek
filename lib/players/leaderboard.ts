@@ -15,7 +15,7 @@ const eligiblePositions: Record<PositionSlug, RegExp> = {
   p: /^P$/,
 };
 
-export function positionEntries(players: readonly PlayerRecord[], { slug, rankingKey }: PositionPageConfig) {
+export function positionEntries<T extends PlayerRecord>(players: readonly T[], { slug, rankingKey }: PositionPageConfig) {
   return players.filter(player => eligiblePositions[slug].test(player.position))
     .sort((a, b) => Number(a[rankingKey]) - Number(b[rankingKey]));
 }

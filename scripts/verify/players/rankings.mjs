@@ -4,7 +4,7 @@ import assert from "node:assert/strict";
 import { init } from "z3-solver";
 import { POSITION_PAGES } from "../../../lib/players/config.ts";
 import { getTeamFileNames } from "../../rebuild/team-ratings.ts";
-import { indexPlayers, key, positions, read } from "../roster-data.mjs";
+import { indexPlayers, key, positions, readRosterPlayers } from "../roster-data.mjs";
 import { rankPositionPlayers } from "../../rebuild/rank-position-players.mjs";
 import { comparePlayerRanks } from "../../rebuild/compare-player-ranks.mjs";
 
@@ -56,7 +56,7 @@ for (const category of ["rushing", "receiving"]) {
 assert.deepEqual(tied.map(p => [p.rushing_ranking, p.receiving_ranking]), [[2, 1], [1, 2]]);
 
 const teamFiles = getTeamFileNames();
-const roster = teamFiles.flatMap(file => read(file).players);
+const roster = teamFiles.flatMap(readRosterPlayers);
 const unclassified = new Set(indexPlayers(roster, "team rosters").keys());
 let count = 0;
 for (const page of POSITION_PAGES) {

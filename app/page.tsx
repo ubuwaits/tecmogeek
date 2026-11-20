@@ -6,7 +6,7 @@ import { XMentionsSection } from "@/components/home/x-mentions-section";
 import { getPositionEntries } from "@/lib/players/data";
 import { getTeam } from "@/lib/teams/data";
 import { POSITION_PAGES } from "@/lib/players/config";
-import { getHomeEntries, getTeamSlugFromCode } from "@/lib/players/utils";
+import { getHomeEntries } from "@/lib/players/utils";
 import { homeRoute, playerRoute, teamRoute } from "@/lib/site/routes";
 
 export const metadata: Metadata = {
@@ -22,7 +22,7 @@ export default async function HomePage() {
       const entries = getHomeEntries(page, await getPositionEntries(page.slug));
       const players = await Promise.all(
         entries.map(async (entry) => {
-          const teamSlug = getTeamSlugFromCode(entry.team);
+          const teamSlug = entry.teamSlug;
           const team = await getTeam(teamSlug);
 
           return { entry, teamSlug, teamName: team.full_name };

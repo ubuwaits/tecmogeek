@@ -5,10 +5,11 @@ import { useState } from "react";
 import { PlayerListSection } from "@/components/players/player-list-table";
 import { SelectionTabs } from "@/components/ui/selection-tabs";
 import { POSITION_PAGE_CONFIG_MAP } from "@/lib/players/config";
-import { getTeamSlugFromCode, matchesPrefixes, rankingTooltip, sortEntriesByKey } from "@/lib/players/utils";
+import { matchesPrefixes, rankingTooltip, sortEntriesByKey } from "@/lib/players/utils";
 import { teamRoute } from "@/lib/site/routes";
 import { getNextSortDirection } from "@/lib/shared/sort-direction";
 import type {
+  LeaderboardPlayer,
   PlayerMetricKey,
   PlayerRecord,
   PlayerSortKey,
@@ -18,7 +19,7 @@ import type {
 
 type PlayerListViewProps = {
   slug: PositionSlug;
-  entries: PlayerRecord[];
+  entries: LeaderboardPlayer[];
 };
 
 function renderMetricValue(entry: PlayerRecord, key: PlayerMetricKey): number {
@@ -38,10 +39,10 @@ export function PlayerListView({ slug, entries }: PlayerListViewProps) {
   const sortedEntries = sortEntriesByKey(filteredEntries, sortKey, sortDirection, config.rankingKey);
   const activeMetricKey = config.columns.find((column) => column.key === sortKey)?.key ?? null;
   const rows = sortedEntries.map((entry) => {
-    const teamSlug = getTeamSlugFromCode(entry.team);
+    const teamSlug = entry.teamSlug;
 
     return {
-      key: `${entry.team}-${entry.position}-${entry.name}`,
+      key: `${teamSlug}-${entry.position}-${entry.name}`,
       rankingValue: String(entry[config.rankingKey] ?? ""),
       identityProps: {
         layout: "player" as const,

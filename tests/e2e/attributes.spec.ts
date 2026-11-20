@@ -12,19 +12,22 @@ const positions: Record<PositionSlug, RegExp> = {
 };
 const modes = new Map([["rushers", "rushing"], ["receivers", "receiving"],
   ["kick-returners", "kick-return"], ["punt-returners", "punt-return"]]);
-const rosters = TEAM_SLUGS.map(slug => JSON.parse(readFileSync(`data/${slug}.json`, "utf8")) as TeamData);
+const rosters = TEAM_SLUGS.map(slug => {
+  const team: TeamData = JSON.parse(readFileSync(`data/${slug}.json`, "utf8"));
+  return { ...team, players: team.players.map(player => ({ ...player, teamSlug: slug })) };
+});
 const allPlayers = rosters.flatMap(team => team.players);
 
 async function checkTable(table: Locator, config: PositionPageConfig, roster: PlayerRecord[], team?: TeamData) {
   const eligible = roster.filter(player => positions[config.slug].test(player.position));
   const expected = eligible.map(player => ({
-    id: [player.team.toLowerCase(), player.position, player.name].join("|"),
+    id: [player.teamSlug, player.position, player.name].join("|"),
     bars: config.columns.map(({ key, tooltip, weight }) => {
       let value = player[key];
       if (team && (key === "kick_return_maximum_speed" || key === "punt_return_maximum_speed")) {
         const starter = key === "kick_return_maximum_speed" ? "RT" : "SS";
         const matches = team.players.filter(p => p.position === starter);
-        expect(matches, `${player.team}: expected one ${starter}`).toHaveLength(1);
+        expect(matches, `${player.teamSlug}: expected one ${starter}`).toHaveLength(1);
         value = matches[0].maximum_speed;
       }
       expect(typeof value, `${player.name}: missing ${key}`).toBe("number");

@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 import { createRequire } from "node:module";
-import { positions, read } from "../../scripts/verify/roster-data.mjs";
+import { positions, read, readRosterPlayers } from "../../scripts/verify/roster-data.mjs";
 
 const { POSITION_PAGES } = createRequire(import.meta.url)("../../lib/players/config.ts");
 const groups = { offense: ["Run", "Pass", "Bal"], defense: ["DL", "LB", "Sec"] };
@@ -10,7 +10,7 @@ const teamFields = {
   DL: "dl_group", LB: "lb_group", Sec: "secondary_group",
 };
 const teams = read("team-ratings.json");
-const players = teams.flatMap(({ team }) => read(team + ".json").players);
+const players = teams.flatMap(({ team }) => readRosterPlayers(team + ".json"));
 function model(config) {
   const team = !config;
   const columns = team ? teamFields : Object.fromEntries([
@@ -18,7 +18,7 @@ function model(config) {
   ]);
   const rows = team ? teams : players.filter(player => positions[config.slug].test(player.position))
     .sort((a, b) => a[config.rankingKey] - b[config.rankingKey]);
-  const ids = rows.map(row => team ? row.team : row.team.toLowerCase() + "/" + row.position);
+  const ids = rows.map(row => team ? row.team : row.teamSlug + "/" + row.position);
   const orders = new Map();
   const initial = { column: team ? "Overall" : "Ranking", asc: !team, filter: "all", offense: false, defense: false };
   function order({ column, asc, filter }) {

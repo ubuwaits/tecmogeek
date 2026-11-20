@@ -8,7 +8,6 @@ type RatingKey =
   | "punt_return_rating";
 
 export type PlayerRecord = {
-  team: string;
   position: string;
   name: string;
   number: string;

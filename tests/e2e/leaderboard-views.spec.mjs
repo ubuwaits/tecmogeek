@@ -1,16 +1,16 @@
 import { createHash } from "node:crypto";
 import { expect, test } from "@playwright/test";
-import { positions, read, skillPositions } from "../../scripts/verify/roster-data.mjs";
+import { positions, read, readRosterPlayers, skillPositions } from "../../scripts/verify/roster-data.mjs";
 
 const teams = read("team-ratings.json");
-const players = teams.flatMap(({ team }) => read(team + ".json").players);
+const players = teams.flatMap(({ team }) => readRosterPlayers(team + ".json"));
 const rankFields = {
   rushers: "rushing_ranking", receivers: "receiving_ranking",
   "kick-returners": "kick_return_ranking", "punt-returners": "punt_return_ranking",
 };
 
 function expectedRow(player) {
-  return [player.name, player.position + " " + player.number, "/teams/" + player.team.toLowerCase() + "/"];
+  return [player.name, player.position + " " + player.number, "/teams/" + player.teamSlug + "/"];
 }
 
 async function renderedRows(rows) {

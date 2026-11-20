@@ -219,12 +219,12 @@ describe("offensive ratings data", () => {
     const rushers = leaderboard("rushers");
     const maxima = buildMaxima(rushers, SKILL_CONFIGS[0].columns, "skill");
 
-    const jerryRice = rushers.find((player) => player.team === "49ers" && player.name === "Jerry Rice");
-    const boJackson = rushers.find((player) => player.team === "Raiders" && player.name === "Bo Jackson");
+    const jerryRice = rushers.find((player) => player.teamSlug === "49ers" && player.name === "Jerry Rice");
+    const boJackson = rushers.find((player) => player.teamSlug === "raiders" && player.name === "Bo Jackson");
     const ottisAnderson = rushers.find(
-      (player) => player.team === "Giants" && player.name === "Ottis Anderson",
+      (player) => player.teamSlug === "giants" && player.name === "Ottis Anderson",
     );
-    const ickeyWoods = rushers.find((player) => player.team === "Bengals" && player.name === "Ickey Woods");
+    const ickeyWoods = rushers.find((player) => player.teamSlug === "bengals" && player.name === "Ickey Woods");
 
     expect(jerryRice).toBeDefined();
     expect(boJackson).toBeDefined();

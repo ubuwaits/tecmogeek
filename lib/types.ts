@@ -85,8 +85,9 @@ export type PlayerRatingKey =
 
 export type PlayerSortKey = PlayerMetricKey | PlayerRankingKey | PlayerRatingKey;
 
+export type LeaderboardPlayer = PlayerRecord & { teamSlug: TeamSlug };
+
 export interface PlayerRecord {
-  team: string;
   position: string;
   name: string;
   number: string;

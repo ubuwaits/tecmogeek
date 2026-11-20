@@ -4,7 +4,7 @@ import assert from "node:assert/strict";
 import { init } from "z3-solver";
 import { sortEntriesByKey } from "../../../lib/players/sort.ts";
 import { POSITION_PAGES } from "../../../lib/players/config.ts";
-import { indexPlayers, key, positions, read } from "../roster-data.mjs";
+import { indexPlayers, key, positions, readRosterPlayers } from "../roster-data.mjs";
 import { getTeamFileNames } from "../../rebuild/team-ratings.ts";
 
 const { Context } = await init();
@@ -62,7 +62,7 @@ function checkSort(rows, field, rankField, direction, allowed, description) {
 }
 
 const rules = { asc: await orderingRule("asc"), desc: await orderingRule("desc") };
-const roster = getTeamFileNames().flatMap(file => read(file).players);
+const roster = getTeamFileNames().flatMap(readRosterPlayers);
 const rosterIds = new Set(indexPlayers(roster, "team rosters").keys());
 const covered = new Set();
 let orders = 0;

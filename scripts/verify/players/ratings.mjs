@@ -1,6 +1,6 @@
 import { positionEntries } from "../../../lib/players/leaderboard.ts";
 import assert from "node:assert/strict";
-import { indexPlayers, key, positions, read, skillPositions } from "../roster-data.mjs";
+import { indexPlayers, key, positions, readRosterPlayers, skillPositions } from "../roster-data.mjs";
 import { init } from "z3-solver";
 import { POSITION_PAGES } from "../../../lib/players/config.ts";
 import { getTeamFileNames } from "../../rebuild/team-ratings.ts";
@@ -69,7 +69,7 @@ async function prove(page, model, maxima) {
 
 const files = getTeamFileNames();
 const roster = files.flatMap(file => {
-  const { players } = read(file);
+  const players = readRosterPlayers(file);
   for (const [position, field] of [["RT", "kick_return_maximum_speed"], ["SS", "punt_return_maximum_speed"]]) {
     const starters = players.filter(player => player.position === position);
     assert.equal(starters.length, 1, `${file}: expected one ${position}`);

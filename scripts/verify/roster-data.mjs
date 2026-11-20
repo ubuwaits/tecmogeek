@@ -13,8 +13,13 @@ export function read(file) {
   return JSON.parse(readFileSync(new URL("../../data/" + file, import.meta.url), "utf8"));
 }
 
+export function readRosterPlayers(file) {
+  const teamSlug = file.replace(/\.json$/, "");
+  return read(file).players.map(player => ({ ...player, teamSlug }));
+}
+
 export function key(player) {
-  return [player.team, player.position, player.name].join("|");
+  return [player.teamSlug, player.position, player.name].join("|");
 }
 
 export function indexPlayers(players, source) {

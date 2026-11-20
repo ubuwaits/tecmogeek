@@ -5,7 +5,7 @@ import { TEAM_SLUGS, type PositionSlug, type TeamData } from "../../lib/types";
 
 const players = TEAM_SLUGS.flatMap(slug => {
   const team: TeamData = JSON.parse(readFileSync(`data/${slug}.json`, "utf8"));
-  return team.players;
+  return team.players.map(player => ({ ...player, teamSlug: slug }));
 });
 
 export function leaderboard(slug: PositionSlug) {

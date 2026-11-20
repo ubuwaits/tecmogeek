@@ -28,7 +28,7 @@ export function readTeamRosters() {
   for (const slug of TEAM_SLUGS) {
     const team: TeamData = JSON.parse(fs.readFileSync(path.join(DATA_DIR, slug + ".json"), "utf8"));
     for (const player of team.players) {
-      const id = JSON.stringify([player.team, player.position, player.name]);
+      const id = JSON.stringify([slug, player.position, player.name]);
       if (identities.has(id)) throw new Error(`Duplicate roster player: ${id}`);
       identities.add(id);
     }

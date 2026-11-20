@@ -5,7 +5,6 @@ import type {
   PositionPageConfig,
   PositionSlug,
   TeamData,
-  TeamSlug,
 } from "@/lib/types";
 import { HEADSHOT_POSITIONS } from "@/lib/types";
 
@@ -33,10 +32,10 @@ export function getHeadshotSpriteIndex(position: string): number {
   return index >= 0 ? index : 0;
 }
 
-export function getHomeEntries(
+export function getHomeEntries<T extends PlayerRecord>(
   config: PositionPageConfig,
-  entries: readonly PlayerRecord[],
-): PlayerRecord[] {
+  entries: readonly T[],
+): T[] {
   const limited = entries.slice(0, config.homeLimit);
 
   if (!config.homeExcludePositions?.length) {
@@ -48,10 +47,6 @@ export function getHomeEntries(
 
 export function getHomeEntriesForSlug(slug: PositionSlug, entries: readonly PlayerRecord[]) {
   return getHomeEntries(POSITION_PAGE_CONFIG_MAP[slug], entries);
-}
-
-export function getTeamSlugFromCode(value: string): TeamSlug {
-  return value.toLowerCase() as TeamSlug;
 }
 
 export function getTeamReturnSpeedValues(team: TeamData) {
