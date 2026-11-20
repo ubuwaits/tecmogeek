@@ -17,7 +17,8 @@
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "e2e": "playwright test"
+    "e2e": "playwright test",
+    "verify:lineups": "node scripts/verify-lineups.mjs"
   },
   "dependencies": {
     "@radix-ui/react-tabs": "^1.1.13",
@@ -40,7 +41,8 @@
     "typescript": "^5.9.3",
     "vite": "8.0.11",
     "vitest": "^4.1.5",
-    "wrangler": "^4.129.0"
+    "wrangler": "^4.129.0",
+    "z3-solver": "^5.4.1"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
