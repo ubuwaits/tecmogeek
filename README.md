@@ -19,6 +19,7 @@ pnpm typecheck
 pnpm test
 pnpm verify:lineups
 pnpm verify:defense
+pnpm verify:offense
 pnpm build
 pnpm e2e
 ```
@@ -26,6 +27,8 @@ pnpm e2e
 `pnpm verify:lineups` checks the generated running, passing, and balanced lineups for every team roster with Z3. It checks slot eligibility, scores, optimality, and tie-breaking under the [team rating rules](docs/team-ratings.md). A better legal lineup or a preferred equal-score lineup prints as a counterexample and causes a nonzero exit.
 
 `pnpm verify:defense` uses Z3 to prove that the unrounded defensive formula equals the mean of the eleven starters and stays within 0–100 for any real starter ratings in that range. It also compares the generator’s floating-point score with the starter mean for every team roster.
+
+`pnpm verify:offense` proves the running, passing, balanced, offensive, and overall rating formulas over real component scores from 0 to 100. It also recalculates all five ratings from each roster and checks the generator and published data at three-decimal precision.
 
 ## Deployment
 

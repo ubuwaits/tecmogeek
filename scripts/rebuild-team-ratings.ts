@@ -539,6 +539,40 @@ export function createDefensiveGroups(players: readonly PlayerRecord[]): Defensi
   };
 }
 
+// The verifier evaluates these same formulas with exact Z3 reals.
+export function calculateTeamOffenseAndOverall<T>(
+  inputs: { runningSkill: T; passingSkill: T; balancedSkill: T; line: T; qb: T; returns: T; defense: T },
+  blend: (parts: readonly { weight: number; value: T }[]) => T,
+) {
+  const runningOffenseRating = blend([
+    { weight: 0.63, value: inputs.runningSkill },
+    { weight: 0.27, value: inputs.line },
+    { weight: 0.1, value: inputs.returns },
+  ]);
+  const passingOffenseRating = blend([
+    { weight: 0.45, value: inputs.qb },
+    { weight: 0.315, value: inputs.passingSkill },
+    { weight: 0.135, value: inputs.line },
+    { weight: 0.1, value: inputs.returns },
+  ]);
+  const balancedOffenseRating = blend([
+    { weight: 0.27, value: inputs.qb },
+    { weight: 0.18, value: inputs.line },
+    { weight: 0.45, value: inputs.balancedSkill },
+    { weight: 0.1, value: inputs.returns },
+  ]);
+  const offensiveRating = blend([
+    { weight: 0.25, value: runningOffenseRating },
+    { weight: 0.25, value: passingOffenseRating },
+    { weight: 0.5, value: balancedOffenseRating },
+  ]);
+  const overallRating = blend([
+    { weight: 0.5, value: offensiveRating },
+    { weight: 0.5, value: inputs.defense },
+  ]);
+  return { runningOffenseRating, passingOffenseRating, balancedOffenseRating, offensiveRating, overallRating };
+}
+
 export function buildTeamRatingRecord(teamSlug: string, teamData: TeamData): TeamRatingRecord {
   const players = teamData.players.map((player, rosterIndex) => ({ ...player, rosterIndex }));
   const quarterbackRoom = createQuarterbackRoom(players);
@@ -549,33 +583,17 @@ export function buildTeamRatingRecord(teamSlug: string, teamData: TeamData): Tea
   const returnRoom = createReturnRoom(players);
   const returnRoomScore = returnRoom.score;
   const defensiveGroups = createDefensiveGroups(players);
-  const runningOffenseRating = weightedAverage([
-    { weight: 0.63, value: offensiveSkillLineups.runningSkillRating },
-    { weight: 0.27, value: offensiveLineScore },
-    { weight: 0.1, value: returnRoomScore },
-  ]);
-  const passingOffenseRating = weightedAverage([
-    { weight: 0.45, value: quarterbackRoomScore },
-    { weight: 0.315, value: offensiveSkillLineups.passingSkillRating },
-    { weight: 0.135, value: offensiveLineScore },
-    { weight: 0.1, value: returnRoomScore },
-  ]);
-  const balancedOffenseRating = weightedAverage([
-    { weight: 0.27, value: quarterbackRoomScore },
-    { weight: 0.18, value: offensiveLineScore },
-    { weight: 0.45, value: offensiveSkillLineups.balancedSkillRating },
-    { weight: 0.1, value: returnRoomScore },
-  ]);
-  const offensiveRating = weightedAverage([
-    { weight: 0.25, value: runningOffenseRating },
-    { weight: 0.25, value: passingOffenseRating },
-    { weight: 0.5, value: balancedOffenseRating },
-  ]);
   const defensiveRating = defensiveGroups.score;
-  const overallRating = weightedAverage([
-    { weight: 0.5, value: offensiveRating },
-    { weight: 0.5, value: defensiveRating },
-  ]);
+  const { runningOffenseRating, passingOffenseRating, balancedOffenseRating, offensiveRating, overallRating } =
+    calculateTeamOffenseAndOverall({
+      runningSkill: offensiveSkillLineups.runningSkillRating,
+      passingSkill: offensiveSkillLineups.passingSkillRating,
+      balancedSkill: offensiveSkillLineups.balancedSkillRating,
+      line: offensiveLineScore,
+      qb: quarterbackRoomScore,
+      returns: returnRoomScore,
+      defense: defensiveRating,
+    }, weightedAverage);
 
   return {
     team: teamSlug,
