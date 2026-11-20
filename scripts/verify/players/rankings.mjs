@@ -57,8 +57,7 @@ assert.deepEqual(tied.map(p => [p.rushing_ranking, p.receiving_ranking]), [[2, 1
 
 const teamFiles = getTeamFileNames();
 const roster = teamFiles.flatMap(file => read(file).players);
-const rosterIndex = indexPlayers(roster, "team rosters");
-const ranks = new Map(roster.map(player => [key(player), new Map()]));
+const unclassified = new Set(indexPlayers(roster, "team rosters").keys());
 let count = 0;
 for (const page of POSITION_PAGES) {
   const rows = positionEntries(roster, page);
@@ -70,35 +69,26 @@ for (const page of POSITION_PAGES) {
   const witness = Int.const("row_with_inversion");
   for (const [i, player] of rows.entries()) {
     const id = key(player);
-    const source = rosterIndex.get(id);
-    const rating = source[page.ratingKey];
+    const rating = player[page.ratingKey];
     assert(/^(100|[1-9]?\d)%$/.test(rating), `${id}: invalid ${page.ratingKey}`);
-    assert.equal(player[page.ratingKey], rating, `${page.slug}: rating mismatch for ${id}`);
     let primary = Number.parseInt(rating, 10);
     let secondary = 0;
     if (page.slug === "k" || page.slug === "p") {
-      primary = source.kicking_ability;
-      assert.equal(player.kicking_ability, primary, id);
+      primary = player.kicking_ability;
     } else if (page.slug !== "qb") {
-      secondary = source.hitting_power;
-      assert.equal(player.hitting_power, secondary, id);
+      secondary = player.hitting_power;
     }
     assert(Number.isInteger(primary) && Number.isInteger(secondary), `${id}: invalid ranking input`);
     const current = { primary: Int.val(primary), secondary: Int.val(secondary), index: Int.val(i) };
     if (previous) violations.push(And(witness.eq(i + 1), Not(precedes(previous, current))));
     previous = current;
-    ranks.get(id).set(page.rankingKey, i + 1);
+    assert.equal(player[page.rankingKey], i + 1, `${id} ${page.rankingKey}`);
+    unclassified.delete(id);
   }
   // Transitivity makes adjacent comparisons sufficient for the entire file.
   if (violations.length) await rejectCounterexample(Solver, Or(...violations), `Out-of-order players in ${page.slug}`);
   count += rows.length;
 }
 
-for (const player of roster) {
-  const expected = ranks.get(key(player));
-  assert(expected.size > 0, `Unclassified player: ${key(player)}`);
-  for (const [field, rank] of expected) {
-    assert.equal(player[field], rank, `${key(player)} ${field} should be ${rank}, found ${player[field]}`);
-  }
-}
+assert.deepEqual([...unclassified], [], "Unclassified roster players");
 console.log(`Verified ${count} rankings for ${roster.length} players across ${teamFiles.length} teams and ${POSITION_PAGES.length} leaderboards.`);

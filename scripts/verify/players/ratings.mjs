@@ -82,8 +82,7 @@ const roster = files.flatMap(file => {
   return players;
 });
 assert(roster.length > 0);
-const rosterIndex = indexPlayers(roster, "team rosters");
-const expected = new Map(roster.map(player => [key(player), new Map()]));
+const unclassified = new Set(indexPlayers(roster, "team rosters").keys());
 const errors = [];
 let count = 0;
 for (const page of POSITION_PAGES) {
@@ -98,7 +97,6 @@ for (const page of POSITION_PAGES) {
     for (const player of eligible) {
       const value = player[field];
       assert(Number.isInteger(value) && value >= 0 && value <= 100, `${key(player)}: invalid ${field}=${value}`);
-      assert.equal(indexed.get(key(player))[field], value, `${page.slug}: ${key(player)} ${field}`);
     }
     if (field !== "hitting_power") maxima[field] = Math.max(...eligible.map(player => player[field]));
   }
@@ -112,7 +110,8 @@ for (const page of POSITION_PAGES) {
     const concrete = substitute(rounded, ...Array.from(raw, ([field, variable]) => [variable, Int.val(player[field])]));
     const rating = Number((await simplify(concrete)).toString());
     assert(Number.isInteger(rating));
-    expected.get(key(player)).set(page.ratingKey, rating + "%");
+    unclassified.delete(key(player));
+    if (player[page.ratingKey] !== rating + "%") errors.push(`${key(player)} ${page.ratingKey}=${player[page.ratingKey]}, expected ${rating}%`);
     if (model) {
       const rebuilt = model.engine.computeRating(player, model.config.columns, maxima, model.mode);
       if (rebuilt !== rating) errors.push(`${page.slug}: ${key(player)} rebuild gives ${rebuilt}, exact formula gives ${rating}`);
@@ -122,12 +121,6 @@ for (const page of POSITION_PAGES) {
   count += eligible.length;
 }
 
-for (const player of roster) {
-  const fields = expected.get(key(player));
-  assert(fields?.size, `Unclassified player: ${key(player)}`);
-  for (const [field, rating] of fields) {
-    if (player[field] !== rating) errors.push(`${key(player)} ${field}=${player[field]}, expected ${rating}`);
-  }
-}
+assert.deepEqual([...unclassified], [], "Unclassified roster players");
 if (errors.length) throw new Error(errors.join("\n"));
-console.log(`Verified ${count} ratings for ${rosterIndex.size} players across ${files.length} teams and all ${POSITION_PAGES.length} leaderboards.`);
+console.log(`Verified ${count} ratings for ${roster.length} players across ${files.length} teams and all ${POSITION_PAGES.length} leaderboards.`);
