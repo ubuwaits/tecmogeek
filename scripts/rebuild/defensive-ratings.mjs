@@ -1,5 +1,5 @@
-import { attributeMaxima, formatPercent, getNumericValue, weightedRating } from "./player-rating.mjs";
-import { comparePlayerRanks } from "./compare-player-ranks.mjs";
+import { rankPositionPlayers } from "./rank-position-players.mjs";
+import { attributeMaxima, weightedRating } from "./player-rating.mjs";
 import { formatAggregateFile, formatTeamFile, getPlayerKey, getTeamFileNames, readJson, writeFile } from "./roster-files.mts";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -67,30 +67,9 @@ export function computeRating(player, columns, maxima) {
 async function rebuildDefensiveAggregate(config) {
   const sourceRows = await readJson(config.fileName);
   const maxima = buildMaxima(sourceRows, config.columns);
-  const updates = new Map();
-
-  const rebuiltRows = sourceRows
-    .map((player, sourceIndex) => ({
-      player,
-      sourceIndex,
-      rating: computeRating(player, config.columns, maxima),
-      hittingPower: getNumericValue(player, "hitting_power"),
-    }))
-    .sort(comparePlayerRanks)
-    .map(({ player, rating }, index) => {
-      const nextPlayer = {
-        ...player,
-        rating: formatPercent(rating),
-        ranking: index + 1,
-      };
-
-      updates.set(getPlayerKey(player), {
-        rating: nextPlayer.rating,
-        ranking: nextPlayer.ranking,
-      });
-
-      return nextPlayer;
-    });
+  const { rebuiltRows, updates } = rankPositionPlayers(sourceRows, player =>
+    computeRating(player, config.columns, maxima),
+  );
 
   await writeFile(config.fileName, formatAggregateFile(rebuiltRows));
 

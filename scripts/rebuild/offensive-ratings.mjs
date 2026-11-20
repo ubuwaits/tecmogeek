@@ -1,3 +1,4 @@
+import { rankPositionPlayers } from "./rank-position-players.mjs";
 import { attributeMaxima, formatPercent, getNumericValue, weightedRating } from "./player-rating.mjs";
 import { comparePlayerRanks } from "./compare-player-ranks.mjs";
 import { formatAggregateFile, formatTeamFile, getPlayerKey, getTeamFileNames, readJson, writeFile } from "./roster-files.mts";
@@ -226,30 +227,9 @@ async function rebuildSkillAggregates() {
 async function rebuildOlAggregate() {
   const sourceRows = await readJson(OL_CONFIG.fileName);
   const maxima = buildMaxima(sourceRows, OL_CONFIG.columns, "offensiveLine");
-  const updates = new Map();
-
-  const rebuiltRows = sourceRows
-    .map((player, sourceIndex) => ({
-      player,
-      sourceIndex,
-      rating: computeRating(player, OL_CONFIG.columns, maxima, "offensiveLine"),
-      hittingPower: getNumericValue(player, "hitting_power"),
-    }))
-    .sort(comparePlayerRanks)
-    .map(({ player, rating }, index) => {
-      const nextPlayer = {
-        ...player,
-        [OL_CONFIG.ratingKey]: formatPercent(rating),
-        [OL_CONFIG.rankingKey]: index + 1,
-      };
-
-      updates.set(getPlayerKey(player), {
-        [OL_CONFIG.ratingKey]: nextPlayer[OL_CONFIG.ratingKey],
-        [OL_CONFIG.rankingKey]: nextPlayer[OL_CONFIG.rankingKey],
-      });
-
-      return nextPlayer;
-    });
+  const { rebuiltRows, updates } = rankPositionPlayers(sourceRows, player =>
+    computeRating(player, OL_CONFIG.columns, maxima, "offensiveLine"),
+  );
 
   await writeFile(OL_CONFIG.fileName, formatAggregateFile(rebuiltRows));
 
