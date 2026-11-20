@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useEffectEvent, useRef, useState } from "react";
+import { useEffect, useEffectEvent, useRef, useState, type ReactNode } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -10,6 +10,65 @@ import { TEAM_GROUPS, getTeamLabel } from "@/lib/teams/config";
 import { HelmetSprite } from "@/components/sprites";
 
 type OpenMenu = "teams" | "players" | null;
+
+function DesktopMenu({
+  menu,
+  label,
+  openMenu,
+  onChange,
+  children,
+}: {
+  menu: Exclude<OpenMenu, null>;
+  label: string;
+  openMenu: OpenMenu;
+  onChange: (menu: OpenMenu) => void;
+  children: ReactNode;
+}) {
+  const expanded = openMenu === menu;
+  const pointerType = useRef("");
+  const trigger = useRef<HTMLButtonElement>(null);
+
+  return (
+    <li
+      className="relative mr-6 text-white"
+      onPointerEnter={(event) => {
+        if (event.pointerType === "mouse") onChange(menu);
+      }}
+      onPointerLeave={(event) => {
+        if (event.pointerType === "mouse" && expanded) onChange(null);
+      }}
+      onBlur={(event) => {
+        if (expanded && !event.currentTarget.contains(event.relatedTarget)) onChange(null);
+      }}
+      onKeyDown={(event) => {
+        if (event.key === "Escape" && expanded) trigger.current?.focus();
+      }}
+    >
+      <button
+        ref={trigger}
+        type="button"
+        data-testid={`nav-${menu}`}
+        aria-expanded={expanded}
+        onPointerDown={(event) => {
+          pointerType.current = event.pointerType;
+        }}
+        onClick={(event) => {
+          // Keyboard and touch users activate the disclosure directly.
+          if (event.detail === 0 || pointerType.current !== "mouse") {
+            onChange(expanded ? null : menu);
+          }
+        }}
+        className={`relative block cursor-pointer px-3 py-2 pr-[30px] font-(family-name:--font-tecmo) text-[13px] uppercase leading-none text-inherit no-underline ${
+          expanded ? "rounded-t bg-(--dark-bg)" : ""
+        }`}
+      >
+        {label}
+        <span className="absolute right-[10px] top-[9px] h-0 w-0 border-x-[6px] border-t-[6px] border-x-transparent border-t-white" />
+      </button>
+      {expanded && children}
+    </li>
+  );
+}
 
 export function TopNav() {
   const pathname = usePathname();
@@ -52,13 +111,8 @@ function TopNavContent() {
 
   function toggleMobileNav() {
     setOpenMenu(null);
-    setMobileNavOpen((current) => {
-      const next = !current;
-
-      setMobileSection(null);
-
-      return next;
-    });
+    setMobileSection(null);
+    setMobileNavOpen((current) => !current);
   }
 
   return (
@@ -105,90 +159,72 @@ function TopNavContent() {
 
         <nav className="ml-2 hidden sm:block">
           <ul className="flex">
-            <li className="relative mr-6 text-white">
-              <button
-                type="button"
-                data-testid="nav-teams"
-                onClick={() => setOpenMenu((current) => (current === "teams" ? null : "teams"))}
-                className={`relative block cursor-pointer px-3 py-2 pr-[30px] font-(family-name:--font-tecmo) text-[13px] uppercase leading-none text-inherit no-underline ${
-                  openMenu === "teams" ? "rounded-t bg-(--dark-bg)" : ""
-                }`}
-              >
-                Teams
-                <span className="absolute right-[10px] top-[9px] h-0 w-0 border-x-[6px] border-t-[6px] border-x-transparent border-t-white" />
-              </button>
-
-              {openMenu === "teams" ? (
-                <div className="absolute left-0 top-full z-[1000] w-[600px] rounded-br rounded-bl rounded-tr bg-(--dark-bg) px-0 py-3">
-                  <div className="px-3 pb-3">
-                    <Link
-                      href={teamsRoute}
-                      className="flex min-h-11 items-center rounded bg-white/8 px-3 py-2 text-[15px] font-bold text-white no-underline transition hover:bg-(--pink)"
-                    >
-                      Team Ratings
-                    </Link>
-                  </div>
-
-                  <ol className="flex flex-wrap">
-                    {TEAM_GROUPS.map((group) => (
-                      <li key={group.title} className="w-1/3">
-                        <h6 className="sr-only">{group.title}</h6>
-                        <ol>
-                          {group.teams.map((team) => (
-                            <li key={team}>
-                              <Link
-                                href={teamRoute(team)}
-                                className="mx-3 flex cursor-pointer items-center rounded px-2 py-2 text-[16px] font-bold text-white no-underline hover:bg-(--pink)"
-                              >
-                                <HelmetSprite team={team} />
-                                <span className="ml-2">{getTeamLabel(team)}</span>
-                              </Link>
-                            </li>
-                          ))}
-                        </ol>
-                      </li>
-                    ))}
-                  </ol>
+            <DesktopMenu
+              menu="teams"
+              label="Teams"
+              openMenu={openMenu}
+              onChange={setOpenMenu}
+            >
+              <div className="absolute left-0 top-full z-[1000] w-[600px] rounded-br rounded-bl rounded-tr bg-(--dark-bg) px-0 py-3">
+                <div className="px-3 pb-3">
+                  <Link
+                    href={teamsRoute}
+                    className="flex min-h-11 items-center rounded bg-white/8 px-3 py-2 text-[15px] font-bold text-white no-underline transition hover:bg-(--pink)"
+                  >
+                    Team Ratings
+                  </Link>
                 </div>
-              ) : null}
-            </li>
 
-            <li className="relative mr-6 text-white">
-              <button
-                type="button"
-                data-testid="nav-players"
-                onClick={() => setOpenMenu((current) => (current === "players" ? null : "players"))}
-                className={`relative block cursor-pointer px-3 py-2 pr-[30px] font-(family-name:--font-tecmo) text-[13px] uppercase leading-none text-inherit no-underline ${
-                  openMenu === "players" ? "rounded-t bg-(--dark-bg)" : ""
-                }`}
-              >
-                Players
-                <span className="absolute right-[10px] top-[9px] h-0 w-0 border-x-[6px] border-t-[6px] border-x-transparent border-t-white" />
-              </button>
+                <ol className="flex flex-wrap">
+                  {TEAM_GROUPS.map((group) => (
+                    <li key={group.title} className="w-1/3">
+                      <h6 className="sr-only">{group.title}</h6>
+                      <ol>
+                        {group.teams.map((team) => (
+                          <li key={team}>
+                            <Link
+                              href={teamRoute(team)}
+                              className="mx-3 flex cursor-pointer items-center rounded px-2 py-2 text-[16px] font-bold text-white no-underline hover:bg-(--pink)"
+                            >
+                              <HelmetSprite team={team} />
+                              <span className="ml-2">{getTeamLabel(team)}</span>
+                            </Link>
+                          </li>
+                        ))}
+                      </ol>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            </DesktopMenu>
 
-              {openMenu === "players" ? (
-                <div className="absolute left-0 top-full z-[1000] w-[400px] rounded-br rounded-bl rounded-tr bg-(--dark-bg) px-0 py-3">
-                  <ol className="flex flex-wrap">
-                    {PLAYER_NAV_GROUPS.map((group, groupIndex) => (
-                      <li key={groupIndex} className="w-1/2">
-                        <ol>
-                          {group.map((page) => (
-                            <li key={page.slug}>
-                              <Link
-                                href={playerRoute(page.slug)}
-                                className="mx-3 block cursor-pointer rounded px-2 py-2 text-[16px] font-bold text-white no-underline hover:bg-(--pink)"
-                              >
-                                {page.navLabel}
-                              </Link>
-                            </li>
-                          ))}
-                        </ol>
-                      </li>
-                    ))}
-                  </ol>
-                </div>
-              ) : null}
-            </li>
+            <DesktopMenu
+              menu="players"
+              label="Players"
+              openMenu={openMenu}
+              onChange={setOpenMenu}
+            >
+              <div className="absolute left-0 top-full z-[1000] w-[400px] rounded-br rounded-bl rounded-tr bg-(--dark-bg) px-0 py-3">
+                <ol className="flex flex-wrap">
+                  {PLAYER_NAV_GROUPS.map((group, groupIndex) => (
+                    <li key={groupIndex} className="w-1/2">
+                      <ol>
+                        {group.map((page) => (
+                          <li key={page.slug}>
+                            <Link
+                              href={playerRoute(page.slug)}
+                              className="mx-3 block cursor-pointer rounded px-2 py-2 text-[16px] font-bold text-white no-underline hover:bg-(--pink)"
+                            >
+                              {page.navLabel}
+                            </Link>
+                          </li>
+                        ))}
+                      </ol>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            </DesktopMenu>
 
             <li className="relative text-white">
               <Link

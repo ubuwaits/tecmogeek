@@ -31,6 +31,30 @@ test("home page renders leaderboards", async ({ page }) => {
   await expect(page.getByRole("link", { name: /Top Quarterbacks/i })).toBeVisible();
 });
 
+test("desktop navigation opens on hover and stays open over its links", async ({ page }) => {
+  await page.goto("/");
+  const teams = page.getByTestId("nav-teams");
+  const players = page.getByTestId("nav-players");
+  await teams.hover();
+  await expect(teams).toHaveAttribute("aria-expanded", "true");
+  await teams.click();
+  await page.getByRole("navigation").getByRole("link", { name: "Team Ratings" }).hover();
+  await expect(teams).toHaveAttribute("aria-expanded", "true");
+  await players.hover();
+  await expect(teams).toHaveAttribute("aria-expanded", "false");
+  await expect(players).toHaveAttribute("aria-expanded", "true");
+  await page.getByRole("link", { name: "About Ratings", exact: true }).first().hover();
+  await expect(players).toHaveAttribute("aria-expanded", "false");
+
+  await teams.focus();
+  await page.keyboard.press("Enter");
+  await page.keyboard.press("Tab");
+  await expect(page.getByRole("navigation").getByRole("link", { name: "Team Ratings" })).toBeFocused();
+  await page.keyboard.press("Escape");
+  await expect(teams).toBeFocused();
+  await expect(teams).toHaveAttribute("aria-expanded", "false");
+});
+
 test("team ratings page renders the ratings table", async ({ page }) => {
   await page.goto("/teams/");
 
@@ -221,18 +245,19 @@ test.describe("mobile responsive layout", () => {
     await page.goto("/");
     await expectNoHorizontalOverflow(page);
 
+    const panel = page.getByTestId("mobile-nav-panel");
     await page.getByTestId("mobile-nav-toggle").click();
-    await expect(page.getByTestId("mobile-nav-panel")).toHaveAttribute("aria-hidden", "false");
+    await expect(panel).toHaveAttribute("aria-hidden", "false");
     await expect(page.getByTestId("mobile-nav-section-teams")).toHaveAttribute("aria-expanded", "false");
     await expect(page.getByTestId("mobile-nav-section-players")).toHaveAttribute(
       "aria-expanded",
       "false",
     );
-    await expect(page.getByRole("link", { name: /Bills/i })).toHaveCount(0);
+    await expect(panel.getByRole("link", { name: /Bills/i })).toHaveCount(0);
     await page.getByTestId("mobile-nav-section-teams").click();
     await expect(page.getByTestId("mobile-nav-section-teams")).toHaveAttribute("aria-expanded", "true");
-    await expect(page.getByRole("link", { name: /Bills/i })).toBeVisible();
-    await page.getByRole("link", { name: "About Ratings" }).last().click();
+    await expect(panel.getByRole("link", { name: /Bills/i })).toBeVisible();
+    await panel.getByRole("link", { name: "About Ratings" }).click();
 
     await expect(page).toHaveURL(/\/about\/ratings\/$/);
     await expect(
