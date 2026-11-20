@@ -71,7 +71,7 @@ export function SelectionTabs<const Id extends string>({
             variant="line"
             className={cn(
               "flex flex-wrap gap-x-5 gap-y-2 text-left",
-              lineTone === "light" && "!border-b-[#d5dfef] !text-[#6f7785]",
+              lineTone === "light" && "border-b-[#d5dfef]! text-[#6f7785]!",
             )}
           >
             {items.map((item) => (
@@ -81,7 +81,7 @@ export function SelectionTabs<const Id extends string>({
                 data-testid={`${tabTestIdPrefix}-${item.id}`}
                 className={cn(
                   lineTone === "light" &&
-                    "!text-[#6f7785] hover:!text-[#3a3a3a] focus-visible:!ring-[#165ec9]/30 data-[state=active]:!border-[#165ec9] data-[state=active]:!text-[#165ec9]",
+                    "text-[#6f7785]! hover:text-[#3a3a3a]! focus-visible:ring-[#165ec9]/30! data-[state=active]:border-[#165ec9]! data-[state=active]:text-[#165ec9]!",
                 )}
               >
                 {item.label}

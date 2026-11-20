@@ -61,7 +61,7 @@ export default function RootLayout({
       <body className={`${inter.variable} ${tecmo.variable} bg-(--blue) p-4 font-sans text-white antialiased sm:p-8`}>
         <TooltipProvider>
           <TopNav />
-          <main id="container" className="pt-[82px] sm:pt-24">
+          <main id="container" className="pt-20.5 sm:pt-24">
             {children}
           </main>
           <SiteFooter />

@@ -33,8 +33,8 @@ export default async function HomePage() {
   );
 
   return (
-    <section data-page-theme="home" className="mx-auto w-full max-w-[1240px]">
-      <h2 className="mx-auto mb-12 mt-4 max-w-[800px] text-center font-(family-name:--font-tecmo) text-xl leading-snug text-balance uppercase sm:mb-24 sm:mt-10 sm:text-[1.75em] sm:leading-normal">
+    <section data-page-theme="home" className="mx-auto w-full max-w-310">
+      <h2 className="mx-auto mb-12 mt-4 max-w-200 text-center font-(family-name:--font-tecmo) text-xl leading-snug text-balance uppercase sm:mb-24 sm:mt-10 sm:text-[1.75em] sm:leading-normal">
         Comprehensive guide to player attributes in Tecmo Super Bowl for NES.
       </h2>
 
