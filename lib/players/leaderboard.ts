@@ -1,4 +1,4 @@
-import type { PlayerRecord, PositionPageConfig, PositionSlug } from "../types.ts";
+import { POSITION_SLUGS, type PlayerRecord, type PositionPageConfig, type PositionSlug } from "../types.ts";
 
 const skillPositions = /^(RB|WR|TE)\d+$/;
 const eligiblePositions: Record<PositionSlug, RegExp> = {
@@ -18,4 +18,13 @@ const eligiblePositions: Record<PositionSlug, RegExp> = {
 export function positionEntries(players: readonly PlayerRecord[], { slug, rankingKey }: PositionPageConfig) {
   return players.filter(player => eligiblePositions[slug].test(player.position))
     .sort((a, b) => Number(a[rankingKey]) - Number(b[rankingKey]));
+}
+
+export function leaderboardCounts(players: readonly PlayerRecord[]): Record<PositionSlug, number> {
+  const counts = {} as Record<PositionSlug, number>;
+  for (const slug of POSITION_SLUGS) {
+    const eligible = eligiblePositions[slug];
+    counts[slug] = players.reduce((total, player) => total + Number(eligible.test(player.position)), 0);
+  }
+  return counts;
 }

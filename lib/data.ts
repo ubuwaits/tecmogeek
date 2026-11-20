@@ -6,8 +6,8 @@ import path from "node:path";
 
 import { POSITION_PAGE_CONFIG_MAP } from "@/lib/players/config";
 import { resolveTeamSlug } from "@/lib/teams/config";
-import { positionEntries } from "@/lib/players/leaderboard";
-import { POSITION_SLUGS, TEAM_SLUGS } from "@/lib/types";
+import { leaderboardCounts, positionEntries } from "@/lib/players/leaderboard";
+import { TEAM_SLUGS } from "@/lib/types";
 import type { PlayerRecord, PositionSlug, TeamData, TeamRatingRecord, TeamSlug } from "@/lib/types";
 
 const DATA_DIR = path.join(process.cwd(), "data");
@@ -36,9 +36,4 @@ export const getPositionEntries = cache(async (slug: PositionSlug): Promise<Play
   return positionEntries(await getRosterPlayers(), POSITION_PAGE_CONFIG_MAP[slug]);
 });
 
-export const getLeaderboardCounts = cache(async () => {
-  const counts = await Promise.all(POSITION_SLUGS.map(async slug =>
-    [slug, (await getPositionEntries(slug)).length] as const
-  ));
-  return Object.fromEntries(counts) as Record<PositionSlug, number>;
-});
+export const getLeaderboardCounts = cache(async () => leaderboardCounts(await getRosterPlayers()));
