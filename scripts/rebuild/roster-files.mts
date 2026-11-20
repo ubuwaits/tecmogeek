@@ -15,8 +15,15 @@ export function getTeamFileNames(): string[] {
   return TEAM_SLUGS.map(slug => slug + ".json");
 }
 
-export function formatTeamFile(team: { full_name: string; players: readonly unknown[] }) {
-  const players = team.players.map((player) => `    ${JSON.stringify(player)}`).join(",\n");
+export function formatTeamFile(team: TeamData) {
+  const players = team.players.map(player => {
+    const stored = { ...player };
+    // Older rosters also carried their team label on every player.
+    delete stored.team;
+    delete stored.kick_return_maximum_speed;
+    delete stored.punt_return_maximum_speed;
+    return `    ${JSON.stringify(stored)}`;
+  }).join(",\n");
 
   return `{\n  "full_name": ${JSON.stringify(team.full_name)},\n  "players": [\n${players}\n  ]\n}\n`;
 }

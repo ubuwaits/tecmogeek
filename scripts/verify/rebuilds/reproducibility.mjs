@@ -33,7 +33,9 @@ try {
   rmSync(path.join(checkout, "scripts"), { recursive: true });
   cpSync(path.join(root, "scripts"), path.join(checkout, "scripts"), { recursive: true });
 
-  cpSync(path.join(root, "lib/teams/slugs.mts"), path.join(checkout, "lib/teams/slugs.mts"));
+  for (const modulePath of ["lib/teams/slugs.mts", "lib/players/return-speeds.mts"]) {
+    cpSync(path.join(root, modulePath), path.join(checkout, modulePath));
+  }
 
   function run(commandsToRun) {
     for (const command of commandsToRun) execFileSync("pnpm", ["run", command], { cwd: checkout, stdio: "inherit" });

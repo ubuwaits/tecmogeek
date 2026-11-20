@@ -1,3 +1,4 @@
+import { applyReturnSpeeds, isReturner } from "../../lib/players/return-speeds.mts";
 import { rebuildRosterPlayers } from "./roster-files.mts";
 import { rankPositionPlayers } from "./rank-position-players.mjs";
 import { attributeMaxima, weightedRating } from "./player-rating.mjs";
@@ -5,7 +6,6 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const OFFENSIVE_LINE_POSITIONS = new Set(["C", "LG", "RG", "LT", "RT"]);
-const SKILL_POSITION_PREFIXES = ["RB", "WR", "TE"];
 export const OFFENSIVE_HP_SCORE_MAP = {
   75: 5,
   81: 25,
@@ -89,10 +89,6 @@ export const OL_CONFIG = {
   ],
 };
 
-function isSkillPosition(position) {
-  return SKILL_POSITION_PREFIXES.some((prefix) => position.startsWith(prefix));
-}
-
 export { attributeMaxima as buildMaxima, weightedRating as computeRating };
 
 function rankGroup(players, config) {
@@ -101,24 +97,13 @@ function rankGroup(players, config) {
     config.ratingKey, config.rankingKey);
 }
 
-function starterSpeed(team, position) {
-  const starters = team.players.filter(player => player.position === position);
-  if (starters.length !== 1 || !Number.isFinite(starters[0].maximum_speed)) {
-    throw new Error(`${team.full_name}: expected one ${position} with a maximum speed.`);
-  }
-  return starters[0].maximum_speed;
-}
-
 export function rateOffense(teams) {
   const skill = [];
   const line = [];
   for (const team of teams) {
-    const kickSpeed = starterSpeed(team, "RT");
-    const puntSpeed = starterSpeed(team, "SS");
+    applyReturnSpeeds(team);
     for (const player of team.players) {
-      if (isSkillPosition(player.position)) {
-        player.kick_return_maximum_speed = kickSpeed;
-        player.punt_return_maximum_speed = puntSpeed;
+      if (isReturner(player)) {
         skill.push(player);
       } else if (OFFENSIVE_LINE_POSITIONS.has(player.position)) {
         line.push(player);

@@ -20,3 +20,15 @@ it("derives each navigation label from its slug with the published roster spelli
     expect(roster.full_name.endsWith(" " + getTeamLabel(slug))).toBe(true);
   }
 });
+
+it("stores team identity and return speeds only at their source", () => {
+  for (const slug of TEAM_SLUGS) {
+    const roster: TeamData = JSON.parse(readFileSync(`data/${slug}.json`, "utf8"));
+    expect(roster).not.toHaveProperty("short_name");
+    for (const player of roster.players) {
+      for (const field of ["team", "teamSlug", "kick_return_maximum_speed", "punt_return_maximum_speed"]) {
+        expect(player, `${slug}/${player.position}`).not.toHaveProperty(field);
+      }
+    }
+  }
+});

@@ -8,8 +8,11 @@ import { getTeam } from "@/lib/teams/data";
 import { TEAM_SLUGS, type LeaderboardPlayer, type PositionSlug } from "@/lib/types";
 
 const getRosterPlayers = cache(async () => {
-  const teams = await Promise.all(TEAM_SLUGS.map(getTeam));
-  return teams.flatMap((team, index) => team.players.map(player => ({ ...player, teamSlug: TEAM_SLUGS[index] })));
+  const rosters = await Promise.all(TEAM_SLUGS.map(async teamSlug => {
+    const team = await getTeam(teamSlug);
+    return team.players.map(player => ({ ...player, teamSlug }));
+  }));
+  return rosters.flat();
 });
 
 export const getPositionEntries = cache(async (slug: PositionSlug): Promise<LeaderboardPlayer[]> => {

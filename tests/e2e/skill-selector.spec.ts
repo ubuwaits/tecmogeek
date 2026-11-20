@@ -1,7 +1,7 @@
-import { readFileSync } from "node:fs";
+import { readTestRoster } from "../helpers/rosters";
 import { expect, test } from "@playwright/test";
 import { POSITION_PAGE_CONFIG_MAP } from "../../lib/players/config";
-import { TEAM_SLUGS, type TeamData } from "../../lib/types";
+import { TEAM_SLUGS } from "../../lib/types";
 
 const modes = [
   { id: "rushing", title: "Rushing", slug: "rushers" },
@@ -17,7 +17,7 @@ const mobile = { width: 390, height: 844 };
 
 for (const team of TEAM_SLUGS) {
   test(`${team} skill mode is independent of previous mode and control`, async ({ page }) => {
-    const roster: TeamData = JSON.parse(readFileSync(`data/${team}.json`, "utf8"));
+    const roster = readTestRoster(team);
     const skill = roster.players.filter(p => /^(RB|WR|TE)\d+$/.test(p.position));
     expect(skill).toHaveLength(10);
     await page.goto(`/teams/${team}/`);

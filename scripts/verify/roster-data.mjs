@@ -1,3 +1,4 @@
+import { applyReturnSpeeds } from "../../lib/players/return-speeds.mts";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 
@@ -15,7 +16,9 @@ export function read(file) {
 
 export function readRosterPlayers(file) {
   const teamSlug = file.replace(/\.json$/, "");
-  return read(file).players.map(player => ({ ...player, teamSlug }));
+  const roster = read(file);
+  applyReturnSpeeds(roster);
+  return roster.players.map(player => ({ ...player, teamSlug }));
 }
 
 export function key(player) {

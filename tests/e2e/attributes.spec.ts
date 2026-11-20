@@ -1,8 +1,8 @@
-import { readFileSync } from "node:fs";
+import { readTestRoster } from "../helpers/rosters";
 import { expect, test, type Locator } from "@playwright/test";
 
 import { POSITION_PAGES } from "../../lib/players/config";
-import { TEAM_SLUGS, type PlayerRecord, type PositionPageConfig, type PositionSlug, type TeamData } from "../../lib/types";
+import { TEAM_SLUGS, type PositionPageConfig, type PositionSlug } from "../../lib/types";
 
 const skill = /^(RB|WR|TE)\d+$/;
 const positions: Record<PositionSlug, RegExp> = {
@@ -12,24 +12,15 @@ const positions: Record<PositionSlug, RegExp> = {
 };
 const modes = new Map([["rushers", "rushing"], ["receivers", "receiving"],
   ["kick-returners", "kick-return"], ["punt-returners", "punt-return"]]);
-const rosters = TEAM_SLUGS.map(slug => {
-  const team: TeamData = JSON.parse(readFileSync(`data/${slug}.json`, "utf8"));
-  return { ...team, slug, players: team.players.map(player => ({ ...player, teamSlug: slug })) };
-});
+const rosters = TEAM_SLUGS.map(readTestRoster);
 const allPlayers = rosters.flatMap(team => team.players);
 
-async function checkTable(table: Locator, config: PositionPageConfig, roster: PlayerRecord[], team?: (typeof rosters)[number]) {
+async function checkTable(table: Locator, config: PositionPageConfig, roster: typeof allPlayers, team?: (typeof rosters)[number]) {
   const eligible = roster.filter(player => positions[config.slug].test(player.position));
   const expected = eligible.map(player => ({
     id: [player.teamSlug, player.position, player.name].join("|"),
     bars: config.columns.map(({ key, tooltip, weight }) => {
-      let value = player[key];
-      if (team && (key === "kick_return_maximum_speed" || key === "punt_return_maximum_speed")) {
-        const starter = key === "kick_return_maximum_speed" ? "RT" : "SS";
-        const matches = team.players.filter(p => p.position === starter);
-        expect(matches, `${player.teamSlug}: expected one ${starter}`).toHaveLength(1);
-        value = matches[0].maximum_speed;
-      }
+      const value = player[key];
       expect(typeof value, `${player.name}: missing ${key}`).toBe("number");
       return { key, text: String(value), label: `${tooltip}: ${value}`, weight: String(weight), fill: value };
     }),

@@ -4,7 +4,6 @@ import type {
   PlayerRecord,
   PositionPageConfig,
   PositionSlug,
-  TeamData,
 } from "@/lib/types";
 import { HEADSHOT_POSITIONS } from "@/lib/types";
 
@@ -47,16 +46,6 @@ export function getHomeEntries<T extends PlayerRecord>(
 
 export function getHomeEntriesForSlug(slug: PositionSlug, entries: readonly PlayerRecord[]) {
   return getHomeEntries(POSITION_PAGE_CONFIG_MAP[slug], entries);
-}
-
-export function getTeamReturnSpeedValues(team: TeamData) {
-  const rt = team.players.find((player) => player.position === "RT");
-  const ss = team.players.find((player) => player.position === "SS");
-
-  return {
-    kickReturnMaximumSpeed: rt?.maximum_speed ?? 0,
-    puntReturnMaximumSpeed: ss?.maximum_speed ?? 0,
-  };
 }
 
 export function rankingTooltip(count: number, groupLabel: string): string {

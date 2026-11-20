@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
 import { readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
+import { applyReturnSpeeds } from "../../../lib/players/return-speeds.mts";
 import { positions, skillPositions } from "../roster-data.mjs";
 
 // Independently score with integer arithmetic, then resolve full ties by the prior category rank.
@@ -9,7 +10,6 @@ function rateGroup(players, weights, hpWeight, ladder, ratingKey, rankingKey) {
   const maxima = Object.fromEntries(Object.keys(weights).map(key => [key, Math.max(...players.map(p => p[key]))]));
   const denominator = Object.values(maxima).reduce((a, b) => a * b, 100);
   const changedPlayers = new Set();
-  let ratings = 0;
   let ranks = 0;
   for (const player of players) {
     let numerator = (ladder[player.hitting_power] ?? 0) * hpWeight * (denominator / 100);
@@ -17,7 +17,6 @@ function rateGroup(players, weights, hpWeight, ladder, ratingKey, rankingKey) {
     assert(Number.isSafeInteger(2 * numerator + denominator));
     const rating = Math.floor((2 * numerator + denominator) / (2 * denominator)) + "%";
     if (player[ratingKey] !== rating) {
-      ratings++;
       changedPlayers.add(player);
     }
     player[ratingKey] = rating;
@@ -28,7 +27,7 @@ function rateGroup(players, weights, hpWeight, ladder, ratingKey, rankingKey) {
     if (player[rankingKey] !== i + 1) ranks++;
     player[rankingKey] = i + 1;
   });
-  return { ratings, ranks, changedPlayers };
+  return { ratings: changedPlayers.size, ranks, changedPlayers };
 }
 
 function defensiveEdit(rosters, edited, attribute) {
@@ -45,13 +44,17 @@ function defensiveEdit(rosters, edited, attribute) {
   }
 }
 
-function rightTackleEdit(rosters, edited, _attribute, editedTeam) {
+function rightTackleEdit(rosters) {
   const players = rosters.flatMap(team => team.players);
   const skill = players.filter(p => skillPositions.test(p.position));
-  for (const player of editedTeam.players.filter(p => skillPositions.test(p.position))) player.kick_return_maximum_speed = edited.maximum_speed;
+  for (const team of rosters) {
+    const kickSpeed = team.players.find(p => p.position === "RT").maximum_speed;
+    for (const player of team.players.filter(p => skillPositions.test(p.position))) player.kick_return_maximum_speed = kickSpeed;
+  }
   const returns = rateGroup(skill, { running_speed: 20, kick_return_maximum_speed: 60, ball_control: 10 },
     10, { 75: 5, 81: 25, 88: 60, 94: 100 }, "kick_return_rating", "kick_return_ranking");
   assert(returns.ratings > 0 && returns.ranks > 0);
+  for (const player of skill) delete player.kick_return_maximum_speed;
   rateGroup(players.filter(p => positions.ol.test(p.position)), { maximum_speed: 20 },
     80, { 31: 0, 38: 15, 44: 30, 50: 45, 56: 55, 63: 65, 69: 80, 75: 90, 81: 100 }, "rating", "ranking");
 }
@@ -73,7 +76,7 @@ export function verifyRosterEdits(checkout, baseline, runRebuilds, listFiles) {
     assert.notEqual(edited[attribute], value);
     edited[attribute] = value;
     writeFileSync(file("eagles.json"), JSON.stringify(eagles));
-    predict([...rosters.values()], edited, attribute, eagles);
+    predict([...rosters.values()], edited, attribute);
     runRebuilds();
 
     assert.deepEqual(new Set(listFiles(directory)), new Set(baseline.keys()));
@@ -81,7 +84,17 @@ export function verifyRosterEdits(checkout, baseline, runRebuilds, listFiles) {
     assert.deepEqual(actualRecords.map(r => r.team), records.map(r => r.team));
     for (const [i, record] of records.entries()) {
       const team = rosters.get(record.team);
-      assert.deepEqual(JSON.parse(readFileSync(file(record.team + ".json"))), team, record.team);
+      const rebuilt = JSON.parse(readFileSync(file(record.team + ".json")));
+      assert.deepEqual(rebuilt, team, record.team);
+      if (position === "RT") {
+        const kickSpeed = team.players.find(player => player.position === "RT").maximum_speed;
+        const puntSpeed = team.players.find(player => player.position === "SS").maximum_speed;
+        applyReturnSpeeds(rebuilt);
+        for (const player of rebuilt.players.filter(p => skillPositions.test(p.position))) {
+          assert.equal(player.kick_return_maximum_speed, kickSpeed);
+          assert.equal(player.punt_return_maximum_speed, puntSpeed);
+        }
+      }
       const kickReturner = team.players.filter(p => skillPositions.test(p.position))
         .sort((a, b) => parseInt(b.kick_return_rating) - parseInt(a.kick_return_rating))[0];
       record.selected_lineups.kr = `${kickReturner.name} (${kickReturner.position})`;

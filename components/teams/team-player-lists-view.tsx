@@ -15,10 +15,9 @@ import {
   TEAM_SKILL_MODES,
   TEAM_SKILL_RANGE,
 } from "@/lib/teams/config";
-import { getTeamReturnSpeedValues, rankingTooltip, sortEntriesByKey } from "@/lib/players/utils";
+import { rankingTooltip, sortEntriesByKey } from "@/lib/players/utils";
 import { playerRoute } from "@/lib/site/routes";
 import type {
-  PlayerMetricKey,
   PlayerRecord,
   PositionSlug,
   TeamData,
@@ -43,7 +42,6 @@ function buildTeamRows({
   playerPage,
   getRankingValue,
   getRatingValue,
-  getMetricValue,
   rowTestId,
 }: {
   players: readonly PlayerRecord[];
@@ -51,7 +49,6 @@ function buildTeamRows({
   playerPage: TeamSectionConfig["playerPage"];
   getRankingValue: (player: PlayerRecord) => React.ReactNode;
   getRatingValue: (player: PlayerRecord) => React.ReactNode;
-  getMetricValue: (player: PlayerRecord, key: PlayerMetricKey) => number;
   rowTestId?: string;
 }): PlayerListSectionRow[] {
   return players.map((player) => ({
@@ -66,7 +63,7 @@ function buildTeamRows({
     },
     ratingValue: getRatingValue(player),
     ratingHref: playerRoute(playerPage),
-    getMetricValue: (key) => getMetricValue(player, key),
+    getMetricValue: (key) => Number(player[key] ?? 0),
     itemData: rowTestId ? { "data-testid": rowTestId } : undefined,
   }));
 }
@@ -88,7 +85,6 @@ function TeamPositionPlayerList({
     playerPage: section.playerPage,
     getRankingValue: (player) => String(player.ranking ?? ""),
     getRatingValue: (player) => String(player.rating ?? ""),
-    getMetricValue: (player, key) => Number(player[key] ?? 0),
   });
 
   return (
@@ -112,27 +108,12 @@ function TeamSkillPlayerList({ team, teamSlug, counts }: TeamRosterProps) {
   const modeConfig = TEAM_SKILL_MODE_CONFIG[mode];
   const skillPlayers = team.players.slice(TEAM_SKILL_RANGE[0], TEAM_SKILL_RANGE[1] + 1);
   const sortedPlayers = sortEntriesByKey(skillPlayers, modeConfig.rankingKey, "asc", modeConfig.rankingKey);
-  const returnSpeeds = getTeamReturnSpeedValues(team);
-
-  function getModeMetricValue(player: PlayerRecord, key: PlayerMetricKey): number {
-    if (key === "kick_return_maximum_speed") {
-      return returnSpeeds.kickReturnMaximumSpeed;
-    }
-
-    if (key === "punt_return_maximum_speed") {
-      return returnSpeeds.puntReturnMaximumSpeed;
-    }
-
-    return Number(player[key] ?? 0);
-  }
-
   const rows = buildTeamRows({
     players: sortedPlayers,
     teamSlug,
     playerPage: modeConfig.playerPage,
     getRankingValue: (player) => String(player[modeConfig.rankingKey] ?? ""),
     getRatingValue: (player) => String(player[modeConfig.ratingKey] ?? ""),
-    getMetricValue: getModeMetricValue,
     rowTestId: "team-skill-row",
   });
   const rankingLabel = `${modeConfig.label} Ranking`;
