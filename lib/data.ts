@@ -5,6 +5,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 
 import { POSITION_PAGE_CONFIG_MAP } from "@/lib/players/config";
+import { resolveTeamSlug } from "@/lib/teams/config";
 import type { PlayerRecord, PositionSlug, TeamData, TeamRatingRecord, TeamSlug } from "@/lib/types";
 
 const DATA_DIR = path.join(process.cwd(), "data");
@@ -20,8 +21,9 @@ export const getPositionEntries = cache(async (slug: PositionSlug): Promise<Play
   return readJson<PlayerRecord[]>(config.dataFile);
 });
 
-export const getTeam = cache(async (slug: TeamSlug): Promise<TeamData> => {
-  return readJson<TeamData>(`${slug}.json`);
+export const getTeam = cache(async (slug: TeamSlug) => {
+  const team = await readJson<TeamData>(`${slug}.json`);
+  return { ...team, short_name: resolveTeamSlug(team.short_name, slug) };
 });
 
 export const getTeamRatings = cache(async (): Promise<TeamRatingRecord[]> => {

@@ -70,15 +70,16 @@ function buildTeamRows({
   }));
 }
 
+type TeamRosterProps = { team: TeamData; teamSlug: TeamSlug };
+
 function TeamPositionPlayerList({
   team,
+  teamSlug,
   section,
-}: {
-  team: TeamData;
+}: TeamRosterProps & {
   section: TeamSectionConfig;
 }) {
   const players = team.players.slice(section.range[0], section.range[1] + 1);
-  const teamSlug = team.short_name as TeamSlug;
   const rows = buildTeamRows({
     players,
     teamSlug,
@@ -104,13 +105,12 @@ function TeamPositionPlayerList({
   );
 }
 
-function TeamSkillPlayerList({ team }: { team: TeamData }) {
+function TeamSkillPlayerList({ team, teamSlug }: TeamRosterProps) {
   const [mode, setMode] = useState<TeamSkillMode>(DEFAULT_TEAM_SKILL_MODE);
   const modeConfig = TEAM_SKILL_MODE_CONFIG[mode];
   const skillPlayers = team.players.slice(TEAM_SKILL_RANGE[0], TEAM_SKILL_RANGE[1] + 1);
   const sortedPlayers = sortEntriesByKey(skillPlayers, modeConfig.rankingKey, "asc", modeConfig.rankingKey);
   const returnSpeeds = getTeamReturnSpeedValues(team);
-  const teamSlug = team.short_name as TeamSlug;
 
   function getModeMetricValue(player: PlayerRecord, key: PlayerMetricKey): number {
     if (key === "kick_return_maximum_speed") {
@@ -160,13 +160,13 @@ function TeamSkillPlayerList({ team }: { team: TeamData }) {
   );
 }
 
-export function TeamPlayerListsView({ team }: { team: TeamData }) {
+export function TeamPlayerListsView({ team, teamSlug }: TeamRosterProps) {
   return (
     <>
-      <TeamPositionPlayerList team={team} section={TEAM_SECTION_CONFIGS[0]} />
-      <TeamSkillPlayerList team={team} />
+      <TeamPositionPlayerList team={team} teamSlug={teamSlug} section={TEAM_SECTION_CONFIGS[0]} />
+      <TeamSkillPlayerList team={team} teamSlug={teamSlug} />
       {TEAM_SECTION_CONFIGS.slice(1).map((section) => (
-        <TeamPositionPlayerList key={section.id} team={team} section={section} />
+        <TeamPositionPlayerList key={section.id} team={team} teamSlug={teamSlug} section={section} />
       ))}
     </>
   );

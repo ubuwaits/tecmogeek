@@ -28,15 +28,14 @@ export async function generateMetadata(
   }
 
   const team = await getTeam(slug);
-  const canonicalSlug = isTeamSlug(team.short_name) ? team.short_name : slug;
 
   return {
     title: team.full_name,
     alternates: {
-      canonical: teamRoute(canonicalSlug),
+      canonical: teamRoute(team.short_name),
     },
     openGraph: await mergeOpenGraph(parent, {
-      url: teamRoute(canonicalSlug),
+      url: teamRoute(team.short_name),
       title: team.full_name,
     }),
   };
@@ -50,7 +49,7 @@ export default async function TeamPage({ params }: TeamPageProps) {
   }
 
   const [team, teamRatings] = await Promise.all([getTeam(slug), getTeamRatings()]);
-  const teamSlug = isTeamSlug(team.short_name) ? team.short_name : slug;
+  const teamSlug = team.short_name;
   const ratingSummaries = getTeamRatingSummaries(teamRatings, teamSlug);
 
   return (
@@ -74,7 +73,7 @@ export default async function TeamPage({ params }: TeamPageProps) {
         </div>
       </header>
 
-      <TeamPlayerListsView team={team} />
+      <TeamPlayerListsView team={team} teamSlug={teamSlug} />
     </>
   );
 }

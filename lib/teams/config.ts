@@ -96,6 +96,10 @@ export function isTeamSlug(slug: string): slug is TeamSlug {
   return TEAM_SLUG_SET.has(slug as TeamSlug);
 }
 
+export function resolveTeamSlug(shortName: string, routeSlug: TeamSlug): TeamSlug {
+  return isTeamSlug(shortName) ? shortName : routeSlug;
+}
+
 export function getTeamLabel(slug: TeamSlug): string {
   return TEAM_NAME_MAP[slug];
 }
