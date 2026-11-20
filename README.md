@@ -17,6 +17,7 @@ pnpm dev
 pnpm lint
 pnpm typecheck
 pnpm test
+pnpm verify:routes
 pnpm verify:rebuilds
 pnpm verify:players
 pnpm verify:portraits
@@ -30,6 +31,8 @@ pnpm verify:offense
 pnpm build
 pnpm e2e
 ```
+
+`pnpm verify:routes` builds the static export and checks the 42 public pages, their canonical URLs, the complete sitemap, internal hyperlinks, and the desktop and mobile navigation menus.
 
 `pnpm verify:rebuilds` runs the offense, defense, and team-rating commands twice in one temporary checkout. It uses the current package commands and scripts with data from `HEAD`. After each pass it checks the complete file list and compares every data file byte-for-byte with its committed Git blob.
 

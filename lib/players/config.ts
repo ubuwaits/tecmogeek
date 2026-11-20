@@ -279,7 +279,7 @@ export const PLAYER_NAV_GROUPS = [
 ] as const;
 
 export function getPositionPageConfig(slug: string): PositionPageConfig | null {
-  if (!(slug in POSITION_PAGE_CONFIG_MAP)) {
+  if (!Object.hasOwn(POSITION_PAGE_CONFIG_MAP, slug)) {
     return null;
   }
 
