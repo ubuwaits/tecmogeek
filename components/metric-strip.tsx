@@ -28,6 +28,7 @@ function MetricBar({
 }) {
   return (
     <div
+      role="img"
       data-metric-key={metricKey}
       aria-label={`${tooltip}: ${value}`}
       title={tooltip}
@@ -78,7 +79,7 @@ export function MetricStrip({ columns, getValue, className = "" }: MetricStripPr
         return (
           <MetricBar
             key={column.key}
-            metricKey={column.key}
+              metricKey={column.key}
               tooltip={column.tooltip}
               value={value}
               grow={column.weight}
