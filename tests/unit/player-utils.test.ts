@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import fortyNiners from "@/data/49ers.json";
-import rushers from "@/data/rushers.json";
+import { leaderboard } from "../helpers/leaderboards";
 import {
   getHeadshotSpriteIndex,
   getHomeEntries,
@@ -12,6 +12,8 @@ import {
   sortEntriesByKey,
 } from "@/lib/players/utils";
 import { POSITION_PAGE_CONFIG_MAP } from "@/lib/players/config";
+
+const rushers = leaderboard("rushers");
 
 describe("player utilities", () => {
   it("parses percentage strings into numeric sort values", () => {

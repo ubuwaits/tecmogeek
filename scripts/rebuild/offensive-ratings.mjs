@@ -1,27 +1,11 @@
-import { syncRosterRatings } from "./sync-roster-ratings.mjs";
+import { rebuildRosterPlayers } from "./roster-files.mts";
 import { rankPositionPlayers } from "./rank-position-players.mjs";
-import { attributeMaxima, formatPercent, getNumericValue, weightedRating } from "./player-rating.mjs";
-import { comparePlayerRanks } from "./compare-player-ranks.mjs";
-import { formatAggregateFile, getPlayerKey, readJson, writeFile } from "./roster-files.mts";
+import { attributeMaxima, weightedRating } from "./player-rating.mjs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const OFFENSIVE_LINE_POSITIONS = new Set(["C", "LG", "RG", "LT", "RT"]);
 const SKILL_POSITION_PREFIXES = ["RB", "WR", "TE"];
-const SKILL_ATTRIBUTE_KEYS = [
-  "team",
-  "position",
-  "name",
-  "number",
-  "running_speed",
-  "maximum_speed",
-  "kick_return_maximum_speed",
-  "punt_return_maximum_speed",
-  "hitting_power",
-  "ball_control",
-  "receptions",
-];
-
 export const OFFENSIVE_HP_SCORE_MAP = {
   75: 5,
   81: 25,
@@ -44,7 +28,7 @@ export const OFFENSIVE_LINE_HP_SCORE_MAP = {
 export const SKILL_CONFIGS = [
   {
     name: "rushers",
-    fileName: "rushers.json",
+    slug: "rushers",
     ratingKey: "rushing_rating",
     rankingKey: "rushing_ranking",
     columns: [
@@ -57,7 +41,7 @@ export const SKILL_CONFIGS = [
   },
   {
     name: "receivers",
-    fileName: "receivers.json",
+    slug: "receivers",
     ratingKey: "receiving_rating",
     rankingKey: "receiving_ranking",
     columns: [
@@ -70,7 +54,7 @@ export const SKILL_CONFIGS = [
   },
   {
     name: "kick returners",
-    fileName: "kick-returners.json",
+    slug: "kick-returners",
     ratingKey: "kick_return_rating",
     rankingKey: "kick_return_ranking",
     columns: [
@@ -82,7 +66,7 @@ export const SKILL_CONFIGS = [
   },
   {
     name: "punt returners",
-    fileName: "punt-returners.json",
+    slug: "punt-returners",
     ratingKey: "punt_return_rating",
     rankingKey: "punt_return_ranking",
     columns: [
@@ -95,7 +79,7 @@ export const SKILL_CONFIGS = [
 
 export const OL_CONFIG = {
   name: "offensive line",
-  fileName: "ol.json",
+  slug: "ol",
   ratingKey: "rating",
   rankingKey: "ranking",
   columns: [
@@ -119,136 +103,39 @@ export function computeRating(player, columns, maxima, hpMode) {
   return weightedRating(player, columns, maxima, scores);
 }
 
-function assertSkillAttributesMatch(canonicalPlayer, comparisonPlayer, fileName) {
-  for (const key of SKILL_ATTRIBUTE_KEYS) {
-    if (canonicalPlayer[key] !== comparisonPlayer[key]) {
-      throw new Error(
-        `Skill aggregate mismatch for ${fileName}: ${getPlayerKey(comparisonPlayer)} has a different ${key} value.`,
-      );
-    }
+function starterSpeed(team, position) {
+  const starters = team.players.filter(player => player.position === position);
+  if (starters.length !== 1 || !Number.isFinite(starters[0].maximum_speed)) {
+    throw new Error(`${team.full_name}: expected one ${position} with a maximum speed.`);
   }
-}
-
-async function rebuildSkillAggregates() {
-  const canonicalRows = await readJson(SKILL_CONFIGS[0].fileName);
-  const canonicalByKey = new Map();
-
-  for (const player of canonicalRows) {
-    const key = getPlayerKey(player);
-
-    if (canonicalByKey.has(key)) {
-      throw new Error(`Duplicate player in ${SKILL_CONFIGS[0].fileName}: ${key}`);
-    }
-
-    canonicalByKey.set(key, { ...player });
-  }
-
-  const skillFieldUpdates = new Map();
-  const sortedKeysByFile = new Map();
-
-  for (const config of SKILL_CONFIGS) {
-    const sourceRows = await readJson(config.fileName);
-
-    if (sourceRows.length !== canonicalRows.length) {
-      throw new Error(
-        `${config.fileName} has ${sourceRows.length} players, expected ${canonicalRows.length}.`,
-      );
-    }
-
-    const seenKeys = new Set();
-    const maxima = buildMaxima(canonicalRows, config.columns, "skill");
-    const ratingByKey = new Map();
-
-    for (const player of canonicalRows) {
-      ratingByKey.set(getPlayerKey(player), computeRating(player, config.columns, maxima, "skill"));
-    }
-
-    const sortedKeys = sourceRows
-      .map((player, sourceIndex) => {
-        const key = getPlayerKey(player);
-        const canonicalPlayer = canonicalByKey.get(key);
-
-        if (!canonicalPlayer) {
-          throw new Error(`${config.fileName} includes unknown player ${key}.`);
-        }
-
-        if (seenKeys.has(key)) {
-          throw new Error(`Duplicate player in ${config.fileName}: ${key}`);
-        }
-
-        seenKeys.add(key);
-        assertSkillAttributesMatch(canonicalPlayer, player, config.fileName);
-
-        return {
-          key,
-          sourceIndex,
-          rating: ratingByKey.get(key) ?? 0,
-          hittingPower: getNumericValue(player, "hitting_power"),
-        };
-      })
-      .sort(comparePlayerRanks)
-      .map(({ key }, index) => {
-        const existing = skillFieldUpdates.get(key) ?? {};
-        const rating = ratingByKey.get(key) ?? 0;
-
-        skillFieldUpdates.set(key, {
-          ...existing,
-          [config.ratingKey]: formatPercent(rating),
-          [config.rankingKey]: index + 1,
-        });
-
-        return key;
-      });
-
-    if (seenKeys.size !== canonicalRows.length) {
-      throw new Error(`${config.fileName} is missing one or more offensive skill players.`);
-    }
-
-    sortedKeysByFile.set(config.fileName, sortedKeys);
-  }
-
-  for (const config of SKILL_CONFIGS) {
-    const sortedKeys = sortedKeysByFile.get(config.fileName);
-
-    if (!sortedKeys) {
-      throw new Error(`No sorted data generated for ${config.fileName}.`);
-    }
-
-    const rebuiltRows = sortedKeys.map((key) => ({
-      ...canonicalByKey.get(key),
-      ...skillFieldUpdates.get(key),
-    }));
-
-    await writeFile(config.fileName, formatAggregateFile(rebuiltRows));
-  }
-
-  return skillFieldUpdates;
-}
-
-async function rebuildOlAggregate() {
-  const sourceRows = await readJson(OL_CONFIG.fileName);
-  const maxima = buildMaxima(sourceRows, OL_CONFIG.columns, "offensiveLine");
-  const { rebuiltRows, updates } = rankPositionPlayers(sourceRows, player =>
-    computeRating(player, OL_CONFIG.columns, maxima, "offensiveLine"),
-  );
-
-  await writeFile(OL_CONFIG.fileName, formatAggregateFile(rebuiltRows));
-
-  return updates;
+  return starters[0].maximum_speed;
 }
 
 async function main() {
-  const skillFieldUpdates = await rebuildSkillAggregates();
-  const olUpdates = await rebuildOlAggregate();
-
-  await syncRosterRatings([
-    { name: "offensive skill", matches: isSkillPosition, updates: skillFieldUpdates },
-    { name: "offensive line", matches: position => OFFENSIVE_LINE_POSITIONS.has(position), updates: olUpdates },
-  ]);
-
-  console.log(
-    `Rebuilt offensive ratings for ${skillFieldUpdates.size} skill players and ${olUpdates.size} offensive linemen.`,
-  );
+  await rebuildRosterPlayers(teams => {
+    const skill = [];
+    const line = [];
+    for (const team of teams) {
+      const kickSpeed = starterSpeed(team, "RT");
+      const puntSpeed = starterSpeed(team, "SS");
+      for (const player of team.players) {
+        if (isSkillPosition(player.position)) {
+          player.kick_return_maximum_speed = kickSpeed;
+          player.punt_return_maximum_speed = puntSpeed;
+          skill.push(player);
+        } else if (OFFENSIVE_LINE_POSITIONS.has(player.position)) {
+          line.push(player);
+        }
+      }
+    }
+    for (const config of [...SKILL_CONFIGS, OL_CONFIG]) {
+      const mode = config === OL_CONFIG ? "offensiveLine" : "skill";
+      const players = config === OL_CONFIG ? line : skill;
+      const maxima = buildMaxima(players, config.columns, mode);
+      rankPositionPlayers(players, player => computeRating(player, config.columns, maxima, mode),
+        config.ratingKey, config.rankingKey);
+    }
+  });
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {

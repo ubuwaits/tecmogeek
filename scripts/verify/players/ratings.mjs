@@ -1,3 +1,4 @@
+import { positionEntries } from "../../../lib/players/leaderboard.ts";
 import assert from "node:assert/strict";
 import { indexPlayers, key, positions, read, skillPositions } from "../roster-data.mjs";
 import { init } from "z3-solver";
@@ -22,12 +23,12 @@ const publishedOnlyWeights = {
 const models = new Map();
 for (const config of [...offense.SKILL_CONFIGS, offense.OL_CONFIG]) {
   const line = config === offense.OL_CONFIG;
-  models.set(config.fileName, { config, engine: offense, mode: line ? "offensiveLine" : "skill",
+  models.set(config.slug, { config, engine: offense, mode: line ? "offensiveLine" : "skill",
     ladder: line ? offense.OFFENSIVE_LINE_HP_SCORE_MAP : offense.OFFENSIVE_HP_SCORE_MAP,
     specLadder: line ? lineHP : skillHP });
 }
 for (const config of defense.DEFENSIVE_CONFIGS) {
-  models.set(config.fileName, { config, engine: defense, ladder: defense.DEFENSIVE_HP_SCORE_MAP, specLadder: defenseHP });
+  models.set(config.slug, { config, engine: defense, ladder: defense.DEFENSIVE_HP_SCORE_MAP, specLadder: defenseHP });
 }
 
 function ladderScore(raw, ladder) {
@@ -83,28 +84,26 @@ const roster = files.flatMap(file => {
 assert(roster.length > 0);
 const rosterIndex = indexPlayers(roster, "team rosters");
 const expected = new Map(roster.map(player => [key(player), new Map()]));
-const aggregates = [];
 const errors = [];
 let count = 0;
 for (const page of POSITION_PAGES) {
   const eligible = roster.filter(player => positions[page.slug].test(player.position));
   assert(eligible.length > 0, `Empty group: ${page.slug}`);
-  const rows = read(page.dataFile);
-  const indexed = indexPlayers(rows, page.dataFile);
-  assert.deepEqual(new Set(indexed.keys()), new Set(eligible.map(key)), `Coverage mismatch in ${page.dataFile}`);
-  aggregates.push([page.dataFile, rows]);
+  const rows = positionEntries(roster, page);
+  const indexed = indexPlayers(rows, page.slug);
+  assert.deepEqual(new Set(indexed.keys()), new Set(eligible.map(key)), `Coverage mismatch in ${page.slug}`);
 
   const maxima = {};
   for (const { key: field } of page.columns) {
     for (const player of eligible) {
       const value = player[field];
       assert(Number.isInteger(value) && value >= 0 && value <= 100, `${key(player)}: invalid ${field}=${value}`);
-      assert.equal(indexed.get(key(player))[field], value, `${page.dataFile}: ${key(player)} ${field}`);
+      assert.equal(indexed.get(key(player))[field], value, `${page.slug}: ${key(player)} ${field}`);
     }
     if (field !== "hitting_power") maxima[field] = Math.max(...eligible.map(player => player[field]));
   }
 
-  const model = models.get(page.dataFile);
+  const model = models.get(page.slug);
   if (model) {
     assert.deepEqual(model.engine.buildMaxima(rows, model.config.columns, model.mode), maxima);
   }
@@ -123,16 +122,12 @@ for (const page of POSITION_PAGES) {
   count += eligible.length;
 }
 
-function checkCopies(source, players) {
-  for (const player of players) {
-    const fields = expected.get(key(player));
-    assert(fields?.size, `Unclassified player: ${key(player)}`);
-    for (const [field, rating] of fields) {
-      if (player[field] !== rating) errors.push(`${source}: ${key(player)} ${field}=${player[field]}, expected ${rating}`);
-    }
+for (const player of roster) {
+  const fields = expected.get(key(player));
+  assert(fields?.size, `Unclassified player: ${key(player)}`);
+  for (const [field, rating] of fields) {
+    if (player[field] !== rating) errors.push(`${key(player)} ${field}=${player[field]}, expected ${rating}`);
   }
 }
-checkCopies("roster", roster);
-for (const [source, players] of aggregates) checkCopies(source, players);
 if (errors.length) throw new Error(errors.join("\n"));
-console.log(`Verified ${count} ratings for ${rosterIndex.size} players across ${files.length} teams and all ${aggregates.length} position files.`);
+console.log(`Verified ${count} ratings for ${rosterIndex.size} players across ${files.length} teams and all ${POSITION_PAGES.length} leaderboards.`);

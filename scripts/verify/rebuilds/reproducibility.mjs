@@ -33,6 +33,8 @@ try {
   rmSync(path.join(checkout, "scripts"), { recursive: true });
   cpSync(path.join(root, "scripts"), path.join(checkout, "scripts"), { recursive: true });
 
+  cpSync(path.join(root, "lib/teams/slugs.mts"), path.join(checkout, "lib/teams/slugs.mts"));
+
   function runRebuilds() {
     for (const command of commands) execFileSync("pnpm", ["run", command], { cwd: checkout, stdio: "inherit" });
   }

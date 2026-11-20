@@ -1,7 +1,6 @@
-import { syncRosterRatings } from "./sync-roster-ratings.mjs";
+import { rebuildRosterPlayers } from "./roster-files.mts";
 import { rankPositionPlayers } from "./rank-position-players.mjs";
 import { attributeMaxima, weightedRating } from "./player-rating.mjs";
-import { formatAggregateFile, readJson, writeFile } from "./roster-files.mts";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -21,7 +20,7 @@ export const DEFENSIVE_HP_SCORE_MAP = {
 export const DEFENSIVE_CONFIGS = [
   {
     name: "defensive line",
-    fileName: "dl.json",
+    slug: "dl",
     positions: new Set(["RE", "NT", "LE"]),
     columns: [
       { key: "running_speed", weight: 10 },
@@ -33,7 +32,7 @@ export const DEFENSIVE_CONFIGS = [
   },
   {
     name: "linebackers",
-    fileName: "lb.json",
+    slug: "lb",
     positions: new Set(["ROLB", "RILB", "LILB", "LOLB"]),
     columns: [
       { key: "running_speed", weight: 10 },
@@ -45,7 +44,7 @@ export const DEFENSIVE_CONFIGS = [
   },
   {
     name: "secondary",
-    fileName: "cb-s.json",
+    slug: "cb-s",
     positions: new Set(["RCB", "LCB", "FS", "SS"]),
     columns: [
       { key: "running_speed", weight: 10 },
@@ -65,32 +64,15 @@ export function computeRating(player, columns, maxima) {
   return weightedRating(player, columns, maxima, DEFENSIVE_HP_SCORE_MAP);
 }
 
-async function rebuildDefensiveAggregate(config) {
-  const sourceRows = await readJson(config.fileName);
-  const maxima = buildMaxima(sourceRows, config.columns);
-  const { rebuiltRows, updates } = rankPositionPlayers(sourceRows, player =>
-    computeRating(player, config.columns, maxima),
-  );
-
-  await writeFile(config.fileName, formatAggregateFile(rebuiltRows));
-
-  return updates;
-}
-
 async function main() {
-  const groups = [];
-  for (const config of DEFENSIVE_CONFIGS) {
-    groups.push({
-      name: config.name,
-      matches: position => config.positions.has(position),
-      updates: await rebuildDefensiveAggregate(config),
-    });
-  }
-
-  await syncRosterRatings(groups);
-
-  const counts = groups.map(({ name, updates }) => `${updates.size} ${name}`);
-  console.log(`Rebuilt defensive ratings for ${counts.join(", ")}.`);
+  await rebuildRosterPlayers(teams => {
+    const roster = teams.flatMap(team => team.players);
+    for (const config of DEFENSIVE_CONFIGS) {
+      const players = roster.filter(player => config.positions.has(player.position));
+      const maxima = buildMaxima(players, config.columns);
+      rankPositionPlayers(players, player => computeRating(player, config.columns, maxima), "rating", "ranking");
+    }
+  });
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {

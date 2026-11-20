@@ -50,22 +50,7 @@ The output also includes:
 
 ## Team file discovery
 
-The script reads every `.json` file in `/data` except the aggregate output files:
-
-- `qb.json`
-- `rushers.json`
-- `receivers.json`
-- `kick-returners.json`
-- `punt-returners.json`
-- `ol.json`
-- `dl.json`
-- `lb.json`
-- `cb-s.json`
-- `k.json`
-- `p.json`
-- `team-ratings.json`
-
-The remaining files are treated as team roster files and are processed in sorted order by team slug.
+The script reads the 28 roster files named by the configured team slugs. Position leaderboards are derived from those rosters at build time.
 
 ## Core Tecmo modeling assumptions
 

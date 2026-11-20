@@ -11,6 +11,12 @@ pnpm install
 pnpm dev
 ```
 
+## Player data
+
+Edit a player in `data/<team>.json`. Keep the roster slot order, which determines the team-page sections and portraits. The 11 leaderboards select players from these rosters and sort by the stored rank for that category.
+
+After an attribute edit, run `pnpm rebuild:offense`, `pnpm rebuild:defense`, then `pnpm rebuild:team-ratings`. The player rebuilds recalculate skill, offensive-line, and defensive ratings across the league. Complete ties retain the previous rank for that category. Return speeds come from the team’s RT and SS. Quarterback, kicker, and punter ratings and ranks are published roster fields checked by the player verifiers.
+
 ## Checks
 
 The data generators live in `scripts/rebuild/`. The Node verification scripts live in `scripts/verify/`, grouped by players, teams, lineups, and rebuilds. Browser checks live in `tests/e2e/`. Run them through the pnpm commands below.
@@ -46,7 +52,7 @@ pnpm e2e
 
 `pnpm verify:rebuilds` runs the offense, defense, and team-rating commands twice in one temporary checkout. It uses the current package commands and scripts with data from `HEAD`. After each pass it checks the complete file list and compares every data file byte-for-byte with its committed Git blob.
 
-`pnpm verify:rebuild-edits` runs all three rebuilds on two independent edits in a temporary checkout. Each edit changes the same raw field in its position file (the rebuild input) and team roster. The check recomputes every defensive line rating and rank, checks all data copies and team outputs, and exercises a new league maximum.
+`pnpm verify:rebuild-edits` runs all three rebuilds on two independent edits in a temporary checkout. Each edit changes one raw field in the Eagles roster. The check recomputes every defensive line rating and rank, checks all rosters and team outputs, and exercises a new league maximum.
 
 `pnpm verify:lineup-precision` uses Z3 to bound binary64 error in the generator's running, passing, and balanced score expressions for whole-percent inputs from 0 to 100. It checks score ordering and tolerance ties against exact multiples of 1/8000, then exercises the numeric comparator across the entire score grid.
 
@@ -64,9 +70,9 @@ pnpm e2e
 
 `pnpm verify:portraits` checks roster sections, rendered portrait cells and decoded sprite pixels for all 840 players across team pages and position leaderboards. See the [portrait references](tests/fixtures/portraits/README.md) for the game face IDs and pixel baselines.
 
-`pnpm verify:players` uses exact Z3 arithmetic to check all eleven individual rating formulas, including position-specific normalization, hitting-power lookups and whole-percent rounding. It uses the current position-group maxima, evaluates each eligible player, and checks the stored ratings in the team and position files.
+`pnpm verify:players` uses exact Z3 arithmetic to check all eleven individual rating formulas, including position-specific normalization, hitting-power lookups and whole-percent rounding. It uses the current position-group maxima, evaluates each eligible player, and checks the stored roster ratings.
 
-`pnpm verify:rankings` checks canonical player order and every stored copy of each rank. Skill players, linemen and defensive players rank by displayed rating, then raw hitting power. Quarterbacks rank by displayed rating, and kickers and punters by kicking ability. For complete ties the position file supplies the order. Z3 checks the ordering rules and searches each file for an inversion.
+`pnpm verify:rankings` checks canonical leaderboard order and each stored roster rank. Skill players, linemen and defensive players rank by displayed rating, then raw hitting power. Quarterbacks rank by displayed rating, and kickers and punters by kicking ability. For complete ties the previous category rank supplies the order. Z3 checks the ordering rules and searches each leaderboard for an inversion.
 
 `pnpm verify:player-sorting` checks the player tables’ production sorter against a Z3 ordering rule for every ranking, rating and metric column, in both directions and in each configured position filter. Equal values use canonical rank (best first descending, worst first ascending). Complete ties retain input order.
 

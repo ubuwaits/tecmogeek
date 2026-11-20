@@ -1,12 +1,7 @@
-import fs from "node:fs";
-import path from "node:path";
+import { leaderboard } from "../helpers/leaderboards";
 
 import { describe, expect, it } from "vitest";
 
-const DATA_DIR = path.join(process.cwd(), "data");
-
-const OFFENSIVE_LINE_POSITIONS = new Set(["C", "LG", "RG", "LT", "RT"]);
-const SKILL_POSITION_PREFIXES = ["RB", "WR", "TE"];
 const OFFENSIVE_HP_SCORE_MAP: Record<number, number> = {
   75: 5,
   81: 25,
@@ -27,7 +22,7 @@ const OFFENSIVE_LINE_HP_SCORE_MAP: Record<number, number> = {
 
 const SKILL_CONFIGS = [
   {
-    fileName: "rushers.json",
+    slug: "rushers",
     ratingKey: "rushing_rating",
     rankingKey: "rushing_ranking",
     columns: [
@@ -39,7 +34,7 @@ const SKILL_CONFIGS = [
     ],
   },
   {
-    fileName: "receivers.json",
+    slug: "receivers",
     ratingKey: "receiving_rating",
     rankingKey: "receiving_ranking",
     columns: [
@@ -51,7 +46,7 @@ const SKILL_CONFIGS = [
     ],
   },
   {
-    fileName: "kick-returners.json",
+    slug: "kick-returners",
     ratingKey: "kick_return_rating",
     rankingKey: "kick_return_ranking",
     columns: [
@@ -62,7 +57,7 @@ const SKILL_CONFIGS = [
     ],
   },
   {
-    fileName: "punt-returners.json",
+    slug: "punt-returners",
     ratingKey: "punt_return_rating",
     rankingKey: "punt_return_ranking",
     columns: [
@@ -74,7 +69,7 @@ const SKILL_CONFIGS = [
 ] as const;
 
 const OL_CONFIG = {
-  fileName: "ol.json",
+  slug: "ol",
   ratingKey: "rating",
   rankingKey: "ranking",
   columns: [
@@ -89,14 +84,6 @@ type RatingColumn = {
 };
 
 type PlayerRecord = Record<string, string | number | undefined>;
-
-function readJson<T>(fileName: string): T {
-  return JSON.parse(fs.readFileSync(path.join(DATA_DIR, fileName), "utf8")) as T;
-}
-
-function getPlayerKey(player: PlayerRecord) {
-  return `${player.team}|${player.position}|${player.name}`;
-}
 
 function getNumericValue(player: PlayerRecord, key: string) {
   return Number(player[key] ?? 0);
@@ -160,34 +147,6 @@ function computeRating(
   return Math.round(total);
 }
 
-function isSkillPosition(position: string) {
-  return SKILL_POSITION_PREFIXES.some((prefix) => position.startsWith(prefix));
-}
-
-function getTeamFileNames() {
-  return fs
-    .readdirSync(DATA_DIR)
-    .filter(
-      (fileName) =>
-        fileName.endsWith(".json") &&
-        ![
-          "qb.json",
-          "rushers.json",
-          "receivers.json",
-          "kick-returners.json",
-          "punt-returners.json",
-          "ol.json",
-          "dl.json",
-          "lb.json",
-          "cb-s.json",
-          "k.json",
-          "p.json",
-          "team-ratings.json",
-        ].includes(fileName),
-    )
-    .sort();
-}
-
 describe("offensive ratings data", () => {
   it("uses the expected offensive HP score ladder", () => {
     expect(getOffensiveHpScore(13)).toBe(0);
@@ -209,9 +168,9 @@ describe("offensive ratings data", () => {
     expect(getOffensiveLineHpScore(81)).toBe(100);
   });
 
-  it("keeps offensive aggregate ratings aligned with recomputed values", () => {
+  it("keeps offensive leaderboard ratings aligned with recomputed values", () => {
     for (const config of SKILL_CONFIGS) {
-      const players = readJson<PlayerRecord[]>(config.fileName);
+      const players = leaderboard(config.slug);
       const maxima = buildMaxima(players, config.columns, "skill");
 
       for (const player of players) {
@@ -221,7 +180,7 @@ describe("offensive ratings data", () => {
       }
     }
 
-    const linemen = readJson<PlayerRecord[]>(OL_CONFIG.fileName);
+    const linemen = leaderboard(OL_CONFIG.slug);
     const maxima = buildMaxima(linemen, OL_CONFIG.columns, "offensiveLine");
 
     for (const player of linemen) {
@@ -231,9 +190,9 @@ describe("offensive ratings data", () => {
     }
   });
 
-  it("keeps aggregate ranking fields aligned with array order and HP tie-breaks", () => {
+  it("keeps leaderboard ranking fields aligned with array order and HP tie-breaks", () => {
     for (const config of [...SKILL_CONFIGS, OL_CONFIG]) {
-      const players = readJson<PlayerRecord[]>(config.fileName);
+      const players = leaderboard(config.slug);
 
       players.forEach((player, index) => {
         expect(player[config.rankingKey]).toBe(index + 1);
@@ -256,65 +215,8 @@ describe("offensive ratings data", () => {
     }
   });
 
-  it("keeps team offensive ratings and rankings in sync with the aggregate files", () => {
-    const skillUpdates = new Map<string, PlayerRecord>();
-
-    for (const config of SKILL_CONFIGS) {
-      const players = readJson<PlayerRecord[]>(config.fileName);
-
-      players.forEach((player) => {
-        const key = getPlayerKey(player);
-        const existing = skillUpdates.get(key) ?? {};
-
-        skillUpdates.set(key, {
-          ...existing,
-          [config.ratingKey]: player[config.ratingKey],
-          [config.rankingKey]: player[config.rankingKey],
-        });
-      });
-    }
-
-    const lineUpdates = new Map<string, PlayerRecord>(
-      readJson<PlayerRecord[]>(OL_CONFIG.fileName).map((player) => [
-        getPlayerKey(player),
-        {
-          [OL_CONFIG.ratingKey]: player[OL_CONFIG.ratingKey],
-          [OL_CONFIG.rankingKey]: player[OL_CONFIG.rankingKey],
-        },
-      ]),
-    );
-
-    for (const fileName of getTeamFileNames()) {
-      const team = readJson<{ players: PlayerRecord[] }>(fileName);
-
-      for (const player of team.players) {
-        const key = getPlayerKey(player);
-
-        if (isSkillPosition(String(player.position))) {
-          const aggregate = skillUpdates.get(key);
-          expect(aggregate, `${fileName} missing skill aggregate entry for ${key}`).toBeDefined();
-          expect(player.rushing_rating).toBe(aggregate?.rushing_rating);
-          expect(player.rushing_ranking).toBe(aggregate?.rushing_ranking);
-          expect(player.receiving_rating).toBe(aggregate?.receiving_rating);
-          expect(player.receiving_ranking).toBe(aggregate?.receiving_ranking);
-          expect(player.kick_return_rating).toBe(aggregate?.kick_return_rating);
-          expect(player.kick_return_ranking).toBe(aggregate?.kick_return_ranking);
-          expect(player.punt_return_rating).toBe(aggregate?.punt_return_rating);
-          expect(player.punt_return_ranking).toBe(aggregate?.punt_return_ranking);
-        }
-
-        if (OFFENSIVE_LINE_POSITIONS.has(String(player.position))) {
-          const aggregate = lineUpdates.get(key);
-          expect(aggregate, `${fileName} missing OL aggregate entry for ${key}`).toBeDefined();
-          expect(player.rating).toBe(aggregate?.rating);
-          expect(player.ranking).toBe(aggregate?.ranking);
-        }
-      }
-    }
-  });
-
   it("keeps the representative offensive rating examples correct", () => {
-    const rushers = readJson<PlayerRecord[]>("rushers.json");
+    const rushers = leaderboard("rushers");
     const maxima = buildMaxima(rushers, SKILL_CONFIGS[0].columns, "skill");
 
     const jerryRice = rushers.find((player) => player.team === "49ers" && player.name === "Jerry Rice");

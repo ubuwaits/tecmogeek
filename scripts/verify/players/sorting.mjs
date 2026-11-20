@@ -1,3 +1,4 @@
+import { positionEntries } from "../../../lib/players/leaderboard.ts";
 import { rejectCounterexample } from "../reject-counterexample.mjs";
 import assert from "node:assert/strict";
 import { init } from "z3-solver";
@@ -67,10 +68,10 @@ const covered = new Set();
 let orders = 0;
 let placements = 0;
 for (const page of POSITION_PAGES) {
-  const rows = read(page.dataFile);
+  const rows = positionEntries(roster, page);
   const expected = roster.filter(player => positions[page.slug].test(player.position));
   assert(rows.length > 0);
-  assert.deepEqual(new Set(indexPlayers(rows, page.dataFile).keys()), new Set(expected.map(key)), page.slug);
+  assert.deepEqual(new Set(indexPlayers(rows, page.slug).keys()), new Set(expected.map(key)), page.slug);
   for (const row of rows) covered.add(key(row));
   const fields = [page.rankingKey, page.ratingKey, ...page.columns.map(column => column.key)];
   const filters = page.filters ?? [{ id: "all", allowedPrefixes: [] }];
@@ -79,7 +80,7 @@ for (const page of POSITION_PAGES) {
     assert(subset.length > 0);
     for (const field of fields) for (const [direction, allowed] of Object.entries(rules)) {
       checkSort(subset, field, page.rankingKey, direction, allowed, page.slug + "/" + id);
-      // Aggregate files already follow canonical rank; reverse the input to
+      // Leaderboard rows already follow canonical rank; reverse the input to
       // expose an omitted rank tie-break even when the original order masks it.
       checkSort(subset.toReversed(), field, page.rankingKey, direction, allowed, page.slug + "/" + id + " reversed input");
       orders++;

@@ -1,33 +1,5 @@
-export const TEAM_SLUGS = [
-  "49ers",
-  "bears",
-  "bengals",
-  "bills",
-  "broncos",
-  "browns",
-  "buccaneers",
-  "cardinals",
-  "chargers",
-  "chiefs",
-  "colts",
-  "cowboys",
-  "dolphins",
-  "eagles",
-  "falcons",
-  "giants",
-  "jets",
-  "lions",
-  "oilers",
-  "packers",
-  "patriots",
-  "raiders",
-  "rams",
-  "redskins",
-  "saints",
-  "seahawks",
-  "steelers",
-  "vikings",
-] as const;
+import type { TeamSlug } from "./teams/slugs.mts";
+export { TEAM_SLUGS, type TeamSlug } from "./teams/slugs.mts";
 
 export const POSITION_SLUGS = [
   "qb",
@@ -76,7 +48,6 @@ export const HEADSHOT_POSITIONS = [
   "P",
 ] as const;
 
-export type TeamSlug = (typeof TEAM_SLUGS)[number];
 export type PositionSlug = (typeof POSITION_SLUGS)[number];
 export type HeadshotPosition = (typeof HEADSHOT_POSITIONS)[number];
 export type SortDirection = "asc" | "desc";
@@ -210,7 +181,6 @@ export interface PositionPageConfig {
   title: string;
   navLabel: string;
   homeLabel: string;
-  dataFile: string;
   note: string;
   rankingKey: PlayerSortKey;
   ratingKey: PlayerSortKey;

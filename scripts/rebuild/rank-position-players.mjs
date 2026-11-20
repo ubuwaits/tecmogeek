@@ -1,21 +1,16 @@
 import { comparePlayerRanks } from "./compare-player-ranks.mjs";
 import { formatPercent, getNumericValue } from "./player-rating.mjs";
-import { getPlayerKey } from "./roster-files.mts";
 
-export function rankPositionPlayers(sourceRows, scorePlayer) {
-  const candidates = sourceRows.map((player, sourceIndex) => ({
+// Each category has its own published order. Capture it before replacing ranks.
+export function rankPositionPlayers(players, scorePlayer, ratingKey, rankingKey) {
+  const candidates = players.map(player => ({
     player,
-    sourceIndex,
     rating: scorePlayer(player),
     hittingPower: getNumericValue(player, "hitting_power"),
+    previousRank: player[rankingKey] ?? Number.MAX_SAFE_INTEGER,
   }));
-
-  const updates = new Map();
-  const rebuiltRows = candidates.sort(comparePlayerRanks).map(({ player, rating }, index) => {
-    const update = { rating: formatPercent(rating), ranking: index + 1 };
-    updates.set(getPlayerKey(player), update);
-    return { ...player, ...update };
+  candidates.sort(comparePlayerRanks).forEach(({ player, rating }, index) => {
+    player[ratingKey] = formatPercent(rating);
+    player[rankingKey] = index + 1;
   });
-
-  return { rebuiltRows, updates };
 }

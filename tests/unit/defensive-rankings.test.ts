@@ -1,24 +1,6 @@
-import fs from "node:fs";
-import path from "node:path";
+import { leaderboard } from "../helpers/leaderboards";
 
 import { describe, expect, it } from "vitest";
-
-const DATA_DIR = path.join(process.cwd(), "data");
-
-const AGGREGATE_FILE_NAMES = new Set([
-  "qb.json",
-  "rushers.json",
-  "receivers.json",
-  "kick-returners.json",
-  "punt-returners.json",
-  "ol.json",
-  "dl.json",
-  "lb.json",
-  "cb-s.json",
-  "k.json",
-  "p.json",
-  "team-ratings.json",
-]);
 
 const DEFENSIVE_HP_SCORE_MAP: Record<number, number> = {
   19: 0,
@@ -36,7 +18,7 @@ const DEFENSIVE_HP_SCORE_MAP: Record<number, number> = {
 const DEFENSIVE_CONFIGS = [
   {
     id: "dl",
-    fileName: "dl.json",
+    slug: "dl",
     positions: new Set(["RE", "NT", "LE"]),
     columns: [
       { key: "running_speed", weight: 10 },
@@ -48,7 +30,7 @@ const DEFENSIVE_CONFIGS = [
   },
   {
     id: "lb",
-    fileName: "lb.json",
+    slug: "lb",
     positions: new Set(["ROLB", "RILB", "LILB", "LOLB"]),
     columns: [
       { key: "running_speed", weight: 10 },
@@ -60,7 +42,7 @@ const DEFENSIVE_CONFIGS = [
   },
   {
     id: "secondary",
-    fileName: "cb-s.json",
+    slug: "cb-s",
     positions: new Set(["RCB", "LCB", "FS", "SS"]),
     columns: [
       { key: "running_speed", weight: 10 },
@@ -78,14 +60,6 @@ type RatingColumn = {
 };
 
 type PlayerRecord = Record<string, string | number | undefined>;
-
-function readJson<T>(fileName: string): T {
-  return JSON.parse(fs.readFileSync(path.join(DATA_DIR, fileName), "utf8")) as T;
-}
-
-function getPlayerKey(player: PlayerRecord) {
-  return `${player.team}|${player.position}|${player.name}`;
-}
 
 function getNumericValue(player: PlayerRecord, key: string) {
   return Number(player[key] ?? 0);
@@ -140,13 +114,6 @@ function computeRating(
   return Math.round(total);
 }
 
-function getTeamFileNames() {
-  return fs
-    .readdirSync(DATA_DIR)
-    .filter((fileName) => fileName.endsWith(".json") && !AGGREGATE_FILE_NAMES.has(fileName))
-    .sort();
-}
-
 describe("defensive ratings data", () => {
   it("uses the expected defensive HP score ladder", () => {
     expect(getDefensiveHpScore(19)).toBe(0);
@@ -161,9 +128,9 @@ describe("defensive ratings data", () => {
     expect(getDefensiveHpScore(75)).toBe(100);
   });
 
-  it("keeps defensive aggregate ratings aligned with recomputed values", () => {
+  it("keeps defensive leaderboard ratings aligned with recomputed values", () => {
     for (const config of DEFENSIVE_CONFIGS) {
-      const players = readJson<PlayerRecord[]>(config.fileName);
+      const players = leaderboard(config.slug);
       const maxima = buildMaxima(players, config.columns);
 
       for (const player of players) {
@@ -172,9 +139,9 @@ describe("defensive ratings data", () => {
     }
   });
 
-  it("keeps defensive aggregate rankings aligned with array order and HP tie-breaks", () => {
+  it("keeps defensive leaderboard rankings aligned with array order and HP tie-breaks", () => {
     for (const config of DEFENSIVE_CONFIGS) {
-      const players = readJson<PlayerRecord[]>(config.fileName);
+      const players = leaderboard(config.slug);
 
       players.forEach((player, index) => {
         expect(player.ranking).toBe(index + 1);
@@ -193,37 +160,6 @@ describe("defensive ratings data", () => {
             getNumericValue(next, "hitting_power"),
           );
         }
-      }
-    }
-  });
-
-  it("keeps team defensive ratings and rankings in sync with the aggregate files", () => {
-    const updates = new Map<string, PlayerRecord>();
-
-    for (const config of DEFENSIVE_CONFIGS) {
-      readJson<PlayerRecord[]>(config.fileName).forEach((player) => {
-        updates.set(getPlayerKey(player), {
-          rating: player.rating,
-          ranking: player.ranking,
-        });
-      });
-    }
-
-    for (const fileName of getTeamFileNames()) {
-      const team = readJson<{ players: PlayerRecord[] }>(fileName);
-
-      for (const player of team.players) {
-        const position = String(player.position);
-
-        if (!DEFENSIVE_CONFIGS.some((config) => config.positions.has(position))) {
-          continue;
-        }
-
-        const aggregate = updates.get(getPlayerKey(player));
-
-        expect(aggregate, `${fileName} missing defensive aggregate entry for ${getPlayerKey(player)}`).toBeDefined();
-        expect(player.rating).toBe(aggregate?.rating);
-        expect(player.ranking).toBe(aggregate?.ranking);
       }
     }
   });
