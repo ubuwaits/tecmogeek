@@ -5,7 +5,8 @@ import { DEFENSIVE_HP_SCORE_MAP } from "../../scripts/rebuild/defensive-ratings.
 import { OFFENSIVE_HP_SCORE_MAP, OFFENSIVE_LINE_HP_SCORE_MAP } from "../../scripts/rebuild/offensive-ratings.mjs";
 
 const require = createRequire(import.meta.url);
-const { POSITION_PAGES, RECEIVING_COLUMNS, RUSHING_COLUMNS } = require("../../lib/players/config.ts");
+const { POSITION_PAGES } = require("../../lib/players/config.ts");
+const { RECEIVING_COLUMNS, RUSHING_COLUMNS } = require("../../lib/players/metrics.ts");
 const { TEAM_SLUGS } = require("../../lib/types.ts");
 
 const weightHeadings = {
