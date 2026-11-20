@@ -22,6 +22,7 @@ pnpm verify:rebuilds
 pnpm verify:players
 pnpm verify:portraits
 pnpm verify:attributes
+pnpm verify:about-ratings
 pnpm verify:rankings
 pnpm verify:player-sorting
 pnpm verify:team-rankings
@@ -36,6 +37,8 @@ pnpm e2e
 `pnpm verify:routes` builds the static export and checks the 42 public pages, their canonical URLs, the complete sitemap, internal hyperlinks, and the desktop and mobile navigation menus.
 
 `pnpm verify:rebuilds` runs the offense, defense, and team-rating commands twice in one temporary checkout. It uses the current package commands and scripts with data from `HEAD`. After each pass it checks the complete file list and compares every data file byte-for-byte with its committed Git blob.
+
+`pnpm verify:about-ratings` checks the exported explanation against the player weights, hitting-power lookups, and published team blends. It recomputes the Rice and Jackson examples from team rosters, checking the displayed attribute scores, equation terms, two-decimal totals, and whole-percent roster ratings.
 
 `pnpm verify:attributes` checks rendered metric values, accessible names, gradient fills, and bar and header weights against the rosters and position-column specifications. It covers every position leaderboard and all four skill modes on every team page, including return speeds sourced from RT and SS.
 

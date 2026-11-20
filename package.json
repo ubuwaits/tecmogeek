@@ -24,6 +24,7 @@
     "verify:player-sorting": "node scripts/verify-player-sorting.mjs",
     "verify:routes": "playwright test routes.spec.ts",
     "verify:rebuilds": "node scripts/verify-rebuilds.mjs",
+    "verify:about-ratings": "playwright test about-ratings.spec.mjs",
     "verify:attributes": "playwright test attributes.spec.ts",
     "verify:portraits": "playwright test portraits.spec.ts",
     "verify:players": "node scripts/verify-players.mjs",
