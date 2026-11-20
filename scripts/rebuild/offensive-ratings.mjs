@@ -1,3 +1,4 @@
+import { attributeMaxima, formatPercent, getNumericValue, weightedRating } from "./player-rating.mjs";
 import { comparePlayerRanks } from "./compare-player-ranks.mjs";
 import { formatAggregateFile, formatTeamFile, getPlayerKey, getTeamFileNames, readJson, writeFile } from "./roster-files.mts";
 import path from "node:path";
@@ -101,59 +102,19 @@ export const OL_CONFIG = {
   ],
 };
 
-function getNumericValue(player, key) {
-  return Number(player[key] ?? 0);
-}
-
-function getOffensiveHpScore(hittingPower) {
-  return OFFENSIVE_HP_SCORE_MAP[hittingPower] ?? 0;
-}
-
-function getOffensiveLineHpScore(hittingPower) {
-  return OFFENSIVE_LINE_HP_SCORE_MAP[hittingPower] ?? 0;
-}
-
-function formatPercent(value) {
-  return `${Math.round(value)}%`;
-}
-
 function isSkillPosition(position) {
   return SKILL_POSITION_PREFIXES.some((prefix) => position.startsWith(prefix));
 }
 
 export function buildMaxima(players, columns, hpMode) {
-  const maxima = {};
-
-  for (const column of columns) {
-    if (hpMode !== "raw" && column.key === "hitting_power") {
-      continue;
-    }
-
-    maxima[column.key] = Math.max(...players.map((player) => getNumericValue(player, column.key)));
-  }
-
-  return maxima;
+  return attributeMaxima(players, columns, hpMode === "raw");
 }
 
 export function computeRating(player, columns, maxima, hpMode) {
-  let total = 0;
-
-  for (const column of columns) {
-    let score;
-
-    if (hpMode === "skill" && column.key === "hitting_power") {
-      score = getOffensiveHpScore(getNumericValue(player, "hitting_power"));
-    } else if (hpMode === "offensiveLine" && column.key === "hitting_power") {
-      score = getOffensiveLineHpScore(getNumericValue(player, "hitting_power"));
-    } else {
-      const maximum = maxima[column.key] ?? 0;
-      score = maximum === 0 ? 0 : (getNumericValue(player, column.key) / maximum) * 100;
-    }
-
-    total += column.weight * (score / 100);
-  }
-
-  return Math.round(total);
+  let scores;
+  if (hpMode === "skill") scores = OFFENSIVE_HP_SCORE_MAP;
+  if (hpMode === "offensiveLine") scores = OFFENSIVE_LINE_HP_SCORE_MAP;
+  return weightedRating(player, columns, maxima, scores);
 }
 
 function assertSkillAttributesMatch(canonicalPlayer, comparisonPlayer, fileName) {

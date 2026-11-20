@@ -1,3 +1,4 @@
+import { attributeMaxima, formatPercent, getNumericValue, weightedRating } from "./player-rating.mjs";
 import { comparePlayerRanks } from "./compare-player-ranks.mjs";
 import { formatAggregateFile, formatTeamFile, getPlayerKey, getTeamFileNames, readJson, writeFile } from "./roster-files.mts";
 import path from "node:path";
@@ -55,49 +56,12 @@ export const DEFENSIVE_CONFIGS = [
   },
 ];
 
-function getNumericValue(player, key) {
-  return Number(player[key] ?? 0);
-}
-
-function getDefensiveHpScore(hittingPower) {
-  return DEFENSIVE_HP_SCORE_MAP[hittingPower] ?? 0;
-}
-
-function formatPercent(value) {
-  return `${Math.round(value)}%`;
-}
-
 export function buildMaxima(players, columns) {
-  const maxima = {};
-
-  for (const column of columns) {
-    if (column.key === "hitting_power") {
-      continue;
-    }
-
-    maxima[column.key] = Math.max(...players.map((player) => getNumericValue(player, column.key)));
-  }
-
-  return maxima;
+  return attributeMaxima(players, columns, false);
 }
 
 export function computeRating(player, columns, maxima) {
-  let total = 0;
-
-  for (const column of columns) {
-    let score;
-
-    if (column.key === "hitting_power") {
-      score = getDefensiveHpScore(getNumericValue(player, "hitting_power"));
-    } else {
-      const maximum = maxima[column.key] ?? 0;
-      score = maximum === 0 ? 0 : (getNumericValue(player, column.key) / maximum) * 100;
-    }
-
-    total += column.weight * (score / 100);
-  }
-
-  return Math.round(total);
+  return weightedRating(player, columns, maxima, DEFENSIVE_HP_SCORE_MAP);
 }
 
 async function rebuildDefensiveAggregate(config) {
