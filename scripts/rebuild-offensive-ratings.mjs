@@ -36,14 +36,14 @@ const SKILL_ATTRIBUTE_KEYS = [
   "receptions",
 ];
 
-const OFFENSIVE_HP_SCORE_MAP = {
+export const OFFENSIVE_HP_SCORE_MAP = {
   75: 5,
   81: 25,
   88: 60,
   94: 100,
 };
 
-const OFFENSIVE_LINE_HP_SCORE_MAP = {
+export const OFFENSIVE_LINE_HP_SCORE_MAP = {
   31: 0,
   38: 15,
   44: 30,
@@ -55,7 +55,7 @@ const OFFENSIVE_LINE_HP_SCORE_MAP = {
   81: 100,
 };
 
-const SKILL_CONFIGS = [
+export const SKILL_CONFIGS = [
   {
     name: "rushers",
     fileName: "rushers.json",
@@ -107,7 +107,7 @@ const SKILL_CONFIGS = [
   },
 ];
 
-const OL_CONFIG = {
+export const OL_CONFIG = {
   name: "offensive line",
   fileName: "ol.json",
   ratingKey: "rating",
@@ -152,7 +152,7 @@ function isSkillPosition(position) {
   return SKILL_POSITION_PREFIXES.some((prefix) => position.startsWith(prefix));
 }
 
-function buildMaxima(players, columns, hpMode) {
+export function buildMaxima(players, columns, hpMode) {
   const maxima = {};
 
   for (const column of columns) {
@@ -166,7 +166,7 @@ function buildMaxima(players, columns, hpMode) {
   return maxima;
 }
 
-function computeRating(player, columns, maxima, hpMode) {
+export function computeRating(player, columns, maxima, hpMode) {
   let total = 0;
 
   for (const column of columns) {
@@ -422,7 +422,9 @@ async function main() {
   );
 }
 
-main().catch((error) => {
-  console.error(error instanceof Error ? error.message : error);
-  process.exitCode = 1;
-});
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  main().catch((error) => {
+    console.error(error instanceof Error ? error.message : error);
+    process.exitCode = 1;
+  });
+}

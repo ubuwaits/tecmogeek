@@ -20,7 +20,7 @@ const AGGREGATE_FILE_NAMES = new Set([
   "team-ratings.json",
 ]);
 
-const DEFENSIVE_HP_SCORE_MAP = {
+export const DEFENSIVE_HP_SCORE_MAP = {
   19: 0,
   25: 7,
   31: 16,
@@ -33,7 +33,7 @@ const DEFENSIVE_HP_SCORE_MAP = {
   75: 100,
 };
 
-const DEFENSIVE_CONFIGS = [
+export const DEFENSIVE_CONFIGS = [
   {
     name: "defensive line",
     fileName: "dl.json",
@@ -98,7 +98,7 @@ function formatTeamFile(team) {
   return `{\n  "full_name": ${JSON.stringify(team.full_name)},\n  "short_name": ${JSON.stringify(team.short_name)},\n  "players": [\n${players}\n  ]\n}\n`;
 }
 
-function buildMaxima(players, columns) {
+export function buildMaxima(players, columns) {
   const maxima = {};
 
   for (const column of columns) {
@@ -112,7 +112,7 @@ function buildMaxima(players, columns) {
   return maxima;
 }
 
-function computeRating(player, columns, maxima) {
+export function computeRating(player, columns, maxima) {
   let total = 0;
 
   for (const column of columns) {
@@ -244,7 +244,9 @@ async function main() {
   );
 }
 
-main().catch((error) => {
-  console.error(error instanceof Error ? error.message : error);
-  process.exitCode = 1;
-});
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  main().catch((error) => {
+    console.error(error instanceof Error ? error.message : error);
+    process.exitCode = 1;
+  });
+}

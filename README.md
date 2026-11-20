@@ -17,12 +17,15 @@ pnpm dev
 pnpm lint
 pnpm typecheck
 pnpm test
+pnpm verify:players
 pnpm verify:lineups
 pnpm verify:defense
 pnpm verify:offense
 pnpm build
 pnpm e2e
 ```
+
+`pnpm verify:players` uses exact Z3 arithmetic to check all eleven individual rating formulas, including position-specific normalization, hitting-power lookups and whole-percent rounding. It uses the current position-group maxima, evaluates each eligible player, and checks the stored ratings in the team and position files.
 
 `pnpm verify:lineups` checks the generated running, passing, and balanced lineups for every team roster with Z3. It checks slot eligibility, scores, optimality, and tie-breaking under the [team rating rules](docs/team-ratings.md). A better legal lineup or a preferred equal-score lineup prints as a counterexample and causes a nonzero exit.
 
