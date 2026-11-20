@@ -4,7 +4,7 @@ import { fileURLToPath } from "node:url";
 
 import type { OffensiveSkillLineupRecord, TeamRatingRecord as SharedTeamRatingRecord } from "../../lib/types.ts";
 
-import { DATA_DIR, getTeamFileNames, TEAM_RATINGS_FILE_NAME } from "./roster-files.mts";
+import { DATA_DIR, getTeamFileNames, readTeamRosters, TEAM_RATINGS_FILE_NAME, type TeamData } from "./roster-files.mts";
 
 import { createOffensiveSkillLineups, formatOffensiveSkillLineup } from "./offensive-lineups.mts";
 import {
@@ -26,11 +26,7 @@ export const DEFENSIVE_UNITS = {
   secondary: { positions: ["RCB", "LCB", "FS", "SS"], weight: 4 },
 } as const;
 export const DEFENSIVE_STARTER_COUNT = 11;
-type TeamData = {
-  full_name: string;
-  short_name: string;
-  players: PlayerRecord[];
-};
+
 
 export type { TeamRatingComponents, TeamRatingSelectedLineups } from "../../lib/types.ts";
 export type OffensiveSkillLineup = OffensiveSkillLineupRecord;
@@ -56,10 +52,6 @@ export type DefensiveGroupsResult = {
   secondaryGroup: number;
   score: number;
 };
-
-function readJson<T>(fileName: string): T {
-  return JSON.parse(fs.readFileSync(path.join(DATA_DIR, fileName), "utf8")) as T;
-}
 
 function writeJson(fileName: string, value: unknown) {
   fs.writeFileSync(path.join(DATA_DIR, fileName), `${JSON.stringify(value, null, 2)}\n`, "utf8");
@@ -256,11 +248,8 @@ export function buildTeamRatingRecord(teamSlug: string, teamData: TeamData, roun
   };
 }
 
-export function buildTeamRatings(): TeamRatingRecord[] {
-  return getTeamFileNames().map((fileName) => {
-    const teamSlug = fileName.replace(/\.json$/u, "");
-    return buildTeamRatingRecord(teamSlug, readJson<TeamData>(fileName));
-  });
+export function buildTeamRatings(rosters = readTeamRosters()): TeamRatingRecord[] {
+  return Array.from(rosters, ([slug, team]) => buildTeamRatingRecord(slug, team));
 }
 
 export function writeTeamRatingsFile(records: readonly TeamRatingRecord[]) {

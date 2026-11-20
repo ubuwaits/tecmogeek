@@ -15,7 +15,7 @@ pnpm dev
 
 Edit a player in `data/<team>.json`. Keep the roster slot order, which determines the team-page sections and portraits. The 11 leaderboards select players from these rosters and sort by the stored rank for that category.
 
-After an attribute edit, run `pnpm rebuild:offense`, `pnpm rebuild:defense`, then `pnpm rebuild:team-ratings`. The player rebuilds recalculate skill, offensive-line, and defensive ratings across the league. Complete ties retain the previous rank for that category. Return speeds come from the team’s RT and SS. Quarterback, kicker, and punter ratings and ranks are published roster fields checked by the player verifiers.
+After an attribute edit, run `pnpm rebuild:all`. It reads the rosters once, applies the offensive and defensive player updates, and derives the team ratings before writing the results. The individual commands are `pnpm rebuild:offense`, `pnpm rebuild:defense`, and `pnpm rebuild:team-ratings`. The player rebuilds recalculate skill, offensive-line, and defensive ratings across the league. Complete ties retain the previous rank for that category. Return speeds come from the team’s RT and SS. Quarterback, kicker, and punter ratings and ranks are published roster fields checked by the player verifiers.
 
 ## Checks
 
@@ -50,9 +50,9 @@ pnpm e2e
 
 `pnpm verify:routes` builds the static export and checks the 42 public pages, their canonical URLs, the complete sitemap, internal hyperlinks, and the desktop and mobile navigation menus.
 
-`pnpm verify:rebuilds` runs the offense, defense, and team-rating commands twice in one temporary checkout. It uses the current package commands and scripts with data from `HEAD`. After each pass it checks the complete file list and compares every data file byte-for-byte with its committed Git blob.
+`pnpm verify:rebuilds` runs both the standalone sequence and the combined command twice in one temporary checkout. It uses the current package commands and scripts with data from `HEAD`. After each pass it checks the complete file list and compares every data file byte-for-byte with its committed Git blob.
 
-`pnpm verify:rebuild-edits` runs the standalone rebuilds after three independent Eagles roster edits in a temporary checkout. The two left-end edits exercise hitting power and a new league maximum. The right-tackle speed edit checks offensive-line and kick-return ratings and ranks, including that punt-return fields stay unchanged. Each scenario checks all rosters and team ratings.
+`pnpm verify:rebuild-edits` compares the combined and standalone outputs byte-for-byte after three independent Eagles roster edits in a temporary checkout. The two left-end edits exercise hitting power and a new league maximum. The right-tackle speed edit checks offensive-line and kick-return ratings and ranks, including that punt-return fields stay unchanged. Each scenario checks all rosters and team ratings.
 
 `pnpm verify:lineup-precision` uses Z3 to bound binary64 error in the generator's running, passing, and balanced score expressions for whole-percent inputs from 0 to 100. It checks score ordering and tolerance ties against exact multiples of 1/8000, then exercises the numeric comparator across the entire score grid.
 

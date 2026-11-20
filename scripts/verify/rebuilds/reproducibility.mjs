@@ -1,5 +1,5 @@
 import { execFileSync } from "node:child_process";
-import { cpSync, mkdtempSync, readFileSync, readdirSync, rmSync } from "node:fs";
+import { cpSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import path from "node:path";
 
@@ -35,27 +35,43 @@ try {
 
   cpSync(path.join(root, "lib/teams/slugs.mts"), path.join(checkout, "lib/teams/slugs.mts"));
 
-  function runRebuilds() {
-    for (const command of commands) execFileSync("pnpm", ["run", command], { cwd: checkout, stdio: "inherit" });
+  function run(commandsToRun) {
+    for (const command of commandsToRun) execFileSync("pnpm", ["run", command], { cwd: checkout, stdio: "inherit" });
   }
 
-  function checkBaseline(pass) {
-    runRebuilds();
+  function snapshot() {
+    return new Map(dataFiles(directory).map(name => [name, readFileSync(path.join(directory, name))]));
+  }
+
+  function checkFiles(expected, description) {
     const files = new Set(dataFiles(directory));
     const differences = [];
-    for (const [file, bytes] of baseline) {
+    for (const [file, bytes] of expected) {
       if (!files.delete(file)) differences.push(`missing data/${file}`);
       else if (!readFileSync(path.join(directory, file)).equals(bytes)) differences.push(`changed data/${file}`);
     }
     for (const file of files) differences.push(`unexpected data/${file}`);
-    if (differences.length) throw new Error(`Pass ${pass} differs from ${revision}:\n${differences.join("\n")}`);
-    console.log(`Pass ${pass}: all ${baseline.size} data files match ${revision.slice(0, 7)} byte-for-byte.`);
+    if (differences.length) throw new Error(`${description}:\n${differences.join("\n")}`);
   }
 
+  const combined = ["rebuild:all"];
   if (process.argv.includes("--edit")) {
-    verifyRosterEdits(checkout, baseline, runRebuilds, dataFiles);
+    verifyRosterEdits(checkout, baseline, () => {
+      const edited = snapshot();
+      run(commands);
+      const standalone = snapshot();
+      for (const [name, bytes] of edited) writeFileSync(path.join(directory, name), bytes);
+      run(combined);
+      checkFiles(standalone, "Combined rebuild differs from standalone rebuilds after edit");
+    }, dataFiles);
   } else {
-    for (const pass of [1, 2]) checkBaseline(pass);
+    for (const sequence of [commands, combined]) {
+      for (const pass of [1, 2]) {
+        run(sequence);
+        checkFiles(baseline, `Pass ${pass} of ${sequence.join(", ")} differs from ${revision}`);
+        console.log(`Pass ${pass} of ${sequence.join(", ")}: all ${baseline.size} data files match ${revision.slice(0, 7)} byte-for-byte.`);
+      }
+    }
   }
 } finally {
   rmSync(checkout, { recursive: true, force: true });

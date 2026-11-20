@@ -109,30 +109,28 @@ function starterSpeed(team, position) {
   return starters[0].maximum_speed;
 }
 
-async function main() {
-  await rebuildRosterPlayers(teams => {
-    const skill = [];
-    const line = [];
-    for (const team of teams) {
-      const kickSpeed = starterSpeed(team, "RT");
-      const puntSpeed = starterSpeed(team, "SS");
-      for (const player of team.players) {
-        if (isSkillPosition(player.position)) {
-          player.kick_return_maximum_speed = kickSpeed;
-          player.punt_return_maximum_speed = puntSpeed;
-          skill.push(player);
-        } else if (OFFENSIVE_LINE_POSITIONS.has(player.position)) {
-          line.push(player);
-        }
+export function rateOffense(teams) {
+  const skill = [];
+  const line = [];
+  for (const team of teams) {
+    const kickSpeed = starterSpeed(team, "RT");
+    const puntSpeed = starterSpeed(team, "SS");
+    for (const player of team.players) {
+      if (isSkillPosition(player.position)) {
+        player.kick_return_maximum_speed = kickSpeed;
+        player.punt_return_maximum_speed = puntSpeed;
+        skill.push(player);
+      } else if (OFFENSIVE_LINE_POSITIONS.has(player.position)) {
+        line.push(player);
       }
     }
-    for (const config of SKILL_CONFIGS) rankGroup(skill, config);
-    rankGroup(line, OL_CONFIG);
-  });
+  }
+  for (const config of SKILL_CONFIGS) rankGroup(skill, config);
+  rankGroup(line, OL_CONFIG);
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
-  main().catch((error) => {
+  rebuildRosterPlayers(rateOffense).catch((error) => {
     console.error(error instanceof Error ? error.message : error);
     process.exitCode = 1;
   });

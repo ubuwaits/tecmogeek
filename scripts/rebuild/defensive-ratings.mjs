@@ -64,19 +64,17 @@ export function computeRating(player, columns, maxima) {
   return weightedRating(player, columns, maxima, DEFENSIVE_HP_SCORE_MAP);
 }
 
-async function main() {
-  await rebuildRosterPlayers(teams => {
-    const roster = teams.flatMap(team => team.players);
-    for (const config of DEFENSIVE_CONFIGS) {
-      const players = roster.filter(player => config.positions.has(player.position));
-      const maxima = buildMaxima(players, config.columns);
-      rankPositionPlayers(players, player => computeRating(player, config.columns, maxima), "rating", "ranking");
-    }
-  });
+export function rateDefense(teams) {
+  const roster = teams.flatMap(team => team.players);
+  for (const config of DEFENSIVE_CONFIGS) {
+    const players = roster.filter(player => config.positions.has(player.position));
+    const maxima = buildMaxima(players, config.columns);
+    rankPositionPlayers(players, player => computeRating(player, config.columns, maxima), "rating", "ranking");
+  }
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
-  main().catch((error) => {
+  rebuildRosterPlayers(rateDefense).catch((error) => {
     console.error(error instanceof Error ? error.message : error);
     process.exitCode = 1;
   });
