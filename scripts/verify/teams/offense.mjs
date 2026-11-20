@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { read } from "../roster-data.mjs";
 import { init } from "z3-solver";
 import {
   buildTeamRatingRecord, calculateTeamOffenseAndOverall, createOffensiveSkillLineups, getTeamFileNames,
@@ -36,10 +36,6 @@ try {
   console.log("Proved all five unrounded formulas equal the specification and stay in [0, 100].");
 } finally {
   solver.release();
-}
-
-function readData(file) {
-  return JSON.parse(readFileSync(new URL("../../../data/" + file, import.meta.url), "utf8"));
 }
 
 function rating(player, field) {
@@ -93,12 +89,12 @@ function verifyTeam(team, roster, published) {
 }
 
 const files = getTeamFileNames();
-const records = readData("team-ratings.json");
+const records = read("team-ratings.json");
 assert(files.length > 0);
 assert.deepEqual(records.map(record => record.team).sort(), files.map(file => file.slice(0, -5)).sort());
 const byTeam = new Map(records.map(record => [record.team, record]));
 for (const file of files) {
   const team = file.slice(0, -5);
-  verifyTeam(team, readData(file), byTeam.get(team));
+  verifyTeam(team, read(file), byTeam.get(team));
 }
 console.log(`Verified five generated and published ratings for each of ${files.length} teams.`);

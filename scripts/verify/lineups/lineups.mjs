@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { read } from "../roster-data.mjs";
 import { createOffensiveSkillLineups, getTeamFileNames } from "../../rebuild/team-ratings.ts";
 import { exactLineupPoints, modes, readSkillPlayers, slots, verifyLineup } from "./model.mjs";
 
@@ -48,7 +48,7 @@ let verified = 0;
 const files = getTeamFileNames();
 assert(files.length > 0, "No team rosters found");
 for (const file of files) {
-  const roster = JSON.parse(readFileSync(new URL("../../../data/" + file, import.meta.url), "utf8")).players;
+  const roster = read(file).players;
   const players = readSkillPlayers(roster);
   const checks = Object.fromEntries(modes.map(mode => [mode, prefixCheck(players, mode, file)]));
   const result = createOffensiveSkillLineups(roster, Object.fromEntries(modes.map(mode => [mode, checks[mode].observe])));
