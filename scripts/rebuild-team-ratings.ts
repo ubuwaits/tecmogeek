@@ -24,9 +24,12 @@ const AGGREGATE_FILE_NAMES = new Set([
 const SKILL_POSITION_PREFIXES = ["RB", "WR", "TE"];
 const OFFENSIVE_SKILL_SLOTS = ["RB1", "RB2", "WR1", "WR2", "TE1"] as const;
 const OFFENSIVE_LINE_POSITIONS = ["C", "LG", "RG", "LT", "RT"];
-const DEFENSIVE_LINE_POSITIONS = ["RE", "NT", "LE"];
-const LINEBACKER_POSITIONS = ["ROLB", "RILB", "LILB", "LOLB"];
-const SECONDARY_POSITIONS = ["RCB", "LCB", "FS", "SS"];
+export const DEFENSIVE_UNITS = {
+  line: { positions: ["RE", "NT", "LE"], weight: 3 },
+  linebackers: { positions: ["ROLB", "RILB", "LILB", "LOLB"], weight: 4 },
+  secondary: { positions: ["RCB", "LCB", "FS", "SS"], weight: 4 },
+} as const;
+export const DEFENSIVE_STARTER_COUNT = 11;
 const RUN_SLOT_WEIGHTS: Record<OffensiveSkillSlot, number> = {
   RB1: 0.4,
   RB2: 0.3,
@@ -181,12 +184,6 @@ function average(values: readonly number[]): number {
   return values.reduce((total, value) => total + value, 0) / values.length;
 }
 
-function assertPlayers(players: readonly RatedPlayer[], positions: readonly string[], groupName: string) {
-  if (players.length !== positions.length) {
-    throw new Error(`Expected ${positions.length} players in ${groupName}, received ${players.length}.`);
-  }
-}
-
 function getPlayerLabel(player: PlayerRecord): string {
   return `${player.name} (${player.position})`;
 }
@@ -255,7 +252,12 @@ function getCombinations<T>(values: readonly T[], size: number): T[][] {
 
 function getGroupPlayers(players: readonly RatedPlayer[], positions: readonly string[], groupName: string) {
   const groupPlayers = players.filter((player) => positions.includes(player.position));
-  assertPlayers(groupPlayers, positions, groupName);
+  for (const position of positions) {
+    const count = groupPlayers.filter((player) => player.position === position).length;
+    if (count !== 1) {
+      throw new Error(`Expected exactly one ${position} in ${groupName}, received ${count}.`);
+    }
+  }
   return groupPlayers;
 }
 
@@ -518,9 +520,9 @@ function createOffensiveLineScore(players: readonly RatedPlayer[]): number {
 
 export function createDefensiveGroups(players: readonly PlayerRecord[]): DefensiveGroupsResult {
   const ratedPlayers = players.map((player, rosterIndex) => ({ ...player, rosterIndex }));
-  const defensiveLine = getGroupPlayers(ratedPlayers, DEFENSIVE_LINE_POSITIONS, "defensive line");
-  const linebackers = getGroupPlayers(ratedPlayers, LINEBACKER_POSITIONS, "linebackers");
-  const secondary = getGroupPlayers(ratedPlayers, SECONDARY_POSITIONS, "secondary");
+  const defensiveLine = getGroupPlayers(ratedPlayers, DEFENSIVE_UNITS.line.positions, "defensive line");
+  const linebackers = getGroupPlayers(ratedPlayers, DEFENSIVE_UNITS.linebackers.positions, "linebackers");
+  const secondary = getGroupPlayers(ratedPlayers, DEFENSIVE_UNITS.secondary.positions, "secondary");
   const dlGroup = average(defensiveLine.map((player) => getPlayerRating(player, "rating")));
   const lbGroup = average(linebackers.map((player) => getPlayerRating(player, "rating")));
   const secondaryGroup = average(secondary.map((player) => getPlayerRating(player, "rating")));
@@ -529,7 +531,11 @@ export function createDefensiveGroups(players: readonly PlayerRecord[]): Defensi
     dlGroup,
     lbGroup,
     secondaryGroup,
-    score: (3 * dlGroup + 4 * lbGroup + 4 * secondaryGroup) / 11,
+    score: (
+      DEFENSIVE_UNITS.line.weight * dlGroup +
+      DEFENSIVE_UNITS.linebackers.weight * lbGroup +
+      DEFENSIVE_UNITS.secondary.weight * secondaryGroup
+    ) / DEFENSIVE_STARTER_COUNT,
   };
 }
 

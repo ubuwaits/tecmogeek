@@ -99,6 +99,24 @@ describe("team ratings generator", () => {
     expect(result.score).toBeCloseTo((3 * 10 + 4 * 20 + 4 * 30) / 11);
   });
 
+  it.each([
+    ["NT", "RE", "defensive line"],
+    ["RILB", "ROLB", "linebackers"],
+    ["FS", "RCB", "secondary"],
+    ["LG", "C", "offensive line"],
+  ])("rejects replacing %s with a duplicate %s in the %s", (missing, duplicate, group) => {
+    const team = readJson<TeamData>("eagles.json");
+    const players = team.players.map(player => player.position === missing ? { ...player, position: duplicate } : player);
+    expect(() => buildTeamRatingRecord("eagles", { ...team, players }))
+      .toThrow(`Expected exactly one ${duplicate} in ${group}, received 2.`);
+  });
+
+  it("identifies a missing starter", () => {
+    const team = readJson<TeamData>("eagles.json");
+    expect(() => createDefensiveGroups(team.players.filter(player => player.position !== "SS")))
+      .toThrow("Expected exactly one SS in secondary, received 0.");
+  });
+
   it("uses qb room and return room in the offensive formulas", () => {
     const teamData = readJson<TeamData>("eagles.json");
     const quarterbackRoom = createQuarterbackRoom(teamData.players);
