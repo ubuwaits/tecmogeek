@@ -18,6 +18,7 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "e2e": "playwright test",
+    "verify:team-components": "node scripts/verify-team-components.mjs",
     "verify:team-rankings": "node scripts/verify-team-rankings.mjs",
     "verify:rankings": "node scripts/verify-rankings.mjs",
     "verify:players": "node scripts/verify-players.mjs",
