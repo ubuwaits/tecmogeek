@@ -16,87 +16,99 @@ export const KICKER_NOTE =
 export const PUNTER_NOTE =
   "All punters have Running Speed 25, Rushing Power 56, Maximum Speed 44, and Hitting Power 31. Punts cannot be blocked, so Avoid Kick Block has no effect on performance and punters are ranked only by Kicking Ability.";
 
+const maximumSpeedLabel = { label: "MS", tooltip: "Maximum Speed" };
+
+const METRIC_LABELS = {
+  maximum_speed: maximumSpeedLabel,
+  passing_speed: { label: "PS", tooltip: "Passing Speed" },
+  pass_control: { label: "PC", tooltip: "Pass Control" },
+  avoid_pass_block: { label: "APB", tooltip: "Avoid Pass Block" },
+  running_speed: { label: "RS", tooltip: "Running Speed" },
+  hitting_power: { label: "HP", tooltip: "Hitting Power" },
+  ball_control: { label: "BC", tooltip: "Ball Control" },
+  receptions: { label: "REC", tooltip: "Receptions" },
+  kick_return_maximum_speed: maximumSpeedLabel,
+  punt_return_maximum_speed: maximumSpeedLabel,
+  rushing_power: { label: "RP", tooltip: "Rushing Power" },
+  pass_interceptions: { label: "PI", tooltip: "Pass Interceptions" },
+  kicking_ability: { label: "KA", tooltip: "Kicking Ability" },
+} satisfies Partial<Record<MetricColumn["key"], Pick<MetricColumn, "label" | "tooltip">>>;
+
+function metricColumn(key: keyof typeof METRIC_LABELS, weight: number): MetricColumn {
+  return { key, ...METRIC_LABELS[key], weight };
+}
+
 export const QB_COLUMNS: readonly MetricColumn[] = [
-  { key: "maximum_speed", label: "MS", tooltip: "Maximum Speed", weight: 25 },
-  { key: "passing_speed", label: "PS", tooltip: "Passing Speed", weight: 20 },
-  { key: "pass_control", label: "PC", tooltip: "Pass Control", weight: 50 },
-  { key: "avoid_pass_block", label: "APB", tooltip: "Avoid Pass Block", weight: 5 },
+  metricColumn("maximum_speed", 25),
+  metricColumn("passing_speed", 20),
+  metricColumn("pass_control", 50),
+  metricColumn("avoid_pass_block", 5),
 ];
 
 export const RUSHING_COLUMNS: readonly MetricColumn[] = [
-  { key: "running_speed", label: "RS", tooltip: "Running Speed", weight: 10 },
-  { key: "maximum_speed", label: "MS", tooltip: "Maximum Speed", weight: 70 },
-  { key: "hitting_power", label: "HP", tooltip: "Hitting Power", weight: 10 },
-  { key: "ball_control", label: "BC", tooltip: "Ball Control", weight: 5 },
-  { key: "receptions", label: "REC", tooltip: "Receptions", weight: 5 },
+  metricColumn("running_speed", 10),
+  metricColumn("maximum_speed", 70),
+  metricColumn("hitting_power", 10),
+  metricColumn("ball_control", 5),
+  metricColumn("receptions", 5),
 ];
 
 export const RECEIVING_COLUMNS: readonly MetricColumn[] = [
-  { key: "running_speed", label: "RS", tooltip: "Running Speed", weight: 10 },
-  { key: "maximum_speed", label: "MS", tooltip: "Maximum Speed", weight: 45 },
-  { key: "hitting_power", label: "HP", tooltip: "Hitting Power", weight: 5 },
-  { key: "ball_control", label: "BC", tooltip: "Ball Control", weight: 5 },
-  { key: "receptions", label: "REC", tooltip: "Receptions", weight: 35 },
+  metricColumn("running_speed", 10),
+  metricColumn("maximum_speed", 45),
+  metricColumn("hitting_power", 5),
+  metricColumn("ball_control", 5),
+  metricColumn("receptions", 35),
 ];
 
 export const KICK_RETURN_COLUMNS: readonly MetricColumn[] = [
-  { key: "running_speed", label: "RS", tooltip: "Running Speed", weight: 20 },
-  {
-    key: "kick_return_maximum_speed",
-    label: "MS",
-    tooltip: "Maximum Speed",
-    weight: 60,
-  },
-  { key: "hitting_power", label: "HP", tooltip: "Hitting Power", weight: 10 },
-  { key: "ball_control", label: "BC", tooltip: "Ball Control", weight: 10 },
+  metricColumn("running_speed", 20),
+  metricColumn("kick_return_maximum_speed", 60),
+  metricColumn("hitting_power", 10),
+  metricColumn("ball_control", 10),
 ];
 
 export const PUNT_RETURN_COLUMNS: readonly MetricColumn[] = [
-  { key: "running_speed", label: "RS", tooltip: "Running Speed", weight: 20 },
-  {
-    key: "punt_return_maximum_speed",
-    label: "MS",
-    tooltip: "Maximum Speed",
-    weight: 70,
-  },
-  { key: "hitting_power", label: "HP", tooltip: "Hitting Power", weight: 10 },
+  metricColumn("running_speed", 20),
+  metricColumn("punt_return_maximum_speed", 70),
+  metricColumn("hitting_power", 10),
 ];
 
 export const OFFENSIVE_LINE_COLUMNS: readonly MetricColumn[] = [
-  { key: "maximum_speed", label: "MS", tooltip: "Maximum Speed", weight: 20 },
-  { key: "hitting_power", label: "HP", tooltip: "Hitting Power", weight: 80 },
+  metricColumn("maximum_speed", 20),
+  metricColumn("hitting_power", 80),
 ];
 
 export const DEFENSIVE_LINE_COLUMNS: readonly MetricColumn[] = [
-  { key: "running_speed", label: "RS", tooltip: "Running Speed", weight: 10 },
-  { key: "rushing_power", label: "RP", tooltip: "Rushing Power", weight: 35 },
-  { key: "maximum_speed", label: "MS", tooltip: "Maximum Speed", weight: 10 },
-  { key: "hitting_power", label: "HP", tooltip: "Hitting Power", weight: 40 },
-  { key: "pass_interceptions", label: "PI", tooltip: "Pass Interceptions", weight: 5 },
+  metricColumn("running_speed", 10),
+  metricColumn("rushing_power", 35),
+  metricColumn("maximum_speed", 10),
+  metricColumn("hitting_power", 40),
+  metricColumn("pass_interceptions", 5),
 ];
 
 export const LINEBACKER_COLUMNS: readonly MetricColumn[] = [
-  { key: "running_speed", label: "RS", tooltip: "Running Speed", weight: 10 },
-  { key: "rushing_power", label: "RP", tooltip: "Rushing Power", weight: 35 },
-  { key: "maximum_speed", label: "MS", tooltip: "Maximum Speed", weight: 10 },
-  { key: "hitting_power", label: "HP", tooltip: "Hitting Power", weight: 30 },
-  { key: "pass_interceptions", label: "PI", tooltip: "Pass Interceptions", weight: 15 },
+  metricColumn("running_speed", 10),
+  metricColumn("rushing_power", 35),
+  metricColumn("maximum_speed", 10),
+  metricColumn("hitting_power", 30),
+  metricColumn("pass_interceptions", 15),
 ];
 
 export const SECONDARY_COLUMNS: readonly MetricColumn[] = [
-  { key: "running_speed", label: "RS", tooltip: "Running Speed", weight: 10 },
-  { key: "rushing_power", label: "RP", tooltip: "Rushing Power", weight: 35 },
-  { key: "maximum_speed", label: "MS", tooltip: "Maximum Speed", weight: 10 },
-  { key: "hitting_power", label: "HP", tooltip: "Hitting Power", weight: 5 },
-  { key: "pass_interceptions", label: "PI", tooltip: "Pass Interceptions", weight: 40 },
+  metricColumn("running_speed", 10),
+  metricColumn("rushing_power", 35),
+  metricColumn("maximum_speed", 10),
+  metricColumn("hitting_power", 5),
+  metricColumn("pass_interceptions", 40),
 ];
 
 export const KICKER_COLUMNS: readonly MetricColumn[] = [
-  { key: "kicking_ability", label: "KA", tooltip: "Kicking Ability", weight: 100 },
+  metricColumn("kicking_ability", 100),
 ];
 
 export const PUNTER_COLUMNS: readonly MetricColumn[] = [
-  { key: "kicking_ability", label: "KA", tooltip: "Kicking Ability", weight: 100 },
+  metricColumn("kicking_ability", 100),
 ];
 
 type PositionPageConfigMap = {
