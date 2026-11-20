@@ -21,6 +21,7 @@
     "verify:team-components": "node scripts/verify-team-components.mjs",
     "verify:team-rankings": "node scripts/verify-team-rankings.mjs",
     "verify:rankings": "node scripts/verify-rankings.mjs",
+    "verify:player-sorting": "node scripts/verify-player-sorting.mjs",
     "verify:players": "node scripts/verify-players.mjs",
     "verify:offense": "node scripts/verify-offense.mjs",
     "verify:defense": "node scripts/verify-defense.mjs",
