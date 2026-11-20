@@ -22,10 +22,8 @@ const publishedOnlyWeights = {
 };
 const models = new Map();
 for (const config of [...offense.SKILL_CONFIGS, offense.OL_CONFIG]) {
-  const line = config === offense.OL_CONFIG;
-  models.set(config.slug, { config, engine: offense, mode: line ? "offensiveLine" : "skill",
-    ladder: line ? offense.OFFENSIVE_LINE_HP_SCORE_MAP : offense.OFFENSIVE_HP_SCORE_MAP,
-    specLadder: line ? lineHP : skillHP });
+  models.set(config.slug, { config, engine: offense, ladder: config.hittingPowerScores,
+    specLadder: config.slug === "ol" ? lineHP : skillHP });
 }
 for (const config of defense.DEFENSIVE_CONFIGS) {
   models.set(config.slug, { config, engine: defense, ladder: defense.DEFENSIVE_HP_SCORE_MAP, specLadder: defenseHP });
@@ -103,7 +101,7 @@ for (const page of POSITION_PAGES) {
 
   const model = models.get(page.slug);
   if (model) {
-    assert.deepEqual(model.engine.buildMaxima(rows, model.config.columns, model.mode), maxima);
+    assert.deepEqual(model.engine.buildMaxima(rows, model.config.columns), maxima);
   }
   const { raw, rounded } = await prove(page, model, maxima);
   for (const player of eligible) {
@@ -113,7 +111,7 @@ for (const page of POSITION_PAGES) {
     unclassified.delete(key(player));
     if (player[page.ratingKey] !== rating + "%") errors.push(`${key(player)} ${page.ratingKey}=${player[page.ratingKey]}, expected ${rating}%`);
     if (model) {
-      const rebuilt = model.engine.computeRating(player, model.config.columns, maxima, model.mode);
+      const rebuilt = model.engine.computeRating(player, model.config.columns, maxima, model.ladder);
       if (rebuilt !== rating) errors.push(`${page.slug}: ${key(player)} rebuild gives ${rebuilt}, exact formula gives ${rating}`);
     }
   }

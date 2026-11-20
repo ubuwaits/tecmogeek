@@ -57,7 +57,7 @@ export const DEFENSIVE_CONFIGS = [
 ];
 
 export function buildMaxima(players, columns) {
-  return attributeMaxima(players, columns, false);
+  return attributeMaxima(players, columns);
 }
 
 export function computeRating(player, columns, maxima) {

@@ -6,10 +6,10 @@ export function formatPercent(value) {
   return `${Math.round(value)}%`;
 }
 
-export function attributeMaxima(players, columns, normalizeHittingPower) {
+export function attributeMaxima(players, columns) {
   const maxima = {};
   for (const { key } of columns) {
-    if (key === "hitting_power" && !normalizeHittingPower) continue;
+    if (key === "hitting_power") continue;
     maxima[key] = Math.max(...players.map(player => getNumericValue(player, key)));
   }
   return maxima;
@@ -20,7 +20,7 @@ export function weightedRating(player, columns, maxima, hittingPowerScores) {
   for (const { key, weight } of columns) {
     const value = getNumericValue(player, key);
     let score;
-    if (key === "hitting_power" && hittingPowerScores) {
+    if (key === "hitting_power") {
       score = hittingPowerScores[value] ?? 0;
     } else {
       const maximum = maxima[key] ?? 0;

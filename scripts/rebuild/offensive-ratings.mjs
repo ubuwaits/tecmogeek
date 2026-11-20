@@ -75,10 +75,11 @@ export const SKILL_CONFIGS = [
       { key: "hitting_power", weight: 10 },
     ],
   },
-];
+].map(config => ({ ...config, hittingPowerScores: OFFENSIVE_HP_SCORE_MAP }));
 
 export const OL_CONFIG = {
   name: "offensive line",
+  hittingPowerScores: OFFENSIVE_LINE_HP_SCORE_MAP,
   slug: "ol",
   ratingKey: "rating",
   rankingKey: "ranking",
@@ -92,15 +93,12 @@ function isSkillPosition(position) {
   return SKILL_POSITION_PREFIXES.some((prefix) => position.startsWith(prefix));
 }
 
-export function buildMaxima(players, columns, hpMode) {
-  return attributeMaxima(players, columns, hpMode === "raw");
-}
+export { attributeMaxima as buildMaxima, weightedRating as computeRating };
 
-export function computeRating(player, columns, maxima, hpMode) {
-  let scores;
-  if (hpMode === "skill") scores = OFFENSIVE_HP_SCORE_MAP;
-  if (hpMode === "offensiveLine") scores = OFFENSIVE_LINE_HP_SCORE_MAP;
-  return weightedRating(player, columns, maxima, scores);
+function rankGroup(players, config) {
+  const maxima = attributeMaxima(players, config.columns);
+  rankPositionPlayers(players, player => weightedRating(player, config.columns, maxima, config.hittingPowerScores),
+    config.ratingKey, config.rankingKey);
 }
 
 function starterSpeed(team, position) {
@@ -128,13 +126,8 @@ async function main() {
         }
       }
     }
-    for (const config of [...SKILL_CONFIGS, OL_CONFIG]) {
-      const mode = config === OL_CONFIG ? "offensiveLine" : "skill";
-      const players = config === OL_CONFIG ? line : skill;
-      const maxima = buildMaxima(players, config.columns, mode);
-      rankPositionPlayers(players, player => computeRating(player, config.columns, maxima, mode),
-        config.ratingKey, config.rankingKey);
-    }
+    for (const config of SKILL_CONFIGS) rankGroup(skill, config);
+    rankGroup(line, OL_CONFIG);
   });
 }
 
