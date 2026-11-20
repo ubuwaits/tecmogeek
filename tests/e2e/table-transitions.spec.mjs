@@ -121,3 +121,24 @@ for (const config of [null, ...POSITION_PAGES]) {
     console.log(`${config?.slug ?? "teams"}: ${states.size} states, ${count} transitions`);
   });
 }
+
+test("expanded rating highlights align with their header cells", async ({ page }) => {
+  await page.goto("/teams/");
+  const table = page.getByTestId("team-ratings-table-scroll");
+  for (const group of ["offense", "defense"]) {
+    await table.getByRole("button", { name: `Show ${group} sub-ratings` }).click();
+  }
+  const layout = await table.locator("ol").evaluate(list => {
+    const left = list.getBoundingClientRect().left;
+    const cells = [...list.firstElementChild.children];
+    const bounds = label => cells.find(cell => cell.querySelector("button")?.textContent === label)
+      .getBoundingClientRect();
+    return {
+      stops: [...getComputedStyle(list).backgroundImage.matchAll(/([\d.]+)px/g)].map(match => Number(match[1])),
+      groups: [["Off", "Bal"], ["Def", "Sec"]].map(([first, last]) => [
+        bounds(first).left - left + 8, bounds(last).right - left - 8,
+      ]),
+    };
+  });
+  expect(layout.stops).toEqual(layout.groups.flatMap(([start, end]) => [start, start, end, end]));
+});

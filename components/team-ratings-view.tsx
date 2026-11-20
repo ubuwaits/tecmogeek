@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState, type CSSProperties } from "react";
+import { useState } from "react";
 
 import { PlayerListHeaderLabel } from "@/components/player-list-header-label";
 import { HelmetSprite } from "@/components/sprites";
@@ -21,33 +21,37 @@ type TeamRatingColumn = {
   key: TeamRatingSortKey;
   label: string;
   tooltip: string;
-  group?: "offense" | "defense";
 };
 
-const OFFENSE_PARENT_COLUMN: TeamRatingColumn = {
-  key: "offensive_rating",
-  label: "Off",
-  tooltip: "Overall offensive rating",
-};
+type Group = "offense" | "defense";
+type VisibleColumn = TeamRatingColumn & { padding: string; toggle?: Group };
 
-const DEFENSE_PARENT_COLUMN: TeamRatingColumn = {
-  key: "defensive_rating",
-  label: "Def",
-  tooltip: "Overall defensive rating",
-};
-
-const OFFENSE_SUB_COLUMNS: readonly TeamRatingColumn[] = [
-  { key: "running_offense", label: "Run", tooltip: "Running offense rating", group: "offense" },
-  { key: "passing_offense", label: "Pass", tooltip: "Passing offense rating", group: "offense" },
-  { key: "balanced_offense", label: "Bal", tooltip: "Balanced offense rating", group: "offense" },
+const COLUMN_GROUPS: readonly {
+  group: Group;
+  parent: TeamRatingColumn;
+  children: readonly TeamRatingColumn[];
+}[] = [
+  {
+    group: "offense",
+    parent: { key: "offensive_rating", label: "Off", tooltip: "Overall offensive rating" },
+    children: [
+      { key: "running_offense", label: "Run", tooltip: "Running offense rating" },
+      { key: "passing_offense", label: "Pass", tooltip: "Passing offense rating" },
+      { key: "balanced_offense", label: "Bal", tooltip: "Balanced offense rating" },
+    ],
+  },
+  {
+    group: "defense",
+    parent: { key: "defensive_rating", label: "Def", tooltip: "Overall defensive rating" },
+    children: [
+      { key: "dl_group", label: "DL", tooltip: "Defensive line group rating" },
+      { key: "lb_group", label: "LB", tooltip: "Linebacker group rating" },
+      { key: "secondary_group", label: "Sec", tooltip: "Secondary group rating" },
+    ],
+  },
 ];
 
-const DEFENSE_SUB_COLUMNS: readonly TeamRatingColumn[] = [
-  { key: "dl_group", label: "DL", tooltip: "Defensive line group rating", group: "defense" },
-  { key: "lb_group", label: "LB", tooltip: "Linebacker group rating", group: "defense" },
-  { key: "secondary_group", label: "Sec", tooltip: "Secondary group rating", group: "defense" },
-];
-
+const RANK_COLUMN_WIDTH = 56;
 const TEAM_NAME_COLUMN_WIDTH = 256;
 const RATING_COLUMN_WIDTH = 96;
 const EXPANDED_GROUP_BACKGROUND_COLOR = "#165ec9";
@@ -57,123 +61,30 @@ type TeamRatingsViewProps = {
   teams: TeamRatingRecord[];
 };
 
-function buildVisibleColumns(offenseExpanded: boolean, defenseExpanded: boolean): TeamRatingColumn[] {
-  return [
-    { key: "overall_rating", label: "Overall", tooltip: "Overall team rating" },
-    OFFENSE_PARENT_COLUMN,
-    ...(offenseExpanded ? OFFENSE_SUB_COLUMNS : []),
-    DEFENSE_PARENT_COLUMN,
-    ...(defenseExpanded ? DEFENSE_SUB_COLUMNS : []),
+function buildTableLayout(expanded: Record<Group, boolean>) {
+  const visibleColumns: VisibleColumn[] = [
+    { key: "overall_rating", label: "Overall", tooltip: "Overall team rating", padding: "" },
   ];
-}
+  const backgrounds: string[] = [];
+  const ratingOffset = RANK_COLUMN_WIDTH + TEAM_NAME_COLUMN_WIDTH;
 
-function getGridTemplateColumns(columnCount: number) {
-  return `56px ${TEAM_NAME_COLUMN_WIDTH}px repeat(${columnCount}, ${RATING_COLUMN_WIDTH}px)`;
-}
+  for (const { group, parent, children } of COLUMN_GROUPS) {
+    const first = visibleColumns.length;
+    visibleColumns.push({ ...parent, padding: "pl-4 pr-3", toggle: group });
+    if (!expanded[group]) continue;
 
-function getExpandedGroupPosition(
-  column: TeamRatingColumn,
-  offenseExpanded: boolean,
-  defenseExpanded: boolean,
-) {
-  if (offenseExpanded) {
-    if (column.key === OFFENSE_PARENT_COLUMN.key) {
-      return "start";
-    }
-
-    if (column.key === OFFENSE_SUB_COLUMNS.at(-1)?.key) {
-      return "end";
-    }
-
-    if (column.group === "offense") {
-      return "middle";
-    }
+    children.forEach((column, index) => {
+      visibleColumns.push({ ...column, padding: index === children.length - 1 ? "pl-3 pr-4" : "px-3" });
+    });
+    const start = ratingOffset + first * RATING_COLUMN_WIDTH + EXPANDED_GROUP_HORIZONTAL_INSET;
+    const end = ratingOffset + visibleColumns.length * RATING_COLUMN_WIDTH - EXPANDED_GROUP_HORIZONTAL_INSET;
+    backgrounds.push(`linear-gradient(90deg, transparent ${start}px, ${EXPANDED_GROUP_BACKGROUND_COLOR} ${start}px, ${EXPANDED_GROUP_BACKGROUND_COLOR} ${end}px, transparent ${end}px)`);
   }
-
-  if (defenseExpanded) {
-    if (column.key === DEFENSE_PARENT_COLUMN.key) {
-      return "start";
-    }
-
-    if (column.key === DEFENSE_SUB_COLUMNS.at(-1)?.key) {
-      return "end";
-    }
-
-    if (column.group === "defense") {
-      return "middle";
-    }
-  }
-
-  return null;
-}
-
-function getColumnCellClass(
-  column: TeamRatingColumn,
-  offenseExpanded: boolean,
-  defenseExpanded: boolean,
-) {
-  const groupPosition = getExpandedGroupPosition(column, offenseExpanded, defenseExpanded);
-  const isParentColumn = column.key === OFFENSE_PARENT_COLUMN.key || column.key === DEFENSE_PARENT_COLUMN.key;
-
-  if (groupPosition === "start") {
-    return "pl-4 pr-3";
-  }
-
-  if (groupPosition === "end") {
-    return "pl-3 pr-4";
-  }
-
-  if (groupPosition === "middle") {
-    return "px-3";
-  }
-
-  if (isParentColumn) {
-    return "pl-4 pr-3";
-  }
-
-  return "";
-}
-
-function getExpandedGroupRange(
-  visibleColumns: readonly TeamRatingColumn[],
-  group: "offense" | "defense",
-) {
-  const parentColumn = group === "offense" ? OFFENSE_PARENT_COLUMN : DEFENSE_PARENT_COLUMN;
-  const subColumns = group === "offense" ? OFFENSE_SUB_COLUMNS : DEFENSE_SUB_COLUMNS;
-  const startColumnIndex = visibleColumns.findIndex((column) => column.key === parentColumn.key);
-  const endColumnIndex = visibleColumns.findIndex((column) => column.key === subColumns[subColumns.length - 1]?.key);
-
-  if (startColumnIndex === -1 || endColumnIndex === -1 || endColumnIndex < startColumnIndex) {
-    return null;
-  }
-
-  const start = 56 + TEAM_NAME_COLUMN_WIDTH + (startColumnIndex * RATING_COLUMN_WIDTH) + EXPANDED_GROUP_HORIZONTAL_INSET;
-  const end =
-    56 +
-    TEAM_NAME_COLUMN_WIDTH +
-    ((endColumnIndex + 1) * RATING_COLUMN_WIDTH) -
-    EXPANDED_GROUP_HORIZONTAL_INSET;
-
-  return { start, end };
-}
-
-function getGroupedBackgroundStyle(
-  visibleColumns: readonly TeamRatingColumn[],
-  offenseExpanded: boolean,
-  defenseExpanded: boolean,
-): CSSProperties {
-  const backgroundLayers = [
-    offenseExpanded ? getExpandedGroupRange(visibleColumns, "offense") : null,
-    defenseExpanded ? getExpandedGroupRange(visibleColumns, "defense") : null,
-  ]
-    .filter((range): range is NonNullable<ReturnType<typeof getExpandedGroupRange>> => Boolean(range))
-    .map(
-      (range) =>
-        `linear-gradient(90deg, transparent ${range.start}px, ${EXPANDED_GROUP_BACKGROUND_COLOR} ${range.start}px, ${EXPANDED_GROUP_BACKGROUND_COLOR} ${range.end}px, transparent ${range.end}px)`,
-    );
 
   return {
-    ...(backgroundLayers.length > 0 ? { backgroundImage: backgroundLayers.join(",") } : {}),
+    visibleColumns,
+    gridTemplateColumns: `${RANK_COLUMN_WIDTH}px ${TEAM_NAME_COLUMN_WIDTH}px repeat(${visibleColumns.length}, ${RATING_COLUMN_WIDTH}px)`,
+    groupedBackgroundStyle: { backgroundImage: backgrounds.join(",") || undefined },
   };
 }
 
@@ -258,16 +169,13 @@ function GroupHeaderControl({
 export function TeamRatingsView({ teams }: TeamRatingsViewProps) {
   const [sortKey, setSortKey] = useState<TeamRatingSortKey>("overall_rating");
   const [sortDirection, setSortDirection] = useState<SortDirection>("desc");
-  const [offenseExpanded, setOffenseExpanded] = useState(false);
-  const [defenseExpanded, setDefenseExpanded] = useState(false);
-  const visibleColumns = buildVisibleColumns(offenseExpanded, defenseExpanded);
-  const gridTemplateColumns = getGridTemplateColumns(visibleColumns.length);
-  const groupedBackgroundStyle = getGroupedBackgroundStyle(
-    visibleColumns,
-    offenseExpanded,
-    defenseExpanded,
-  );
+  const [expanded, setExpanded] = useState({ offense: false, defense: false });
+  const { visibleColumns, gridTemplateColumns, groupedBackgroundStyle } = buildTableLayout(expanded);
   const rankedRows = getRankedTeamRows(teams, sortKey, sortDirection);
+
+  function toggleGroup(group: Group) {
+    setExpanded(current => ({ ...current, [group]: !current[group] }));
+  }
 
   function changeSort(key: TeamRatingSortKey, defaultDirection: SortDirection = "desc") {
     const nextDirection = getNextSortDirection({
@@ -297,30 +205,20 @@ export function TeamRatingsView({ teams }: TeamRatingsViewProps) {
             <div className="pr-4">
               <StaticHeaderLabel label="Team" />
             </div>
-            {visibleColumns.map((column) => (
+            {visibleColumns.map(({ toggle, ...column }) => (
               <div
                 key={column.key}
-                className={`text-[14px] font-bold py-1.5 ${getColumnCellClass(column, offenseExpanded, defenseExpanded)}`}
+                className={`text-[14px] font-bold py-1.5 ${column.padding}`}
               >
-                {column.key === OFFENSE_PARENT_COLUMN.key ? (
+                {toggle ? (
                   <GroupHeaderControl
                     active={sortKey === column.key}
-                    expanded={offenseExpanded}
+                    expanded={expanded[toggle]}
                     label={column.label}
                     tooltip={column.tooltip}
-                    toggleLabel="offense"
+                    toggleLabel={toggle}
                     onSort={() => changeSort(column.key)}
-                    onToggle={() => setOffenseExpanded((current) => !current)}
-                  />
-                ) : column.key === DEFENSE_PARENT_COLUMN.key ? (
-                  <GroupHeaderControl
-                    active={sortKey === column.key}
-                    expanded={defenseExpanded}
-                    label={column.label}
-                    tooltip={column.tooltip}
-                    toggleLabel="defense"
-                    onSort={() => changeSort(column.key)}
-                    onToggle={() => setDefenseExpanded((current) => !current)}
+                    onToggle={() => toggleGroup(toggle)}
                   />
                 ) : (
                   <PlayerListHeaderLabel
@@ -359,7 +257,7 @@ export function TeamRatingsView({ teams }: TeamRatingsViewProps) {
                 {visibleColumns.map((column) => (
                   <div
                     key={column.key}
-                    className={`flex min-h-11 items-center text-[14px] font-bold tabular-nums ${getColumnCellClass(column, offenseExpanded, defenseExpanded)}`}
+                    className={`flex min-h-11 items-center text-[14px] font-bold tabular-nums ${column.padding}`}
                   >
                     {formatTeamRating(getTeamRatingSortValue(team, column.key))}
                   </div>
