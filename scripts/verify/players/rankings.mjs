@@ -1,9 +1,9 @@
 import assert from "node:assert/strict";
 import { init } from "z3-solver";
-import { POSITION_PAGES } from "../lib/players/config.ts";
-import { getTeamFileNames } from "./rebuild-team-ratings.ts";
-import { indexPlayers, key, positions, read } from "./player-ranking-data.mjs";
-import { comparePlayerRanks } from "./compare-player-ranks.mjs";
+import { POSITION_PAGES } from "../../../lib/players/config.ts";
+import { getTeamFileNames } from "../../rebuild/team-ratings.ts";
+import { indexPlayers, key, positions, read } from "../roster-data.mjs";
+import { comparePlayerRanks } from "../../rebuild/compare-player-ranks.mjs";
 
 const { Context } = await init();
 const { Int, Or, And, Not, Solver } = new Context("player_rankings");

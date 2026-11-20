@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
 import { readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
-import { DEFENSIVE_HP_SCORE_MAP } from "./rebuild-defensive-ratings.mjs";
+import { DEFENSIVE_HP_SCORE_MAP } from "../../rebuild/defensive-ratings.mjs";
 
 const attributes = { running_speed: 10, rushing_power: 35, maximum_speed: 10, pass_interceptions: 5 };
 function expectedLine(rows) {
@@ -87,7 +87,7 @@ export function verifyRosterEdits(checkout, baseline, runRebuilds, listFiles) {
     } else {
       assert.equal(ratings, 1);
     }
-    execFileSync(process.execPath, ["scripts/verify-team-rounding.mjs"], { cwd: checkout, stdio: ["ignore", "ignore", "inherit"] });
+    execFileSync(process.execPath, ["scripts/verify/teams/rounding.mjs"], { cwd: checkout, stdio: ["ignore", "ignore", "inherit"] });
     console.log(`${attribute} edit: verified ${ratings} rating changes across ${updatedTeams.size} teams, ${ranks} rank changes, and all data copies.`);
   }
 }

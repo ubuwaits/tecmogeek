@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
-import { getTeamFileNames } from "./rebuild-team-ratings.ts";
-import { read, skillPositions } from "./player-ranking-data.mjs";
-import { attribute, modes, readSkillPlayers, slots, verifyLineup } from "./lineup-verification.mjs";
+import { getTeamFileNames } from "../../rebuild/team-ratings.ts";
+import { read, skillPositions } from "../roster-data.mjs";
+import { attribute, modes, readSkillPlayers, slots, verifyLineup } from "../lineups/model.mjs";
 
 function label(player) {
   return `${player.name} (${player.position})`;

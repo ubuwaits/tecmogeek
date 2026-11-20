@@ -1,8 +1,8 @@
 import { readFileSync } from "node:fs";
 import { expect, test } from "@playwright/test";
 import { createRequire } from "node:module";
-import { DEFENSIVE_HP_SCORE_MAP } from "../../scripts/rebuild-defensive-ratings.mjs";
-import { OFFENSIVE_HP_SCORE_MAP, OFFENSIVE_LINE_HP_SCORE_MAP } from "../../scripts/rebuild-offensive-ratings.mjs";
+import { DEFENSIVE_HP_SCORE_MAP } from "../../scripts/rebuild/defensive-ratings.mjs";
+import { OFFENSIVE_HP_SCORE_MAP, OFFENSIVE_LINE_HP_SCORE_MAP } from "../../scripts/rebuild/offensive-ratings.mjs";
 
 const require = createRequire(import.meta.url);
 const { POSITION_PAGES, RECEIVING_COLUMNS, RUSHING_COLUMNS } = require("../../lib/players/config.ts");

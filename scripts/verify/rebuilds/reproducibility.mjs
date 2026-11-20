@@ -3,9 +3,9 @@ import { cpSync, mkdtempSync, readFileSync, readdirSync, rmSync } from "node:fs"
 import { tmpdir } from "node:os";
 import path from "node:path";
 
-import { verifyRosterEdits } from "./rebuild-edit-checks.mjs";
+import { verifyRosterEdits } from "./edit-checks.mjs";
 
-const root = path.resolve(import.meta.dirname, "..");
+const root = path.resolve(import.meta.dirname, "../../..");
 const revision = execFileSync("git", ["rev-parse", "HEAD"], { cwd: root, encoding: "utf8" }).trim();
 const commands = ["rebuild:offense", "rebuild:defense", "rebuild:team-ratings"];
 

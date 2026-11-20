@@ -1,10 +1,10 @@
 import assert from "node:assert/strict";
-import { indexPlayers, key, positions, read, skillPositions } from "./player-ranking-data.mjs";
+import { indexPlayers, key, positions, read, skillPositions } from "../roster-data.mjs";
 import { init } from "z3-solver";
-import { POSITION_PAGES } from "../lib/players/config.ts";
-import { getTeamFileNames } from "./rebuild-team-ratings.ts";
-import * as offense from "./rebuild-offensive-ratings.mjs";
-import * as defense from "./rebuild-defensive-ratings.mjs";
+import { POSITION_PAGES } from "../../../lib/players/config.ts";
+import { getTeamFileNames } from "../../rebuild/team-ratings.ts";
+import * as offense from "../../rebuild/offensive-ratings.mjs";
+import * as defense from "../../rebuild/defensive-ratings.mjs";
 
 const { Context } = await init();
 const { Int, Real, ToInt, ToReal, Solver, Sum, If, Or, substitute, simplify } = new Context("players");

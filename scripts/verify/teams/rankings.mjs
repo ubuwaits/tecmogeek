@@ -1,12 +1,12 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { init } from "z3-solver";
-import { getRankedTeamRows, getTeamRatingSummaries } from "../lib/team-rating-utils.ts";
-import { getTeamFileNames } from "./rebuild-team-ratings.ts";
+import { getRankedTeamRows, getTeamRatingSummaries } from "../../../lib/team-rating-utils.ts";
+import { getTeamFileNames } from "../../rebuild/team-ratings.ts";
 
 const summaryKeys = ["overall_rating", "offensive_rating", "defensive_rating"];
 const keys = [...summaryKeys, "running_offense", "passing_offense", "balanced_offense", "dl_group", "lb_group", "secondary_group"];
-const teams = JSON.parse(readFileSync(new URL("../data/team-ratings.json", import.meta.url), "utf8"));
+const teams = JSON.parse(readFileSync(new URL("../../../data/team-ratings.json", import.meta.url), "utf8"));
 const ids = teams.map(team => team.team).sort();
 assert(teams.length > 0);
 assert.deepEqual(ids, getTeamFileNames().map(file => file.slice(0, -5)).sort());

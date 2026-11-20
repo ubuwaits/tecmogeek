@@ -3,7 +3,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const DATA_DIR = path.join(__dirname, "..", "data");
+const DATA_DIR = path.join(__dirname, "../..", "data");
 
 const TEAM_RATINGS_FILE_NAME = "team-ratings.json";
 const AGGREGATE_FILE_NAMES = new Set([

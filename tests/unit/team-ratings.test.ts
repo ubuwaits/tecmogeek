@@ -13,7 +13,7 @@ import {
   createQuarterbackRoom,
   createReturnRoom,
   type TeamRatingRecord,
-} from "../../scripts/rebuild-team-ratings";
+} from "../../scripts/rebuild/team-ratings";
 
 const DATA_DIR = path.join(process.cwd(), "data");
 

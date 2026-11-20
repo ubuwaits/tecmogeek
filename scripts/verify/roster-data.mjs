@@ -10,7 +10,7 @@ export const positions = {
 };
 
 export function read(file) {
-  return JSON.parse(readFileSync(new URL("../data/" + file, import.meta.url), "utf8"));
+  return JSON.parse(readFileSync(new URL("../../data/" + file, import.meta.url), "utf8"));
 }
 
 export function key(player) {

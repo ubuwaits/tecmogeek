@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 import { createRequire } from "node:module";
-import { read } from "../../scripts/player-ranking-data.mjs";
+import { read } from "../../scripts/verify/roster-data.mjs";
 
 const { POSITION_PAGES } = createRequire(import.meta.url)("../../lib/players/config.ts");
 const groups = { offense: ["Run", "Pass", "Bal"], defense: ["DL", "LB", "Sec"] };

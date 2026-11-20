@@ -6,7 +6,7 @@ import {
   DEFENSIVE_STARTER_COUNT,
   DEFENSIVE_UNITS,
   getTeamFileNames,
-} from "./rebuild-team-ratings.ts";
+} from "../../rebuild/team-ratings.ts";
 
 // Independent specification: each of the eleven named starters contributes equally.
 const starters = ["RE", "NT", "LE", "ROLB", "RILB", "LILB", "LOLB", "RCB", "LCB", "FS", "SS"];
@@ -36,7 +36,7 @@ try {
 const files = getTeamFileNames();
 assert(files.length > 0, "No team rosters found");
 for (const file of files) {
-  const { players } = JSON.parse(readFileSync(new URL("../data/" + file, import.meta.url), "utf8"));
+  const { players } = JSON.parse(readFileSync(new URL("../../../data/" + file, import.meta.url), "utf8"));
   const values = starters.map(position => {
     const matches = players.filter(player => player.position === position);
     assert.equal(matches.length, 1, `${file}: expected exactly one ${position}`);

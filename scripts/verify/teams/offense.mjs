@@ -3,7 +3,7 @@ import { readFileSync } from "node:fs";
 import { init } from "z3-solver";
 import {
   buildTeamRatingRecord, calculateTeamOffenseAndOverall, createOffensiveSkillLineups, getTeamFileNames,
-} from "./rebuild-team-ratings.ts";
+} from "../../rebuild/team-ratings.ts";
 
 const { Context } = await init();
 const { Real, Solver, Sum, Or } = new Context("offense");
@@ -39,7 +39,7 @@ try {
 }
 
 function readData(file) {
-  return JSON.parse(readFileSync(new URL("../data/" + file, import.meta.url), "utf8"));
+  return JSON.parse(readFileSync(new URL("../../../data/" + file, import.meta.url), "utf8"));
 }
 
 function rating(player, field) {

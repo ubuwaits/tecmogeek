@@ -13,6 +13,8 @@ pnpm dev
 
 ## Checks
 
+The data generators live in `scripts/rebuild/`. The Node verification scripts live in `scripts/verify/`, grouped by players, teams, lineups, and rebuilds. Browser checks live in `tests/e2e/`. Run them through the pnpm commands below.
+
 ```bash
 pnpm lint
 pnpm typecheck

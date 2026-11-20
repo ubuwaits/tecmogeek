@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
-import { read } from "./player-ranking-data.mjs";
-import { buildTeamRatingRecord, getTeamFileNames } from "./rebuild-team-ratings.ts";
+import { read } from "../roster-data.mjs";
+import { buildTeamRatingRecord, getTeamFileNames } from "../../rebuild/team-ratings.ts";
 
 // Common denominator for the 1/8000 skill scores, offense blends and 11 starters.
 // All intermediate integer products stay below Number.MAX_SAFE_INTEGER.

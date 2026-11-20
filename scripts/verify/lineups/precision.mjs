@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { init } from "z3-solver";
-import { compareLineupScores, FLOAT_TOLERANCE, hasHighRunningPower, lineupScore } from "./rebuild-team-ratings.ts";
+import { compareLineupScores, FLOAT_TOLERANCE, hasHighRunningPower, lineupScore } from "../../rebuild/team-ratings.ts";
 
 const { Context } = await init();
 const { Real, Int, Sum, ToReal, Or, Solver } = new Context("lineup_precision");
