@@ -69,18 +69,21 @@ export type PlayerMetricKey =
   | "kicking_ability"
   | "avoid_kick_block";
 
-export type PlayerSortKey =
-  | PlayerMetricKey
+export type PlayerRankingKey =
   | "ranking"
-  | "rating"
   | "rushing_ranking"
-  | "rushing_rating"
   | "receiving_ranking"
-  | "receiving_rating"
   | "kick_return_ranking"
+  | "punt_return_ranking";
+
+export type PlayerRatingKey =
+  | "rating"
+  | "rushing_rating"
+  | "receiving_rating"
   | "kick_return_rating"
-  | "punt_return_ranking"
   | "punt_return_rating";
+
+export type PlayerSortKey = PlayerMetricKey | PlayerRankingKey | PlayerRatingKey;
 
 export interface PlayerRecord {
   team: string;
@@ -182,8 +185,8 @@ export interface PositionPageConfig {
   navLabel: string;
   homeLabel: string;
   note: string;
-  rankingKey: PlayerSortKey;
-  ratingKey: PlayerSortKey;
+  rankingKey: PlayerRankingKey;
+  ratingKey: PlayerRatingKey;
   rankingGroupLabel: string;
   columns: readonly MetricColumn[];
   homeLimit: number;
@@ -207,7 +210,7 @@ export interface TeamSkillModeConfig {
   label: string;
   note: string;
   playerPage: PositionSlug;
-  rankingKey: PlayerSortKey;
-  ratingKey: PlayerSortKey;
+  rankingKey: PlayerRankingKey;
+  ratingKey: PlayerRatingKey;
   columns: readonly MetricColumn[];
 }
