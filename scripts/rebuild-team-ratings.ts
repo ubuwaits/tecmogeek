@@ -415,10 +415,13 @@ export function compareLineupScores(candidate: number, incumbent: number) {
   return -1;
 }
 
+type LineupObserver = (candidate: SkillSlotAssignment, best: SkillSlotAssignment | null, bestScore: number) => void;
+
 function chooseBestAssignment(
   skillPlayers: readonly RatedPlayer[],
   buildAssignment: (players: readonly RatedPlayer[]) => SkillSlotAssignment,
   scoreAssignment: (assignment: SkillSlotAssignment) => number,
+  observe?: LineupObserver,
 ): { assignment: SkillSlotAssignment; score: number } {
   let bestAssignment: SkillSlotAssignment | null = null;
   let bestScore = Number.NEGATIVE_INFINITY;
@@ -431,16 +434,14 @@ function chooseBestAssignment(
     if (comparison > 0) {
       bestScore = score;
       bestAssignment = assignment;
-      continue;
-    }
-
-    if (
+    } else if (
       comparison === 0 &&
       bestAssignment &&
       getAssignmentSignature(assignment) < getAssignmentSignature(bestAssignment)
     ) {
       bestAssignment = assignment;
     }
+    observe?.(assignment, bestAssignment, bestScore);
   }
 
   if (!bestAssignment) {
@@ -506,7 +507,10 @@ export function createReturnRoom(players: readonly PlayerRecord[]): ReturnRoomRe
   };
 }
 
-export function createOffensiveSkillLineups(players: readonly PlayerRecord[]): OffensiveSkillLineupsResult {
+export function createOffensiveSkillLineups(
+  players: readonly PlayerRecord[],
+  observers?: Partial<Record<"running" | "passing" | "balanced", LineupObserver>>,
+): OffensiveSkillLineupsResult {
   const skillPlayers = players
     .filter(isSkillPlayer)
     .map((player, rosterIndex) => ({ ...player, rosterIndex }));
@@ -519,9 +523,9 @@ export function createOffensiveSkillLineups(players: readonly PlayerRecord[]): O
     lineupScore(mode, slot => getPlayerRating(assignment[slot], "rushing_rating"),
       slot => getPlayerRating(assignment[slot], "receiving_rating"), hasHighRunningPower(getHittingPower(assignment.TE1)),
       numericArithmetic);
-  const running = chooseBestAssignment(skillPlayers, assignRunningLineup, score("running"));
-  const passing = chooseBestAssignment(skillPlayers, assignPassingLineup, score("passing"));
-  const balanced = chooseBestAssignment(skillPlayers, assignBalancedLineup, score("balanced"));
+  const running = chooseBestAssignment(skillPlayers, assignRunningLineup, score("running"), observers?.running);
+  const passing = chooseBestAssignment(skillPlayers, assignPassingLineup, score("passing"), observers?.passing);
+  const balanced = chooseBestAssignment(skillPlayers, assignBalancedLineup, score("balanced"), observers?.balanced);
 
   return {
     runningSkillRating: running.score,

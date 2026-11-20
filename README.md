@@ -23,6 +23,7 @@ pnpm verify:rebuild-edits
 pnpm verify:lineup-precision
 pnpm verify:team-rounding
 pnpm verify:table-transitions
+pnpm verify:skill-selector
 pnpm verify:players
 pnpm verify:portraits
 pnpm verify:attributes
@@ -49,6 +50,8 @@ pnpm e2e
 
 `pnpm verify:team-rounding` checks all 16 stored values per team using integer arithmetic. At exact half-thousandths it preserves the published rounding convention by decoding the generator's unrounded binary64 value and independently rounding that fraction to three decimals. It lists each midpoint and its decimal half-up alternative.
 
+`pnpm verify:skill-selector` checks every team skill-mode transition through both responsive controls against roster ranks, ratings, row order, links, metrics, labels, and mode notes.
+
 `pnpm verify:table-transitions` traverses the reachable sort, filter, and column-expansion states in Chromium on all 11 position tables and the league table. Every available action is exercised from each reachable state, including collapsing a group while sorting by one of its columns.
 
 `pnpm verify:leaderboard-views` checks the 11 homepage lists, both position filters through sort changes, all 84 team rank cards against league standings, and both helmet sizes for all 28 teams against the inspected sprite sheet.
@@ -67,7 +70,7 @@ pnpm e2e
 
 `pnpm verify:team-rankings` checks all nine team rating columns in both sort directions and the three summary-card ranks for every team. Sorting uses stored score precision and breaks exact ties alphabetically by full team name in both directions. Table rows keep their descending rank in either direction, including within exact ties. Summary cards use the same descending ranks.
 
-`pnpm verify:lineups` checks the generated running, passing, and balanced lineups for every team roster with Z3. It checks slot eligibility, scores, optimality, and tie-breaking under the [team rating rules](docs/team-ratings.md). A better legal lineup or a preferred equal-score lineup prints as a counterexample and causes a nonzero exit.
+`pnpm verify:lineups` checks the generated running, passing, and balanced lineups for every team roster with Z3. It checks slot eligibility, scores, optimality, and tie-breaking under the [team rating rules](docs/team-ratings.md). After each of the 252 five-player subsets in each search, the verifier compares the actual incumbent with the highest exact score and preferred signature over the entire prefix. A better legal lineup or a preferred equal-score lineup prints as a counterexample and causes a nonzero exit.
 
 `pnpm verify:defense` uses Z3 to prove that the unrounded defensive formula equals the mean of the eleven starters and stays within 0–100 for any real starter ratings in that range. It also compares the generator’s floating-point score with the starter mean for every team roster.
 

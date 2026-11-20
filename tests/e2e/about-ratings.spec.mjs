@@ -110,3 +110,22 @@ test("published team QB and overall weights match the verified blends", async ({
   await expect(content.getByText(/QB value/)).toContainText(/best quarterback at 80% and the backup at 20%/);
   await expect(content.getByText(/overall team rating is/)).toContainText(/50\/50 average between the offensive and defensive rating/);
 });
+
+test("ratings topic stays in sync across desktop tabs and the mobile selector", async ({ page }) => {
+  const select = page.getByTestId("ratings-topic-select");
+  async function check(topic) {
+    const other = topic === "player" ? "team" : "player";
+    await expect(select).toHaveValue(topic);
+    await expect(page.getByTestId("ratings-topic-" + topic)).toHaveAttribute("aria-selected", "true");
+    await expect(page.getByTestId("ratings-topic-" + other)).toHaveAttribute("aria-selected", "false");
+    await expect(page.getByTestId("ratings-content-" + topic)).toBeVisible();
+    await expect(page.getByTestId("ratings-content-" + other)).toBeHidden();
+  }
+  await check("player");
+  await page.getByTestId("ratings-topic-team").click();
+  await page.setViewportSize({ width: 390, height: 844 });
+  await check("team");
+  await select.selectOption("player");
+  await page.setViewportSize({ width: 1024, height: 844 });
+  await check("player");
+});

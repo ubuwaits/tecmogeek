@@ -38,8 +38,12 @@ function ranks(players, compare) {
   return players.map((_, index) => order.indexOf(index));
 }
 
+export function exactLineupPoints(players, mode, selected) {
+  return selected.reduce((sum, id, slot) => sum + contribution(mode, slot, players[id]), 0);
+}
+
 export async function verifyLineup(players, mode, selected) {
-  const score = selected.reduce((sum, id, slot) => sum + contribution(mode, slot, players[id]), 0);
+  const score = exactLineupPoints(players, mode, selected);
   const rushRank = ranks(players, (a, b) => b.rush - a.rush);
   const receivingRank = ranks(players, (a, b) => b.receive - a.receive);
   // Within each HP tier the support formula increases strictly with receiving rating.

@@ -34,6 +34,7 @@
     "verify:lineup-precision": "node scripts/verify-lineup-precision.mjs",
     "verify:team-rounding": "node scripts/verify-team-rounding.mjs",
     "verify:rebuild-edits": "node scripts/verify-rebuilds.mjs --edit",
+    "verify:skill-selector": "playwright test skill-selector.spec.ts",
     "verify:table-transitions": "playwright test table-transitions.spec.mjs",
     "verify:lineups": "node scripts/verify-lineups.mjs"
   },
