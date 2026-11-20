@@ -2,6 +2,8 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
+import type { OffensiveSkillLineupRecord, TeamRatingRecord as SharedTeamRatingRecord } from "../../lib/types.ts";
+
 import { DATA_DIR, getTeamFileNames, TEAM_RATINGS_FILE_NAME } from "./roster-files.mts";
 
 export { getTeamFileNames };
@@ -69,43 +71,9 @@ type RatedPlayer = PlayerRecord & {
 
 type SkillSlotAssignment = Record<OffensiveSkillSlot, RatedPlayer>;
 
-export type TeamRatingComponents = {
-  qb_room: number;
-  qb_rating: number;
-  return_room: number;
-  ol_line: number;
-  running_skill: number;
-  passing_skill: number;
-  balanced_skill: number;
-  running_offense: number;
-  passing_offense: number;
-  balanced_offense: number;
-  dl_group: number;
-  lb_group: number;
-  secondary_group: number;
-};
-
-export type OffensiveSkillLineup = Record<OffensiveSkillSlot, string>;
-
-export type TeamRatingSelectedLineups = {
-  best_qb: string;
-  backup_qb: string;
-  running_lineup: OffensiveSkillLineup;
-  passing_lineup: OffensiveSkillLineup;
-  balanced_lineup: OffensiveSkillLineup;
-  kr: string;
-  pr: string;
-};
-
-export type TeamRatingRecord = {
-  team: string;
-  full_name: string;
-  offensive_rating: number;
-  defensive_rating: number;
-  overall_rating: number;
-  components: TeamRatingComponents;
-  selected_lineups: TeamRatingSelectedLineups;
-};
+export type { TeamRatingComponents, TeamRatingSelectedLineups } from "../../lib/types.ts";
+export type OffensiveSkillLineup = OffensiveSkillLineupRecord;
+export type TeamRatingRecord = SharedTeamRatingRecord<string>;
 
 export type QuarterbackRoomResult = {
   score: number;

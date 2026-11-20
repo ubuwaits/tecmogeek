@@ -149,13 +149,7 @@ export interface TeamData {
   players: PlayerRecord[];
 }
 
-export interface OffensiveSkillLineupRecord {
-  RB1: string;
-  RB2: string;
-  WR1: string;
-  WR2: string;
-  TE1: string;
-}
+export type OffensiveSkillLineupRecord = Record<"RB1" | "RB2" | "WR1" | "WR2" | "TE1", string>;
 
 export interface TeamRatingComponents {
   qb_room: number;
@@ -183,8 +177,8 @@ export interface TeamRatingSelectedLineups {
   pr: string;
 }
 
-export interface TeamRatingRecord {
-  team: TeamSlug;
+export interface TeamRatingRecord<Team extends string = TeamSlug> {
+  team: Team;
   full_name: string;
   offensive_rating: number;
   defensive_rating: number;
