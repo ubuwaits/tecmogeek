@@ -6,6 +6,8 @@ describe("sort utilities", () => {
   it("toggles the active column direction on repeated clicks", () => {
     expect(
       getNextSortDirection({
+        currentOrder: [1, 3, 2],
+        orderFor: () => { throw new Error("Repeated clicks should skip sorting"); },
         currentKey: "rating",
         nextKey: "rating",
         currentDirection: "desc",
@@ -15,6 +17,8 @@ describe("sort utilities", () => {
 
     expect(
       getNextSortDirection({
+        currentOrder: [1, 3, 2],
+        orderFor: () => { throw new Error("Repeated clicks should skip sorting"); },
         currentKey: "rating",
         nextKey: "rating",
         currentDirection: "asc",
@@ -26,6 +30,8 @@ describe("sort utilities", () => {
   it("resets to the clicked column's default direction when switching columns", () => {
     expect(
       getNextSortDirection({
+        currentOrder: [1, 3, 2],
+        orderFor: direction => direction === "asc" ? [1, 2, 3] : [3, 2, 1],
         currentKey: "rating",
         nextKey: "ranking",
         currentDirection: "desc",
@@ -35,6 +41,8 @@ describe("sort utilities", () => {
 
     expect(
       getNextSortDirection({
+        currentOrder: [1, 3, 2],
+        orderFor: direction => direction === "asc" ? [1, 2, 3] : [3, 2, 1],
         currentKey: "ranking",
         nextKey: "receptions",
         currentDirection: "asc",

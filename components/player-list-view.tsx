@@ -21,10 +21,6 @@ type PlayerListViewProps = {
   entries: PlayerRecord[];
 };
 
-function hasSameOrder<T>(left: readonly T[], right: readonly T[]) {
-  return left.length === right.length && left.every((entry, index) => entry === right[index]);
-}
-
 function renderMetricValue(entry: PlayerRecord, key: PlayerMetricKey): number {
   return Number(entry[key] ?? 0);
 }
@@ -65,18 +61,13 @@ export function PlayerListView({ slug, entries }: PlayerListViewProps) {
   });
 
   function changeSort(key: PlayerSortKey, defaultDirection: SortDirection) {
-    const descendingOrder = sortEntriesByKey(filteredEntries, key, "desc", config.rankingKey);
-    const ascendingOrder = sortEntriesByKey(filteredEntries, key, "asc", config.rankingKey);
-    const nextDefaultDirection = hasSameOrder(sortedEntries, descendingOrder)
-      ? "asc"
-      : hasSameOrder(sortedEntries, ascendingOrder)
-        ? "desc"
-        : defaultDirection;
     const nextDirection = getNextSortDirection({
       currentKey: sortKey,
       nextKey: key,
       currentDirection: sortDirection,
-      defaultDirection: nextDefaultDirection,
+      defaultDirection,
+      currentOrder: sortedEntries,
+      orderFor: direction => sortEntriesByKey(filteredEntries, key, direction, config.rankingKey),
     });
 
     setSortKey(key);

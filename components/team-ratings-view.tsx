@@ -57,10 +57,6 @@ type TeamRatingsViewProps = {
   teams: TeamRatingRecord[];
 };
 
-function hasSameOrder<T>(left: readonly T[], right: readonly T[]) {
-  return left.length === right.length && left.every((entry, index) => entry === right[index]);
-}
-
 function buildVisibleColumns(offenseExpanded: boolean, defenseExpanded: boolean): TeamRatingColumn[] {
   return [
     { key: "overall_rating", label: "Overall", tooltip: "Overall team rating" },
@@ -274,19 +270,13 @@ export function TeamRatingsView({ teams }: TeamRatingsViewProps) {
   const rankedRows = getRankedTeamRows(teams, sortKey, sortDirection);
 
   function changeSort(key: TeamRatingSortKey, defaultDirection: SortDirection = "desc") {
-    const sortedTeams = rankedRows.map(row => row.team);
-    const descendingOrder = sortTeamRatingsByKey(teams, key, "desc");
-    const ascendingOrder = sortTeamRatingsByKey(teams, key, "asc");
-    const nextDefaultDirection = hasSameOrder(sortedTeams, descendingOrder)
-      ? "asc"
-      : hasSameOrder(sortedTeams, ascendingOrder)
-        ? "desc"
-        : defaultDirection;
     const nextDirection = getNextSortDirection({
       currentKey: sortKey,
       nextKey: key,
       currentDirection: sortDirection,
-      defaultDirection: nextDefaultDirection,
+      defaultDirection,
+      currentOrder: rankedRows.map(row => row.team),
+      orderFor: direction => sortTeamRatingsByKey(teams, key, direction),
     });
 
     setSortKey(key);
