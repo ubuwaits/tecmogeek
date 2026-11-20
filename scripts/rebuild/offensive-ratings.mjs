@@ -1,7 +1,8 @@
+import { syncRosterRatings } from "./sync-roster-ratings.mjs";
 import { rankPositionPlayers } from "./rank-position-players.mjs";
 import { attributeMaxima, formatPercent, getNumericValue, weightedRating } from "./player-rating.mjs";
 import { comparePlayerRanks } from "./compare-player-ranks.mjs";
-import { formatAggregateFile, formatTeamFile, getPlayerKey, getTeamFileNames, readJson, writeFile } from "./roster-files.mts";
+import { formatAggregateFile, getPlayerKey, readJson, writeFile } from "./roster-files.mts";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -236,63 +237,14 @@ async function rebuildOlAggregate() {
   return updates;
 }
 
-async function syncTeamFiles(skillFieldUpdates, olUpdates) {
-  const fileNames = getTeamFileNames();
-
-  const seenSkillKeys = new Set();
-  const seenOlKeys = new Set();
-
-  for (const fileName of fileNames) {
-    const team = await readJson(fileName);
-
-    team.players.forEach((player) => {
-      const key = getPlayerKey(player);
-
-      if (isSkillPosition(player.position)) {
-        const update = skillFieldUpdates.get(key);
-
-        if (!update) {
-          throw new Error(`Missing offensive skill update for ${key} in ${fileName}.`);
-        }
-
-        Object.assign(player, update);
-        seenSkillKeys.add(key);
-        return;
-      }
-
-      if (OFFENSIVE_LINE_POSITIONS.has(player.position)) {
-        const update = olUpdates.get(key);
-
-        if (!update) {
-          throw new Error(`Missing offensive line update for ${key} in ${fileName}.`);
-        }
-
-        Object.assign(player, update);
-        seenOlKeys.add(key);
-      }
-    });
-
-    await writeFile(fileName, formatTeamFile(team));
-  }
-
-  if (seenSkillKeys.size !== skillFieldUpdates.size) {
-    throw new Error(
-      `Updated ${seenSkillKeys.size} offensive skill players in team files, expected ${skillFieldUpdates.size}.`,
-    );
-  }
-
-  if (seenOlKeys.size !== olUpdates.size) {
-    throw new Error(
-      `Updated ${seenOlKeys.size} offensive linemen in team files, expected ${olUpdates.size}.`,
-    );
-  }
-}
-
 async function main() {
   const skillFieldUpdates = await rebuildSkillAggregates();
   const olUpdates = await rebuildOlAggregate();
 
-  await syncTeamFiles(skillFieldUpdates, olUpdates);
+  await syncRosterRatings([
+    { name: "offensive skill", matches: isSkillPosition, updates: skillFieldUpdates },
+    { name: "offensive line", matches: position => OFFENSIVE_LINE_POSITIONS.has(position), updates: olUpdates },
+  ]);
 
   console.log(
     `Rebuilt offensive ratings for ${skillFieldUpdates.size} skill players and ${olUpdates.size} offensive linemen.`,

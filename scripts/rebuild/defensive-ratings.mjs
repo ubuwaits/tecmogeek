@@ -1,6 +1,7 @@
+import { syncRosterRatings } from "./sync-roster-ratings.mjs";
 import { rankPositionPlayers } from "./rank-position-players.mjs";
 import { attributeMaxima, weightedRating } from "./player-rating.mjs";
-import { formatAggregateFile, formatTeamFile, getPlayerKey, getTeamFileNames, readJson, writeFile } from "./roster-files.mts";
+import { formatAggregateFile, readJson, writeFile } from "./roster-files.mts";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -76,61 +77,20 @@ async function rebuildDefensiveAggregate(config) {
   return updates;
 }
 
-async function syncTeamFiles(updatesByGroup) {
-  const fileNames = getTeamFileNames();
-
-  const seenKeysByGroup = new Map(DEFENSIVE_CONFIGS.map((config) => [config.name, new Set()]));
-
-  for (const fileName of fileNames) {
-    const team = await readJson(fileName);
-
-    team.players.forEach((player) => {
-      const config = DEFENSIVE_CONFIGS.find((candidate) => candidate.positions.has(player.position));
-
-      if (!config) {
-        return;
-      }
-
-      const key = getPlayerKey(player);
-      const update = updatesByGroup.get(config.name)?.get(key);
-
-      if (!update) {
-        throw new Error(`Missing ${config.name} update for ${key} in ${fileName}.`);
-      }
-
-      Object.assign(player, update);
-      seenKeysByGroup.get(config.name)?.add(key);
-    });
-
-    await writeFile(fileName, formatTeamFile(team));
-  }
-
-  for (const config of DEFENSIVE_CONFIGS) {
-    const seenKeys = seenKeysByGroup.get(config.name);
-    const updates = updatesByGroup.get(config.name);
-
-    if (seenKeys?.size !== updates?.size) {
-      throw new Error(
-        `Updated ${seenKeys?.size ?? 0} ${config.name} players in team files, expected ${updates?.size ?? 0}.`,
-      );
-    }
-  }
-}
-
 async function main() {
-  const updatesByGroup = new Map();
-
+  const groups = [];
   for (const config of DEFENSIVE_CONFIGS) {
-    updatesByGroup.set(config.name, await rebuildDefensiveAggregate(config));
+    groups.push({
+      name: config.name,
+      matches: position => config.positions.has(position),
+      updates: await rebuildDefensiveAggregate(config),
+    });
   }
 
-  await syncTeamFiles(updatesByGroup);
+  await syncRosterRatings(groups);
 
-  console.log(
-    `Rebuilt defensive ratings for ${DEFENSIVE_CONFIGS.map(
-      (config) => `${updatesByGroup.get(config.name)?.size ?? 0} ${config.name}`,
-    ).join(", ")}.`,
-  );
+  const counts = groups.map(({ name, updates }) => `${updates.size} ${name}`);
+  console.log(`Rebuilt defensive ratings for ${counts.join(", ")}.`);
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
