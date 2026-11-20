@@ -3,17 +3,15 @@ import path from "node:path";
 
 import { describe, expect, it } from "vitest";
 
-import type { TeamData } from "@/lib/types";
+import { TEAM_SLUGS, type TeamData } from "@/lib/types";
 
 import {
-  buildTeamRatings,
   buildTeamRatingRecord,
   createOffensiveSkillLineups,
   createDefensiveGroups,
   createQuarterbackRoom,
   createReturnRoom,
-  type TeamRatingRecord,
-} from "../../scripts/rebuild/team-ratings";
+} from "../../lib/teams/calculate-ratings.mts";
 
 const DATA_DIR = path.join(process.cwd(), "data");
 
@@ -148,13 +146,8 @@ describe("team ratings generator", () => {
     );
   });
 
-  it("keeps the generated team ratings file in sync with the source data", () => {
-    const generated = readJson<TeamRatingRecord[]>("team-ratings.json");
-    expect(generated).toEqual(buildTeamRatings());
-  });
-
   it("keeps the generated team ratings sorted and representative of the expected team shapes", () => {
-    const generated = readJson<TeamRatingRecord[]>("team-ratings.json");
+    const generated = TEAM_SLUGS.map(slug => buildTeamRatingRecord(slug, readJson<TeamData>(slug + ".json")));
     const teams = new Map(generated.map((record) => [record.team, record]));
     const fortyNiners = teams.get("49ers");
     const bears = teams.get("bears");

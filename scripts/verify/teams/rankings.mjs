@@ -1,13 +1,12 @@
 import { rejectCounterexample } from "../reject-counterexample.mjs";
 import assert from "node:assert/strict";
-import { read } from "../roster-data.mjs";
+import { getTeamFileNames, teamRatingRecords } from "../roster-data.mjs";
 import { init } from "z3-solver";
 import { getRankedTeamRows, getTeamRatingSummaries } from "../../../lib/teams/ratings.ts";
-import { getTeamFileNames } from "../../rebuild/team-ratings.ts";
 
 const summaryKeys = ["overall_rating", "offensive_rating", "defensive_rating"];
 const keys = [...summaryKeys, "running_offense", "passing_offense", "balanced_offense", "dl_group", "lb_group", "secondary_group"];
-const teams = read("team-ratings.json");
+const teams = teamRatingRecords();
 const ids = teams.map(team => team.team).sort();
 assert(teams.length > 0);
 assert.deepEqual(ids, getTeamFileNames().map(file => file.slice(0, -5)).sort());

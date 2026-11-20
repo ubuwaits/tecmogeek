@@ -1,3 +1,5 @@
+import { TEAM_SLUGS } from "../../lib/teams/slugs.mts";
+import { buildTeamRatingRecord } from "../../lib/teams/calculate-ratings.mts";
 import { applyReturnSpeeds } from "../../lib/players/return-speeds.mts";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
@@ -12,6 +14,14 @@ export const positions = {
 
 export function read(file) {
   return JSON.parse(readFileSync(new URL("../../data/" + file, import.meta.url), "utf8"));
+}
+
+export function getTeamFileNames() {
+  return TEAM_SLUGS.map(slug => slug + ".json");
+}
+
+export function teamRatingRecords() {
+  return TEAM_SLUGS.map(slug => buildTeamRatingRecord(slug, read(slug + ".json")));
 }
 
 export function readRosterPlayers(file) {

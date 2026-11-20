@@ -1,8 +1,8 @@
 import { createHash } from "node:crypto";
 import { expect, test } from "@playwright/test";
-import { positions, read, readRosterPlayers, skillPositions } from "../../scripts/verify/roster-data.mjs";
+import { positions, teamRatingRecords, readRosterPlayers, skillPositions } from "../../scripts/verify/roster-data.mjs";
 
-const teams = read("team-ratings.json");
+const teams = teamRatingRecords();
 const players = teams.flatMap(({ team }) => readRosterPlayers(team + ".json"));
 const rankFields = {
   rushers: "rushing_ranking", receivers: "receiving_ranking",

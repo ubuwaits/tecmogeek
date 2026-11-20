@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 import { createRequire } from "node:module";
-import { positions, read, readRosterPlayers } from "../../scripts/verify/roster-data.mjs";
+import { positions, teamRatingRecords, readRosterPlayers } from "../../scripts/verify/roster-data.mjs";
 
 const { POSITION_PAGES } = createRequire(import.meta.url)("../../lib/players/config.ts");
 const groups = { offense: ["Run", "Pass", "Bal"], defense: ["DL", "LB", "Sec"] };
@@ -9,7 +9,7 @@ const teamFields = {
   Run: "running_offense", Pass: "passing_offense", Bal: "balanced_offense",
   DL: "dl_group", LB: "lb_group", Sec: "secondary_group",
 };
-const teams = read("team-ratings.json");
+const teams = teamRatingRecords();
 const players = teams.flatMap(({ team }) => readRosterPlayers(team + ".json"));
 function model(config) {
   const team = !config;

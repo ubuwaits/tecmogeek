@@ -3,8 +3,7 @@ import { rejectCounterexample } from "../reject-counterexample.mjs";
 import assert from "node:assert/strict";
 import { init } from "z3-solver";
 import { POSITION_PAGES } from "../../../lib/players/config.ts";
-import { getTeamFileNames } from "../../rebuild/team-ratings.ts";
-import { indexPlayers, key, positions, readRosterPlayers } from "../roster-data.mjs";
+import { getTeamFileNames, indexPlayers, key, positions, readRosterPlayers } from "../roster-data.mjs";
 import { rankPositionPlayers } from "../../rebuild/rank-position-players.mjs";
 import { comparePlayerRanks } from "../../rebuild/compare-player-ranks.mjs";
 

@@ -1,19 +1,9 @@
 import { TEAM_SLUGS } from "../../lib/teams/slugs.mts";
-import type { PlayerRecord } from "./team-rating-players.mts";
+import type { TeamData } from "../../lib/types.ts";
 import fs from "node:fs";
 import path from "node:path";
 
-export type TeamData = {
-  full_name: string;
-  players: PlayerRecord[];
-};
-
-export const DATA_DIR = path.resolve(import.meta.dirname, "../../data");
-export const TEAM_RATINGS_FILE_NAME = "team-ratings.json";
-
-export function getTeamFileNames(): string[] {
-  return TEAM_SLUGS.map(slug => slug + ".json");
-}
+const DATA_DIR = path.resolve(import.meta.dirname, "../../data");
 
 function formatTeamFile(team: TeamData) {
   const players = team.players.map(player => {

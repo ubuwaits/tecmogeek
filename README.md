@@ -8,7 +8,7 @@ Use Node.js 24 and pnpm 10. Run `pnpm install`, then `pnpm dev`.
 
 ## Edit a roster
 
-Edit `data/<team>.json` and preserve the player order. Roster slots determine team-page sections and portraits. The filename identifies the team. Edit the RT’s maximum speed for kick returns or the SS’s for punt returns. After an attribute edit, run `pnpm rebuild:all`. Complete ties retain the previous rank for that category. Quarterback, kicker, and punter ratings and ranks are published roster fields maintained by hand.
+Edit `data/<team>.json` and preserve the player order. Roster slots determine team-page sections and portraits. The filename identifies the team. Edit the RT’s maximum speed for kick returns or the SS’s for punt returns. After an attribute edit, run `pnpm rebuild:all` to update player ratings and ranks. The static export calculates team ratings directly from those rosters. Complete ties retain the previous rank for that category. Quarterback, kicker, and punter ratings and ranks are published roster fields maintained by hand.
 
 ## Choose checks
 

@@ -1,9 +1,9 @@
 import assert from "node:assert/strict";
-import { read } from "../roster-data.mjs";
+import { getTeamFileNames, read } from "../roster-data.mjs";
 import { init } from "z3-solver";
 import {
-  buildTeamRatingRecord, calculateTeamOffenseAndOverall, createOffensiveSkillLineups, getTeamFileNames,
-} from "../../rebuild/team-ratings.ts";
+  buildTeamRatingRecord, calculateTeamOffenseAndOverall, createOffensiveSkillLineups,
+} from "../../../lib/teams/calculate-ratings.mts";
 
 const { Context } = await init();
 const { Real, Solver, Sum, Or } = new Context("offense");
@@ -60,7 +60,7 @@ function bestTwo(players, field) {
   return sorted;
 }
 
-function verifyTeam(team, roster, published) {
+function verifyTeam(team, roster) {
   const players = roster.players;
   const skillPlayers = players.filter(player => /^(RB|WR|TE)/.test(player.position));
   const [starter, backup] = bestTwo(players.filter(player => player.position.startsWith("QB")), "rating");
@@ -81,7 +81,6 @@ function verifyTeam(team, roster, published) {
   const generated = buildTeamRatingRecord(team, roster);
   for (const [field, value] of Object.entries(expected)) {
     const score = generated[field] ?? generated.components[field];
-    assert.equal(score, published[field] ?? published.components[field], `${team}: published ${field} differs from generator`);
     assert.equal(score, Number(score.toFixed(3)), `${team}: ${field} exceeds three decimal places`);
     // At an exact half-thousandth, binary floating point may round to either neighbor.
     assert(Math.abs(score - value) <= 0.0005 + 1e-12, `${team}: ${field} is ${score}, expected ${value} before rounding`);
@@ -89,12 +88,9 @@ function verifyTeam(team, roster, published) {
 }
 
 const files = getTeamFileNames();
-const records = read("team-ratings.json");
-assert(files.length > 0);
-assert.deepEqual(records.map(record => record.team).sort(), files.map(file => file.slice(0, -5)).sort());
-const byTeam = new Map(records.map(record => [record.team, record]));
+assert.equal(files.length, 28);
 for (const file of files) {
   const team = file.slice(0, -5);
-  verifyTeam(team, read(file), byTeam.get(team));
+  verifyTeam(team, read(file));
 }
-console.log(`Verified five generated and published ratings for each of ${files.length} teams.`);
+console.log(`Verified five calculated ratings for each of ${files.length} teams.`);

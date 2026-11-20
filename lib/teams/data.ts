@@ -5,23 +5,19 @@ import fs from "node:fs/promises";
 import path from "node:path";
 
 import { applyReturnSpeeds } from "@/lib/players/return-speeds.mts";
-import type { TeamSlug } from "@/lib/teams/slugs.mts";
-import type { TeamData, TeamRatingRecord } from "@/lib/types";
+import { buildTeamRatingRecord } from "./calculate-ratings.mts";
+import { TEAM_SLUGS, type TeamSlug } from "@/lib/teams/slugs.mts";
+import type { TeamData } from "@/lib/types";
 
 const DATA_DIR = path.join(process.cwd(), "data");
 
-async function readJson<T>(fileName: string): Promise<T> {
-  const filePath = path.join(DATA_DIR, fileName);
-  const fileContents = await fs.readFile(filePath, "utf8");
-  return JSON.parse(fileContents) as T;
-}
-
 export const getTeam = cache(async (slug: TeamSlug) => {
-  const team = await readJson<TeamData>(`${slug}.json`);
+  const contents = await fs.readFile(path.join(DATA_DIR, slug + ".json"), "utf8");
+  const team: TeamData = JSON.parse(contents);
   applyReturnSpeeds(team);
   return team;
 });
 
-export const getTeamRatings = cache(async (): Promise<TeamRatingRecord[]> => {
-  return readJson<TeamRatingRecord[]>("team-ratings.json");
-});
+export const getTeamRatings = cache(async () =>
+  Promise.all(TEAM_SLUGS.map(async slug => buildTeamRatingRecord(slug, await getTeam(slug)))),
+);

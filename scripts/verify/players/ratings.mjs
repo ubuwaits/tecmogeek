@@ -1,10 +1,9 @@
 import { expectedWeights, skillHP, lineHP, defenseHP } from "./rating-spec.mjs";
 import { positionEntries } from "../../../lib/players/leaderboard.ts";
 import assert from "node:assert/strict";
-import { indexPlayers, key, positions, readRosterPlayers, skillPositions } from "../roster-data.mjs";
+import { getTeamFileNames, indexPlayers, key, positions, readRosterPlayers, skillPositions } from "../roster-data.mjs";
 import { init } from "z3-solver";
 import { POSITION_PAGES } from "../../../lib/players/config.ts";
-import { getTeamFileNames } from "../../rebuild/team-ratings.ts";
 import * as offense from "../../rebuild/offensive-ratings.mjs";
 import { DEFENSIVE_HP_SCORE_MAP } from "../../../lib/players/metrics.ts";
 import * as defense from "../../rebuild/defensive-ratings.mjs";

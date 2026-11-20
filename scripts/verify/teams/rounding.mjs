@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
-import { read } from "../roster-data.mjs";
-import { buildTeamRatingRecord, getTeamFileNames } from "../../rebuild/team-ratings.ts";
+import { getTeamFileNames, teamRatingRecords, read } from "../roster-data.mjs";
+import { buildTeamRatingRecord } from "../../../lib/teams/calculate-ratings.mts";
 
 // Common denominator for the 1/8000 skill scores, offense blends and 11 starters.
 // All intermediate integer products stay below Number.MAX_SAFE_INTEGER.
@@ -75,12 +75,11 @@ function roundBinary64(value) {
 
 let count = 0;
 const ties = [];
-const records = read("team-ratings.json");
+const records = teamRatingRecords();
 assert.equal(records.length, 28);
 assert.deepEqual(records.map(r => r.team + ".json").sort(), getTeamFileNames());
 for (const record of records) {
   const roster = read(record.team + ".json");
-  const generated = buildTeamRatingRecord(record.team, roster);
   const unrounded = buildTeamRatingRecord(record.team, roster, value => value);
   const scores = exactTeamScores(roster.players, record.selected_lineups);
   assert.deepEqual(Object.keys(scores).sort(),
@@ -96,7 +95,6 @@ for (const record of records) {
       ties.push({ team: record.team, field, stored, halfUp: expected });
     }
     else assert.equal(stored, expected, record.team + "." + field);
-    assert.equal(generated[field] ?? generated.components[field], stored, record.team + "." + field);
     count++;
   }
 }

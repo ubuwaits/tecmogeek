@@ -1,3 +1,5 @@
+import { TEAM_SLUGS } from "../../../lib/teams/slugs.mts";
+import { buildTeamRatingRecord } from "../../../lib/teams/calculate-ratings.mts";
 import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
 import { readFileSync, writeFileSync } from "node:fs";
@@ -69,8 +71,8 @@ export function verifyRosterEdits(checkout, baseline, runRebuilds, listFiles) {
   ];
   for (const { position, attribute, value, predict } of scenarios) {
     for (const [name, bytes] of baseline) writeFileSync(file(name), bytes);
-    const records = JSON.parse(baseline.get("team-ratings.json"));
-    const rosters = new Map(records.map(({ team }) => [team, JSON.parse(baseline.get(team + ".json"))]));
+    const rosters = new Map(TEAM_SLUGS.map(slug => [slug, JSON.parse(baseline.get(slug + ".json"))]));
+    const records = TEAM_SLUGS.map(slug => buildTeamRatingRecord(slug, rosters.get(slug)));
     const eagles = rosters.get("eagles");
     const edited = eagles.players.find(p => p.position === position);
     assert.notEqual(edited[attribute], value);
@@ -80,9 +82,7 @@ export function verifyRosterEdits(checkout, baseline, runRebuilds, listFiles) {
     runRebuilds();
 
     assert.deepEqual(new Set(listFiles(directory)), new Set(baseline.keys()));
-    const actualRecords = JSON.parse(readFileSync(file("team-ratings.json")));
-    assert.deepEqual(actualRecords.map(r => r.team), records.map(r => r.team));
-    for (const [i, record] of records.entries()) {
+    for (const record of records) {
       const team = rosters.get(record.team);
       const rebuilt = JSON.parse(readFileSync(file(record.team + ".json")));
       assert.deepEqual(rebuilt, team, record.team);
@@ -98,7 +98,7 @@ export function verifyRosterEdits(checkout, baseline, runRebuilds, listFiles) {
       const kickReturner = team.players.filter(p => skillPositions.test(p.position))
         .sort((a, b) => parseInt(b.kick_return_rating) - parseInt(a.kick_return_rating))[0];
       record.selected_lineups.kr = `${kickReturner.name} (${kickReturner.position})`;
-      const actual = actualRecords[i];
+      const actual = buildTeamRatingRecord(record.team, rebuilt);
       // The rounding verifier below checks every numeric field against the edited rosters.
       const changed = position === "RT"
         ? ["ol_line", "return_room", "running_offense", "passing_offense", "balanced_offense", "offensive_rating", "overall_rating"]
@@ -109,7 +109,7 @@ export function verifyRosterEdits(checkout, baseline, runRebuilds, listFiles) {
       }
       assert.deepEqual(actual, record, record.team);
     }
-    const rebuiltFiles = new Set(["team-ratings.json", ...records.map(record => record.team + ".json")]);
+    const rebuiltFiles = new Set(TEAM_SLUGS.map(slug => slug + ".json"));
     for (const [name, bytes] of baseline) {
       if (!rebuiltFiles.has(name)) {
         assert(readFileSync(file(name)).equals(bytes), name);

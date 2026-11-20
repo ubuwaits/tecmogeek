@@ -1,18 +1,10 @@
-import fs from "node:fs";
-import path from "node:path";
-import { fileURLToPath } from "node:url";
-
-import type { TeamRatingRecord as SharedTeamRatingRecord } from "../../lib/types.ts";
-
-import { DATA_DIR, getTeamFileNames, readTeamRosters, TEAM_RATINGS_FILE_NAME, type TeamData } from "./roster-files.mts";
-
+import type { TeamData, TeamRatingRecord, TeamSlug } from "../types.ts";
 import { createOffensiveSkillLineups, formatOffensiveSkillLineup } from "./offensive-lineups.mts";
 import {
   getPlayerLabel, getPlayerRating, isSkillPlayer, sortPlayersByRating,
   type PlayerRecord, type RatedPlayer,
 } from "./team-rating-players.mts";
 
-export { getTeamFileNames };
 export {
   compareLineupScores, createOffensiveSkillLineups, FLOAT_TOLERANCE, hasHighRunningPower, lineupScore,
 } from "./offensive-lineups.mts";
@@ -24,8 +16,6 @@ export const DEFENSIVE_UNITS = {
   secondary: { positions: ["RCB", "LCB", "FS", "SS"], weight: 4 },
 } as const;
 export const DEFENSIVE_STARTER_COUNT = 11;
-
-export type TeamRatingRecord = SharedTeamRatingRecord<string>;
 
 type QuarterbackRoomResult = {
   score: number;
@@ -47,10 +37,6 @@ type DefensiveGroupsResult = {
   secondaryGroup: number;
   score: number;
 };
-
-function writeJson(fileName: string, value: unknown) {
-  fs.writeFileSync(path.join(DATA_DIR, fileName), `${JSON.stringify(value, null, 2)}\n`, "utf8");
-}
 
 function roundTo(value: number, decimals = 3): number {
   return Number(value.toFixed(decimals));
@@ -188,7 +174,7 @@ export function calculateTeamOffenseAndOverall<T>(
   return { runningOffenseRating, passingOffenseRating, balancedOffenseRating, offensiveRating, overallRating };
 }
 
-export function buildTeamRatingRecord(teamSlug: string, teamData: TeamData, round = roundTo): TeamRatingRecord {
+export function buildTeamRatingRecord(teamSlug: TeamSlug, teamData: TeamData, round = roundTo): TeamRatingRecord {
   const players = teamData.players.map((player, rosterIndex) => ({ ...player, rosterIndex }));
   const quarterbackRoom = createQuarterbackRoom(players);
   const quarterbackRoomScore = quarterbackRoom.score;
@@ -241,27 +227,4 @@ export function buildTeamRatingRecord(teamSlug: string, teamData: TeamData, roun
       pr: getPlayerLabel(returnRoom.puntReturner),
     },
   };
-}
-
-export function buildTeamRatings(rosters = readTeamRosters()): TeamRatingRecord[] {
-  return Array.from(rosters, ([slug, team]) => buildTeamRatingRecord(slug, team));
-}
-
-export function writeTeamRatingsFile(records: readonly TeamRatingRecord[]) {
-  writeJson(TEAM_RATINGS_FILE_NAME, records);
-}
-
-function rebuildTeamRatings() {
-  const records = buildTeamRatings();
-  writeTeamRatingsFile(records);
-  return records;
-}
-
-function isDirectExecution() {
-  return process.argv[1] ? path.resolve(process.argv[1]) === fileURLToPath(import.meta.url) : false;
-}
-
-if (isDirectExecution()) {
-  const records = rebuildTeamRatings();
-  console.log(`Wrote ${records.length} team ratings to ${path.join("data", TEAM_RATINGS_FILE_NAME)}.`);
 }

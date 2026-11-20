@@ -1,12 +1,11 @@
 import assert from "node:assert/strict";
-import { read } from "../roster-data.mjs";
+import { getTeamFileNames, read } from "../roster-data.mjs";
 import { init } from "z3-solver";
 import {
   createDefensiveGroups,
   DEFENSIVE_STARTER_COUNT,
   DEFENSIVE_UNITS,
-  getTeamFileNames,
-} from "../../rebuild/team-ratings.ts";
+} from "../../../lib/teams/calculate-ratings.mts";
 
 // Independent specification: each of the eleven named starters contributes equally.
 const starters = ["RE", "NT", "LE", "ROLB", "RILB", "LILB", "LOLB", "RCB", "LCB", "FS", "SS"];

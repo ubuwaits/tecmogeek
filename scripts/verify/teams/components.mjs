@@ -1,6 +1,5 @@
 import assert from "node:assert/strict";
-import { getTeamFileNames } from "../../rebuild/team-ratings.ts";
-import { read, skillPositions } from "../roster-data.mjs";
+import { getTeamFileNames, teamRatingRecords, read, skillPositions } from "../roster-data.mjs";
 import { attribute, modes, readSkillPlayers, slots, verifyLineup } from "../lineups/model.mjs";
 
 function label(player) {
@@ -85,7 +84,7 @@ async function verifyTeam({ components, selected_lineups: selected }, roster) {
   return { components: Object.keys(expected).length, labels: Object.keys(selections).length + modes.length * slots.length };
 }
 
-const records = read("team-ratings.json");
+const records = teamRatingRecords();
 const files = getTeamFileNames();
 assert(files.length > 0);
 assert.deepEqual(records.map(row => row.team).sort(), files.map(file => file.slice(0, -5)).sort());
@@ -100,4 +99,4 @@ for (const record of records) {
     throw new Error(`${record.team}: ${error.message}`);
   }
 }
-console.log(`Verified ${components} stored components and ${labels} selected-player labels across ${records.length} teams.`);
+console.log(`Verified ${components} rating components and ${labels} selected-player labels across ${records.length} teams.`);

@@ -14,7 +14,6 @@
     "rebuild:all": "node scripts/rebuild/all.mjs",
     "rebuild:offense": "node scripts/rebuild/offensive-ratings.mjs",
     "rebuild:defense": "node scripts/rebuild/defensive-ratings.mjs",
-    "rebuild:team-ratings": "node scripts/rebuild/team-ratings.ts",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",

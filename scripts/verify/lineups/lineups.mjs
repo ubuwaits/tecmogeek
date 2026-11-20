@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
-import { read } from "../roster-data.mjs";
-import { createOffensiveSkillLineups, getTeamFileNames } from "../../rebuild/team-ratings.ts";
+import { getTeamFileNames, read } from "../roster-data.mjs";
+import { createOffensiveSkillLineups } from "../../../lib/teams/calculate-ratings.mts";
 import { exactLineupPoints, modes, readSkillPlayers, slots, verifyLineup } from "./model.mjs";
 
 function rosterIndices(players, assignment) {

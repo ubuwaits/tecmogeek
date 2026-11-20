@@ -7,7 +7,7 @@ import { verifyRosterEdits } from "./edit-checks.mjs";
 
 const root = path.resolve(import.meta.dirname, "../../..");
 const revision = execFileSync("git", ["rev-parse", "HEAD"], { cwd: root, encoding: "utf8" }).trim();
-const commands = ["rebuild:offense", "rebuild:defense", "rebuild:team-ratings"];
+const commands = ["rebuild:offense", "rebuild:defense"];
 
 function dataFiles(directory) {
   return readdirSync(directory, { withFileTypes: true, recursive: true }).filter(entry => !entry.isDirectory())
@@ -33,9 +33,7 @@ try {
   rmSync(path.join(checkout, "scripts"), { recursive: true });
   cpSync(path.join(root, "scripts"), path.join(checkout, "scripts"), { recursive: true });
 
-  for (const modulePath of ["lib/teams/slugs.mts", "lib/players/return-speeds.mts", "lib/players/metrics.ts"]) {
-    cpSync(path.join(root, modulePath), path.join(checkout, modulePath));
-  }
+  cpSync(path.join(root, "lib"), path.join(checkout, "lib"), { recursive: true });
 
   function run(commandsToRun) {
     for (const command of commandsToRun) execFileSync("pnpm", ["run", command], { cwd: checkout, stdio: "inherit" });
