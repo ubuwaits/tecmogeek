@@ -24,6 +24,10 @@ export const TEAM_PAGE_RATING_ITEMS = [
   { key: "defensive_rating", label: "Defense" },
 ] as const satisfies readonly Pick<TeamRatingSummaryItem, "key" | "label">[];
 
+export function getDisplayedTeamRank(index: number, total: number, direction: SortDirection) {
+  return direction === "desc" ? index + 1 : total - index;
+}
+
 export function formatTeamRating(value: number) {
   return `${value.toFixed(1)}%`;
 }

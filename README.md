@@ -19,6 +19,7 @@ pnpm typecheck
 pnpm test
 pnpm verify:players
 pnpm verify:rankings
+pnpm verify:team-rankings
 pnpm verify:lineups
 pnpm verify:defense
 pnpm verify:offense
@@ -29,6 +30,8 @@ pnpm e2e
 `pnpm verify:players` uses exact Z3 arithmetic to check all eleven individual rating formulas, including position-specific normalization, hitting-power lookups and whole-percent rounding. It uses the current position-group maxima, evaluates each eligible player, and checks the stored ratings in the team and position files.
 
 `pnpm verify:rankings` checks canonical player order and every stored copy of each rank. Skill players, linemen and defensive players rank by displayed rating, then raw hitting power. Quarterbacks rank by displayed rating, and kickers and punters by kicking ability. For complete ties the position file supplies the order. Z3 checks the ordering rules and searches each file for an inversion.
+
+`pnpm verify:team-rankings` checks all nine team rating columns in both sort directions and the three summary-card ranks for every team. Sorting uses stored score precision and breaks exact ties alphabetically by full team name in both directions. In ascending view the rank numbers count down, so tied teams can exchange rank numbers. Summary cards use descending ranks.
 
 `pnpm verify:lineups` checks the generated running, passing, and balanced lineups for every team roster with Z3. It checks slot eligibility, scores, optimality, and tie-breaking under the [team rating rules](docs/team-ratings.md). A better legal lineup or a preferred equal-score lineup prints as a counterexample and causes a nonzero exit.
 

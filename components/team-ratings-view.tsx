@@ -10,6 +10,7 @@ import { teamRoute } from "@/lib/routes";
 import { getNextSortDirection } from "@/lib/sort-utils";
 import {
   formatTeamRating,
+  getDisplayedTeamRank,
   getTeamRatingSortValue,
   sortTeamRatingsByKey,
   type TeamRatingSortKey,
@@ -58,10 +59,6 @@ type TeamRatingsViewProps = {
 
 function hasSameOrder<T>(left: readonly T[], right: readonly T[]) {
   return left.length === right.length && left.every((entry, index) => entry === right[index]);
-}
-
-function getDisplayedRank(index: number, total: number, direction: SortDirection) {
-  return direction === "desc" ? index + 1 : total - index;
 }
 
 function buildVisibleColumns(offenseExpanded: boolean, defenseExpanded: boolean): TeamRatingColumn[] {
@@ -350,7 +347,7 @@ export function TeamRatingsView({ teams }: TeamRatingsViewProps) {
             <li key={team.team} data-testid="team-ratings-row">
               <div className="grid w-full items-center rounded-lg" style={{ gridTemplateColumns }}>
                 <div className="text-[14px] font-bold tabular-nums">
-                  {getDisplayedRank(index, sortedTeams.length, sortDirection)}
+                  {getDisplayedTeamRank(index, sortedTeams.length, sortDirection)}
                 </div>
 
                 <div className="min-w-0 pr-4">
