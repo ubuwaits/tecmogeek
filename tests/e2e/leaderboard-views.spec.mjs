@@ -37,6 +37,41 @@ test("all 11 homepage lists show the correct ranked players and team links", asy
   }
 });
 
+const rankingGroups = {
+  qb: "QBs", rushers: "rushers", receivers: "receivers", "kick-returners": "kick returners",
+  "punt-returners": "punt returners", ol: "OL", dl: "DL", lb: "LBs", "cb-s": "CB & S", k: "kickers", p: "punters",
+};
+
+async function checkRankTooltip(page, trigger, slug, label = rankingGroups[slug]) {
+  const count = players.filter(player => positions[slug].test(player.position)).length;
+  await trigger.focus();
+  await expect(page.getByRole("tooltip")).toHaveText(`Out of ${count} ${label}`);
+  await trigger.press("Escape");
+}
+
+test("rank tooltips use the league population on each player leaderboard", async ({ page }) => {
+  for (const slug of Object.keys(rankingGroups)) {
+    await page.goto(`/players/${slug}/`);
+    await checkRankTooltip(page, page.getByRole("button", { name: "Ranking", exact: true }), slug);
+  }
+});
+
+test("team rank tooltips use league counts for each position and skill mode", async ({ page }) => {
+  await page.goto("/teams/bills/");
+  // Keep every header in view; scrolling closes Radix tooltips.
+  await page.setViewportSize({ width: 1280, height: await page.locator("body").evaluate(body => body.scrollHeight) });
+  for (const slug of ["qb", "ol", "dl", "lb", "cb-s", "k", "p"]) {
+    const section = page.getByTestId("team-table-scroll-" + (slug === "cb-s" ? "secondary" : slug));
+    await checkRankTooltip(page, section.locator("span[tabindex]").filter({ hasText: / Ranking$/ }), slug);
+  }
+  for (const [mode, slug] of [["rushing", "rushers"], ["receiving", "receivers"],
+    ["kick-return", "kick-returners"], ["punt-return", "punt-returners"]]) {
+    await page.getByTestId("team-mode-" + mode).click();
+    const section = page.getByTestId("team-skill-table-scroll");
+    await checkRankTooltip(page, section.locator("span[tabindex]").filter({ hasText: / Ranking$/ }), slug, "RB, WR & TE");
+  }
+});
+
 for (const [slug, subset, filter] of [
   ["rushers", /^RB/, "only-rb"], ["receivers", /^(WR|TE)/, "only-wr"],
 ]) {
@@ -52,6 +87,7 @@ for (const [slug, subset, filter] of [
     await check(all);
     await page.getByTestId("filter-" + filter).click();
     await check(selected);
+    await checkRankTooltip(page, page.getByRole("button", { name: "Ranking", exact: true }), slug);
 
     const header = page.getByRole("button", { name: "REC", exact: true });
     // Receptions descending breaks ties by better league rank. Ascending reverses both.

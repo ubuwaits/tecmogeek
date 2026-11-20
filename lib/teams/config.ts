@@ -17,8 +17,8 @@ function rosterSection(
   range: TeamSectionConfig["range"],
   rankingLabel: string,
 ): TeamSectionConfig {
-  const { rankingTooltip, note, columns } = POSITION_PAGE_CONFIG_MAP[playerPage];
-  return { id, playerPage, range, rankingLabel, rankingTooltip, note, columns };
+  const { rankingGroupLabel, note, columns } = POSITION_PAGE_CONFIG_MAP[playerPage];
+  return { id, playerPage, range, rankingLabel, rankingGroupLabel, note, columns };
 }
 
 export const TEAM_SECTION_CONFIGS: readonly TeamSectionConfig[] = [

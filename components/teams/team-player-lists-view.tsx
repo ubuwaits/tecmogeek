@@ -15,11 +15,12 @@ import {
   TEAM_SKILL_MODES,
   TEAM_SKILL_RANGE,
 } from "@/lib/teams/config";
-import { getTeamReturnSpeedValues, sortEntriesByKey } from "@/lib/players/utils";
+import { getTeamReturnSpeedValues, rankingTooltip, sortEntriesByKey } from "@/lib/players/utils";
 import { playerRoute } from "@/lib/site/routes";
 import type {
   PlayerMetricKey,
   PlayerRecord,
+  PositionSlug,
   TeamData,
   TeamSectionConfig,
   TeamSkillMode,
@@ -70,12 +71,13 @@ function buildTeamRows({
   }));
 }
 
-type TeamRosterProps = { team: TeamData; teamSlug: TeamSlug };
+type TeamRosterProps = { team: TeamData; teamSlug: TeamSlug; counts: Record<PositionSlug, number> };
 
 function TeamPositionPlayerList({
   team,
   teamSlug,
   section,
+  counts,
 }: TeamRosterProps & {
   section: TeamSectionConfig;
 }) {
@@ -95,7 +97,7 @@ function TeamPositionPlayerList({
         testId={`team-table-scroll-${section.id}`}
         layout="team"
         rankingLabel={section.rankingLabel}
-        rankingTooltip={section.rankingTooltip}
+        rankingTooltip={rankingTooltip(counts[section.playerPage], section.rankingGroupLabel)}
         columns={section.columns}
         rows={rows}
       />
@@ -105,7 +107,7 @@ function TeamPositionPlayerList({
   );
 }
 
-function TeamSkillPlayerList({ team, teamSlug }: TeamRosterProps) {
+function TeamSkillPlayerList({ team, teamSlug, counts }: TeamRosterProps) {
   const [mode, setMode] = useState<TeamSkillMode>(DEFAULT_TEAM_SKILL_MODE);
   const modeConfig = TEAM_SKILL_MODE_CONFIG[mode];
   const skillPlayers = team.players.slice(TEAM_SKILL_RANGE[0], TEAM_SKILL_RANGE[1] + 1);
@@ -150,7 +152,7 @@ function TeamSkillPlayerList({ team, teamSlug }: TeamRosterProps) {
         testId="team-skill-table-scroll"
         layout="team"
         rankingLabel={rankingLabel}
-        rankingTooltip="Out of 280 RB, WR & TE"
+        rankingTooltip={rankingTooltip(counts[modeConfig.playerPage], "RB, WR & TE")}
         columns={modeConfig.columns}
         rows={rows}
       />
@@ -160,13 +162,13 @@ function TeamSkillPlayerList({ team, teamSlug }: TeamRosterProps) {
   );
 }
 
-export function TeamPlayerListsView({ team, teamSlug }: TeamRosterProps) {
+export function TeamPlayerListsView(props: TeamRosterProps) {
   return (
     <>
-      <TeamPositionPlayerList team={team} teamSlug={teamSlug} section={TEAM_SECTION_CONFIGS[0]} />
-      <TeamSkillPlayerList team={team} teamSlug={teamSlug} />
+      <TeamPositionPlayerList {...props} section={TEAM_SECTION_CONFIGS[0]} />
+      <TeamSkillPlayerList {...props} />
       {TEAM_SECTION_CONFIGS.slice(1).map((section) => (
-        <TeamPositionPlayerList key={section.id} team={team} teamSlug={teamSlug} section={section} />
+        <TeamPositionPlayerList key={section.id} {...props} section={section} />
       ))}
     </>
   );

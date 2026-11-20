@@ -184,7 +184,7 @@ export interface PositionPageConfig {
   note: string;
   rankingKey: PlayerSortKey;
   ratingKey: PlayerSortKey;
-  rankingTooltip: string;
+  rankingGroupLabel: string;
   columns: readonly MetricColumn[];
   homeLimit: number;
   homeExcludePositions?: readonly string[];
@@ -196,7 +196,7 @@ export interface TeamSectionConfig {
   id: string;
   range: readonly [number, number];
   rankingLabel: string;
-  rankingTooltip: string;
+  rankingGroupLabel: string;
   note: string;
   playerPage: PositionSlug;
   columns: readonly MetricColumn[];

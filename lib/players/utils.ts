@@ -63,3 +63,7 @@ export function getTeamReturnSpeedValues(team: TeamData) {
     puntReturnMaximumSpeed: ss?.maximum_speed ?? 0,
   };
 }
+
+export function rankingTooltip(count: number, groupLabel: string): string {
+  return `Out of ${count} ${groupLabel}`;
+}

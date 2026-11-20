@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 import { TeamRatingSummaryCards } from "@/components/teams/team-rating-summary-cards";
 import { HelmetSprite } from "@/components/ui/sprites";
 import { TeamPlayerListsView } from "@/components/teams/team-player-lists-view";
-import { getTeam, getTeamRatings } from "@/lib/data";
+import { getLeaderboardCounts, getTeam, getTeamRatings } from "@/lib/data";
 import { pageMetadata } from "@/lib/site/metadata";
 import { teamRoute, teamsRoute } from "@/lib/site/routes";
 import { getTeamRatingSummaries } from "@/lib/teams/ratings";
@@ -39,7 +39,7 @@ export default async function TeamPage({ params }: TeamPageProps) {
     notFound();
   }
 
-  const [team, teamRatings] = await Promise.all([getTeam(slug), getTeamRatings()]);
+  const [team, teamRatings, counts] = await Promise.all([getTeam(slug), getTeamRatings(), getLeaderboardCounts()]);
   const teamSlug = team.short_name;
   const ratingSummaries = getTeamRatingSummaries(teamRatings, teamSlug);
 
@@ -64,7 +64,7 @@ export default async function TeamPage({ params }: TeamPageProps) {
         </div>
       </header>
 
-      <TeamPlayerListsView team={team} teamSlug={teamSlug} />
+      <TeamPlayerListsView team={team} teamSlug={teamSlug} counts={counts} />
     </>
   );
 }

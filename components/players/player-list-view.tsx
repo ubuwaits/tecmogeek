@@ -5,7 +5,7 @@ import { useState } from "react";
 import { PlayerListSection } from "@/components/players/player-list-table";
 import { SelectionTabs } from "@/components/ui/selection-tabs";
 import { POSITION_PAGE_CONFIG_MAP } from "@/lib/players/config";
-import { getTeamSlugFromCode, matchesPrefixes, sortEntriesByKey } from "@/lib/players/utils";
+import { getTeamSlugFromCode, matchesPrefixes, rankingTooltip, sortEntriesByKey } from "@/lib/players/utils";
 import { teamRoute } from "@/lib/site/routes";
 import { getNextSortDirection } from "@/lib/shared/sort-direction";
 import type {
@@ -91,7 +91,7 @@ export function PlayerListView({ slug, entries }: PlayerListViewProps) {
         testId="player-table-scroll"
         layout="player"
         rankingLabel="Ranking"
-        rankingTooltip={config.rankingTooltip}
+        rankingTooltip={rankingTooltip(entries.length, config.rankingGroupLabel)}
         rankingActive={sortKey === config.rankingKey}
         onRankingClick={() => changeSort(config.rankingKey, "asc")}
         ratingActive={sortKey === config.ratingKey}
