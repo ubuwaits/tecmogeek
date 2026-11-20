@@ -136,39 +136,6 @@ export function lineupScore<T>(
     ops.multiply(passing(), BALANCED_SKILL_WEIGHTS.passing));
 }
 
-function createLineupAssignment(
-  rbPlayers: readonly RatedPlayer[],
-  receivingPlayers: readonly RatedPlayer[],
-): SkillSlotAssignment {
-  const orderedRbs = sortPlayersByRating(rbPlayers, "rushing_rating");
-  const orderedReceivers = sortPlayersByRating(receivingPlayers, "receiving_rating");
-
-  return {
-    RB1: orderedRbs[0],
-    RB2: orderedRbs[1],
-    WR1: orderedReceivers[0],
-    WR2: orderedReceivers[1],
-    TE1: orderedReceivers[2],
-  };
-}
-
-function createRunningLineupAssignment(
-  rbPlayers: readonly RatedPlayer[],
-  wrPlayers: readonly RatedPlayer[],
-  tePlayer: RatedPlayer,
-): SkillSlotAssignment {
-  const orderedRbs = sortPlayersByRating(rbPlayers, "rushing_rating");
-  const orderedWrs = sortPlayersByRating(wrPlayers, "rushing_rating");
-
-  return {
-    RB1: orderedRbs[0],
-    RB2: orderedRbs[1],
-    WR1: orderedWrs[0],
-    WR2: orderedWrs[1],
-    TE1: tePlayer,
-  };
-}
-
 function sortPlayersByRunningTeSupport(players: readonly RatedPlayer[]): RatedPlayer[] {
   return [...players].sort((left, right) => {
     const rightHasHighHp = hasHighRunningPower(getHittingPower(right));
@@ -204,28 +171,16 @@ function sortPlayersByRunningTeSupport(players: readonly RatedPlayer[]): RatedPl
 }
 
 function assignRunningLineup(players: readonly RatedPlayer[]): SkillSlotAssignment {
-  const tePlayer = sortPlayersByRunningTeSupport(players)[0];
-  const teIndex = tePlayer.rosterIndex;
-  const nonTePlayers = players.filter((player) => player.rosterIndex !== teIndex);
-  const rushers = sortPlayersByRating(nonTePlayers, "rushing_rating");
-  const rbPlayers = rushers.slice(0, 2);
-  const rbIndexes = new Set(rbPlayers.map((player) => player.rosterIndex));
-  const wrPlayers = nonTePlayers.filter((player) => !rbIndexes.has(player.rosterIndex));
-
-  return createRunningLineupAssignment(rbPlayers, wrPlayers, tePlayer);
+  const [TE1] = sortPlayersByRunningTeSupport(players);
+  const rushers = players.filter(player => player !== TE1);
+  const [RB1, RB2, WR1, WR2] = sortPlayersByRating(rushers, "rushing_rating");
+  return { RB1, RB2, WR1, WR2, TE1 };
 }
 
 function assignPassingLineup(players: readonly RatedPlayer[]): SkillSlotAssignment {
-  const receivers = sortPlayersByRating(players, "receiving_rating");
-  const receivingPlayers = receivers.slice(0, 3);
-  const receiverIndexes = new Set(receivingPlayers.map((player) => player.rosterIndex));
-  const rbPlayers = players.filter((player) => !receiverIndexes.has(player.rosterIndex));
-
-  return createLineupAssignment(rbPlayers, receivingPlayers);
-}
-
-function assignBalancedLineup(players: readonly RatedPlayer[]): SkillSlotAssignment {
-  return assignPassingLineup(players);
+  const [WR1, WR2, TE1, ...runningBacks] = sortPlayersByRating(players, "receiving_rating");
+  const [RB1, RB2] = sortPlayersByRating(runningBacks, "rushing_rating");
+  return { RB1, RB2, WR1, WR2, TE1 };
 }
 
 export function compareLineupScores(candidate: number, incumbent: number) {
@@ -291,7 +246,7 @@ export function createOffensiveSkillLineups(
       numericArithmetic);
   const running = chooseBestAssignment(skillPlayers, assignRunningLineup, score("running"), observers?.running);
   const passing = chooseBestAssignment(skillPlayers, assignPassingLineup, score("passing"), observers?.passing);
-  const balanced = chooseBestAssignment(skillPlayers, assignBalancedLineup, score("balanced"), observers?.balanced);
+  const balanced = chooseBestAssignment(skillPlayers, assignPassingLineup, score("balanced"), observers?.balanced);
 
   return {
     runningSkillRating: running.score,
