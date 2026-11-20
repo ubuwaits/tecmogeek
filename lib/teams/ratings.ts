@@ -44,23 +44,23 @@ export function getTeamRatingSortValue(team: TeamRatingRecord, sortKey: TeamRati
   }
 }
 
+function compareTeamRatings(
+  left: TeamRatingRecord,
+  right: TeamRatingRecord,
+  sortKey: TeamRatingSortKey,
+  direction: SortDirection,
+) {
+  const difference = getTeamRatingSortValue(left, sortKey) - getTeamRatingSortValue(right, sortKey);
+  if (difference === 0) return left.full_name.localeCompare(right.full_name);
+  return direction === "asc" ? difference : -difference;
+}
+
 export function sortTeamRatingsByKey(
   teams: readonly TeamRatingRecord[],
   sortKey: TeamRatingSortKey,
   sortDirection: SortDirection,
 ) {
-  return [...teams].sort((left, right) => {
-    const ratingDifference =
-      sortDirection === "desc"
-        ? getTeamRatingSortValue(right, sortKey) - getTeamRatingSortValue(left, sortKey)
-        : getTeamRatingSortValue(left, sortKey) - getTeamRatingSortValue(right, sortKey);
-
-    if (ratingDifference !== 0) {
-      return ratingDifference;
-    }
-
-    return left.full_name.localeCompare(right.full_name);
-  });
+  return [...teams].sort((left, right) => compareTeamRatings(left, right, sortKey, sortDirection));
 }
 
 export function getRankedTeamRows(
@@ -72,8 +72,7 @@ export function getRankedTeamRows(
     .map((team, index) => ({ team, rank: index + 1 }));
   if (direction === "desc") return standings;
 
-  const rowsByTeam = new Map(standings.map(row => [row.team.team, row]));
-  return sortTeamRatingsByKey(teams, sortKey, "asc").map(team => rowsByTeam.get(team.team)!);
+  return standings.sort((left, right) => compareTeamRatings(left.team, right.team, sortKey, direction));
 }
 
 export function getTeamRatingSummaries(
