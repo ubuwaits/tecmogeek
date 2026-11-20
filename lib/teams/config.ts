@@ -7,37 +7,6 @@ import type {
   TeamSlug,
 } from "@/lib/types";
 
-export const TEAM_NAME_MAP: Record<TeamSlug, string> = {
-  "49ers": "49ers",
-  bears: "Bears",
-  bengals: "Bengals",
-  bills: "Bills",
-  broncos: "Broncos",
-  browns: "Browns",
-  buccaneers: "Buccaneers",
-  cardinals: "Cardinals",
-  chargers: "Chargers",
-  chiefs: "Chiefs",
-  colts: "Colts",
-  cowboys: "Cowboys",
-  dolphins: "Dolphins",
-  eagles: "Eagles",
-  falcons: "Falcons",
-  giants: "Giants",
-  jets: "Jets",
-  lions: "Lions",
-  oilers: "Oilers",
-  packers: "Packers",
-  patriots: "Patriots",
-  raiders: "Raiders",
-  rams: "Rams",
-  redskins: "Redskins",
-  saints: "Saints",
-  seahawks: "Seahawks",
-  steelers: "Steelers",
-  vikings: "Vikings",
-};
-
 export const TEAM_SLUG_SET: ReadonlySet<TeamSlug> = new Set(
   TEAM_GROUPS.flatMap((group) => group.teams),
 );
@@ -92,5 +61,5 @@ export function resolveTeamSlug(shortName: string, routeSlug: TeamSlug): TeamSlu
 }
 
 export function getTeamLabel(slug: TeamSlug): string {
-  return TEAM_NAME_MAP[slug];
+  return slug.charAt(0).toUpperCase() + slug.slice(1);
 }
