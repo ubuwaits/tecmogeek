@@ -1,7 +1,7 @@
 import type { Metadata, ResolvingMetadata } from "next";
 
 import { TeamRatingsView } from "@/components/teams/team-ratings-view";
-import { getTeamRatings } from "@/lib/data";
+import { getTeamRatings } from "@/lib/teams/data";
 import { pageMetadata } from "@/lib/site/metadata";
 import { teamsRoute } from "@/lib/site/routes";
 

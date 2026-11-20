@@ -3,7 +3,8 @@ import Link from "next/link";
 
 import { HeadshotSprite, HelmetSprite } from "@/components/ui/sprites";
 import { XMentionsSection } from "@/components/home/x-mentions-section";
-import { getPositionEntries, getTeam } from "@/lib/data";
+import { getPositionEntries } from "@/lib/players/data";
+import { getTeam } from "@/lib/teams/data";
 import { POSITION_PAGES } from "@/lib/players/config";
 import { getHomeEntries, getTeamSlugFromCode } from "@/lib/players/utils";
 import { homeRoute, playerRoute, teamRoute } from "@/lib/site/routes";
