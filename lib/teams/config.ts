@@ -1,18 +1,4 @@
-import {
-  DEFENSE_NOTE,
-  DEFENSIVE_LINE_COLUMNS,
-  KICKER_NOTE,
-  KICKER_COLUMNS,
-  LINEBACKER_COLUMNS,
-  OFFENSIVE_LINE_COLUMNS,
-  OFFENSIVE_LINE_NOTE,
-  POSITION_PAGE_CONFIG_MAP,
-  PUNTER_COLUMNS,
-  PUNTER_NOTE,
-  QB_COLUMNS,
-  QB_NOTE,
-  SECONDARY_COLUMNS,
-} from "@/lib/players/config";
+import { POSITION_PAGE_CONFIG_MAP } from "@/lib/players/config";
 import type {
   TeamGroup,
   TeamSectionConfig,
@@ -65,70 +51,24 @@ export const TEAM_SLUG_SET: ReadonlySet<TeamSlug> = new Set(
   TEAM_GROUPS.flatMap((group) => group.teams),
 );
 
+function rosterSection(
+  id: string,
+  playerPage: TeamSectionConfig["playerPage"],
+  range: TeamSectionConfig["range"],
+  rankingLabel: string,
+): TeamSectionConfig {
+  const { rankingTooltip, note, columns } = POSITION_PAGE_CONFIG_MAP[playerPage];
+  return { id, playerPage, range, rankingLabel, rankingTooltip, note, columns };
+}
+
 export const TEAM_SECTION_CONFIGS: readonly TeamSectionConfig[] = [
-  {
-    id: "qb",
-    range: [0, 1],
-    rankingLabel: "QB Ranking",
-    rankingTooltip: "Out of 56 QBs",
-    note: QB_NOTE,
-    playerPage: "qb",
-    columns: QB_COLUMNS,
-  },
-  {
-    id: "ol",
-    range: [12, 16],
-    rankingLabel: "OL Ranking",
-    rankingTooltip: "Out of 140 OL",
-    note: OFFENSIVE_LINE_NOTE,
-    playerPage: "ol",
-    columns: OFFENSIVE_LINE_COLUMNS,
-  },
-  {
-    id: "dl",
-    range: [17, 19],
-    rankingLabel: "DL Ranking",
-    rankingTooltip: "Out of 84 DL",
-    note: DEFENSE_NOTE,
-    playerPage: "dl",
-    columns: DEFENSIVE_LINE_COLUMNS,
-  },
-  {
-    id: "lb",
-    range: [20, 23],
-    rankingLabel: "LB Ranking",
-    rankingTooltip: "Out of 112 LBs",
-    note: DEFENSE_NOTE,
-    playerPage: "lb",
-    columns: LINEBACKER_COLUMNS,
-  },
-  {
-    id: "secondary",
-    range: [24, 27],
-    rankingLabel: "CB/S Ranking",
-    rankingTooltip: "Out of 112 CB & S",
-    note: DEFENSE_NOTE,
-    playerPage: "cb-s",
-    columns: SECONDARY_COLUMNS,
-  },
-  {
-    id: "k",
-    range: [28, 28],
-    rankingLabel: "K Ranking",
-    rankingTooltip: "Out of 28 kickers",
-    note: KICKER_NOTE,
-    playerPage: "k",
-    columns: KICKER_COLUMNS,
-  },
-  {
-    id: "p",
-    range: [29, 29],
-    rankingLabel: "P Ranking",
-    rankingTooltip: "Out of 28 punters",
-    note: PUNTER_NOTE,
-    playerPage: "p",
-    columns: PUNTER_COLUMNS,
-  },
+  rosterSection("qb", "qb", [0, 1], "QB Ranking"),
+  rosterSection("ol", "ol", [12, 16], "OL Ranking"),
+  rosterSection("dl", "dl", [17, 19], "DL Ranking"),
+  rosterSection("lb", "lb", [20, 23], "LB Ranking"),
+  rosterSection("secondary", "cb-s", [24, 27], "CB/S Ranking"),
+  rosterSection("k", "k", [28, 28], "K Ranking"),
+  rosterSection("p", "p", [29, 29], "P Ranking"),
 ];
 
 function skillMode(
