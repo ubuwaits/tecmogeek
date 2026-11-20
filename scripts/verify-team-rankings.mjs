@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { init } from "z3-solver";
-import { getDisplayedTeamRank, getTeamRatingSummaries, sortTeamRatingsByKey } from "../lib/team-rating-utils.ts";
+import { getRankedTeamRows, getTeamRatingSummaries } from "../lib/team-rating-utils.ts";
 import { getTeamFileNames } from "./rebuild-team-ratings.ts";
 
 const summaryKeys = ["overall_rating", "offensive_rating", "defensive_rating"];
@@ -43,7 +43,6 @@ const [a, b, c] = ["a", "b", "c"].map(id => ({ score: Real.const(id + "_score"),
 const summaries = new Map(teams.map(team => [team.team, getTeamRatingSummaries(teams, team.team)]));
 for (const items of summaries.values()) assert.deepEqual(items.map(item => item.key), summaryKeys);
 
-let tiedRankChanges = 0;
 for (const direction of ["desc", "asc"]) {
   const ab = precedes(a, b, direction);
   const ba = precedes(b, a, direction);
@@ -54,12 +53,12 @@ for (const direction of ["desc", "asc"]) {
   for (const key of keys) {
     const value = team => summaryKeys.includes(key) ? team[key] : team.components[key];
     for (const team of teams) assert(Number.isFinite(value(team)), `${team.team}: invalid ${key}`);
-    const ranked = sortTeamRatingsByKey(teams, key, direction);
-    assert.deepEqual(ranked.map(team => team.team).sort(), ids);
+    const ranked = getRankedTeamRows(teams, key, direction);
+    assert.deepEqual(ranked.map(row => row.team.team).sort(), ids);
     const inversions = [];
     const witness = Int.const("second_row_of_inversion");
     let previous;
-    for (const [i, team] of ranked.entries()) {
+    for (const [i, { team, rank }] of ranked.entries()) {
       const score = value(team);
       const current = { score: Real.val(String(score)), name: Int.val(names.get(team.team)) };
       if (previous) inversions.push(And(witness.eq(i + 1), Not(precedes(previous, current, direction))));
@@ -69,10 +68,7 @@ for (const direction of ["desc", "asc"]) {
       const ties = teams.filter(other => value(other) === score);
       const earlier = ties.filter(other => names.get(other.team) < names.get(team.team)).length;
       const canonical = 1 + higher + earlier;
-      const expected = direction === "desc" ? canonical : higher + ties.length - earlier;
-      const displayed = getDisplayedTeamRank(i, teams.length, direction);
-      assert.equal(displayed, expected, `${direction} ${key}: ${team.team} rank`);
-      if (direction === "asc" && displayed !== canonical) tiedRankChanges++;
+      assert.equal(rank, canonical, `${direction} ${key}: ${team.team} rank`);
       if (direction === "desc" && summaryKeys.includes(key)) {
         const item = summaries.get(team.team).find(item => item.key === key);
         assert.equal(item.rating, score, `${team.team}: ${key} summary rating`);
@@ -85,9 +81,8 @@ for (const direction of ["desc", "asc"]) {
     const forcedTies = alphabetical.toReversed().map(team => ({
       ...team, ...(summaryKeys.includes(key) ? { [key]: 50 } : { components: { ...team.components, [key]: 50 } }),
     }));
-    assert.deepEqual(sortTeamRatingsByKey(forcedTies, key, direction).map(team => team.team),
-      alphabetical.map(team => team.team), `${direction} ${key}: equal scores must sort by full name`);
+    assert.deepEqual(getRankedTeamRows(forcedTies, key, direction).map(({ team, rank }) => [team.team, rank]),
+      alphabetical.map((team, i) => [team.team, i + 1]), `${direction} ${key}: equal scores must keep alphabetical ranks`);
   }
 }
 console.log(`Verified ${teams.length * keys.length * 2} table ranks and ${teams.length * summaryKeys.length} summary ranks across ${teams.length} teams.`);
-console.log(`Ascending display changes ${tiedRankChanges} team/column ranks within exact ties.`);

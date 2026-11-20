@@ -10,7 +10,7 @@ import { teamRoute } from "@/lib/routes";
 import { getNextSortDirection } from "@/lib/sort-utils";
 import {
   formatTeamRating,
-  getDisplayedTeamRank,
+  getRankedTeamRows,
   getTeamRatingSortValue,
   sortTeamRatingsByKey,
   type TeamRatingSortKey,
@@ -271,9 +271,10 @@ export function TeamRatingsView({ teams }: TeamRatingsViewProps) {
     offenseExpanded,
     defenseExpanded,
   );
-  const sortedTeams = sortTeamRatingsByKey(teams, sortKey, sortDirection);
+  const rankedRows = getRankedTeamRows(teams, sortKey, sortDirection);
 
   function changeSort(key: TeamRatingSortKey, defaultDirection: SortDirection = "desc") {
+    const sortedTeams = rankedRows.map(row => row.team);
     const descendingOrder = sortTeamRatingsByKey(teams, key, "desc");
     const ascendingOrder = sortTeamRatingsByKey(teams, key, "asc");
     const nextDefaultDirection = hasSameOrder(sortedTeams, descendingOrder)
@@ -343,11 +344,11 @@ export function TeamRatingsView({ teams }: TeamRatingsViewProps) {
             ))}
           </li>
 
-          {sortedTeams.map((team, index) => (
+          {rankedRows.map(({ team, rank }) => (
             <li key={team.team} data-testid="team-ratings-row">
               <div className="grid w-full items-center rounded-lg" style={{ gridTemplateColumns }}>
                 <div className="text-[14px] font-bold tabular-nums">
-                  {getDisplayedTeamRank(index, sortedTeams.length, sortDirection)}
+                  {rank}
                 </div>
 
                 <div className="min-w-0 pr-4">

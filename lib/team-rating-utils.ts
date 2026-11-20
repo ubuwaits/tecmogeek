@@ -24,10 +24,6 @@ export const TEAM_PAGE_RATING_ITEMS = [
   { key: "defensive_rating", label: "Defense" },
 ] as const satisfies readonly Pick<TeamRatingSummaryItem, "key" | "label">[];
 
-export function getDisplayedTeamRank(index: number, total: number, direction: SortDirection) {
-  return direction === "desc" ? index + 1 : total - index;
-}
-
 export function formatTeamRating(value: number) {
   return `${value.toFixed(1)}%`;
 }
@@ -65,6 +61,17 @@ export function sortTeamRatingsByKey(
 
     return left.full_name.localeCompare(right.full_name);
   });
+}
+
+export function getRankedTeamRows(
+  teams: readonly TeamRatingRecord[],
+  sortKey: TeamRatingSortKey,
+  direction: SortDirection,
+) {
+  const standings = sortTeamRatingsByKey(teams, sortKey, "desc");
+  const ranks = new Map(standings.map((team, index) => [team.team, index + 1]));
+  const ordered = direction === "desc" ? standings : sortTeamRatingsByKey(teams, sortKey, "asc");
+  return ordered.map(team => ({ team, rank: ranks.get(team.team)! }));
 }
 
 export function getTeamRatingSummaries(
