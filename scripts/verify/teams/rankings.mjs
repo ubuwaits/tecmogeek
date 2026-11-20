@@ -1,3 +1,4 @@
+import { rejectCounterexample } from "../reject-counterexample.mjs";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { init } from "z3-solver";
@@ -27,18 +28,6 @@ function precedes(a, b, direction) {
   return Or(better, And(a.score.eq(b.score), a.name.lt(b.name)));
 }
 
-async function check(violation, label) {
-  const solver = new Solver();
-  try {
-    solver.add(violation);
-    const result = await solver.check();
-    if (result === "sat") throw new Error(`${label}: ${solver.model()}`);
-    if (result !== "unsat") throw new Error(`${label}: ${solver.reasonUnknown()}`);
-  } finally {
-    solver.release();
-  }
-}
-
 const [a, b, c] = ["a", "b", "c"].map(id => ({ score: Real.const(id + "_score"), name: Int.const(id + "_name") }));
 const summaries = new Map(teams.map(team => [team.team, getTeamRatingSummaries(teams, team.team)]));
 for (const items of summaries.values()) assert.deepEqual(items.map(item => item.key), summaryKeys);
@@ -46,7 +35,7 @@ for (const items of summaries.values()) assert.deepEqual(items.map(item => item.
 for (const direction of ["desc", "asc"]) {
   const ab = precedes(a, b, direction);
   const ba = precedes(b, a, direction);
-  await check(Or(precedes(a, a, direction), And(ab, ba), And(a.name.neq(b.name), Not(Or(ab, ba))),
+  await rejectCounterexample(Solver, Or(precedes(a, a, direction), And(ab, ba), And(a.name.neq(b.name), Not(Or(ab, ba))),
     And(ab, precedes(b, c, direction), Not(precedes(a, c, direction)))),
   `Invalid ${direction} ordering`);
 
@@ -75,7 +64,7 @@ for (const direction of ["desc", "asc"]) {
         assert.equal(item.rank, canonical, `${team.team}: ${key} summary rank`);
       }
     }
-    if (inversions.length) await check(Or(...inversions), `${direction} ${key}: out-of-order teams`);
+    if (inversions.length) await rejectCounterexample(Solver, Or(...inversions), `${direction} ${key}: out-of-order teams`);
 
     // Exercise every column's exact tie rule even if today's scores are distinct.
     const forcedTies = alphabetical.toReversed().map(team => ({

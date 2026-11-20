@@ -1,3 +1,4 @@
+import { rejectCounterexample } from "../reject-counterexample.mjs";
 import assert from "node:assert/strict";
 import { init } from "z3-solver";
 import { sortEntriesByKey } from "../../../lib/player-sort.ts";
@@ -21,17 +22,11 @@ async function orderingRule(direction) {
   const next = ["nextValue", "nextRank", "nextPosition"].map(name => Int.const(name));
   const before = precedes(...delta, direction);
   const after = precedes(...delta.map(x => x.neg()), direction);
-  const solver = new Solver();
-  try {
-    // For any two distinct rows exactly one precedes the other. For three rows,
-    // (a - c) = (a - b) + (b - c) in each coordinate.
-    solver.add(Or(And(before, after), And(delta[2].neq(0), Not(Or(before, after))),
-      And(before, precedes(...next, direction), Not(precedes(...delta.map((x, i) => x.add(next[i])), direction)))));
-    const result = await solver.check();
-    assert.equal(result, "unsat", result === "sat" ? solver.model().toString() : "Could not prove sort order");
-  } finally {
-    solver.release();
-  }
+  // For any two distinct rows exactly one precedes the other. For three rows,
+  // (a - c) = (a - b) + (b - c) in each coordinate.
+  const violation = Or(And(before, after), And(delta[2].neq(0), Not(Or(before, after))),
+    And(before, precedes(...next, direction), Not(precedes(...delta.map((x, i) => x.add(next[i])), direction))));
+  await rejectCounterexample(Solver, violation, `Invalid ${direction} player sort order`);
 
   // Evaluate the model once per possible comparison; reuse it for every row.
   const allowed = new Set();

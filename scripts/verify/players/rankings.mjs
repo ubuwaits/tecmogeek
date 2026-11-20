@@ -1,3 +1,4 @@
+import { rejectCounterexample } from "../reject-counterexample.mjs";
 import assert from "node:assert/strict";
 import { init } from "z3-solver";
 import { POSITION_PAGES } from "../../../lib/players/config.ts";
@@ -15,25 +16,13 @@ function precedes(a, b) {
     Or(a.secondary.gt(b.secondary), And(a.secondary.eq(b.secondary), a.index.lt(b.index)))));
 }
 
-async function rejectCounterexample(violation, description) {
-  const solver = new Solver();
-  try {
-    solver.add(violation);
-    const result = await solver.check();
-    if (result === "sat") throw new Error(`${description}: ${solver.model()}`);
-    if (result !== "unsat") throw new Error(`${description}: ${solver.reasonUnknown()}`);
-  } finally {
-    solver.release();
-  }
-}
-
 function symbolicPlayer(name) {
   return { primary: Int.const(name + "_primary"), secondary: Int.const(name + "_secondary"), index: Int.const(name + "_index") };
 }
 const [a, b, c] = ["a", "b", "c"].map(symbolicPlayer);
 const ab = precedes(a, b);
 const ba = precedes(b, a);
-await rejectCounterexample(Or(precedes(a, a), And(ab, ba),
+await rejectCounterexample(Solver, Or(precedes(a, a), And(ab, ba),
   And(a.index.neq(b.index), Not(Or(ab, ba))),
   And(ab, precedes(b, c), Not(precedes(a, c)))), "Ranking is not a strict total order");
 
@@ -45,7 +34,7 @@ for (const rating of [-1, 0, 1]) {
       const left = { rating, hittingPower: hp, sourceIndex: index };
       const right = { rating: 0, hittingPower: 0, sourceIndex: 0 };
       const observed = comparePlayerRanks(left, right);
-      await rejectCounterexample(And(
+      await rejectCounterexample(Solver, And(
         a.primary.sub(b.primary).eq(rating), a.secondary.sub(b.secondary).eq(hp), a.index.sub(b.index).eq(index),
         observed < 0 ? Not(ab) : observed > 0 ? Not(ba) : Or(ab, ba),
       ), "Rebuild comparator disagrees with ranking rule");
@@ -90,7 +79,7 @@ for (const page of POSITION_PAGES) {
     ranks.get(id).set(page.rankingKey, i + 1);
   }
   // Transitivity makes adjacent comparisons sufficient for the entire file.
-  if (violations.length) await rejectCounterexample(Or(...violations), `Out-of-order players in ${page.dataFile}`);
+  if (violations.length) await rejectCounterexample(Solver, Or(...violations), `Out-of-order players in ${page.dataFile}`);
   count += rows.length;
 }
 
