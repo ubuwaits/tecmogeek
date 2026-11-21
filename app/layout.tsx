@@ -58,13 +58,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${tecmo.variable} bg-(--blue) p-4 font-sans text-white antialiased sm:p-8`}>
+      <body className={`${inter.variable} ${tecmo.variable} bg-(--blue) font-sans text-white antialiased`}>
         <TooltipProvider>
           <TopNav />
-          <main id="container" className="pt-20.5 sm:pt-24">
-            {children}
-          </main>
-          <SiteFooter />
+          <div className="p-4 sm:p-8">
+            <main id="container" className="pt-20.5 sm:pt-24">
+              {children}
+            </main>
+            <SiteFooter />
+          </div>
         </TooltipProvider>
       </body>
     </html>

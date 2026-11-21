@@ -8,7 +8,7 @@ import { POSITION_SLUGS, TEAM_SLUGS } from "../../lib/types";
 const site = "https://www.tecmogeek.com";
 const teams = TEAM_SLUGS.map(slug => `/teams/${slug}/`);
 const players = POSITION_SLUGS.map(slug => `/players/${slug}/`);
-const routes = ["/", "/about/ratings/", "/about/team-ratings/", "/about/cpu/", "/teams/", ...teams, ...players];
+const routes = ["/", "/about/ratings/", "/about/team-ratings/", "/about/cpu/", "/about/pass-catch-chances/", "/teams/", ...teams, ...players];
 const output = resolve("out");
 
 const socialTitles = new Map<string, string>([
@@ -16,6 +16,7 @@ const socialTitles = new Map<string, string>([
   ["/about/ratings/", "How player ratings are calculated"],
   ["/about/team-ratings/", "How team ratings are calculated"],
   ["/about/cpu/", "How the CPU plays"],
+  ["/about/pass-catch-chances/", "Pass Catch Chances"],
   ["/teams/", "Team Ratings"],
 ]);
 for (const slug of TEAM_SLUGS) {
@@ -29,7 +30,7 @@ test("public HTML, canonical URLs, Open Graph tags, sitemap and internal links a
     .filter(entry => entry.isFile()).map(entry => relative(output, resolve(entry.parentPath, entry.name)));
   const auxiliary = new Set(["404.html", "404/index.html", "_not-found/index.html", "google146824b99fdbed48.html"]);
   const htmlPages = files.filter(file => file.endsWith(".html") && !auxiliary.has(file));
-  expect(routes).toHaveLength(44);
+  expect(routes).toHaveLength(45);
   expect(htmlPages.sort()).toEqual(routes.map(route => route.slice(1) + "index.html").sort());
 
   const sitemap = await request.get("/sitemap.xml", { maxRedirects: 0 });
@@ -92,7 +93,7 @@ for (const mobile of [false, true]) {
     if (mobile) await page.setViewportSize({ width: 390, height: 844 });
     await page.goto("/");
     if (mobile) await page.getByTestId("mobile-nav-toggle").click();
-    for (const [menu, expected] of [["teams", ["/teams/", ...teams]], ["players", players], ["about", ["/about/ratings/", "/about/team-ratings/", "/about/cpu/"]]] as const) {
+    for (const [menu, expected] of [["teams", ["/teams/", ...teams]], ["players", players], ["about", ["/about/ratings/", "/about/team-ratings/", "/about/cpu/", "/about/pass-catch-chances/"]]] as const) {
       const trigger = page.getByTestId(mobile ? "mobile-nav-section-" + menu : "nav-" + menu);
       if (mobile) await trigger.click();
       else await trigger.hover();
