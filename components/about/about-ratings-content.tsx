@@ -1,8 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
-import { useState } from "react";
+import { useState, type ComponentProps } from "react";
 
 import { SelectionTabs } from "@/components/ui/selection-tabs";
 
@@ -10,12 +9,20 @@ import { POSITION_PAGE_CONFIG_MAP } from "@/lib/players/config";
 import { DEFENSIVE_HP_SCORE_MAP, OFFENSIVE_HP_SCORE_MAP, OFFENSIVE_LINE_HP_SCORE_MAP } from "@/lib/players/metrics";
 import type { PositionSlug } from "@/lib/types";
 
+const NES_SOURCE = "https://github.com/bruddog/Tecmo_Super_Bowl_NES_Disassembly/blob/f3bae0e1913ba532a5ace158d86d905ecf787008";
+const FIELD_LOGIC = NES_SOURCE + "/Bank21_22_play_commands_on_field_logic.asm";
+const PLAY_SCRIPTS = NES_SOURCE + "/Bank5_6_off_def_play_data.asm";
+
 const RATING_TOPIC_TABS = [
   { id: "player", label: "Player Ratings" },
   { id: "team", label: "Team Ratings" },
 ] as const;
 
 type RatingTopic = (typeof RATING_TOPIC_TABS)[number]["id"];
+
+function AboutLink(props: ComponentProps<"a">) {
+  return <a {...props} target="_blank" rel="noopener noreferrer" />;
+}
 
 function RatingsTable({
   headings = ["Attribute", "Value"],
@@ -109,13 +116,10 @@ export function AboutRatingsContent() {
         </h2>
 
         <p>
-          First, for each type of player, I disregard attributes which are either the same for each player or not used by the game to determine performance. Yes, for whatever reason (the programmers forgot, ran out of time, etc.), Accuracy of Passing for QBs, and Quickness for defensive players have no effect on actual performance.
+          These tables list attributes excluded from the ratings. Some have the same value for every player at a position. RBs, WRs, and TEs share a group because each can play the other two positions.
         </p>
         <p>
-          Below are the attributes that are either the same for every player at the position or not used. Note that I put RBs, WRs, and TEs into one group, since every player can play each of the other two positions.
-        </p>
-        <p>
-          If you want to learn more about attributes and how they affect player performance, I highly recommend <a href="http://www.gamefaqs.com/nes/587686-tecmo-super-bowl/faqs/44195" className="font-bold"> this guide</a>.
+          If you want to learn more about attributes and how they affect player performance, I highly recommend <AboutLink href="http://www.gamefaqs.com/nes/587686-tecmo-super-bowl/faqs/44195" className="font-bold"> this guide</AboutLink>.
         </p>
 
         <h3>QB</h3>
@@ -124,9 +128,17 @@ export function AboutRatingsContent() {
             ["Running Speed", "25"],
             ["Rushing Power", "69"],
             ["Hitting Power", "13"],
-            ["Accuracy of Passing", "not used"],
+            ["Accuracy of Passing", "unused for pass placement"],
           ]}
         />
+
+        <p>
+          The game ignores Accuracy of Passing. Pass Control determines how likely a throw is to be on target.{" "}
+          <AboutLink href={NES_SOURCE + "/Bank25_leaders_player_data_pro_bowl_abbrev.asm#L1702-L1705"}>QB attribute bars</AboutLink>
+          {" · "}<AboutLink href={FIELD_LOGIC + "#L5972-L5975"}>Pass Control lookup</AboutLink>
+          {" · "}<AboutLink href={FIELD_LOGIC + "#L4545-L4572"}>Throw to a moving receiver</AboutLink>
+          {" · "}<AboutLink href={FIELD_LOGIC + "#L4622-L4633"}>Throw to a stationary receiver</AboutLink>
+        </p>
 
         <h3>RB/WR/TE</h3>
         <RatingsTable
@@ -142,6 +154,13 @@ export function AboutRatingsContent() {
           ]}
         />
 
+        <p>
+          On a kickoff, the right tackle&apos;s field slot runs the return. The game shows the selected returner&apos;s name, then reloads Maximum Speed from the starter in that field slot. That gives every kick returner on the team the right tackle&apos;s Maximum Speed.{" "}
+          <AboutLink href={NES_SOURCE + "/Bank3_formation_metatile_data.asm#L6-L17"}>Kickoff formation</AboutLink>
+          {" · "}<AboutLink href={PLAY_SCRIPTS + "#L117-L123"}>Kick return commands</AboutLink>
+          {" · "}<AboutLink href={FIELD_LOGIC + "#L4222-L4232"}>Returner name and control</AboutLink>
+        </p>
+
         <h3>Punt Returners</h3>
         <RatingsTable
           rows={[
@@ -149,6 +168,14 @@ export function AboutRatingsContent() {
             ["Receptions", "not used"],
           ]}
         />
+
+        <p>
+          On a punt, the same speed lookup runs in the strong safety&apos;s field slot. A team can change its punt returner and still get the strong safety&apos;s Maximum Speed.{" "}
+          <AboutLink href={NES_SOURCE + "/constants_variables/roster_positions_starter_ids.asm#L49-L78"}>Offensive and defensive slot order</AboutLink>
+          {" · "}<AboutLink href={NES_SOURCE + "/Bank4_def_spec_play_pointers_data.asm#L3129-L3141"}>Punt return formation</AboutLink>
+          {" · "}<AboutLink href={PLAY_SCRIPTS + "#L5305-L5309"}>Punt return commands</AboutLink>
+          {" · "}<AboutLink href={FIELD_LOGIC + "#L3139-L3168"}>Maximum Speed lookup for both returns</AboutLink>
+        </p>
 
         <h3>OL</h3>
         <RatingsTable
@@ -176,7 +203,10 @@ export function AboutRatingsContent() {
           ]}
         />
         <p>
-          Due to a programming glitch, if the blocked-kick cutscene is triggered, the game uses the worst Avoid Kick Block value rather than the kicker&apos;s actual rating.
+          On field goals and extra points, the game reads the kicker&apos;s Avoid Kick Block rating but saves it at the wrong index. If a defender gets close enough, the block check reads zero, the weakest entry in the table. A random draw then decides whether the kick is blocked.{" "}
+          <AboutLink href={FIELD_LOGIC + "#L3722-L3742"}>Kicker skill read and store</AboutLink>
+          {" · "}<AboutLink href={FIELD_LOGIC + "#L3839-L3854"}>Block check</AboutLink>
+          {" · "}<AboutLink href={FIELD_LOGIC + "#L11459-L11460"}>Block thresholds</AboutLink>
         </p>
 
         <h3>P</h3>
@@ -359,7 +389,7 @@ export function AboutRatingsContent() {
           Team ratings start with the player ratings, which are then rolled up into offensive, defensive, and overall team ratings. The goal is to model the strongest possible lineup for a given team.
         </p>
         <p>
-          The <Link href="/teams">Team Ratings page</Link> shows the final overall score, including offensive and defensive sub-ratings.
+          The <AboutLink href="/teams">Team Ratings page</AboutLink> shows the final overall score, including offensive and defensive sub-ratings.
         </p>
 
         <h2>Offensive rating</h2>
