@@ -1,6 +1,6 @@
 const SKILL_POSITION_PREFIXES = ["RB", "WR", "TE"];
 
-type RatingKey =
+export type RatingKey =
   | "rating"
   | "rushing_rating"
   | "receiving_rating"
@@ -17,10 +17,6 @@ export type PlayerRecord = {
   kick_return_rating?: string | number;
   punt_return_rating?: string | number;
   [key: string]: string | number | undefined;
-};
-
-export type RatedPlayer = PlayerRecord & {
-  rosterIndex: number;
 };
 
 function parsePercent(value: string | number | undefined): number {
@@ -47,15 +43,6 @@ export function isSkillPlayer(player: PlayerRecord): boolean {
   return SKILL_POSITION_PREFIXES.some((prefix) => player.position.startsWith(prefix));
 }
 
-export function sortPlayersByRating(players: readonly RatedPlayer[], key: RatingKey): RatedPlayer[] {
-  return [...players].sort((left, right) => {
-    const rightRating = getPlayerRating(right, key);
-    const leftRating = getPlayerRating(left, key);
-
-    if (rightRating !== leftRating) {
-      return rightRating - leftRating;
-    }
-
-    return left.rosterIndex - right.rosterIndex;
-  });
+export function compareRating(key: RatingKey) {
+  return (left: PlayerRecord, right: PlayerRecord) => getPlayerRating(right, key) - getPlayerRating(left, key);
 }

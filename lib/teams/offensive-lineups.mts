@@ -1,7 +1,7 @@
 import type { OffensiveSkillLineupRecord } from "../../lib/types.ts";
 import {
-  getPlayerLabel, getPlayerRating, isSkillPlayer, sortPlayersByRating,
-  type PlayerRecord, type RatedPlayer,
+  getPlayerLabel, getPlayerRating, isSkillPlayer, compareRating,
+  type PlayerRecord, type RatingKey,
 } from "./team-rating-players.mts";
 
 const OFFENSIVE_SKILL_SLOTS = ["RB1", "RB2", "WR1", "WR2", "TE1"] as const;
@@ -27,6 +27,13 @@ const BALANCED_SKILL_WEIGHTS = {
 export const FLOAT_TOLERANCE = 1e-9;
 
 type OffensiveSkillSlot = (typeof OFFENSIVE_SKILL_SLOTS)[number];
+
+type RatedPlayer = PlayerRecord & { rosterIndex: number };
+
+function sortPlayersByRating(players: readonly RatedPlayer[], key: RatingKey) {
+  const compare = compareRating(key);
+  return players.toSorted((left, right) => compare(left, right) || left.rosterIndex - right.rosterIndex);
+}
 
 type SkillSlotAssignment = Record<OffensiveSkillSlot, RatedPlayer>;
 

@@ -1,8 +1,8 @@
 import type { TeamData, TeamRatingRecord, TeamSlug } from "../types.ts";
 import { createOffensiveSkillLineups, formatOffensiveSkillLineup } from "./offensive-lineups.mts";
 import {
-  getPlayerLabel, getPlayerRating, isSkillPlayer, sortPlayersByRating,
-  type PlayerRecord, type RatedPlayer,
+  getPlayerLabel, getPlayerRating, isSkillPlayer, compareRating,
+  type PlayerRecord,
 } from "./team-rating-players.mts";
 
 export {
@@ -19,16 +19,16 @@ export const DEFENSIVE_STARTER_COUNT = 11;
 
 type QuarterbackRoomResult = {
   score: number;
-  bestQb: RatedPlayer;
-  backupQb: RatedPlayer;
+  bestQb: PlayerRecord;
+  backupQb: PlayerRecord;
 };
 
 type ReturnRoomResult = {
   score: number;
   kickReturnScore: number;
   puntReturnScore: number;
-  kickReturner: RatedPlayer;
-  puntReturner: RatedPlayer;
+  kickReturner: PlayerRecord;
+  puntReturner: PlayerRecord;
 };
 
 type DefensiveGroupsResult = {
@@ -50,7 +50,7 @@ function average(values: readonly number[]): number {
   return values.reduce((total, value) => total + value, 0) / values.length;
 }
 
-function getGroupPlayers(players: readonly RatedPlayer[], positions: readonly string[], groupName: string) {
+function getGroupPlayers(players: readonly PlayerRecord[], positions: readonly string[], groupName: string) {
   const groupPlayers = players.filter((player) => positions.includes(player.position));
   for (const position of positions) {
     const count = groupPlayers.filter((player) => player.position === position).length;
@@ -62,15 +62,13 @@ function getGroupPlayers(players: readonly RatedPlayer[], positions: readonly st
 }
 
 export function createQuarterbackRoom(players: readonly PlayerRecord[]): QuarterbackRoomResult {
-  const quarterbacks = players
-    .filter((player) => player.position.startsWith("QB"))
-    .map((player, rosterIndex) => ({ ...player, rosterIndex }));
+  const quarterbacks = players.filter(player => player.position.startsWith("QB"));
 
   if (quarterbacks.length !== 2) {
     throw new Error(`Expected 2 quarterbacks, received ${quarterbacks.length}.`);
   }
 
-  const [bestQb, backupQb] = sortPlayersByRating(quarterbacks, "rating");
+  const [bestQb, backupQb] = quarterbacks.sort(compareRating("rating"));
 
   return {
     score: weightedAverage([
@@ -83,16 +81,14 @@ export function createQuarterbackRoom(players: readonly PlayerRecord[]): Quarter
 }
 
 export function createReturnRoom(players: readonly PlayerRecord[]): ReturnRoomResult {
-  const skillPlayers = players
-    .filter(isSkillPlayer)
-    .map((player, rosterIndex) => ({ ...player, rosterIndex }));
+  const skillPlayers = players.filter(isSkillPlayer);
 
   if (skillPlayers.length < 2) {
     throw new Error(`Expected at least 2 skill players, received ${skillPlayers.length}.`);
   }
 
-  const kickReturners = sortPlayersByRating(skillPlayers, "kick_return_rating");
-  const puntReturners = sortPlayersByRating(skillPlayers, "punt_return_rating");
+  const kickReturners = skillPlayers.toSorted(compareRating("kick_return_rating"));
+  const puntReturners = skillPlayers.toSorted(compareRating("punt_return_rating"));
   const kickReturnScore = weightedAverage([
     { weight: 0.75, value: getPlayerRating(kickReturners[0], "kick_return_rating") },
     { weight: 0.25, value: getPlayerRating(kickReturners[1], "kick_return_rating") },
@@ -114,16 +110,15 @@ export function createReturnRoom(players: readonly PlayerRecord[]): ReturnRoomRe
   };
 }
 
-function createOffensiveLineScore(players: readonly RatedPlayer[]): number {
+function createOffensiveLineScore(players: readonly PlayerRecord[]): number {
   const linemen = getGroupPlayers(players, OFFENSIVE_LINE_POSITIONS, "offensive line");
   return average(linemen.map((player) => getPlayerRating(player, "rating")));
 }
 
 export function createDefensiveGroups(players: readonly PlayerRecord[]): DefensiveGroupsResult {
-  const ratedPlayers = players.map((player, rosterIndex) => ({ ...player, rosterIndex }));
-  const defensiveLine = getGroupPlayers(ratedPlayers, DEFENSIVE_UNITS.line.positions, "defensive line");
-  const linebackers = getGroupPlayers(ratedPlayers, DEFENSIVE_UNITS.linebackers.positions, "linebackers");
-  const secondary = getGroupPlayers(ratedPlayers, DEFENSIVE_UNITS.secondary.positions, "secondary");
+  const defensiveLine = getGroupPlayers(players, DEFENSIVE_UNITS.line.positions, "defensive line");
+  const linebackers = getGroupPlayers(players, DEFENSIVE_UNITS.linebackers.positions, "linebackers");
+  const secondary = getGroupPlayers(players, DEFENSIVE_UNITS.secondary.positions, "secondary");
   const dlGroup = average(defensiveLine.map((player) => getPlayerRating(player, "rating")));
   const lbGroup = average(linebackers.map((player) => getPlayerRating(player, "rating")));
   const secondaryGroup = average(secondary.map((player) => getPlayerRating(player, "rating")));
@@ -175,7 +170,7 @@ export function calculateTeamOffenseAndOverall<T>(
 }
 
 export function buildTeamRatingRecord(teamSlug: TeamSlug, teamData: TeamData, round = roundTo): TeamRatingRecord {
-  const players = teamData.players.map((player, rosterIndex) => ({ ...player, rosterIndex }));
+  const { players } = teamData;
   const quarterbackRoom = createQuarterbackRoom(players);
   const quarterbackRoomScore = quarterbackRoom.score;
   const quarterbackRating = getPlayerRating(quarterbackRoom.bestQb, "rating");
