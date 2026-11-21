@@ -64,7 +64,7 @@ function RatingCalculation({
   terms: readonly string[];
 }) {
   return (
-    <div className="not-prose my-5 border-l-2 border-neutral-200 pl-4">
+    <div className="not-prose my-5 border-l-2 border-white/35 pl-4">
       <p className="mb-2 font-semibold">{player}: {rating}%</p>
       <p className="flex flex-wrap items-baseline gap-x-2 gap-y-1 text-[14px] leading-relaxed tabular-nums sm:text-[16px]">
         {terms.map((term, index) => (
@@ -81,7 +81,7 @@ function RatingCalculation({
 
 export function AboutRatingsContent() {
   return (
-    <article className="prose prose-neutral max-w-none prose-a:no-underline prose-a:text-(--blue) prose-headings:text-[#3a3a3a] prose-strong:text-[#3a3a3a]">
+    <article className="prose prose-invert max-w-none text-white">
       <h1 className="mb-0 font-(family-name:--font-tecmo) text-[23px] leading-snug uppercase text-balance sm:text-[36px] sm:leading-10">
         How player ratings are calculated
       </h1>
@@ -227,7 +227,7 @@ export function AboutRatingsContent() {
             unoptimized
             className="h-auto w-full max-w-150.75 rounded-sm"
           />
-          <figcaption className="mt-1 text-[13px] text-[#626262] sm:text-[14px]">
+          <figcaption className="mt-1 text-[13px] text-white/90 sm:text-[14px]">
             When player attributes are shown, the width of the bars corresponds to the weight that attribute has in determining the total player score. Above are the attribute scores and weightings for a rusher.
           </figcaption>
         </figure>

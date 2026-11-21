@@ -31,7 +31,7 @@ export default async function PassCatchPage() {
   }));
 
   return (
-    <article data-page-theme="text" className="mx-auto mt-4 max-w-screen-2xl text-[#3a3a3a] sm:mt-6">
+    <article data-page-theme="text" className="mx-auto mt-4 max-w-screen-2xl sm:mt-6">
       <h1 className="font-(family-name:--font-tecmo) text-[23px] uppercase leading-snug sm:text-[36px]">Pass Catch Chances</h1>
       <p className="my-4 max-w-175">If the ball reaches the receiver, how likely is he to catch it? Compare an open receiver with the same receiver covered by one defender.</p>
       <CatchMatchups teams={teams} />
@@ -50,10 +50,10 @@ export default async function PassCatchPage() {
         Half of those passes get past Leonard Smith, so Rice’s chance against both is <strong>57.8% × 0.50 = 28.9%</strong>.
         Of the passes that get past both Smiths, 54.7% also get past Darryl Talley.
         With all three defenders, Rice’s chance is <strong>28.9% × 0.547 ≈ 15.8%</strong>.{" "}
-        <a className="text-(--blue) underline" href={source + "#L5454-L5464"} target="_blank" rel="noopener noreferrer">Receiver reach</a>
-        {" · "}<a className="text-(--blue) underline" href={source + "#L5504-L5547"} target="_blank" rel="noopener noreferrer">Defenders at the ball</a>
-        {" · "}<a className="text-(--blue) underline" href={source + "#L5675-L5757"} target="_blank" rel="noopener noreferrer">Player skill calculation</a>
-        {" · "}<a className="text-(--blue) underline" href={source.replace("Bank21_22_play_commands_on_field_logic.asm", "Bank31_fixed_bank.asm") + "#L4383-L4412"} target="_blank" rel="noopener noreferrer">Random rolls</a>
+        <a className="underline" href={source + "#L5454-L5464"} target="_blank" rel="noopener noreferrer">Receiver reach</a>
+        {" · "}<a className="underline" href={source + "#L5504-L5547"} target="_blank" rel="noopener noreferrer">Defenders at the ball</a>
+        {" · "}<a className="underline" href={source + "#L5675-L5757"} target="_blank" rel="noopener noreferrer">Player skill calculation</a>
+        {" · "}<a className="underline" href={source.replace("Bank21_22_play_commands_on_field_logic.asm", "Bank31_fixed_bank.asm") + "#L4383-L4412"} target="_blank" rel="noopener noreferrer">Random rolls</a>
       </p>
     </article>
   );

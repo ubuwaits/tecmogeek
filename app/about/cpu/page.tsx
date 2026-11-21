@@ -35,7 +35,7 @@ export async function generateMetadata(_: PageProps<"/about/cpu">, parent: Resol
 export default function CpuPage() {
   return (
     <ArticlePage>
-      <article className="prose prose-neutral max-w-none prose-a:text-(--blue) prose-headings:text-[#3a3a3a]">
+      <article className="prose prose-invert max-w-none text-white">
         <h1 className="font-(family-name:--font-tecmo) text-[23px] leading-snug uppercase text-balance sm:text-[36px] sm:leading-10">
           How the CPU plays
         </h1>

@@ -20,10 +20,16 @@ html {
 
 body {
   min-width: 320px;
+  background-color: var(--blue);
 }
 
-body:has([data-page-theme="text"]) {
-  background: #ffffff;
+[data-page-theme="text"] .prose {
+  --tw-prose-bullets: white;
+  --tw-prose-counters: var(--tw-prose-bullets);
+  --tw-prose-th-borders: rgb(255 255 255 / 65%);
+  --tw-prose-td-borders: rgb(255 255 255 / 40%);
+  --tw-prose-hr: var(--tw-prose-td-borders);
+  --tw-prose-quote-borders: var(--tw-prose-td-borders);
 }
 
 [data-page-theme="text"] .prose :is(h2, h3) {

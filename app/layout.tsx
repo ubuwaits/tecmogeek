@@ -58,7 +58,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${tecmo.variable} bg-(--blue) font-sans text-white antialiased`}>
+      <body className={`${inter.variable} ${tecmo.variable} font-sans text-white antialiased`}>
         <TooltipProvider>
           <TopNav />
           <div className="p-4 sm:p-8">

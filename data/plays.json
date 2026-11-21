@@ -1,0 +1,82 @@
+{
+  "R1": [
+    "T FAKE SWEEP R",
+    "T POWER SWEEP R",
+    "WTE OFFTACKLE R",
+    "ONESETBACK L",
+    "R AND S SWEEP L",
+    "FB OFFTACKLE R",
+    "FB OPEN L",
+    "TOSS SWEEP R"
+  ],
+  "R2": [
+    "T POWER DIVE",
+    "FB OFFTACKLE L",
+    "R AND S DRAW",
+    "PITCH L FAKE",
+    "ONEBACK SWEEP R",
+    "WEAKSIDE OPEN",
+    "T OFFTACKLE R",
+    "T SWEEP STRONG"
+  ],
+  "R3": [
+    "SHOTGUN DRAW",
+    "R AND S SWEEP R",
+    "T CROSS RUN L",
+    "SLOT OFFTACKLE",
+    "CROSS OFFTACKLE",
+    "PITCH L OPEN",
+    "WR REVERSE R",
+    "WR REVERSE L"
+  ],
+  "R4": [
+    "R AND S QB RUN",
+    "SHOTGUN SWEEP L",
+    "R AND S QBSNEAK",
+    "ONESETBACK DIVE",
+    "PRO T DIVE",
+    "FB POWER DIVE",
+    "SHOTGUN C DRAW",
+    "REVERSE PITCH R"
+  ],
+  "P1": [
+    "PRO T WAGGLE L",
+    "R AND S FLARE C",
+    "PRO T WAGGLE R",
+    "ROLL OUT R",
+    "ROLL OUT L",
+    "T PLAY ACTION D",
+    "PRO T SCREEN L",
+    "PLAY ACTION"
+  ],
+  "P2": [
+    "PWR FAKE Z POST",
+    "WTE F-FLICKER",
+    "SHOTGUN X CURL",
+    "R AND S Z FLY",
+    "PRO T FLARE D",
+    "OFFSET FLARE E",
+    "ONEBACK Z CROSS",
+    "ONEBACK FLARE A"
+  ],
+  "P3": [
+    "T FLEA FLICKER",
+    "PWR FAKE X FLY",
+    "SHOTGUN X DRIVE",
+    "R AND S 3-WING",
+    "PLAYACTION Z IN",
+    "FLEA FLICKER",
+    "PRO T FLARE C",
+    "SHOTGUN 3-WING"
+  ],
+  "P4": [
+    "SHOTGUN XY BOMB",
+    "R AND S Y UP",
+    "X OUT AND FLY",
+    "REV-FAKE Z POST",
+    "SLOT L Z DRIVE",
+    "NO BACK X DEEP",
+    "SHOTGUN Z S-IN",
+    "REDGUN Z SLANT"
+  ]
+}
