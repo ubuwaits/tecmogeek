@@ -17,9 +17,7 @@ export function HelmetSprite({
   className?: string;
 }) {
   const teamIndex = getTeamIndex(team);
-  const isLarge = size === "large";
-  const dimension = isLarge ? 60 : 30;
-  const step = isLarge ? 62 : 31;
+  const dimension = size === "large" ? 60 : 30;
 
   return (
     <span
@@ -28,9 +26,10 @@ export function HelmetSprite({
       style={{
         width: dimension,
         height: dimension,
-        backgroundImage: "url(/images/helmets.png)",
-        backgroundSize: isLarge ? undefined : "867px 30px",
-        backgroundPosition: `${teamIndex * -step}px 0`,
+        backgroundImage: "url(/images/helmets-large.png)",
+        imageRendering: size === "large" ? "pixelated" : "auto",
+        backgroundSize: `${TEAM_SLUGS.length * dimension}px auto`,
+        backgroundPosition: `${-teamIndex * dimension}px center`,
       }}
     />
   );

@@ -1,4 +1,3 @@
-import { createHash } from "node:crypto";
 import { expect, test } from "@playwright/test";
 import { positions, teamRatingRecords, readRosterPlayers, skillPositions } from "../../scripts/verify/roster-data.mjs";
 
@@ -135,22 +134,29 @@ async function checkHelmet(sprite, cell, large) {
   await expect(sprite).toBeVisible();
   const style = await sprite.evaluate(el => {
     const css = getComputedStyle(el);
-    return [css.width, css.height, css.backgroundImage, css.backgroundPosition, css.backgroundSize, css.backgroundRepeat];
+    return [css.width, css.height, css.backgroundImage, css.backgroundPosition, css.backgroundSize, css.backgroundRepeat, css.imageRendering];
   });
   expect(style, helmetOrder[cell]).toEqual([
-    size + "px", size + "px", expect.stringMatching(/\/images\/helmets\.png"\)$/),
-    `${-cell * (large ? 62 : 31)}px 0px`, large ? "auto" : "867px 30px", "no-repeat",
+    size + "px", size + "px", expect.stringContaining("/images/helmets-large.png"),
+    `${-cell * size}px 50%`, `${28 * size}px`, "no-repeat", large ? "pixelated" : "auto",
   ]);
 }
 
-test("small and large helmets use the correct cell for every team", async ({ page, request }) => {
-  const sheet = await request.get("/images/helmets.png");
-  expect(sheet.ok()).toBe(true);
-  // Pin the inspected artwork as well as the CSS crop so swapping two logos fails.
-  expect(createHash("sha256").update(await sheet.body()).digest("hex"))
-    .toBe("b9539ea2afab979b15c8cd42b9464a823072af1c9748548a2047414eadf057d2");
+test("small and large helmets use the correct cell for every team", async ({ page }) => {
   expect(helmetOrder.toSorted()).toEqual(teams.map(t => t.team).sort());
   await page.goto("/teams/");
+  const digest = await page.evaluate(async () => {
+    const sheet = new Image();
+    sheet.src = "/images/helmets-large.png";
+    await sheet.decode();
+    const canvas = new OffscreenCanvas(sheet.naturalWidth, sheet.naturalHeight);
+    const ctx = canvas.getContext("2d");
+    ctx.drawImage(sheet, 0, 0);
+    const pixels = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+    const hash = await crypto.subtle.digest("SHA-256", pixels);
+    return Array.from(new Uint8Array(hash), byte => byte.toString(16).padStart(2, "0")).join("");
+  });
+  expect(digest).toBe("1e2cd01dad859918e9279cd4ae9d8f1b0556ecd258bc6765ddbd1073d7d4f118");
   for (const [cell, team] of helmetOrder.entries()) {
     const link = page.getByTestId("team-ratings-row").locator(`a[href="/teams/${team}/"]`);
     await checkHelmet(link.locator('span[style*="background-image"]'), cell, false);
