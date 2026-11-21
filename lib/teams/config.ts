@@ -1,4 +1,3 @@
-import { TEAM_GROUPS } from "@/data/divisions";
 import { POSITION_PAGE_CONFIG_MAP } from "@/lib/players/config";
 import type {
   TeamSectionConfig,
@@ -6,10 +5,6 @@ import type {
   TeamSkillModeConfig,
   TeamSlug,
 } from "@/lib/types";
-
-export const TEAM_SLUG_SET: ReadonlySet<TeamSlug> = new Set(
-  TEAM_GROUPS.flatMap((group) => group.teams),
-);
 
 function rosterSection(
   id: string,

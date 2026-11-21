@@ -10,13 +10,12 @@ import { getTeam, getTeamRatings } from "@/lib/teams/data";
 import { pageMetadata } from "@/lib/site/metadata";
 import { teamRoute, teamsRoute } from "@/lib/site/routes";
 import { getTeamRatingSummaries } from "@/lib/teams/ratings";
-import { TEAM_SLUG_SET } from "@/lib/teams/config";
-import { isTeamSlug } from "@/lib/teams/slugs.mts";
+import { DIVISION_TEAM_SLUGS, isTeamSlug } from "@/lib/teams/slugs.mts";
 
 type TeamPageProps = PageProps<"/teams/[slug]">;
 
 export function generateStaticParams() {
-  return [...TEAM_SLUG_SET].map((slug) => ({ slug }));
+  return DIVISION_TEAM_SLUGS.map((slug) => ({ slug }));
 }
 
 export async function generateMetadata(

@@ -161,11 +161,6 @@ export interface TeamRatingRecord<Team extends string = TeamSlug> {
   selected_lineups: TeamRatingSelectedLineups;
 }
 
-export interface TeamGroup {
-  title: string;
-  teams: readonly TeamSlug[];
-}
-
 export interface MetricColumn {
   key: PlayerMetricKey;
   label: string;

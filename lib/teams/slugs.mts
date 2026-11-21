@@ -1,35 +1,9 @@
-export const TEAM_SLUGS = [
-  "49ers",
-  "bears",
-  "bengals",
-  "bills",
-  "broncos",
-  "browns",
-  "buccaneers",
-  "cardinals",
-  "chargers",
-  "chiefs",
-  "colts",
-  "cowboys",
-  "dolphins",
-  "eagles",
-  "falcons",
-  "giants",
-  "jets",
-  "lions",
-  "oilers",
-  "packers",
-  "patriots",
-  "raiders",
-  "rams",
-  "redskins",
-  "saints",
-  "seahawks",
-  "steelers",
-  "vikings",
-] as const;
+import { TEAM_GROUPS } from "../../data/divisions.ts";
 
-export type TeamSlug = (typeof TEAM_SLUGS)[number];
+export type TeamSlug = (typeof TEAM_GROUPS)[number]["teams"][number];
+
+export const DIVISION_TEAM_SLUGS: readonly TeamSlug[] = TEAM_GROUPS.flatMap(group => group.teams);
+export const TEAM_SLUGS: readonly TeamSlug[] = DIVISION_TEAM_SLUGS.toSorted();
 
 const validTeamSlugs: ReadonlySet<string> = new Set(TEAM_SLUGS);
 

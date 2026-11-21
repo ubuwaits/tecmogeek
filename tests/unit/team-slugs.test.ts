@@ -1,4 +1,4 @@
-import { readFileSync } from "node:fs";
+import { readFileSync, readdirSync } from "node:fs";
 import { expect, it } from "vitest";
 import { TEAM_GROUPS } from "@/data/divisions";
 import { TEAM_SLUGS, type TeamData } from "@/lib/types";
@@ -11,7 +11,10 @@ it("recognizes only configured team slugs", () => {
 });
 
 it("includes each league team in exactly one division", () => {
-  expect(TEAM_GROUPS.flatMap(group => group.teams).sort()).toEqual(TEAM_SLUGS);
+  const rosters = readdirSync("data").filter(name => name.endsWith(".json") && name !== "package.json").map(name => name.slice(0, -5)).sort();
+  expect(rosters).toHaveLength(28);
+  expect(TEAM_GROUPS.flatMap(group => group.teams).sort()).toEqual(rosters);
+  expect(TEAM_SLUGS).toEqual(rosters);
 });
 
 it("derives each navigation label from its slug with the published roster spelling", () => {
