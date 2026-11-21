@@ -1,3 +1,4 @@
+import type { TeamData } from "../../lib/types";
 import { readFileSync } from "node:fs";
 import { expect, test, type Locator } from "@playwright/test";
 
@@ -51,6 +52,7 @@ for (const team of teams) {
   test(`${team} roster sections and portrait pixels`, async ({ page }) => {
     expect(teams.size).toBe(28);
     const roster = players.filter(player => player.team === team);
+    const source: TeamData = JSON.parse(readFileSync(`data/${team}.json`, "utf8"));
     expect(roster.map(p => p.cell)).toEqual(Array.from({ length: 30 }, (_, i) => i));
     await page.goto(`/teams/${team}/`);
     const hashes = await page.evaluate(async team => {
@@ -90,7 +92,9 @@ for (const team of teams) {
           await checkRows(page.getByTestId("team-skill-row"), expected, team);
         }
       } else {
-        await checkRows(page.getByTestId("team-table-scroll-" + section).locator("ol > li:not(:first-child)"), expected, team);
+        const rows = page.getByTestId("team-table-scroll-" + section).locator("ol > li:not(:first-child)");
+        await expect(rows.locator("h3")).toHaveText(source.players.filter(player => positions.test(player.position)).map(player => player.name));
+        await checkRows(rows, expected, team);
       }
     }
   });

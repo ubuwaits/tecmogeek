@@ -12,8 +12,8 @@ import {
   TEAM_SECTION_CONFIGS,
   TEAM_SKILL_MODE_CONFIG,
   TEAM_SKILL_MODES,
-  TEAM_SKILL_RANGE,
 } from "@/lib/teams/config";
+import { eligibleForPosition } from "@/lib/players/positions.mts";
 import { rankingTooltip, sortEntriesByKey } from "@/lib/players/utils";
 import type {
   PositionSlug,
@@ -43,7 +43,7 @@ function TeamPositionPlayerList({
 }: TeamRosterProps & {
   section: TeamSectionConfig;
 }) {
-  const players = team.players.slice(section.range[0], section.range[1] + 1);
+  const players = team.players.filter(player => eligibleForPosition(player, section.playerPage));
 
   return (
     <div className="mb-12 sm:mb-16">
@@ -65,7 +65,7 @@ function TeamPositionPlayerList({
 function TeamSkillPlayerList({ team, teamSlug, counts }: TeamRosterProps) {
   const [mode, setMode] = useState<TeamSkillMode>(DEFAULT_TEAM_SKILL_MODE);
   const modeConfig = TEAM_SKILL_MODE_CONFIG[mode];
-  const skillPlayers = team.players.slice(TEAM_SKILL_RANGE[0], TEAM_SKILL_RANGE[1] + 1);
+  const skillPlayers = team.players.filter(player => eligibleForPosition(player, modeConfig.playerPage));
   const sortedPlayers = sortEntriesByKey(skillPlayers, modeConfig.rankingKey, "asc", modeConfig.rankingKey);
   const rankingLabel = `${modeConfig.label} Ranking`;
 

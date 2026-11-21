@@ -197,7 +197,6 @@ export interface PositionPageConfig {
 
 export interface TeamSectionConfig {
   id: string;
-  range: readonly [number, number];
   rankingLabel: string;
   rankingGroupLabel: string;
   note: string;
