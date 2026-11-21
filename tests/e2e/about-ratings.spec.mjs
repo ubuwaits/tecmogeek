@@ -107,27 +107,23 @@ test("Rice and Jackson examples agree with raw rosters at each displayed precisi
 });
 
 test("published team QB and overall weights match the verified blends", async ({ page }) => {
-  await page.getByTestId("ratings-topic-team").click();
+  await page.goto("/about/team-ratings/");
   const content = page.getByTestId("ratings-content-team");
   await expect(content.getByText(/QB value/)).toContainText(/best quarterback at 80% and the backup at 20%/);
   await expect(content.getByText(/overall team rating is/)).toContainText(/50\/50 average between the offensive and defensive rating/);
 });
 
-test("ratings topic stays in sync across desktop tabs and the mobile selector", async ({ page }) => {
-  const select = page.getByTestId("ratings-topic-select");
-  async function check(topic) {
-    const other = topic === "player" ? "team" : "player";
-    await expect(select).toHaveValue(topic);
-    await expect(page.getByTestId("ratings-topic-" + topic)).toHaveAttribute("aria-selected", "true");
-    await expect(page.getByTestId("ratings-topic-" + other)).toHaveAttribute("aria-selected", "false");
-    await expect(page.getByTestId("ratings-content-" + topic)).toBeVisible();
-    await expect(page.getByTestId("ratings-content-" + other)).toBeHidden();
-  }
-  await check("player");
-  await page.getByTestId("ratings-topic-team").click();
+test("header navigation connects About pages on desktop and mobile", async ({ page }) => {
+  await expect(page.getByRole("navigation", { name: "About the game" })).toHaveCount(0);
+  await page.getByTestId("nav-about").hover();
+  await page.getByRole("link", { name: "Team Ratings", exact: true }).click();
+  await expect(page.getByTestId("ratings-content-team")).toBeVisible();
   await page.setViewportSize({ width: 390, height: 844 });
-  await check("team");
-  await select.selectOption("player");
-  await page.setViewportSize({ width: 1024, height: 844 });
-  await check("player");
+  await page.getByTestId("mobile-nav-toggle").click();
+  await page.getByTestId("mobile-nav-section-about").click();
+  await page.getByRole("link", { name: "How the CPU plays" }).click();
+  await expect(page.getByRole("heading", { level: 1, name: "How the CPU plays" })).toBeVisible();
+  await page.goBack();
+  await page.reload();
+  await expect(page.getByTestId("ratings-content-team")).toBeVisible();
 });

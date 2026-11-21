@@ -9,7 +9,7 @@ export async function generateMetadata(
   _: PageProps<"/about/ratings">,
   parent: ResolvingMetadata,
 ): Promise<Metadata> {
-  return pageMetadata(parent, "About player and team ratings", aboutRatingsRoute);
+  return pageMetadata(parent, "How player ratings are calculated", aboutRatingsRoute);
 }
 
 export default function RatingsPage() {

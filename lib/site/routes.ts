@@ -4,6 +4,14 @@ import type { PositionSlug, TeamSlug } from "@/lib/types";
 
 export const homeRoute = "/" as Route;
 export const aboutRatingsRoute = "/about/ratings/" as Route;
+export const cpuRoute = "/about/cpu/" as Route;
+export const aboutTeamRatingsRoute = "/about/team-ratings/" as Route;
+export const aboutPages = [
+  { href: aboutRatingsRoute, label: "Player Ratings" },
+  { href: aboutTeamRatingsRoute, label: "Team Ratings" },
+  { href: cpuRoute, label: "How the CPU plays" },
+];
+
 export const teamsRoute = "/teams/" as Route;
 
 export function playerRoute(slug: PositionSlug): Route {

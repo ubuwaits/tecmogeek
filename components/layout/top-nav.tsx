@@ -5,12 +5,12 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import { PLAYER_NAV_GROUPS } from "@/lib/players/config";
-import { aboutRatingsRoute, homeRoute, playerRoute, teamRoute, teamsRoute } from "@/lib/site/routes";
+import { aboutPages, homeRoute, playerRoute, teamRoute, teamsRoute } from "@/lib/site/routes";
 import { TEAM_GROUPS } from "@/data/divisions";
 import { getTeamLabel } from "@/lib/teams/config";
 import { HelmetSprite } from "@/components/ui/sprites";
 
-type Menu = "teams" | "players";
+type Menu = "teams" | "players" | "about";
 type NavState = {
   desktop: "closed" | Menu;
   mobile: "closed" | "root" | Menu;
@@ -58,7 +58,7 @@ function DesktopMenu({
 
   return (
     <li
-      className="relative mr-6 text-white"
+      className="relative text-white md:mr-6"
       onPointerEnter={(event) => {
         if (event.pointerType === "mouse") dispatch({ type: "openDesktop", menu });
       }}
@@ -86,7 +86,7 @@ function DesktopMenu({
             dispatch({ type: "toggleDesktop", menu });
           }
         }}
-        className={`relative block cursor-pointer px-3 py-2 pr-7.5 font-(family-name:--font-tecmo) text-[13px] uppercase leading-none text-inherit no-underline ${
+        className={`relative block cursor-pointer px-3 py-2 pr-7.5 font-(family-name:--font-tecmo) whitespace-nowrap text-[11px] uppercase leading-none text-inherit md:text-[13px] no-underline ${
           expanded ? "rounded-t bg-(--dark-bg)" : ""
         }`}
       >
@@ -173,7 +173,7 @@ function TopNavContent() {
       className="fixed left-0 top-0 z-999 w-full border-b border-white/15 bg-[#165ec9] shadow-[0_0_5px_0_rgba(0,0,0,0.15)]"
     >
       <div className="flex items-center gap-3 px-4 py-3 sm:px-4 sm:py-4">
-        <h1 className="w-26.5 text-center font-(family-name:--font-tecmo) text-[18px] leading-none sm:w-35 sm:text-[22px]">
+        <h1 className="w-26.5 text-center font-(family-name:--font-tecmo) text-[18px] leading-none md:w-35 md:text-[22px]">
           <Link href={homeRoute} className="cursor-pointer text-inherit no-underline">
             Tecmo
             <br />
@@ -217,7 +217,7 @@ function TopNavContent() {
               openMenu={state.desktop}
               dispatch={dispatch}
             >
-              <div className="absolute left-0 top-full z-1000 w-150 rounded-br rounded-bl rounded-tr bg-(--dark-bg) px-0 py-3">
+              <div className="absolute left-0 top-full z-1000 w-[min(37.5rem,calc(100vw-12rem))] rounded-br rounded-bl rounded-tr bg-(--dark-bg) px-0 py-3">
                 <div className="px-3 pb-3">
                   <Link
                     href={teamsRoute}
@@ -256,7 +256,7 @@ function TopNavContent() {
               openMenu={state.desktop}
               dispatch={dispatch}
             >
-              <div className="absolute left-0 top-full z-1000 w-100 rounded-br rounded-bl rounded-tr bg-(--dark-bg) px-0 py-3">
+              <div className="absolute left-0 top-full z-1000 w-[min(25rem,55vw)] rounded-br rounded-bl rounded-tr bg-(--dark-bg) px-0 py-3">
                 <ol className="flex flex-wrap">
                   {PLAYER_NAV_GROUPS.map((group, groupIndex) => (
                     <li key={groupIndex} className="w-1/2">
@@ -278,14 +278,17 @@ function TopNavContent() {
               </div>
             </DesktopMenu>
 
-            <li className="relative text-white">
-              <Link
-                href={aboutRatingsRoute}
-                className="block cursor-pointer px-3 py-2 font-(family-name:--font-tecmo) text-[13px] uppercase leading-none text-inherit no-underline"
-              >
-                About Ratings
-              </Link>
-            </li>
+            <DesktopMenu menu="about" label="About the game" openMenu={state.desktop} dispatch={dispatch}>
+              <ul className="absolute left-0 top-full z-1000 min-w-full whitespace-nowrap rounded-b bg-(--dark-bg) p-3">
+                {aboutPages.map(({ href, label }) => (
+                  <li key={href}>
+                    <Link href={href} className="block rounded px-2 py-2 font-bold text-white no-underline hover:bg-(--pink)">
+                      {label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </DesktopMenu>
           </ul>
         </nav>
       </div>
@@ -347,14 +350,17 @@ function TopNavContent() {
               </div>
             </MobileMenuSection>
 
-            <li>
-              <Link
-                href={aboutRatingsRoute}
-                className="flex min-h-11 cursor-pointer items-center rounded-xl border border-white/15 bg-[#0f4faa]/60 px-4 py-3 font-(family-name:--font-tecmo) text-[14px] uppercase leading-none text-white no-underline transition hover:bg-[#0f4faa]"
-              >
-                About Ratings
-              </Link>
-            </li>
+            <MobileMenuSection menu="about" label="About the game" openMenu={state.mobile} dispatch={dispatch}>
+              <ul className="space-y-1 pt-3">
+                {aboutPages.map(({ href, label }) => (
+                  <li key={href}>
+                    <Link href={href} className="block rounded-xl bg-white/8 px-3 py-3 text-sm font-semibold text-white no-underline hover:bg-white/14">
+                      {label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </MobileMenuSection>
           </ul>
         </nav>
       </div>

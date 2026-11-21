@@ -43,7 +43,7 @@ test("desktop navigation opens on hover and stays open over its links", async ({
   await players.hover();
   await expect(teams).toHaveAttribute("aria-expanded", "false");
   await expect(players).toHaveAttribute("aria-expanded", "true");
-  await page.getByRole("link", { name: "About Ratings", exact: true }).first().hover();
+  await page.getByRole("button", { name: "About the game" }).hover();
   await expect(players).toHaveAttribute("aria-expanded", "false");
 
   await teams.focus();
@@ -186,24 +186,11 @@ test("team page mode toggle re-sorts the skill section", async ({ page }) => {
   );
 });
 
-test("about ratings page toggles between player and team explanations", async ({ page }) => {
-  await page.goto("/about/ratings/");
-  const playerTab = page.getByTestId("ratings-topic-player");
-  const teamTab = page.getByTestId("ratings-topic-team");
-
-  await expect(
-    page.getByRole("heading", { name: "How player and team ratings are calculated" }),
-  ).toBeVisible();
-  await expect(playerTab).toHaveCSS("color", "rgb(22, 94, 201)");
-  await expect(teamTab).toHaveCSS("color", "rgb(111, 119, 133)");
-  await expect(page.getByTestId("ratings-content-player")).toBeVisible();
-  await expect(page.getByTestId("ratings-content-team")).toBeHidden();
-
-  await teamTab.click();
-
-  await expect(page.getByTestId("ratings-content-player")).toBeHidden();
-  await expect(page.getByTestId("ratings-content-team")).toBeVisible();
-  await expect(teamTab).toHaveCSS("color", "rgb(22, 94, 201)");
+test("About the game links directly to the team ratings explanation", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "About the game" }).hover();
+  await page.getByRole("link", { name: "Team Ratings", exact: true }).click();
+  await expect(page).toHaveURL(/\/about\/team-ratings\/$/);
   await expect(page.getByRole("heading", { name: "What team ratings measure" })).toBeVisible();
 });
 
@@ -257,11 +244,12 @@ test.describe("mobile responsive layout", () => {
     await page.getByTestId("mobile-nav-section-teams").click();
     await expect(page.getByTestId("mobile-nav-section-teams")).toHaveAttribute("aria-expanded", "true");
     await expect(panel.getByRole("link", { name: /Bills/i })).toBeVisible();
-    await panel.getByRole("link", { name: "About Ratings" }).click();
+    await panel.getByRole("button", { name: "About the game" }).click();
+    await panel.getByRole("link", { name: "Player Ratings" }).click();
 
     await expect(page).toHaveURL(/\/about\/ratings\/$/);
     await expect(
-      page.getByRole("heading", { name: "How player and team ratings are calculated" }),
+      page.getByRole("heading", { name: "How player ratings are calculated" }),
     ).toBeVisible();
     await expectNoHorizontalOverflow(page);
   });

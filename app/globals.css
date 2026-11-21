@@ -25,3 +25,11 @@ body {
 body:has([data-page-theme="text"]) {
   background: #ffffff;
 }
+
+[data-page-theme="text"] .prose :is(h2, h3) {
+  margin-bottom: 0.5rem;
+}
+
+[data-page-theme="text"] .prose :is(h2, h3) + :is(p, ul, ol, table) {
+  margin-top: 0;
+}
