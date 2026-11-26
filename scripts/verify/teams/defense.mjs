@@ -1,6 +1,5 @@
 import assert from "node:assert/strict";
 import { getTeamFileNames, read } from "../roster-data.mjs";
-import { init } from "z3-solver";
 import {
   createDefensiveGroups,
   DEFENSIVE_STARTER_COUNT,
@@ -9,31 +8,18 @@ import {
 
 // Independent specification: each of the eleven named starters contributes equally.
 const starters = ["RE", "NT", "LE", "ROLB", "RILB", "LILB", "LOLB", "RCB", "LCB", "FS", "SS"];
-const { Context } = await init();
-const { Real, Solver, Sum, Or } = new Context("defense");
-const ratings = new Map(starters.map(position => [position, Real.const(position)]));
-const units = Object.values(DEFENSIVE_UNITS);
-assert.deepEqual(units.flatMap(unit => unit.positions).sort(), [...starters].sort());
+assert.deepEqual(Object.values(DEFENSIVE_UNITS).flatMap(unit => unit.positions).sort(), [...starters].sort());
 
-const weightedUnits = units.map(({ positions, weight }) =>
-  Sum(...positions.map(position => ratings.get(position))).div(positions.length).mul(weight));
-const score = Sum(...weightedUnits).div(DEFENSIVE_STARTER_COUNT);
-const mean = Sum(...ratings.values()).div(starters.length);
-const solver = new Solver();
-try {
-  for (const rating of ratings.values()) solver.add(rating.ge(0), rating.le(100));
-  solver.add(Or(score.neq(mean), score.lt(0), score.gt(100)));
-  const result = await solver.check();
-  if (result === "sat") throw new Error(`Defensive formula counterexample: ${solver.model()}`);
-  if (result === "unknown") throw new Error(`Inconclusive: ${solver.reasonUnknown()}`);
-  console.log("Proved the unrounded defensive formula equals the eleven-starter mean and stays in [0, 100].");
-} finally {
-  solver.release();
+// Multiplying each unit mean by its starter count recovers the unit's sum.
+for (const [unit, { positions, weight }] of Object.entries(DEFENSIVE_UNITS)) {
+  assert(positions.length > 0, `${unit}: cannot average an empty unit`);
+  assert.equal(weight, positions.length, `${unit}: weight must equal starter count`);
 }
+assert.equal(DEFENSIVE_STARTER_COUNT, starters.length, "Defensive rating divisor must equal the eleven-starter count");
 
 // Exercise the floating-point generator and roster selection on the actual inputs.
 const files = getTeamFileNames();
-assert(files.length > 0, "No team rosters found");
+assert.equal(files.length, 28, "Expected all 28 team rosters");
 for (const file of files) {
   const { players } = read(file);
   const values = starters.map(position => {
