@@ -13,7 +13,7 @@ export function ratingExamples(skillPlayers: readonly LeaderboardPlayer[]) {
     function calculation(columns: readonly MetricColumn[], entry: LeaderboardPlayer) {
       const terms = columns.map(({ key, weight }) => {
         const percent = attributeScore(entry, key, maxima, OFFENSIVE_HP_SCORE_MAP);
-        return `${weight} × ${Number(percent.toFixed(2)) / 100}`;
+        return `${weight} × ${Number((percent / 100).toFixed(4))}`;
       });
       const rating = weightedScore(entry, columns, maxima, OFFENSIVE_HP_SCORE_MAP).toFixed(2);
       return { player: surname, terms, rating };
