@@ -5,7 +5,7 @@ import { getTeamFileNames, indexPlayers, key, positions, readRosterPlayers, skil
 import { init } from "z3-solver";
 import { POSITION_PAGES } from "../../../lib/players/config.ts";
 import { rebuildScales } from "../../rebuild/player-ratings.mjs";
-import { attributeMaxima, weightedRating } from "../../rebuild/player-rating.mjs";
+import { attributeMaxima, weightedRating } from "../../../lib/players/rating.mts";
 
 const { Context } = await init();
 const { Int, Real, ToInt, ToReal, Solver, Sum, If, Or } = new Context("players");

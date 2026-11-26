@@ -2,7 +2,7 @@ import { POSITION_PAGE_CONFIG_MAP } from "../../lib/players/config.ts";
 import { eligibleForPosition } from "../../lib/players/positions.mts";
 import { DEFENSIVE_HP_SCORE_MAP, OFFENSIVE_HP_SCORE_MAP, OFFENSIVE_LINE_HP_SCORE_MAP } from "../../lib/players/metrics.ts";
 import { withReturnSpeeds } from "../../lib/players/return-speeds.mts";
-import { attributeMaxima, weightedRating } from "./player-rating.mjs";
+import { attributeMaxima, weightedRating } from "../../lib/players/rating.mts";
 import { rankPositionPlayers } from "./rank-position-players.mjs";
 
 const offense = {

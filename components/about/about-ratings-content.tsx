@@ -1,5 +1,6 @@
 import Image from "next/image";
-import type { ComponentProps } from "react";
+import { Fragment, type ComponentProps } from "react";
+import type { ratingExamples } from "@/lib/players/rating-examples";
 
 
 import { POSITION_PAGE_CONFIG_MAP } from "@/lib/players/config";
@@ -79,7 +80,7 @@ function RatingCalculation({
   );
 }
 
-export function AboutRatingsContent() {
+export function AboutRatingsContent({ examples }: { examples: ReturnType<typeof ratingExamples> }) {
   return (
     <article className="prose prose-invert max-w-none text-white">
       <h1 className="mb-0 font-(family-name:--font-tecmo) text-[23px] leading-snug uppercase text-balance sm:text-[36px] sm:leading-10">
@@ -288,29 +289,12 @@ export function AboutRatingsContent() {
         <p>First, here are the attributes and scores for each player.</p>
         <p>(Reminder: most scores compare the player value to the highest player value in that group. Hitting Power uses the score bands listed above.)</p>
 
-        <h3>Rice</h3>
-        <RatingsTable
-          headings={["Attribute", "Value", "Score"]}
-          rows={[
-            ["Running Speed", "44", "69.84%"],
-            ["Maximum Speed", "69", "92.00%"],
-            ["Hitting Power", "13", "0%"],
-            ["Ball Control", "81", "100.00%"],
-            ["Receptions", "81", "100.00%"],
-          ]}
-        />
-
-        <h3>Jackson</h3>
-        <RatingsTable
-          headings={["Attribute", "Value", "Score"]}
-          rows={[
-            ["Running Speed", "38", "60.32%"],
-            ["Maximum Speed", "75", "100.00%"],
-            ["Hitting Power", "31", "0%"],
-            ["Ball Control", "81", "100.00%"],
-            ["Receptions", "19", "23.46%"],
-          ]}
-        />
+        {examples.map(({ surname, rows }) => (
+          <Fragment key={surname}>
+            <h3>{surname}</h3>
+            <RatingsTable headings={["Attribute", "Value", "Score"]} rows={rows} />
+          </Fragment>
+        ))}
 
         <p>
           For RB, WR and TE ratings, Hitting Power below 75 receives no Hitting Power score.
@@ -318,16 +302,7 @@ export function AboutRatingsContent() {
 
         <p>Here are the ratings for each player as a receiver:</p>
 
-        <RatingCalculation
-          player="Rice"
-          rating="88.38"
-          terms={["10 × 0.6984", "45 × 0.92", "5 × 0", "5 × 1", "35 × 1"]}
-        />
-        <RatingCalculation
-          player="Jackson"
-          rating="64.24"
-          terms={["10 × 0.6032", "45 × 1", "5 × 0", "5 × 1", "35 × 0.2346"]}
-        />
+        {examples.map(example => <RatingCalculation key={example.surname} {...example.receiving} />)}
 
         <p>
           No surprises here, as Jerry Rice is the best receiver in the game. While Bo Jackson&apos;s speed counts for a lot, his poor Receptions hurts him as a receiver.
@@ -335,16 +310,7 @@ export function AboutRatingsContent() {
 
         <p>Now here are their rusher ratings:</p>
 
-        <RatingCalculation
-          player="Rice"
-          rating="81.38"
-          terms={["10 × 0.6984", "70 × 0.92", "10 × 0", "5 × 1", "5 × 1"]}
-        />
-        <RatingCalculation
-          player="Jackson"
-          rating="82.20"
-          terms={["10 × 0.6032", "70 × 1", "10 × 0", "5 × 1", "5 × 0.2346"]}
-        />
+        {examples.map(example => <RatingCalculation key={example.surname} {...example.rushing} />)}
 
         <p>Jackson is the best rusher in the game, with Rice a close second.</p>
 
