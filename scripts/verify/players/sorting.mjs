@@ -1,10 +1,10 @@
-import { positionEntries } from "../../../lib/players/leaderboard.ts";
+import { verifiedLeaderboards } from "./membership.mjs";
 import { rejectCounterexample } from "../reject-counterexample.mjs";
 import assert from "node:assert/strict";
 import { init } from "z3-solver";
 import { sortEntriesByKey } from "../../../lib/players/sort.ts";
 import { POSITION_PAGES } from "../../../lib/players/config.ts";
-import { getTeamFileNames, indexPlayers, key, positions, readRosterPlayers } from "../roster-data.mjs";
+import { getTeamFileNames, key, readRosterPlayers } from "../roster-data.mjs";
 
 const { Context } = await init();
 const { Int, Or, And, Solver, Not } = new Context("player_sorting");
@@ -61,16 +61,9 @@ function checkSort(rows, field, rankField, direction, description) {
 const directions = ["asc", "desc"];
 for (const direction of directions) await proveOrderingRule(direction);
 const roster = getTeamFileNames().flatMap(readRosterPlayers);
-const rosterIds = new Set(indexPlayers(roster, "team rosters").keys());
-const covered = new Set();
 let orders = 0;
 let placements = 0;
-for (const page of POSITION_PAGES) {
-  const rows = positionEntries(roster, page);
-  const expected = roster.filter(player => positions[page.slug].test(player.position));
-  assert(rows.length > 0);
-  assert.deepEqual(new Set(indexPlayers(rows, page.slug).keys()), new Set(expected.map(key)), page.slug);
-  for (const row of rows) covered.add(key(row));
+for (const { page, rows } of verifiedLeaderboards(roster, POSITION_PAGES)) {
   const fields = [page.rankingKey, page.ratingKey, ...page.columns.map(column => column.key)];
   const filters = page.filters ?? [{ id: "all", allowedPrefixes: [] }];
   for (const { id, allowedPrefixes } of filters) {
@@ -93,5 +86,4 @@ const ties = ["Zulu", "Alpha", "Bravo"].map(name => ({ name, rating: "50%", rank
 for (const direction of directions) {
   for (const field of ["rating", "ranking"]) checkSort(ties, field, "ranking", direction, "full tie");
 }
-assert.deepEqual(covered, rosterIds);
-console.log(`Verified ${orders} sort orders and ${placements} row placements for ${covered.size} players across ${POSITION_PAGES.length} position tables, including filtered views and both directions.`);
+console.log(`Verified ${orders} sort orders and ${placements} row placements for ${roster.length} players across ${POSITION_PAGES.length} position tables, including filtered views and both directions.`);

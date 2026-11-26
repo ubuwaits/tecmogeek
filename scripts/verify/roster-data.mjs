@@ -1,7 +1,6 @@
 import { TEAM_SLUGS } from "../../lib/teams/slugs.mts";
 import { buildTeamRatingRecord } from "../../lib/teams/calculate-ratings.mts";
 import { withReturnSpeeds } from "../../lib/players/return-speeds.mts";
-import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 
 export const skillPositions = /^(RB|WR|TE)\d+$/;
@@ -32,10 +31,4 @@ export function readRosterPlayers(file) {
 
 export function key(player) {
   return [player.teamSlug, player.position, player.name].join("|");
-}
-
-export function indexPlayers(players, source) {
-  const indexed = new Map(players.map(player => [key(player), player]));
-  assert.equal(indexed.size, players.length, `Duplicate player in ${source}`);
-  return indexed;
 }

@@ -1,9 +1,9 @@
-import { positionEntries } from "../../../lib/players/leaderboard.ts";
+import { verifiedLeaderboards } from "./membership.mjs";
 import { rejectCounterexample } from "../reject-counterexample.mjs";
 import assert from "node:assert/strict";
 import { init } from "z3-solver";
 import { POSITION_PAGES } from "../../../lib/players/config.ts";
-import { getTeamFileNames, indexPlayers, key, positions, readRosterPlayers } from "../roster-data.mjs";
+import { getTeamFileNames, key, readRosterPlayers } from "../roster-data.mjs";
 import { rankPositionPlayers } from "../../rebuild/rank-position-players.mjs";
 
 const { Context } = await init();
@@ -39,13 +39,8 @@ assert.deepEqual(tied.map(p => [p.rushing_ranking, p.receiving_ranking]), [[2, 1
 
 const teamFiles = getTeamFileNames();
 const roster = teamFiles.flatMap(readRosterPlayers);
-const unclassified = new Set(indexPlayers(roster, "team rosters").keys());
 let count = 0;
-for (const page of POSITION_PAGES) {
-  const rows = positionEntries(roster, page);
-  const eligible = roster.filter(player => positions[page.slug].test(player.position));
-  assert(rows.length > 0, `Empty group: ${page.slug}`);
-  assert.deepEqual(new Set(indexPlayers(rows, page.slug).keys()), new Set(eligible.map(key)), page.slug);
+for (const { page, rows } of verifiedLeaderboards(roster, POSITION_PAGES)) {
   let previous;
   for (const [i, player] of rows.entries()) {
     const id = key(player);
@@ -65,10 +60,8 @@ for (const page of POSITION_PAGES) {
     }
     previous = { primary, secondary, id };
     assert.equal(player[page.rankingKey], i + 1, `${id} ${page.rankingKey}`);
-    unclassified.delete(id);
   }
   count += rows.length;
 }
 
-assert.deepEqual([...unclassified], [], "Unclassified roster players");
 console.log(`Verified ${count} rankings for ${roster.length} players across ${teamFiles.length} teams and ${POSITION_PAGES.length} leaderboards.`);

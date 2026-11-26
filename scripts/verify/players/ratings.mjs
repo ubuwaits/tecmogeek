@@ -1,7 +1,7 @@
+import { verifiedLeaderboards } from "./membership.mjs";
 import { exactPlayerRating, expectedScales, expectedWeights } from "./rating-spec.mjs";
-import { positionEntries } from "../../../lib/players/leaderboard.ts";
 import assert from "node:assert/strict";
-import { getTeamFileNames, indexPlayers, key, positions, readRosterPlayers, skillPositions } from "../roster-data.mjs";
+import { getTeamFileNames, key, readRosterPlayers, skillPositions } from "../roster-data.mjs";
 import { init } from "z3-solver";
 import { POSITION_PAGES } from "../../../lib/players/config.ts";
 import { rebuildScales } from "../../rebuild/player-ratings.mjs";
@@ -60,18 +60,11 @@ const roster = files.flatMap(file => {
   return players;
 });
 assert(roster.length > 0);
-const unclassified = new Set(indexPlayers(roster, "team rosters").keys());
 const errors = [];
 let count = 0;
-for (const page of POSITION_PAGES) {
+for (const { page, eligible, rows } of verifiedLeaderboards(roster, POSITION_PAGES)) {
   assert.deepEqual(page.columns.map(({ key, weight }) => [key, weight]), Object.entries(expectedWeights[page.slug]),
     `${page.slug}: displayed weights differ from the published formula`);
-  const eligible = roster.filter(player => positions[page.slug].test(player.position));
-  assert(eligible.length > 0, `Empty group: ${page.slug}`);
-  const rows = positionEntries(roster, page);
-  const indexed = indexPlayers(rows, page.slug);
-  assert.deepEqual(new Set(indexed.keys()), new Set(eligible.map(key)), `Coverage mismatch in ${page.slug}`);
-
   const maxima = {};
   for (const { key: field } of page.columns) {
     for (const player of eligible) {
@@ -88,7 +81,6 @@ for (const page of POSITION_PAGES) {
   await prove(page, maxima);
   for (const player of eligible) {
     const rating = exactPlayerRating(player, page.slug, maxima);
-    unclassified.delete(key(player));
     if (player[page.ratingKey] !== rating + "%") errors.push(`${key(player)} ${page.ratingKey}=${player[page.ratingKey]}, expected ${rating}%`);
     if (scale) {
       const rebuilt = weightedRating(player, page.columns, maxima, scale);
@@ -99,6 +91,5 @@ for (const page of POSITION_PAGES) {
   count += eligible.length;
 }
 
-assert.deepEqual([...unclassified], [], "Unclassified roster players");
 if (errors.length) throw new Error(errors.join("\n"));
 console.log(`Verified ${count} ratings for ${roster.length} players across ${files.length} teams and all ${POSITION_PAGES.length} leaderboards.`);
