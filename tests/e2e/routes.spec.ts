@@ -2,6 +2,7 @@ import { readFileSync, readdirSync } from "node:fs";
 import { relative, resolve } from "node:path";
 import { expect, test } from "@playwright/test";
 
+import { brokenExportLinks, type ExportPageLinks } from "../helpers/export-links";
 import { POSITION_PAGES } from "../../lib/players/config";
 import { POSITION_SLUGS, TEAM_SLUGS } from "../../lib/types";
 
@@ -50,8 +51,7 @@ test("public HTML, canonical URLs, Open Graph tags, sitemap and internal links a
   }, await sitemap.text());
   expect(urls.sort()).toEqual(routes.map(route => site + route).sort());
 
-  const fragments = new Map<string, Set<string>>();
-  const internalLinks = [];
+  const pages: ExportPageLinks[] = [];
   for (const route of routes) {
     const response = await request.get(route, { maxRedirects: 0 });
     expect(response.status(), route).toBe(200);
@@ -70,20 +70,10 @@ test("public HTML, canonical URLs, Open Graph tags, sitemap and internal links a
     expect(parsed.canonicals, route).toEqual([site + route]);
     expect(parsed.socialUrls, route).toEqual([site + route]);
     expect(parsed.socialTitles, route).toEqual([socialTitles.get(route)]);
-    fragments.set(route, new Set(parsed.ids));
-    const base = new URL(parsed.base ?? "", site + route);
-    for (const href of parsed.links) {
-      const url = new URL(href, base);
-      if (["www.tecmogeek.com", "tecmogeek.com"].includes(url.hostname)) internalLinks.push({ route, href, url });
-    }
+    pages.push({ route, base: parsed.base, links: parsed.links, ids: parsed.ids });
   }
   const assets = new Set(files.filter(file => !file.endsWith(".html")).map(file => "/" + file));
-  for (const { route, href, url } of internalLinks) {
-    const path = decodeURIComponent(url.pathname);
-    const target = fragments.get(path);
-    expect(!!target || assets.has(path), `${route} links to ${href}`).toBe(true);
-    if (target && url.hash) expect(target.has(decodeURIComponent(url.hash.slice(1))), `${route} links to ${href}`).toBe(true);
-  }
+  expect(brokenExportLinks(site, pages, assets)).toEqual([]);
   for (const slug of ["constructor", "toString", "__proto__", "not-a-position"]) {
     expect((await request.get(`/players/${slug}/`, { maxRedirects: 0 })).status(), slug).toBe(404);
   }
