@@ -11,7 +11,14 @@ it("recognizes only configured team slugs", () => {
 });
 
 it("includes each league team in exactly one division", () => {
-  const rosters = readdirSync("data").filter(name => name.endsWith(".json") && name !== "package.json").map(name => name.slice(0, -5)).sort();
+  const rosters = readdirSync("data")
+    .filter(name => name.endsWith(".json"))
+    .filter(name => {
+      const data = JSON.parse(readFileSync(`data/${name}`, "utf8"));
+      return typeof data?.full_name === "string" && Array.isArray(data.players);
+    })
+    .map(name => name.slice(0, -5))
+    .sort();
   expect(rosters).toHaveLength(28);
   expect(TEAM_GROUPS.flatMap(group => group.teams).sort()).toEqual(rosters);
   expect(TEAM_SLUGS).toEqual(rosters);
