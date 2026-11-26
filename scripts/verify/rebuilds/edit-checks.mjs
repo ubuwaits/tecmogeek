@@ -2,7 +2,7 @@ import { TEAM_SLUGS } from "../../../lib/teams/slugs.mts";
 import { buildTeamRatingRecord } from "../../../lib/teams/calculate-ratings.mts";
 import assert from "node:assert/strict";
 import { verifyTeamRounding } from "../teams/verify-team-rounding.mjs";
-import { readFileSync, writeFileSync } from "node:fs";
+import { writeFileSync } from "node:fs";
 import path from "node:path";
 import { withReturnSpeeds } from "../../../lib/players/return-speeds.mts";
 import { predictRosterEdit, rosterEdits } from "./predict-edit.mjs";
@@ -36,7 +36,7 @@ function assertRebuiltTeam(slug, originalTeam, team, rebuilt, edit) {
   assert.deepEqual(actual, record, record.team);
 }
 
-export function verifyRosterEdits(checkout, baseline, runRebuilds, listFiles) {
+export function verifyRosterEdits(checkout, baseline, runRebuilds) {
   const directory = path.join(checkout, "data");
   const file = name => path.join(directory, name);
   const baselineRosters = new Map(TEAM_SLUGS.map(slug => [slug, JSON.parse(baseline.get(slug + ".json"))]));
@@ -44,17 +44,17 @@ export function verifyRosterEdits(checkout, baseline, runRebuilds, listFiles) {
     const { editedRoster, expectedRosters } = predictRosterEdit(baselineRosters, edit);
     for (const [name, bytes] of baseline) writeFileSync(file(name), bytes);
     writeFileSync(file(edit.team + ".json"), JSON.stringify(editedRoster));
-    runRebuilds();
+    const snapshot = runRebuilds();
 
-    assert.deepEqual(new Set(listFiles(directory)), new Set(baseline.keys()));
+    assert.deepEqual(new Set(snapshot.keys()), new Set(baseline.keys()));
     for (const [slug, team] of expectedRosters) {
-      const rebuilt = JSON.parse(readFileSync(file(slug + ".json")));
+      const rebuilt = JSON.parse(snapshot.get(slug + ".json"));
       assertRebuiltTeam(slug, baselineRosters.get(slug), team, rebuilt, edit);
     }
     const rebuiltFiles = new Set(TEAM_SLUGS.map(slug => slug + ".json"));
     for (const [name, bytes] of baseline) {
       if (!rebuiltFiles.has(name)) {
-        assert(readFileSync(file(name)).equals(bytes), name);
+        assert(snapshot.get(name).equals(bytes), name);
       }
     }
     console.log(`Verified Eagles ${edit.position} ${edit.attribute} edit across all ${expectedRosters.size} teams.`);

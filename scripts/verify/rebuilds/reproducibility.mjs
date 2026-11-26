@@ -3,6 +3,7 @@ import { cpSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync }
 import { tmpdir } from "node:os";
 import path from "node:path";
 
+import { snapshotDifferences } from "./compare-snapshots.mjs";
 import { verifyRosterEdits } from "./edit-checks.mjs";
 
 const root = path.resolve(import.meta.dirname, "../../..");
@@ -43,14 +44,8 @@ try {
     return new Map(dataFiles(directory).map(name => [name, readFileSync(path.join(directory, name))]));
   }
 
-  function checkFiles(expected, description) {
-    const files = new Set(dataFiles(directory));
-    const differences = [];
-    for (const [file, bytes] of expected) {
-      if (!files.delete(file)) differences.push(`missing data/${file}`);
-      else if (!readFileSync(path.join(directory, file)).equals(bytes)) differences.push(`changed data/${file}`);
-    }
-    for (const file of files) differences.push(`unexpected data/${file}`);
+  function checkFiles(expected, actual, description) {
+    const differences = snapshotDifferences(expected, actual);
     if (differences.length) throw new Error(`${description}:\n${differences.join("\n")}`);
   }
 
@@ -62,13 +57,15 @@ try {
       const standalone = snapshot();
       for (const [name, bytes] of edited) writeFileSync(path.join(directory, name), bytes);
       run(combined);
-      checkFiles(standalone, "Combined rebuild differs from standalone rebuilds after edit");
-    }, dataFiles);
+      const rebuilt = snapshot();
+      checkFiles(standalone, rebuilt, "Combined rebuild differs from standalone rebuilds after edit");
+      return rebuilt;
+    });
   } else {
     for (const sequence of [commands, combined]) {
       for (const pass of [1, 2]) {
         run(sequence);
-        checkFiles(baseline, `Pass ${pass} of ${sequence.join(", ")} differs from ${revision}`);
+        checkFiles(baseline, snapshot(), `Pass ${pass} of ${sequence.join(", ")} differs from ${revision}`);
         console.log(`Pass ${pass} of ${sequence.join(", ")}: all ${baseline.size} data files match ${revision.slice(0, 7)} byte-for-byte.`);
       }
     }
