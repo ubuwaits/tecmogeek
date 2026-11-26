@@ -17,6 +17,10 @@ export const getTeam = cache(async (slug: TeamSlug) => {
   return withReturnSpeeds(team);
 });
 
+export const getTeamRosters = cache(async () =>
+  Promise.all(TEAM_SLUGS.map(async slug => ({ slug, ...await getTeam(slug) }))),
+);
+
 export const getTeamRatings = cache(async () =>
-  Promise.all(TEAM_SLUGS.map(async slug => buildTeamRatingRecord(slug, await getTeam(slug)))),
+  (await getTeamRosters()).map(team => buildTeamRatingRecord(team.slug, team)),
 );

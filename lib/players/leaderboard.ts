@@ -1,4 +1,4 @@
-import { POSITION_SLUGS, type PlayerRecord, type PositionPageConfig, type PositionSlug } from "../types.ts";
+import { POSITION_SLUGS, type PlayerRecord, type TeamData, type TeamSlug, type PositionPageConfig, type PositionSlug } from "../types.ts";
 import { eligibleForPosition } from "./positions.mts";
 
 export function positionEntries<T extends PlayerRecord>(players: readonly T[], { slug, rankingKey }: PositionPageConfig) {
@@ -12,4 +12,8 @@ export function leaderboardCounts(players: readonly PlayerRecord[]): Record<Posi
     counts[slug] = players.reduce((total, player) => total + Number(eligibleForPosition(player, slug)), 0);
   }
   return counts;
+}
+
+export function leaguePlayers(rosters: readonly (TeamData & { slug: TeamSlug })[]) {
+  return rosters.flatMap(team => team.players.map(player => ({ ...player, teamSlug: team.slug })));
 }

@@ -3,10 +3,8 @@ import Link from "next/link";
 
 import { HeadshotSprite, HelmetSprite } from "@/components/ui/sprites";
 import { XMentionsSection } from "@/components/home/x-mentions-section";
-import { getPositionEntries } from "@/lib/players/data";
-import { getTeam } from "@/lib/teams/data";
-import { POSITION_PAGES } from "@/lib/players/config";
-import { getHomeEntries } from "@/lib/players/utils";
+import { homeLeaderboards } from "@/lib/players/home-leaderboards";
+import { getTeamRosters } from "@/lib/teams/data";
 import { homeRoute, playerRoute, teamRoute } from "@/lib/site/routes";
 
 export const metadata: Metadata = {
@@ -17,21 +15,7 @@ export const metadata: Metadata = {
 };
 
 export default async function HomePage() {
-  const sectionData = await Promise.all(
-    POSITION_PAGES.map(async (page) => {
-      const entries = getHomeEntries(page, await getPositionEntries(page.slug));
-      const players = await Promise.all(
-        entries.map(async (entry) => {
-          const teamSlug = entry.teamSlug;
-          const team = await getTeam(teamSlug);
-
-          return { entry, teamSlug, teamName: team.full_name };
-        }),
-      );
-
-      return { page, players };
-    }),
-  );
+  const sectionData = homeLeaderboards(await getTeamRosters());
 
   return (
     <section data-page-theme="home" className="mx-auto w-full max-w-310">
