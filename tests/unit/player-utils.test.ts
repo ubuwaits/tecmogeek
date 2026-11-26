@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { applyReturnSpeeds } from "@/lib/players/return-speeds.mts";
+import { withReturnSpeeds } from "@/lib/players/return-speeds.mts";
 import type { TeamData } from "@/lib/types";
 import fortyNiners from "@/data/49ers.json";
 import { leaderboard } from "../helpers/leaderboards";
@@ -84,8 +84,9 @@ describe("player utilities", () => {
 
   it("derives team return speeds from RT and SS slots", () => {
     const team: TeamData = structuredClone(fortyNiners);
-    applyReturnSpeeds(team);
-    expect(team.players.find(player => player.position === "RB1")).toMatchObject({
+    const enriched = withReturnSpeeds(team);
+    expect(team).toEqual(fortyNiners);
+    expect(enriched.players.find(player => player.position === "RB1")).toMatchObject({
       kick_return_maximum_speed: 31, punt_return_maximum_speed: 63,
     });
   });

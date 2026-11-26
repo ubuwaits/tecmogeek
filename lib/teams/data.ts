@@ -4,7 +4,7 @@ import { cache } from "react";
 import fs from "node:fs/promises";
 import path from "node:path";
 
-import { applyReturnSpeeds } from "@/lib/players/return-speeds.mts";
+import { withReturnSpeeds } from "@/lib/players/return-speeds.mts";
 import { buildTeamRatingRecord } from "./calculate-ratings.mts";
 import { TEAM_SLUGS, type TeamSlug } from "@/lib/teams/slugs.mts";
 import type { TeamData } from "@/lib/types";
@@ -14,8 +14,7 @@ const DATA_DIR = path.join(process.cwd(), "data");
 export const getTeam = cache(async (slug: TeamSlug) => {
   const contents = await fs.readFile(path.join(DATA_DIR, slug + ".json"), "utf8");
   const team: TeamData = JSON.parse(contents);
-  applyReturnSpeeds(team);
-  return team;
+  return withReturnSpeeds(team);
 });
 
 export const getTeamRatings = cache(async () =>

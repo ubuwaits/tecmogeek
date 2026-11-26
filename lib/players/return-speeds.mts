@@ -11,13 +11,11 @@ function starterSpeed(team: TeamData, position: "RT" | "SS"): number {
 }
 
 // The game uses the starting right tackle's speed on kicks and the strong safety's on punts.
-export function applyReturnSpeeds(team: TeamData) {
+export function withReturnSpeeds(team: TeamData) {
   const kickSpeed = starterSpeed(team, "RT");
   const puntSpeed = starterSpeed(team, "SS");
-  for (const player of team.players) {
-    if (eligibleForPosition(player, "kick-returners")) {
-      player.kick_return_maximum_speed = kickSpeed;
-      player.punt_return_maximum_speed = puntSpeed;
-    }
-  }
+  const players = team.players.map(player => eligibleForPosition(player, "kick-returners")
+    ? { ...player, kick_return_maximum_speed: kickSpeed, punt_return_maximum_speed: puntSpeed }
+    : { ...player });
+  return { ...team, players };
 }

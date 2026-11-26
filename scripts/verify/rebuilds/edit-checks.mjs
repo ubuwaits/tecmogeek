@@ -4,7 +4,7 @@ import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
 import { readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
-import { applyReturnSpeeds } from "../../../lib/players/return-speeds.mts";
+import { withReturnSpeeds } from "../../../lib/players/return-speeds.mts";
 import { positions, skillPositions } from "../roster-data.mjs";
 
 // Independently score with integer arithmetic, then resolve full ties by the prior category rank.
@@ -89,8 +89,8 @@ export function verifyRosterEdits(checkout, baseline, runRebuilds, listFiles) {
       if (position === "RT") {
         const kickSpeed = team.players.find(player => player.position === "RT").maximum_speed;
         const puntSpeed = team.players.find(player => player.position === "SS").maximum_speed;
-        applyReturnSpeeds(rebuilt);
-        for (const player of rebuilt.players.filter(p => skillPositions.test(p.position))) {
+        const enriched = withReturnSpeeds(rebuilt);
+        for (const player of enriched.players.filter(p => skillPositions.test(p.position))) {
           assert.equal(player.kick_return_maximum_speed, kickSpeed);
           assert.equal(player.punt_return_maximum_speed, puntSpeed);
         }
