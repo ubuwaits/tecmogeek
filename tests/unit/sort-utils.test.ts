@@ -1,53 +1,37 @@
 import { describe, expect, it } from "vitest";
 
-import { getNextSortDirection } from "@/lib/shared/sort-direction";
+import { getNextSortState } from "@/lib/shared/sort-state";
+import type { SortDirection } from "@/lib/types";
 
-describe("sort utilities", () => {
-  it("toggles the active column direction on repeated clicks", () => {
-    expect(
-      getNextSortDirection({
+const orderFor = (direction: SortDirection) => direction === "asc" ? [1, 2, 3] : [3, 2, 1];
+
+describe("table sort state", () => {
+  it.each([["desc", "asc"], ["asc", "desc"]] as const)(
+    "toggles the active column from %s to %s without sorting again",
+    (direction, expected) => {
+      expect(getNextSortState({
+        current: { key: "rating", direction },
+        nextKey: "rating",
+        defaultDirection: "desc",
         currentOrder: [1, 3, 2],
         orderFor: () => { throw new Error("Repeated clicks should skip sorting"); },
-        currentKey: "rating",
-        nextKey: "rating",
-        currentDirection: "desc",
-        defaultDirection: "desc",
-      }),
-    ).toBe("asc");
+      })).toEqual({ key: "rating", direction: expected });
+    },
+  );
 
-    expect(
-      getNextSortDirection({
-        currentOrder: [1, 3, 2],
-        orderFor: () => { throw new Error("Repeated clicks should skip sorting"); },
-        currentKey: "rating",
-        nextKey: "rating",
-        currentDirection: "asc",
-        defaultDirection: "desc",
-      }),
-    ).toBe("desc");
-  });
-
-  it("resets to the clicked column's default direction when switching columns", () => {
-    expect(
-      getNextSortDirection({
-        currentOrder: [1, 3, 2],
-        orderFor: direction => direction === "asc" ? [1, 2, 3] : [3, 2, 1],
-        currentKey: "rating",
+  it.each([
+    { currentOrder: [1, 3, 2], defaultDirection: "asc", expected: "asc" },
+    { currentOrder: [1, 3, 2], defaultDirection: "desc", expected: "desc" },
+    { currentOrder: [1, 2, 3], defaultDirection: "asc", expected: "desc" },
+    { currentOrder: [3, 2, 1], defaultDirection: "desc", expected: "asc" },
+  ] as const)("selects the new column and its direction given $currentOrder and default $defaultDirection",
+    ({ currentOrder, defaultDirection, expected }) => {
+      expect(getNextSortState({
+        current: { key: "rating", direction: "desc" },
         nextKey: "ranking",
-        currentDirection: "desc",
-        defaultDirection: "asc",
-      }),
-    ).toBe("asc");
-
-    expect(
-      getNextSortDirection({
-        currentOrder: [1, 3, 2],
-        orderFor: direction => direction === "asc" ? [1, 2, 3] : [3, 2, 1],
-        currentKey: "ranking",
-        nextKey: "receptions",
-        currentDirection: "asc",
-        defaultDirection: "desc",
-      }),
-    ).toBe("desc");
-  });
+        defaultDirection,
+        currentOrder,
+        orderFor,
+      })).toEqual({ key: "ranking", direction: expected });
+    });
 });

@@ -7,7 +7,7 @@ import { PlayerListHeaderLabel } from "@/components/ui/player-list-header-label"
 import { HelmetSprite } from "@/components/ui/sprites";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { teamRoute } from "@/lib/site/routes";
-import { getNextSortDirection } from "@/lib/shared/sort-direction";
+import { getNextSortState, type SortState } from "@/lib/shared/sort-state";
 import {
   formatTeamRating,
   getRankedTeamRows,
@@ -167,28 +167,23 @@ function GroupHeaderControl({
 }
 
 export function TeamRatingsView({ teams }: TeamRatingsViewProps) {
-  const [sortKey, setSortKey] = useState<TeamRatingSortKey>("overall_rating");
-  const [sortDirection, setSortDirection] = useState<SortDirection>("desc");
+  const [sort, setSort] = useState<SortState<TeamRatingSortKey>>({ key: "overall_rating", direction: "desc" });
   const [expanded, setExpanded] = useState({ offense: false, defense: false });
   const { visibleColumns, gridTemplateColumns, groupedBackgroundStyle } = buildTableLayout(expanded);
-  const rankedRows = getRankedTeamRows(teams, sortKey, sortDirection);
+  const rankedRows = getRankedTeamRows(teams, sort.key, sort.direction);
 
   function toggleGroup(group: Group) {
     setExpanded(current => ({ ...current, [group]: !current[group] }));
   }
 
   function changeSort(key: TeamRatingSortKey, defaultDirection: SortDirection = "desc") {
-    const nextDirection = getNextSortDirection({
-      currentKey: sortKey,
+    setSort(getNextSortState({
+      current: sort,
       nextKey: key,
-      currentDirection: sortDirection,
       defaultDirection,
       currentOrder: rankedRows.map(row => row.team),
       orderFor: direction => sortTeamRatingsByKey(teams, key, direction),
-    });
-
-    setSortKey(key);
-    setSortDirection(nextDirection);
+    }));
   }
 
   return (
@@ -212,7 +207,7 @@ export function TeamRatingsView({ teams }: TeamRatingsViewProps) {
               >
                 {toggle ? (
                   <GroupHeaderControl
-                    active={sortKey === column.key}
+                    active={sort.key === column.key}
                     expanded={expanded[toggle]}
                     label={column.label}
                     tooltip={column.tooltip}
@@ -224,7 +219,7 @@ export function TeamRatingsView({ teams }: TeamRatingsViewProps) {
                   <PlayerListHeaderLabel
                     label={column.label}
                     tooltip={column.tooltip}
-                    active={sortKey === column.key}
+                    active={sort.key === column.key}
                     onClick={() => changeSort(column.key)}
                   />
                 )}

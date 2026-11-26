@@ -6,7 +6,7 @@ import { PlayerListSection } from "@/components/players/player-list-table";
 import { SelectionTabs } from "@/components/ui/selection-tabs";
 import { POSITION_PAGE_CONFIG_MAP } from "@/lib/players/config";
 import { matchesPrefixes, rankingTooltip, sortEntriesByKey } from "@/lib/players/utils";
-import { getNextSortDirection } from "@/lib/shared/sort-direction";
+import { getNextSortState, type SortState } from "@/lib/shared/sort-state";
 import type {
   LeaderboardPlayer,
   PlayerSortKey,
@@ -21,29 +21,24 @@ type PlayerListViewProps = {
 
 export function PlayerListView({ slug, entries }: PlayerListViewProps) {
   const config = POSITION_PAGE_CONFIG_MAP[slug];
-  const [sortKey, setSortKey] = useState<PlayerSortKey>(config.rankingKey);
-  const [sortDirection, setSortDirection] = useState<SortDirection>("asc");
+  const [sort, setSort] = useState<SortState<PlayerSortKey>>({ key: config.rankingKey, direction: "asc" });
   const [filterId, setFilterId] = useState(config.defaultFilterId ?? "all");
 
   const activeFilter = config.filters?.find((filter) => filter.id === filterId);
   const filteredEntries = activeFilter
     ? entries.filter((entry) => matchesPrefixes(entry.position, activeFilter.allowedPrefixes))
     : entries;
-  const sortedEntries = sortEntriesByKey(filteredEntries, sortKey, sortDirection, config.rankingKey);
-  const activeMetricKey = config.columns.find((column) => column.key === sortKey)?.key ?? null;
+  const sortedEntries = sortEntriesByKey(filteredEntries, sort.key, sort.direction, config.rankingKey);
+  const activeMetricKey = config.columns.find((column) => column.key === sort.key)?.key ?? null;
 
   function changeSort(key: PlayerSortKey, defaultDirection: SortDirection) {
-    const nextDirection = getNextSortDirection({
-      currentKey: sortKey,
+    setSort(getNextSortState({
+      current: sort,
       nextKey: key,
-      currentDirection: sortDirection,
       defaultDirection,
       currentOrder: sortedEntries,
       orderFor: direction => sortEntriesByKey(filteredEntries, key, direction, config.rankingKey),
-    });
-
-    setSortKey(key);
-    setSortDirection(nextDirection);
+    }));
   }
 
   return (
@@ -64,9 +59,9 @@ export function PlayerListView({ slug, entries }: PlayerListViewProps) {
         layout="player"
         rankingLabel="Ranking"
         rankingTooltip={rankingTooltip(entries.length, config.rankingGroupLabel)}
-        rankingActive={sortKey === config.rankingKey}
+        rankingActive={sort.key === config.rankingKey}
         onRankingClick={() => changeSort(config.rankingKey, "asc")}
-        ratingActive={sortKey === config.ratingKey}
+        ratingActive={sort.key === config.ratingKey}
         onRatingClick={() => changeSort(config.ratingKey, "desc")}
         activeMetricKey={activeMetricKey}
         onMetricClick={(key) => changeSort(key, "desc")}
