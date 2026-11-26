@@ -20,12 +20,16 @@ const defense = {
 export const rebuildScales = { ...offense, ...defense };
 const categories = { offense, defense, all: rebuildScales };
 
-export function rebuildPlayerRatings(teams, scope) {
+export function rebuildPlayerRatings(rosters, scope) {
   if (!Object.hasOwn(categories, scope)) throw new Error("Expected rebuild scope: offense, defense or all.");
-  const rebuilt = teams.map(team => scope === "defense"
-    ? { ...team, players: team.players.map(player => ({ ...player })) }
-    : withReturnSpeeds(team));
-  const roster = rebuilt.flatMap(team => team.players);
+  const rebuilt = new Map();
+  for (const [slug, team] of rosters) {
+    const updated = scope === "defense"
+      ? { ...team, players: team.players.map(player => ({ ...player })) }
+      : withReturnSpeeds(team);
+    rebuilt.set(slug, updated);
+  }
+  const roster = [...rebuilt.values()].flatMap(team => team.players);
   for (const [slug, scale] of Object.entries(categories[scope])) {
     const { columns, ratingKey, rankingKey } = POSITION_PAGE_CONFIG_MAP[slug];
     const players = roster.filter(player => eligibleForPosition(player, slug));

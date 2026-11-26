@@ -38,9 +38,9 @@ it("gives unlisted hitting power zero points and preserves each category's prior
   const back = { position: "RB1", ...skillAttributes, rushing_ranking: 2, receiving_ranking: 1 };
   const receiver = { position: "WR1", ...skillAttributes, rushing_ranking: 1, receiving_ranking: 2 };
   const defense = { position: "RE", rating: "17%", ranking: 28 };
-  const teams = [{ players: [back, receiver, defense, ...returnStarters(50, 50)] }];
+  const teams = new Map([["jets", { players: [back, receiver, defense, ...returnStarters(50, 50)] }]]);
   const original = structuredClone(teams);
-  const [rebuilt] = rebuildPlayerRatings(teams, "offense");
+  const rebuilt = rebuildPlayerRatings(teams, "offense").get("jets");
 
   expect(teams).toEqual(original);
   expect(rebuilt.players.slice(0, 2).map(p => [p.rushing_rating, p.rushing_ranking, p.receiving_rating, p.receiving_ranking]))
@@ -51,13 +51,17 @@ it("gives unlisted hitting power zero points and preserves each category's prior
 it("rates returns using each team's RT and SS speeds against the league maxima", () => {
   const first = { position: "RB1", ...skillAttributes };
   const second = { position: "RB1", ...skillAttributes };
-  const rebuilt = rebuildPlayerRatings([
-    { players: [first, ...returnStarters(50, 100)] },
-    { players: [second, ...returnStarters(100, 50)] },
-  ], "offense");
-
-  expect(rebuilt.map(team => team.players[0]).map(p => [p.kick_return_rating, p.kick_return_ranking, p.punt_return_rating, p.punt_return_ranking]))
-    .toEqual([["60%", 2, "90%", 1], ["90%", 1, "55%", 2]]);
+  const rosters = new Map([
+    ["jets", { players: [first, ...returnStarters(50, 100)] }],
+    ["bills", { players: [second, ...returnStarters(100, 50)] }],
+  ]);
+  const rebuilt = rebuildPlayerRatings(rosters, "offense");
+  expect(rebuilt.get("jets").players[0]).toMatchObject({
+    kick_return_rating: "60%", kick_return_ranking: 2, punt_return_rating: "90%", punt_return_ranking: 1,
+  });
+  expect(rebuilt.get("bills").players[0]).toMatchObject({
+    kick_return_rating: "90%", kick_return_ranking: 1, punt_return_rating: "55%", punt_return_ranking: 2,
+  });
 });
 
 it("uses the defensive scale and breaks equal displayed ratings by raw hitting power", () => {
@@ -69,7 +73,8 @@ it("uses the defensive scale and breaks equal displayed ratings by raw hitting p
   ];
   const back = { position: "RB1", ...skillAttributes };
   const original = structuredClone(defenders);
-  const [rebuilt] = rebuildPlayerRatings([{ players: [...defenders, back] }], "defense");
+  const rosters = new Map([["jets", { players: [...defenders, back] }]]);
+  const rebuilt = rebuildPlayerRatings(rosters, "defense").get("jets");
 
   expect(defenders).toEqual(original);
   expect(rebuilt.players.slice(0, 3).map(p => [p.rating, p.ranking])).toEqual([["60%", 3], ["60%", 2], ["91%", 1]]);
@@ -79,7 +84,8 @@ it("uses the defensive scale and breaks equal displayed ratings by raw hitting p
 it("keeps hand-maintained QB, kicker, and punter ratings and ranks through a full rebuild", () => {
   const published = ["QB1", "K", "P"].map(position => ({ position, rating: "44%", ranking: 8 }));
   const original = structuredClone(published);
-  const [rebuilt] = rebuildPlayerRatings([{ players: [...published, ...returnStarters(50, 50)] }], "all");
+  const rosters = new Map([["jets", { players: [...published, ...returnStarters(50, 50)] }]]);
+  const rebuilt = rebuildPlayerRatings(rosters, "all").get("jets");
   expect(rebuilt.players.slice(0, 3)).toEqual(original);
 });
 
@@ -96,10 +102,9 @@ it("rebuilds the published rusher examples from their roster attributes", () => 
     delete player.rushing_rating;
   }
 
-  const rebuilt = rebuildPlayerRatings([...rosters.values()], "all");
-  const players = rebuilt.flatMap(team => team.players);
+  const rebuilt = rebuildPlayerRatings(rosters, "all");
   for (const [slug, name, rating] of examples) {
-    expect(players.find(p => p.name === name)?.rushing_rating).toBe(rating);
+    expect(rebuilt.get(slug).players.find(p => p.name === name)?.rushing_rating).toBe(rating);
     expect(rosters.get(slug).players.find(p => p.name === name)).not.toHaveProperty("rushing_rating");
   }
 });
