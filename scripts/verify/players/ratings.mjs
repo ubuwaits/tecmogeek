@@ -1,4 +1,4 @@
-import { expectedWeights, skillHP, lineHP, defenseHP } from "./rating-spec.mjs";
+import { exactPlayerRating, expectedScales, expectedWeights } from "./rating-spec.mjs";
 import { positionEntries } from "../../../lib/players/leaderboard.ts";
 import assert from "node:assert/strict";
 import { getTeamFileNames, indexPlayers, key, positions, readRosterPlayers, skillPositions } from "../roster-data.mjs";
@@ -8,12 +8,8 @@ import { rebuildScales } from "../../rebuild/player-ratings.mjs";
 import { attributeMaxima, weightedRating } from "../../rebuild/player-rating.mjs";
 
 const { Context } = await init();
-const { Int, Real, ToInt, ToReal, Solver, Sum, If, Or, substitute, simplify } = new Context("players");
+const { Int, Real, ToInt, ToReal, Solver, Sum, If, Or } = new Context("players");
 
-const expectedScales = {
-  rushers: skillHP, receivers: skillHP, "kick-returners": skillHP, "punt-returners": skillHP,
-  ol: lineHP, dl: defenseHP, lb: defenseHP, "cb-s": defenseHP,
-};
 assert.deepEqual(Object.keys(rebuildScales).sort(), Object.keys(expectedScales).sort());
 
 function ladderScore(raw, ladder) {
@@ -46,7 +42,6 @@ async function prove(page, maxima) {
       spec.lt(0), spec.gt(100)));
     const result = await solver.check();
     if (result !== "unsat") throw new Error(`${page.slug}: ${result === "sat" ? solver.model() : solver.reasonUnknown()}`);
-    return { raw, rounded };
   } finally {
     solver.release();
   }
@@ -90,11 +85,9 @@ for (const page of POSITION_PAGES) {
   if (scale) {
     assert.deepEqual(attributeMaxima(rows, page.columns), maxima);
   }
-  const { raw, rounded } = await prove(page, maxima);
+  await prove(page, maxima);
   for (const player of eligible) {
-    const concrete = substitute(rounded, ...Array.from(raw, ([field, variable]) => [variable, Int.val(player[field])]));
-    const rating = Number((await simplify(concrete)).toString());
-    assert(Number.isInteger(rating));
+    const rating = exactPlayerRating(player, page.slug, maxima);
     unclassified.delete(key(player));
     if (player[page.ratingKey] !== rating + "%") errors.push(`${key(player)} ${page.ratingKey}=${player[page.ratingKey]}, expected ${rating}%`);
     if (scale) {
