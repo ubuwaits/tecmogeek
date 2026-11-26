@@ -18,17 +18,22 @@ function formatTeamFile(team: TeamData) {
   return `{\n  "full_name": ${JSON.stringify(team.full_name)},\n  "players": [\n${players}\n  ]\n}\n`;
 }
 
+export function parseTeamRoster(slug: string, text: string): TeamData {
+  const team: TeamData = JSON.parse(text);
+  const identities = new Set<string>();
+  for (const player of team.players) {
+    const id = JSON.stringify([slug, player.position, player.name]);
+    if (identities.has(id)) throw new Error(`Duplicate roster player: ${id}`);
+    identities.add(id);
+  }
+  return team;
+}
+
 export function readTeamRosters() {
   const rosters = new Map<string, TeamData>();
-  const identities = new Set<string>();
   for (const slug of TEAM_SLUGS) {
-    const team: TeamData = JSON.parse(fs.readFileSync(path.join(DATA_DIR, slug + ".json"), "utf8"));
-    for (const player of team.players) {
-      const id = JSON.stringify([slug, player.position, player.name]);
-      if (identities.has(id)) throw new Error(`Duplicate roster player: ${id}`);
-      identities.add(id);
-    }
-    rosters.set(slug, team);
+    const text = fs.readFileSync(path.join(DATA_DIR, slug + ".json"), "utf8");
+    rosters.set(slug, parseTeamRoster(slug, text));
   }
   return rosters;
 }
