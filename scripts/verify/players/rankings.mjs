@@ -5,7 +5,6 @@ import { init } from "z3-solver";
 import { POSITION_PAGES } from "../../../lib/players/config.ts";
 import { getTeamFileNames, indexPlayers, key, positions, readRosterPlayers } from "../roster-data.mjs";
 import { rankPositionPlayers } from "../../rebuild/rank-position-players.mjs";
-import { comparePlayerRanks } from "../../rebuild/compare-player-ranks.mjs";
 
 const { Context } = await init();
 const { Int, Or, And, Not, Solver } = new Context("player_rankings");
@@ -27,22 +26,6 @@ await rejectCounterexample(Solver, Or(precedes(a, a), And(ab, ba),
   And(a.index.neq(b.index), Not(Or(ab, ba))),
   And(ab, precedes(b, c), Not(precedes(a, c)))), "Ranking is not a strict total order");
 
-// Exercise all relative orderings of the three keys through the rebuild comparator,
-// including a rating and hitting-power tie in either source order.
-for (const rating of [-1, 0, 1]) {
-  for (const hp of [-1, 0, 1]) {
-    for (const index of [-1, 0, 1]) {
-      const left = { rating, hittingPower: hp, previousRank: index };
-      const right = { rating: 0, hittingPower: 0, previousRank: 0 };
-      const observed = comparePlayerRanks(left, right);
-      await rejectCounterexample(Solver, And(
-        a.primary.sub(b.primary).eq(rating), a.secondary.sub(b.secondary).eq(hp), a.index.sub(b.index).eq(index),
-        observed < 0 ? Not(ab) : observed > 0 ? Not(ba) : Or(ab, ba),
-      ), "Rebuild comparator disagrees with ranking rule");
-    }
-  }
-}
-
 // Roster order can disagree with either leaderboard. On a full tie each
 // rebuild must use that category's own previous ranks before overwriting them.
 const tied = [
@@ -63,9 +46,7 @@ for (const page of POSITION_PAGES) {
   const eligible = roster.filter(player => positions[page.slug].test(player.position));
   assert(rows.length > 0, `Empty group: ${page.slug}`);
   assert.deepEqual(new Set(indexPlayers(rows, page.slug).keys()), new Set(eligible.map(key)), page.slug);
-  const violations = [];
   let previous;
-  const witness = Int.const("row_with_inversion");
   for (const [i, player] of rows.entries()) {
     const id = key(player);
     const rating = player[page.ratingKey];
@@ -78,14 +59,14 @@ for (const page of POSITION_PAGES) {
       secondary = player.hitting_power;
     }
     assert(Number.isInteger(primary) && Number.isInteger(secondary), `${id}: invalid ranking input`);
-    const current = { primary: Int.val(primary), secondary: Int.val(secondary), index: Int.val(i) };
-    if (previous) violations.push(And(witness.eq(i + 1), Not(precedes(previous, current))));
-    previous = current;
+    if (previous) {
+      assert(previous.primary > primary || (previous.primary === primary && previous.secondary >= secondary),
+        `${page.slug}: ${previous.id} precedes ${id} with a lower ranking input`);
+    }
+    previous = { primary, secondary, id };
     assert.equal(player[page.rankingKey], i + 1, `${id} ${page.rankingKey}`);
     unclassified.delete(id);
   }
-  // Transitivity makes adjacent comparisons sufficient for the entire file.
-  if (violations.length) await rejectCounterexample(Solver, Or(...violations), `Out-of-order players in ${page.slug}`);
   count += rows.length;
 }
 

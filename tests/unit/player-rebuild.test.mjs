@@ -1,4 +1,5 @@
 import { expect, it } from "vitest";
+import { comparePlayerRanks } from "../../scripts/rebuild/compare-player-ranks.mjs";
 import { rebuildPlayerRatings } from "../../scripts/rebuild/player-ratings.mjs";
 import { readTeamRosters } from "../../scripts/rebuild/roster-files.mts";
 
@@ -10,6 +11,28 @@ function returnStarters(kickSpeed, puntSpeed) {
     { position: "SS", maximum_speed: puntSpeed },
   ];
 }
+
+// For each rating and hitting-power difference, list the expected comparator
+// signs when the left player's previous rank is lower, equal, or higher.
+const comparatorCases = [
+  [-1, -1, [1, 1, 1]],
+  [-1,  0, [1, 1, 1]],
+  [-1,  1, [1, 1, 1]],
+  [ 0, -1, [1, 1, 1]],
+  [ 0,  0, [-1, 0, 1]],
+  [ 0,  1, [-1, -1, -1]],
+  [ 1, -1, [-1, -1, -1]],
+  [ 1,  0, [-1, -1, -1]],
+  [ 1,  1, [-1, -1, -1]],
+].flatMap(([rating, hittingPower, signs]) =>
+  [-1, 0, 1].map((previousRank, i) => ({ rating, hittingPower, previousRank, expected: signs[i] })));
+
+it.each(comparatorCases)("compares rank differences of $rating rating, $hittingPower HP, and $previousRank prior rank",
+  ({ rating, hittingPower, previousRank, expected }) => {
+    const left = { rating, hittingPower, previousRank };
+    const right = { rating: 0, hittingPower: 0, previousRank: 0 };
+    expect(Math.sign(comparePlayerRanks(left, right))).toBe(expected);
+  });
 
 it("gives unlisted hitting power zero points and preserves each category's prior order on a full tie", () => {
   const back = { position: "RB1", ...skillAttributes, rushing_ranking: 2, receiving_ranking: 1 };

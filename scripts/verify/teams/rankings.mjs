@@ -43,19 +43,15 @@ for (const direction of ["desc", "asc"]) {
     for (const team of teams) assert(Number.isFinite(value(team)), `${team.team}: invalid ${key}`);
     const ranked = getRankedTeamRows(teams, key, direction);
     assert.deepEqual(ranked.map(row => row.team.team).sort(), ids);
-    const inversions = [];
-    const witness = Int.const("second_row_of_inversion");
-    let previous;
     for (const [i, { team, rank }] of ranked.entries()) {
       const score = value(team);
-      const current = { score: Real.val(String(score)), name: Int.val(names.get(team.team)) };
-      if (previous) inversions.push(And(witness.eq(i + 1), Not(precedes(previous, current, direction))));
-      previous = current;
-
       const higher = teams.filter(other => value(other) > score).length;
       const ties = teams.filter(other => value(other) === score);
       const earlier = ties.filter(other => names.get(other.team) < names.get(team.team)).length;
       const canonical = 1 + higher + earlier;
+      const lower = teams.length - higher - ties.length;
+      const expectedIndex = earlier + (direction === "desc" ? higher : lower);
+      assert.equal(i, expectedIndex, `${direction} ${key}: ${team.team} row index`);
       assert.equal(rank, canonical, `${direction} ${key}: ${team.team} rank`);
       if (direction === "desc" && summaryKeys.includes(key)) {
         const item = summaries.get(team.team).find(item => item.key === key);
@@ -63,7 +59,6 @@ for (const direction of ["desc", "asc"]) {
         assert.equal(item.rank, canonical, `${team.team}: ${key} summary rank`);
       }
     }
-    if (inversions.length) await rejectCounterexample(Solver, Or(...inversions), `${direction} ${key}: out-of-order teams`);
 
     // Exercise every column's exact tie rule even if today's scores are distinct.
     const forcedTies = alphabetical.toReversed().map(team => ({
