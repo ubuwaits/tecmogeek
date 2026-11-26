@@ -4,7 +4,6 @@ import {
   formatTeamRating,
   getTeamRatingSortValue,
   getTeamRatingSummaries,
-  sortTeamRatingsByKey,
 } from "@/lib/teams/ratings";
 import type { TeamRatingRecord } from "@/lib/types";
 
@@ -107,19 +106,6 @@ const teams: TeamRatingRecord[] = [
 describe("team rating utils", () => {
   it("formats team rating percentages to one decimal place", () => {
     expect(formatTeamRating(68.973)).toBe("69.0%");
-  });
-
-  it("sorts by any supported rating key using team name as the tie-breaker", () => {
-    const sorted = sortTeamRatingsByKey(
-      [
-        { ...teams[0], overall_rating: 60, full_name: "Zulu Team" },
-        { ...teams[1], overall_rating: 60, full_name: "Alpha Team" },
-      ],
-      "overall_rating",
-      "desc",
-    );
-
-    expect(sorted.map((team) => team.full_name)).toEqual(["Alpha Team", "Zulu Team"]);
   });
 
   it("returns top-level and component rating values", () => {

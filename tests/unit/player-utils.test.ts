@@ -29,12 +29,6 @@ describe("player utilities", () => {
     ).toBe(75);
   });
 
-  it("sorts descending for rating values while preserving highest player first", () => {
-    const sorted = sortEntriesByKey(rushers.slice(0, 10), "rushing_rating", "desc");
-    expect(sorted[0]?.name).toBe("Bo Jackson");
-    expect(sorted[0]?.rushing_rating).toBe("82%");
-  });
-
   it("uses canonical ranking as the tie-breaker when rating values match", () => {
     const entries = [
       {

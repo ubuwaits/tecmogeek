@@ -87,11 +87,14 @@ for (const [slug, subset, filter] of [
       expect(await renderedRows(rows)).toEqual(expected.map(expectedRow));
     }
     await check(all);
-    await page.getByTestId("filter-" + filter).click();
+    const filterTab = page.getByTestId("filter-" + filter);
+    await expect(filterTab).toHaveCSS("cursor", "pointer");
+    await filterTab.click();
     await check(selected);
     await checkRankTooltip(page, page.getByRole("button", { name: "Ranking", exact: true }), slug);
 
     const header = page.getByRole("button", { name: "REC", exact: true });
+    await expect(header).toHaveCSS("cursor", "pointer");
     // Receptions descending breaks ties by better league rank. Ascending reverses both.
     const byReceptions = (a, b) => b.receptions - a.receptions || a[rank] - b[rank];
     const sorted = [...selected].sort(byReceptions);
@@ -100,7 +103,10 @@ for (const [slug, subset, filter] of [
     await header.click();
     await check(sorted.toReversed());
     await page.getByTestId("filter-all").click();
-    await check([...all].sort(byReceptions).reverse());
+    const allByReceptions = all.toSorted(byReceptions);
+    await check(allByReceptions.toReversed());
+    await header.click();
+    await check(allByReceptions);
   });
 }
 

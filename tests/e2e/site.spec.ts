@@ -63,58 +63,6 @@ test("team ratings page renders the ratings table", async ({ page }) => {
   await expect(page.locator("[data-testid='team-ratings-row']")).toHaveCount(28);
 });
 
-test("rushers page filters down to RB entries", async ({ page }) => {
-  await page.goto("/players/rushers/");
-  const onlyRbTab = page.getByTestId("filter-only-rb");
-  await expect(onlyRbTab).toHaveCSS("cursor", "pointer");
-  await onlyRbTab.click();
-
-  const positions = await page
-    .locator("[data-testid='leaderboard-row']")
-    .evaluateAll((rows) => rows.map((row) => row.getAttribute("data-position")));
-
-  expect(positions.every((position) => position?.startsWith("RB"))).toBeTruthy();
-});
-
-test("rushers page metric header re-sorts the player list", async ({ page }) => {
-  await page.goto("/players/rushers/");
-  const receptionsHeader = page.getByRole("button", { name: "REC" });
-  await expect(receptionsHeader).toHaveCSS("cursor", "pointer");
-  await receptionsHeader.click();
-
-  const receptionValues = await page
-    .locator("[data-testid='leaderboard-row'] [data-metric-key='receptions']")
-    .evaluateAll((bars) => bars.map((bar) => Number(bar.textContent?.trim() ?? "0")));
-
-  expect(
-    receptionValues.every((value, index, values) => index === 0 || values[index - 1] >= value),
-  ).toBeTruthy();
-});
-
-test("repeated leaderboard header clicks toggle sort direction", async ({ page }) => {
-  await page.goto("/players/rushers/");
-  const receptionsHeader = page.getByRole("button", { name: "REC" });
-  await receptionsHeader.click();
-
-  const descendingValues = await page
-    .locator("[data-testid='leaderboard-row'] [data-metric-key='receptions']")
-    .evaluateAll((bars) => bars.map((bar) => Number(bar.textContent?.trim() ?? "0")));
-
-  expect(
-    descendingValues.every((value, index, values) => index === 0 || values[index - 1] >= value),
-  ).toBeTruthy();
-
-  await receptionsHeader.click();
-
-  const ascendingValues = await page
-    .locator("[data-testid='leaderboard-row'] [data-metric-key='receptions']")
-    .evaluateAll((bars) => bars.map((bar) => Number(bar.textContent?.trim() ?? "0")));
-
-  expect(
-    ascendingValues.every((value, index, values) => index === 0 || values[index - 1] <= value),
-  ).toBeTruthy();
-});
-
 test("player rating sort keeps ranking values ordered through ties", async ({ page }) => {
   await page.goto("/players/rushers/");
   const ratingHeader = page.getByRole("button", { name: "Rating" });

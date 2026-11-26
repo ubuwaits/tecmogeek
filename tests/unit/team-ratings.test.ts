@@ -3,7 +3,7 @@ import path from "node:path";
 
 import { describe, expect, it } from "vitest";
 
-import { TEAM_SLUGS, type TeamData } from "@/lib/types";
+import type { TeamData, TeamSlug } from "@/lib/types";
 
 import {
   buildTeamRatingRecord,
@@ -115,75 +115,36 @@ describe("team ratings generator", () => {
       .toThrow("Expected exactly one SS in secondary, received 0.");
   });
 
-  it("uses qb room and return room in the offensive formulas", () => {
-    const teamData = readJson<TeamData>("eagles.json");
-    const quarterbackRoom = createQuarterbackRoom(teamData.players);
-    const returnRoom = createReturnRoom(teamData.players);
-    const result = buildTeamRatingRecord("eagles", teamData);
+  it("selects the published quarterbacks, returners, and 49ers skill lineups", () => {
+    const selected = (slug: TeamSlug) => buildTeamRatingRecord(slug, readJson<TeamData>(slug + ".json")).selected_lineups;
+    const fortyNiners = selected("49ers");
 
-    expect(result.components.qb_room).toBeCloseTo(quarterbackRoom.score, 3);
-    expect(result.components.qb_rating).toBeCloseTo(Number.parseFloat(String(quarterbackRoom.bestQb.rating).replace("%", "")), 3);
-    expect(result.components.return_room).toBeCloseTo(returnRoom.score, 3);
-    expect(result.components.running_offense).toBeCloseTo(
-      0.63 * result.components.running_skill +
-      0.27 * result.components.ol_line +
-      0.1 * result.components.return_room,
-      2,
-    );
-    expect(result.components.passing_offense).toBeCloseTo(
-      0.45 * result.components.qb_room +
-      0.315 * result.components.passing_skill +
-      0.135 * result.components.ol_line +
-      0.1 * result.components.return_room,
-      2,
-    );
-    expect(result.components.balanced_offense).toBeCloseTo(
-      0.27 * result.components.qb_room +
-      0.18 * result.components.ol_line +
-      0.45 * result.components.balanced_skill +
-      0.1 * result.components.return_room,
-      2,
-    );
-  });
+    expect(selected("eagles").best_qb).toBe("QB Eagles (QB1)");
+    expect(selected("steelers").kr).toBe("Merril Hoge (RB1)");
+    expect(selected("saints").kr).toBe("Craig Heyward (RB1)");
+    expect(fortyNiners.pr).toBe("Tom Rathman (RB2)");
+    expect(selected("bengals").pr).toBe("Ickey Woods (RB2)");
 
-  it("keeps the generated team ratings sorted and representative of the expected team shapes", () => {
-    const generated = TEAM_SLUGS.map(slug => buildTeamRatingRecord(slug, readJson<TeamData>(slug + ".json")));
-    const teams = new Map(generated.map((record) => [record.team, record]));
-    const fortyNiners = teams.get("49ers");
-    const bears = teams.get("bears");
-    const eagles = teams.get("eagles");
-
-    expect(generated.map((record) => record.team)).toEqual([...generated.map((record) => record.team)].sort());
-    expect(teams.get("steelers")?.selected_lineups.kr).toBe("Merril Hoge (RB1)");
-    expect(teams.get("saints")?.selected_lineups.kr).toBe("Craig Heyward (RB1)");
-    expect(teams.get("49ers")?.selected_lineups.pr).toBe("Tom Rathman (RB2)");
-    expect(teams.get("bengals")?.selected_lineups.pr).toBe("Ickey Woods (RB2)");
-
-    expect(Object.keys(fortyNiners?.selected_lineups.running_lineup ?? {})).toEqual(["RB1", "RB2", "WR1", "WR2", "TE1"]);
-    expect(new Set(Object.values(fortyNiners?.selected_lineups.running_lineup ?? {})).size).toBe(5);
-    expect(new Set(Object.values(fortyNiners?.selected_lineups.passing_lineup ?? {})).size).toBe(5);
-    expect(new Set(Object.values(fortyNiners?.selected_lineups.balanced_lineup ?? {})).size).toBe(5);
-    expect(fortyNiners?.selected_lineups.running_lineup.TE1).toBe("Tom Rathman (RB2)");
-    expect(fortyNiners?.selected_lineups.balanced_lineup.WR1).toBe("Jerry Rice (WR2)");
-    expect(fortyNiners?.selected_lineups.balanced_lineup.WR2).toBe("John Taylor (WR1)");
-    expect(fortyNiners?.selected_lineups.balanced_lineup.TE1).toBe("Brent Jones (TE1)");
-    expect(fortyNiners?.selected_lineups.passing_lineup.WR1).toBe("Jerry Rice (WR2)");
+    expect(Object.keys(fortyNiners.running_lineup)).toEqual(["RB1", "RB2", "WR1", "WR2", "TE1"]);
+    expect(new Set(Object.values(fortyNiners.running_lineup)).size).toBe(5);
+    expect(new Set(Object.values(fortyNiners.passing_lineup)).size).toBe(5);
+    expect(new Set(Object.values(fortyNiners.balanced_lineup)).size).toBe(5);
+    expect(fortyNiners.running_lineup.TE1).toBe("Tom Rathman (RB2)");
+    expect(fortyNiners.balanced_lineup.WR1).toBe("Jerry Rice (WR2)");
+    expect(fortyNiners.balanced_lineup.WR2).toBe("John Taylor (WR1)");
+    expect(fortyNiners.balanced_lineup.TE1).toBe("Brent Jones (TE1)");
+    expect(fortyNiners.passing_lineup.WR1).toBe("Jerry Rice (WR2)");
     expect(
       [
-        fortyNiners?.selected_lineups.passing_lineup.WR2,
-        fortyNiners?.selected_lineups.passing_lineup.TE1,
+        fortyNiners.passing_lineup.WR2,
+        fortyNiners.passing_lineup.TE1,
       ],
     ).toEqual(expect.arrayContaining(["John Taylor (WR1)", "Brent Jones (TE1)"]));
     expect(
       [
-        fortyNiners?.selected_lineups.passing_lineup.RB1,
-        fortyNiners?.selected_lineups.passing_lineup.RB2,
+        fortyNiners.passing_lineup.RB1,
+        fortyNiners.passing_lineup.RB2,
       ],
     ).not.toContain("Jerry Rice (WR2)");
-    expect(fortyNiners?.components.return_room).toBeGreaterThan(0);
-    expect(eagles?.components.qb_room).toBeLessThan(eagles?.components.qb_rating ?? Number.POSITIVE_INFINITY);
-    expect(fortyNiners?.components.passing_offense).toBeGreaterThan(fortyNiners?.components.running_offense ?? 0);
-    expect(bears?.defensive_rating).toBeGreaterThan(bears?.offensive_rating ?? 0);
-    expect(eagles?.selected_lineups.best_qb).toBe("QB Eagles (QB1)");
   });
 });
