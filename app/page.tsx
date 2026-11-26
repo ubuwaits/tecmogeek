@@ -33,29 +33,27 @@ export default async function HomePage() {
             </h3>
 
             <ol className="bg-(--dark-bg) px-0 py-3 shadow-[8px_8px_0_var(--pink)]">
-              {players.map(({ entry, teamSlug, teamName }) => {
-                return (
-                  <li
-                    key={`${page.slug}-${entry.name}`}
-                    className="flex items-center px-4 py-2 sm:px-5"
-                  >
-                    <Link href={teamRoute(teamSlug)} aria-label={`${teamName} team page`} className="block w-8">
-                      <HelmetSprite team={teamSlug} />
-                    </Link>
+              {players.map(({ name, position, number, teamName, teamSlug }) => (
+                <li
+                  key={`${page.slug}-${name}`}
+                  className="flex items-center px-4 py-2 sm:px-5"
+                >
+                  <Link href={teamRoute(teamSlug)} aria-label={`${teamName} team page`} className="block w-8">
+                    <HelmetSprite team={teamSlug} />
+                  </Link>
 
-                    <HeadshotSprite team={teamSlug} position={entry.position} className="mx-3" />
+                  <HeadshotSprite team={teamSlug} position={position} className="mx-3" />
 
-                    <section>
-                      <h3 className="font-(family-name:--font-tecmo) text-[14px] uppercase text-balance">
-                        {entry.name}
-                      </h3>
-                      <h4 className="font-(family-name:--font-tecmo) text-[12px] text-white/65">
-                        {entry.position} {entry.number}
-                      </h4>
-                    </section>
-                  </li>
-                );
-              })}
+                  <section>
+                    <h3 className="font-(family-name:--font-tecmo) text-[14px] uppercase text-balance">
+                      {name}
+                    </h3>
+                    <h4 className="font-(family-name:--font-tecmo) text-[12px] text-white/65">
+                      {position} {number}
+                    </h4>
+                  </section>
+                </li>
+              ))}
             </ol>
           </div>
         ))}

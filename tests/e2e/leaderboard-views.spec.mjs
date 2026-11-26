@@ -22,6 +22,7 @@ async function renderedRows(rows) {
 
 test("all 11 homepage lists show the correct ranked players and team links", async ({ page }) => {
   await page.goto("/");
+  const teamNames = new Map(teams.map(team => [team.team, team.full_name]));
   const lists = page.locator("main h3 + ol");
   await expect(lists).toHaveCount(11);
   for (const [slug, eligible] of Object.entries(positions)) {
@@ -33,6 +34,8 @@ test("all 11 homepage lists show the correct ranked players and team links", asy
     const heading = page.locator(`main h3:has(a[href="/players/${slug}/"])`);
     const rows = heading.locator("xpath=following-sibling::*[1]").and(lists).getByRole("listitem");
     expect(await renderedRows(rows), slug).toEqual(leaders.map(expectedRow));
+    const teamLabels = await rows.getByRole("link").evaluateAll(links => links.map(link => link.getAttribute("aria-label")));
+    expect(teamLabels, slug).toEqual(leaders.map(player => teamNames.get(player.teamSlug) + " team page"));
   }
 });
 
