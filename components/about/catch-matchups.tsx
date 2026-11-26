@@ -2,10 +2,7 @@
 
 import { useId, useState } from "react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { catchChance } from "@/lib/players/catch-chance";
-
-type Player = { name: string; position: string; skill: number };
-type Team = { name: string; slug: string; quarterbacks: Player[]; receivers: Player[]; defenders: Player[] };
+import { catchRows, type CatchTeam } from "@/lib/players/catch-matchups";
 
 function Picker({ label, value, options, onChange, className = "" }: {
   label: string; value: string; options: { value: string; label: string }[]; onChange: (value: string) => void; className?: string;
@@ -30,7 +27,7 @@ function Picker({ label, value, options, onChange, className = "" }: {
   );
 }
 
-function playerOptions(players: Player[]) {
+function playerOptions(players: CatchTeam["quarterbacks"]) {
   return players.map(player => ({ value: player.position, label: player.name + " · " + player.position }));
 }
 
@@ -48,7 +45,7 @@ function ChanceCell({ chance, className = "" }: { chance: number; className?: st
   );
 }
 
-export function CatchMatchups({ teams }: { teams: Team[] }) {
+export function CatchMatchups({ teams }: { teams: CatchTeam[] }) {
   const [offenseSlug, setOffense] = useState("49ers");
   const [defenseSlug, setDefense] = useState("bills");
   const [qbPosition, setQb] = useState("QB1");
@@ -89,17 +86,17 @@ export function CatchMatchups({ teams }: { teams: Team[] }) {
             </tr>
           </thead>
           <tbody>
-            {offense.receivers.map(receiver => (
+            {catchRows(qb, offense.receivers, defense.defenders).map(({ receiver, open, covered }) => (
               <tr key={receiver.position}>
                 <th scope="row" className="sticky left-0 border border-white/50 bg-blue-900 px-2 py-2 text-left">
                   {receiver.name}<span className="block text-xs font-normal text-blue-100">{receiver.position}</span>
                 </th>
-                <ChanceCell chance={catchChance(qb.skill, receiver.skill)} />
+                <ChanceCell chance={open} />
                 {defense.defenders.map(player => (
                   <ChanceCell
                     key={player.position}
                     className={visibility(player.position)}
-                    chance={catchChance(qb.skill, receiver.skill, player.skill)}
+                    chance={covered[player.position]}
                   />
                 ))}
               </tr>

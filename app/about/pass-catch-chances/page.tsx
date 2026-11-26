@@ -4,7 +4,7 @@ import { pageMetadata } from "@/lib/site/metadata";
 import { passCatchRoute } from "@/lib/site/routes";
 import { getTeam } from "@/lib/teams/data";
 import { TEAM_SLUGS } from "@/lib/teams/slugs.mts";
-import type { PlayerRecord } from "@/lib/types";
+import { catchTeam } from "@/lib/players/catch-matchups";
 
 const source = "https://github.com/bruddog/Tecmo_Super_Bowl_NES_Disassembly/blob/f3bae0e1913ba532a5ace158d86d905ecf787008/Bank21_22_play_commands_on_field_logic.asm";
 
@@ -12,22 +12,9 @@ export async function generateMetadata(_: PageProps<"/about/pass-catch-chances">
   return pageMetadata(parent, "Pass Catch Chances", passCatchRoute);
 }
 
-function playersWithSkill(players: PlayerRecord[], attribute: "pass_control" | "receptions" | "pass_interceptions") {
-  return players.flatMap(player => {
-    const skill = player[attribute];
-    return skill === undefined ? [] : [{ name: player.name, position: player.position, skill }];
-  });
-}
-
 export default async function PassCatchPage() {
   const teams = await Promise.all(TEAM_SLUGS.map(async slug => {
-    const { full_name, players } = await getTeam(slug);
-    return {
-      slug, name: full_name,
-      quarterbacks: playersWithSkill(players, "pass_control"),
-      receivers: playersWithSkill(players, "receptions"),
-      defenders: playersWithSkill(players, "pass_interceptions"),
-    };
+    return catchTeam(slug, await getTeam(slug));
   }));
 
   return (
