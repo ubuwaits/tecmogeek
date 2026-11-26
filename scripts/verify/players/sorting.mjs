@@ -7,7 +7,7 @@ import { POSITION_PAGES } from "../../../lib/players/config.ts";
 import { getTeamFileNames, indexPlayers, key, positions, readRosterPlayers } from "../roster-data.mjs";
 
 const { Context } = await init();
-const { Int, Or, And, Solver, Not, simplify, substitute } = new Context("player_sorting");
+const { Int, Or, And, Solver, Not } = new Context("player_sorting");
 
 // Model the signs of (left - right) for the selected value, canonical rank,
 // and input position. Only these three comparisons can affect the ordering.
@@ -17,7 +17,7 @@ function precedes(value, rank, position, direction) {
     Or(asc ? rank.gt(0) : rank.lt(0), And(rank.eq(0), position.lt(0)))));
 }
 
-async function orderingRule(direction) {
+async function proveOrderingRule(direction) {
   const delta = ["value", "rank", "position"].map(name => Int.const(name));
   const next = ["nextValue", "nextRank", "nextPosition"].map(name => Int.const(name));
   const before = precedes(...delta, direction);
@@ -27,15 +27,6 @@ async function orderingRule(direction) {
   const violation = Or(And(before, after), And(delta[2].neq(0), Not(Or(before, after))),
     And(before, precedes(...next, direction), Not(precedes(...delta.map((x, i) => x.add(next[i])), direction))));
   await rejectCounterexample(Solver, violation, `Invalid ${direction} player sort order`);
-
-  // Evaluate the model once per possible comparison; reuse it for every row.
-  const allowed = new Set();
-  for (const v of [-1, 0, 1]) for (const r of [-1, 0, 1]) for (const p of [-1, 0, 1]) {
-    const signs = [v, r, p];
-    const expression = substitute(before, ...delta.map((x, i) => [x, Int.val(signs[i])]));
-    if ((await simplify(expression)).toString() === "true") allowed.add(signs.join(","));
-  }
-  return allowed;
 }
 
 function numeric(player, field) {
@@ -46,7 +37,7 @@ function numeric(player, field) {
   return value;
 }
 
-function checkSort(rows, field, rankField, direction, allowed, description) {
+function checkSort(rows, field, rankField, direction, description) {
   const index = new Map(rows.map((row, i) => [row, i]));
   const sorted = sortEntriesByKey(Object.freeze([...rows]), field, direction, rankField);
   assert.deepEqual(new Set(sorted), new Set(rows), description + ": changed membership");
@@ -54,13 +45,21 @@ function checkSort(rows, field, rankField, direction, allowed, description) {
   for (let i = 1; i < sorted.length; i++) {
     const left = sorted[i - 1];
     const right = sorted[i];
-    const signs = [numeric(left, field) - numeric(right, field),
-      numeric(left, rankField) - numeric(right, rankField), index.get(left) - index.get(right)].map(Math.sign);
-    assert(allowed.has(signs.join(",")), `${description} ${field} ${direction}: ${key(left)} precedes ${key(right)} at row ${i}`);
+    const valueDifference = numeric(left, field) - numeric(right, field);
+    const rankDifference = numeric(left, rankField) - numeric(right, rankField);
+    const pair = `${description} ${field} ${direction}: ${key(left)} precedes ${key(right)} at row ${i}`;
+    if (valueDifference !== 0) {
+      assert(direction === "asc" ? valueDifference < 0 : valueDifference > 0, pair + ": incorrect value order");
+    } else if (rankDifference !== 0) {
+      assert(direction === "asc" ? rankDifference > 0 : rankDifference < 0, pair + ": incorrect rank tie-break");
+    } else {
+      assert(index.get(left) < index.get(right), pair + ": full tie changed input order");
+    }
   }
 }
 
-const rules = { asc: await orderingRule("asc"), desc: await orderingRule("desc") };
+const directions = ["asc", "desc"];
+for (const direction of directions) await proveOrderingRule(direction);
 const roster = getTeamFileNames().flatMap(readRosterPlayers);
 const rosterIds = new Set(indexPlayers(roster, "team rosters").keys());
 const covered = new Set();
@@ -77,11 +76,11 @@ for (const page of POSITION_PAGES) {
   for (const { id, allowedPrefixes } of filters) {
     const subset = rows.filter(row => !allowedPrefixes.length || allowedPrefixes.some(prefix => row.position.startsWith(prefix)));
     assert(subset.length > 0);
-    for (const field of fields) for (const [direction, allowed] of Object.entries(rules)) {
-      checkSort(subset, field, page.rankingKey, direction, allowed, page.slug + "/" + id);
+    for (const field of fields) for (const direction of directions) {
+      checkSort(subset, field, page.rankingKey, direction, page.slug + "/" + id);
       // Leaderboard rows already follow canonical rank; reverse the input to
       // expose an omitted rank tie-break even when the original order masks it.
-      checkSort(subset.toReversed(), field, page.rankingKey, direction, allowed, page.slug + "/" + id + " reversed input");
+      checkSort(subset.toReversed(), field, page.rankingKey, direction, page.slug + "/" + id + " reversed input");
       orders++;
       placements += subset.length;
     }
@@ -91,8 +90,8 @@ for (const page of POSITION_PAGES) {
 // Published ranks are unique. Deliberately duplicate one to exercise the stable
 // fallback both ways, with input names in reverse alphabetical order.
 const ties = ["Zulu", "Alpha", "Bravo"].map(name => ({ name, rating: "50%", ranking: 1 }));
-for (const [direction, allowed] of Object.entries(rules)) {
-  for (const field of ["rating", "ranking"]) checkSort(ties, field, "ranking", direction, allowed, "full tie");
+for (const direction of directions) {
+  for (const field of ["rating", "ranking"]) checkSort(ties, field, "ranking", direction, "full tie");
 }
 assert.deepEqual(covered, rosterIds);
 console.log(`Verified ${orders} sort orders and ${placements} row placements for ${covered.size} players across ${POSITION_PAGES.length} position tables, including filtered views and both directions.`);
