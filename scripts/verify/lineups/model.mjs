@@ -43,6 +43,11 @@ export function exactLineupPoints(players, mode, selected) {
 }
 
 export async function verifyLineup(players, mode, selected) {
+  assert.equal(selected.length, slots.length, "Expected one player per lineup slot");
+  for (const [slot, id] of selected.entries()) {
+    assert(Number.isInteger(id) && id >= 0 && id < players.length, `Invalid roster index for ${slots[slot]}: ${id}`);
+  }
+  assert.equal(new Set(selected).size, slots.length, "A player occupies multiple lineup slots");
   const score = exactLineupPoints(players, mode, selected);
   const rushRank = ranks(players, (a, b) => b.rush - a.rush);
   const receivingRank = ranks(players, (a, b) => b.receive - a.receive);
@@ -62,17 +67,25 @@ export async function verifyLineup(players, mode, selected) {
         rush[s].eq(rushRank[i]), priority[s].eq(priorityRanks[i]),
       ))));
     }
-    solver.add(Distinct(...ids), rush[0].lt(rush[1]));
-    if (mode === "running") {
-      solver.add(rush[1].lt(rush[2]), rush[2].lt(rush[3]));
-      for (const other of priority.slice(0, 4)) solver.add(priority[4].lt(other));
-    } else {
-      solver.add(priority[2].lt(priority[3]), priority[3].lt(priority[4]),
-        priority[4].lt(priority[0]), priority[4].lt(priority[1]));
-    }
+    solver.add(Distinct(...ids));
 
-    const legal = await solver.check(...ids.map((id, slot) => id.eq(selected[slot])));
-    assert.equal(legal, "sat", `Selected lineup failed legality check (${legal}): ${selected.map(i => players[i].name)}`);
+    // Apply each slot rule to both the selected lineup and every candidate in the search.
+    function requireAhead(playerRanks, slotRanks, first, second) {
+      assert(playerRanks[selected[first]] < playerRanks[selected[second]],
+        `${mode}: ${slots[first]} must outrank ${slots[second]}`);
+      solver.add(slotRanks[first].lt(slotRanks[second]));
+    }
+    requireAhead(rushRank, rush, 0, 1);
+    if (mode === "running") {
+      requireAhead(rushRank, rush, 1, 2);
+      requireAhead(rushRank, rush, 2, 3);
+      for (const other of [0, 1, 2, 3]) requireAhead(priorityRanks, priority, 4, other);
+    } else {
+      requireAhead(priorityRanks, priority, 2, 3);
+      requireAhead(priorityRanks, priority, 3, 4);
+      requireAhead(priorityRanks, priority, 4, 0);
+      requireAhead(priorityRanks, priority, 4, 1);
+    }
 
     // The production signature compares slot names in order, including the separator.
     const earlier = [];
