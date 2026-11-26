@@ -1,7 +1,7 @@
 import { TEAM_SLUGS } from "../../../lib/teams/slugs.mts";
 import { buildTeamRatingRecord } from "../../../lib/teams/calculate-ratings.mts";
 import assert from "node:assert/strict";
-import { execFileSync } from "node:child_process";
+import { verifyTeamRounding } from "../teams/verify-team-rounding.mjs";
 import { readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { withReturnSpeeds } from "../../../lib/players/return-speeds.mts";
@@ -24,7 +24,8 @@ function assertRebuiltTeam(slug, originalTeam, team, rebuilt, edit) {
     .sort((a, b) => parseInt(b.kick_return_rating) - parseInt(a.kick_return_rating))[0];
   record.selected_lineups.kr = `${kickReturner.name} (${kickReturner.position})`;
   const actual = buildTeamRatingRecord(record.team, rebuilt);
-  // The rounding verifier below checks every numeric field against the edited rosters.
+  verifyTeamRounding(slug, rebuilt, actual);
+  // Other numeric fields and selections must also match the baseline.
   const changed = edit.position === "RT"
     ? ["ol_line", "return_room", "running_offense", "passing_offense", "balanced_offense", "offensive_rating", "overall_rating"]
     : ["dl_group", "defensive_rating", "overall_rating"];
@@ -56,7 +57,6 @@ export function verifyRosterEdits(checkout, baseline, runRebuilds, listFiles) {
         assert(readFileSync(file(name)).equals(bytes), name);
       }
     }
-    execFileSync(process.execPath, ["scripts/verify/teams/rounding.mjs"], { cwd: checkout, stdio: ["ignore", "ignore", "inherit"] });
     console.log(`Verified Eagles ${edit.position} ${edit.attribute} edit across all ${expectedRosters.size} teams.`);
   }
 }
