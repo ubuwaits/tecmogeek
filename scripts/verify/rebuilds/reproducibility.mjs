@@ -1,4 +1,5 @@
-import { execFileSync } from "node:child_process";
+import assert from "node:assert/strict";
+import { execFileSync, spawnSync } from "node:child_process";
 import { cpSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import path from "node:path";
@@ -51,6 +52,21 @@ try {
 
   const combined = ["rebuild:all"];
   if (process.argv.includes("--edit")) {
+    const bills = JSON.parse(baseline.get("bills.json"));
+    const back = bills.players.find(player => player.position === "RB1");
+    back.maximum_speed = "typo";
+    writeFileSync(path.join(directory, "bills.json"), JSON.stringify(bills));
+    // Make a premature rewrite of an earlier, valid team observable in the snapshot.
+    writeFileSync(path.join(directory, "49ers.json"), Buffer.concat([baseline.get("49ers.json"), Buffer.from("\n")]));
+    const invalid = snapshot();
+    const result = spawnSync("pnpm", ["run", "rebuild:all"], { cwd: checkout, encoding: "utf8" });
+    if (result.error) throw result.error;
+    assert(result.status > 0, "Expected the invalid Buffalo roster to fail the rebuild");
+    assert(result.stderr.includes(`bills.json: RB1 ${back.name}: maximum_speed`), result.stderr);
+    assert(result.stderr.includes('"typo"'), result.stderr);
+    checkFiles(invalid, snapshot(), "Failed rebuild changed the data directory");
+    console.log("Verified an invalid Buffalo speed fails the rebuild and preserves every data file.");
+
     verifyRosterEdits(checkout, baseline, () => {
       const edited = snapshot();
       run(commands);

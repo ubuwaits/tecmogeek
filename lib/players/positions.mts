@@ -15,6 +15,6 @@ const eligiblePositions: Record<PositionSlug, RegExp> = {
   p: /^P$/,
 };
 
-export function eligibleForPosition(player: PlayerRecord, slug: PositionSlug) {
+export function eligibleForPosition(player: Pick<PlayerRecord, "position">, slug: PositionSlug) {
   return eligiblePositions[slug].test(player.position);
 }
