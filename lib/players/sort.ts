@@ -1,29 +1,8 @@
 import type { PlayerRecord, PlayerSortKey, SortDirection } from "@/lib/types";
-
-export function parsePercent(value: string | number | undefined): number {
-  if (typeof value === "number") {
-    return value;
-  }
-
-  if (!value) {
-    return 0;
-  }
-
-  return Number.parseFloat(value.replace("%", "")) || 0;
-}
+import { parsePercent } from "./rating.mts";
 
 export function getSortValue(entry: PlayerRecord, key: PlayerSortKey): number {
-  const value = entry[key];
-
-  if (typeof value === "number") {
-    return value;
-  }
-
-  if (typeof value === "string") {
-    return parsePercent(value);
-  }
-
-  return 0;
+  return parsePercent(entry[key]);
 }
 
 export function sortEntriesByKey<T extends PlayerRecord>(

@@ -5,7 +5,8 @@ import type {
 } from "@/lib/types";
 import { HEADSHOT_POSITIONS } from "@/lib/types";
 
-export { getSortValue, parsePercent, sortEntriesByKey } from "@/lib/players/sort";
+export { parsePercent } from "./rating.mts";
+export { getSortValue, sortEntriesByKey } from "@/lib/players/sort";
 
 export function matchesPrefixes(position: string, prefixes: readonly string[]): boolean {
   if (prefixes.length === 0) {

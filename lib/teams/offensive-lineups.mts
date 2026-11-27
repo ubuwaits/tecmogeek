@@ -1,7 +1,7 @@
-import type { OffensiveSkillLineupRecord } from "../../lib/types.ts";
+import type { OffensiveSkillLineupRecord, PlayerRatingKey } from "../types.ts";
 import {
   getPlayerLabel, getPlayerRating, isSkillPlayer, compareRating,
-  type PlayerRecord, type RatingKey,
+  type PlayerRecord,
 } from "./team-rating-players.mts";
 
 const OFFENSIVE_SKILL_SLOTS = ["RB1", "RB2", "WR1", "WR2", "TE1"] as const;
@@ -30,7 +30,7 @@ type OffensiveSkillSlot = (typeof OFFENSIVE_SKILL_SLOTS)[number];
 
 type RatedPlayer = PlayerRecord & { rosterIndex: number };
 
-function sortPlayersByRating(players: readonly RatedPlayer[], key: RatingKey) {
+function sortPlayersByRating(players: readonly RatedPlayer[], key: PlayerRatingKey) {
   const compare = compareRating(key);
   return players.toSorted((left, right) => compare(left, right) || left.rosterIndex - right.rosterIndex);
 }

@@ -76,7 +76,7 @@ type PlayerRankingKey =
   | "kick_return_ranking"
   | "punt_return_ranking";
 
-type PlayerRatingKey =
+export type PlayerRatingKey =
   | "rating"
   | "rushing_rating"
   | "receiving_rating"

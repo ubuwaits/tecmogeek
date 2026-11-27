@@ -2,8 +2,7 @@ import type { Metadata, ResolvingMetadata } from "next";
 import { CatchMatchups } from "@/components/about/catch-matchups";
 import { pageMetadata } from "@/lib/site/metadata";
 import { passCatchRoute } from "@/lib/site/routes";
-import { getTeam } from "@/lib/teams/data";
-import { TEAM_SLUGS } from "@/lib/teams/slugs.mts";
+import { getTeamRosters } from "@/lib/teams/data";
 import { catchTeam } from "@/lib/players/catch-matchups";
 
 const source = "https://github.com/bruddog/Tecmo_Super_Bowl_NES_Disassembly/blob/f3bae0e1913ba532a5ace158d86d905ecf787008/Bank21_22_play_commands_on_field_logic.asm";
@@ -13,9 +12,7 @@ export async function generateMetadata(_: PageProps<"/about/pass-catch-chances">
 }
 
 export default async function PassCatchPage() {
-  const teams = await Promise.all(TEAM_SLUGS.map(async slug => {
-    return catchTeam(slug, await getTeam(slug));
-  }));
+  const teams = (await getTeamRosters()).map(team => catchTeam(team.slug, team));
 
   return (
     <article data-page-theme="text" className="mx-auto mt-4 max-w-screen-2xl sm:mt-6">

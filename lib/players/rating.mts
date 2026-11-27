@@ -1,5 +1,17 @@
 import type { MetricColumn, PlayerMetricKey, PlayerRecord } from "../types.ts";
 
+export function parsePercent(value: string | number | undefined): number {
+  if (typeof value === "number") {
+    return value;
+  }
+
+  if (!value) {
+    return 0;
+  }
+
+  return Number.parseFloat(value.replace("%", "")) || 0;
+}
+
 type Scores = Partial<Record<number, number>>;
 type Maxima = Partial<Record<PlayerMetricKey, number>>;
 
